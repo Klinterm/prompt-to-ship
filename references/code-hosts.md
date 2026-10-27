@@ -39,7 +39,7 @@ further or say so in the report.
 | List last 7 days | `gh pr list --state all --limit 200 --search "updated:>=<YYYY-MM-DD>"` | `glab api --paginate "projects/:id/merge_requests?state=all&updated_after=<YYYY-MM-DD>T00:00:00Z&per_page=100"` |
 | CI status | `gh pr checks <n>` | `glab ci status --branch <branch>` |
 | Wait for CI | `gh pr checks <n> --watch` (stop it after `ciWaitMinutes`) | `glab ci status --branch <branch>` again every minute, up to `ciWaitMinutes` |
-| Merge (levels `merge`, `release`) | `gh pr merge <n> --merge` or `--squash`, as the repository allows (not `--rebase`: one revert must undo it), always with `--match-head-commit <reviewed sha>` | `glab mr merge <n> --yes --sha <reviewed sha>`, with the "merge when pipeline succeeds" or auto-merge option off (check `glab mr merge --help`): the merge must happen now |
+| Merge (levels `merge`, `release`; only `release` when the target deploys on merge) | `gh pr merge <n> --merge` or `--squash`, as the repository allows (not `--rebase`: one revert must undo it), always with `--match-head-commit <reviewed sha>` | `glab mr merge <n> --yes --sha <reviewed sha>`, with the "merge when pipeline succeeds" or auto-merge option off (check `glab mr merge --help`): the merge must happen now |
 
 Other hosts: use the tool below. Check its `--help` before the first use in a task, and ask the
 user when a flag is unclear. Never guess a command that writes to the host.
@@ -63,7 +63,8 @@ example `gh api`, `glab api`). Otherwise use **none** for that step. Put titles 
 and descriptions in a file, so the shell does not expand text from the repository.
 
 **none** (no remote, no CLI, or the host is unreachable):
-- Open: the work stays on its local topic branch. Put the description (Tested, Risk, How to
+- Open: the work stays on its local topic branch. Exception: in pipeline mode `map` with a
+  remote, the topic branch is pushed with plain git (existing-pipeline.md). Put the description (Tested, Risk, How to
   revert) in the last commit message. Show the user the branch name and the command to review
   it: `git diff <target>...<branch>`.
 - Merged?: `git merge-base --is-ancestor <branch> <target>`.
@@ -84,7 +85,8 @@ and descriptions in a file, so the shell does not expand text from the repositor
 - Pushes to a shared branch, approvals and comments on the host need the user's explicit word,
   each time. Merges and releases too, unless the user's autonomy level allows them and no gate
   applies (autonomy.md). One exception for a shared branch: the fast-forward after CI in
-  pipeline mode `map` (existing-pipeline.md), at level `merge` or higher, never with `--force`.
+  pipeline mode `map` (existing-pipeline.md), at level `merge` or higher (level `release` when
+  the target deploys on merge), never with `--force`.
 - Never approve your own change request, never use admin or bypass flags (`--admin`, skip CI),
   never change branch protection.
 - Set the target branch explicitly. Never rely on the host's default.

@@ -43,6 +43,10 @@ does not tell that. Nothing else in the repository changes.
    **No commands found:** note it and ask in step 5.
 3. **Code host.** Detect it as described in [code-hosts.md](code-hosts.md). Ask only when the
    remote name tells nothing.
+   **Deploys on merge.** Look for a CI job that deploys on push to the target branch, and for
+   hosting deploy files (the "Hosting and deploy files" list in [autonomy.md](autonomy.md)). A
+   hosting platform can also watch the branch with no file in the repository, so always ask in
+   step 5: "Does <target> deploy as soon as something lands on it?"
 4. **Documents and website.** Look for product documents next to the code: roadmap, decisions,
    specifications, changelog, issue tracker, wiki links, design files. Find the public URLs: the
    README, the `homepage` field in package files, deploy config, CNAME, app store links. Read the
@@ -60,11 +64,13 @@ does not tell that. Nothing else in the repository changes.
    - The decisions: where are they written down, and who approves merges and releases?
    - The biggest worry right now: quality, speed, security, cost, something else?
    - Only if detection failed: the code host, or the build and test commands.
+   - Always: does the target branch deploy as soon as something lands on it? (Say what you
+     found in step 3.)
 6. **Draft PROJECT.md** from the template below. Fill in what you can prove from the files and
    the website, and mark each guess with `(to confirm)`. Write "none" for a section that does
    not apply; never delete it. Keep it under 200 lines; link to documents for details.
 7. **Check with the user.** Show a short summary: the product in three sentences, the goal, the
-   users, the detected host and commands, the pipeline mode (or "Existing pipeline: none
+   users, the detected host and commands, "Deploys on merge", the pipeline mode (or "Existing pipeline: none
    found."), and every `(to confirm)` item. Correct it with their
    answers, then write `.claude/orchestration/PROJECT.md` at the repository root, and store its
    hash as confirmed: `git config --local orchestration.projectConfirmed "$(git hash-object .claude/orchestration/PROJECT.md)"`.
@@ -134,6 +140,8 @@ Pipeline mode: <none | defer | map | replace>
 ## Branches and environments
 <branch per environment, how a release happens, who presses the button>
 - Release command: `<the exact command or "none">` (used only at autonomy level `release`)
+- Deploys on merge: <yes (how: a hosting platform watches the branch, or a CI deploy job) | no>
+  (a merge into a target that deploys on merge is a release)
 
 ## Commands
 - Build: `<command>`

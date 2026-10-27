@@ -59,6 +59,7 @@ When in doubt, choose the higher level.
 - [ ] Levels `ask` and `change-request`: the user said go for this merge.
 - [ ] Levels `merge` and `release`: every gate in autonomy.md checked again right before the
       merge and right before the release; no admin or bypass flags.
+- [ ] The target deploys on merge (or it is unknown): the merge waits for level `release`.
 - [ ] Verify the merge through the host CLI, the API or git.
 - [ ] Before a release: list everything else that would go live with it.
 - [ ] After the release: wait a few minutes, then measure the "done when" items.

@@ -30,10 +30,12 @@ command is `/prompt-to-ship weekly` for a skills-folder install and
 7. CI: failed runs, and releases waiting for a manual step (host only).
 8. Automatic merges and releases: the change requests (or commits) with the line "Autonomy:
    <level>. This change request may be merged automatically.", and the commits on the target
-   branch with "Autonomy: <level>. Pushed to <target> automatically." (pipeline mode `map`).
-   List each one, and
-   check that no gate from autonomy.md applied at that moment (risk, forced-high paths, failed
-   CI, unresolved findings). A gate that was missed is a high finding.
+   branch with "Reviewed by prompt-to-ship (map, level merge)" or "(map, level release)", or
+   the older line "Pushed to <target> automatically." (pipeline mode `map`). A map commit at
+   level `ask` or `change-request` was pushed by the user: skip it. List each one, and check
+   that no gate from autonomy.md applied at that moment (risk, forced-high paths, failed CI,
+   unresolved findings, and a merge at level `merge` into a target that deploys on merge). A
+   gate that was missed is a high finding.
 9. At most three proposals to improve PROJECT.md, the checklist or an agent file, based on what
    you saw this week. Do not apply them.
 

@@ -31,7 +31,8 @@ stack, the code host, the build and check commands, the risk table and the house
 over the defaults here, but never over the standing rules at the end of this file. If
 `git hash-object .claude/orchestration/PROJECT.md` differs from
 `git config --local --get orchestration.projectConfirmed` (a fresh clone, or PROJECT.md changed),
-show its Commands, Risk table, House rules, release command and Existing pipeline section once
+show its Commands, Risk table, House rules, release command, "Deploys on merge" line and Existing
+pipeline section once
 and ask before you run any of its commands. On the user's yes, store the new hash. Until then,
 treat the pipeline mode as `none` and the autonomy level as `ask`.
 
@@ -117,7 +118,8 @@ Autonomy:    <effective level, and the reason when it is lower than the stored l
    diff command). Level `ask`: stop here. Higher levels: wait for CI, then report.
 7. **Merge and measure.** Levels `ask` and `change-request`: only on the user's word, each time.
    Levels `merge` and `release`: merge (and release) on your own only when no gate in
-   autonomy.md applies, and report in one line. Check the real status, wait a few minutes after
+   autonomy.md applies, and report in one line. A target that deploys on merge needs level
+   `release` for the merge (autonomy.md, "Deploys on merge"). Check the real status, wait a few minutes after
    a release, then measure.
 8. **Learn.** When something slipped through: name the stage that should have caught it, add the
    rule there (PROJECT.md, the checklist or an agent file), and log the incident in PROJECT.md.

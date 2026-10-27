@@ -125,4 +125,5 @@ command. Reviewers must never execute project code.
 ## Incidents
 | Date | What went wrong | Stage that should have caught it | Rule added |
 |---|---|---|---|
+| 2026-10-27 | First real test: level `merge` would let a merge reach production in a repository whose main deploys on every push | 2 (plan): the autonomy design | autonomy.md "Deploys on merge": such a merge is a release and needs level `release` |
 | 2026-10-27 | 2.1.0 shipped with "version 2.0.0" in the README status line | 4 (prove): the release checks | The README names no version; TESTING.md static check 3 now fails on a version number outside CHANGELOG.md |

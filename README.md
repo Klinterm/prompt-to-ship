@@ -86,6 +86,9 @@ At every level, Claude stops and waits for you in these cases:
 
 Claude never approves its own pull or merge request. It never bypasses branch protection.
 
+Does your main branch deploy as soon as something lands on it? Then a merge is a release. Setup
+notes this, and only level `release` lets Claude merge there.
+
 Claude stores your level in the git config of your own copy of the repository
 (`orchestration.autonomy`). Git never commits this setting, so a repository you download cannot
 raise your level. A team can set a maximum for everyone with "Autonomy limit" in its project

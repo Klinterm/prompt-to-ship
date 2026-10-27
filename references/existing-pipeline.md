@@ -176,17 +176,20 @@ autonomy question and does not open a change request.
   go before any push on high risk or a forced-high path.
   1. If the target branch moved since the topic branch started, stop: a rebase would change
      what was reviewed. Otherwise squash the reviewed work into one commit on top of the target.
-     The content stays the same. Its message ends with "Autonomy: <level>. Pushed to <target>
-     automatically." This commit is the reviewed sha.
-  2. Push the topic branch (code-hosts.md, Pushes).
+     The content stays the same. Its message ends with "Reviewed by prompt-to-ship (map, level
+     <level>)." This commit is the reviewed sha.
+  2. Push the topic branch (code-hosts.md, Pushes). This needs only git, so do it also when the
+     host CLI is missing: the user and CI can then see the reviewed commit.
   3. Wait until CI passes on the reviewed sha. Without CI, the local checks count.
   4. Read the branch protection of the target through the host CLI. Stop if the host would ask
      for an approval before a merge, or if you cannot read the protection.
   5. At autonomy level `merge` or higher, and only when every gate in autonomy.md passes:
      fast-forward the target branch with `git push <remote> <reviewed sha>:refs/heads/<target>`.
      Never `--force`. If the host refuses the push for any reason (protection, or the target
-     moved), stop. Do not rebase on your own: that changes the reviewed sha.
-  6. Below level `merge`: stop and give the user the push command.
+     moved), stop. Do not rebase on your own: that changes the reviewed sha. If the target
+     deploys on merge (autonomy.md, "Deploys on merge"), this push is a release: it needs level
+     `release`.
+  6. Below the needed level: stop and give the user the push command.
   Report it in one line, as for a merge (autonomy.md).
 
 **replace.** The prompt-to-ship pipeline runs as in mode none. Setup listed the lines in

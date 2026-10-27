@@ -2,6 +2,21 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.3.0
+
+Lessons from the first real test run:
+- A target that deploys on merge (a hosting platform that watches the branch, or a CI deploy
+  job) makes every merge a release. Such a merge now needs autonomy level `release`. Setup
+  detects deploy jobs and deploy files, and always asks, because a platform can watch a branch
+  with no file in the repository. At level `merge` the pipeline stops before such a merge.
+- The safe answer wins: a deploy job beats a "no" in PROJECT.md, and a missing line counts as
+  "yes" until the user answers (also for PROJECT.md files from before 2.3.0). The answer is
+  stored as `orchestration.deploysOnMerge`, and the confirm step shows the line.
+- Hosting deploy files are now forced high risk.
+- Map mode pushes the topic branch also when the host CLI is missing: that push needs only git.
+- The map commit line is now "Reviewed by prompt-to-ship (map, level <level>).". The old line
+  said "pushed automatically", which was wrong when the user pushed.
+
 ## 2.2.0
 
 - Pipeline mode `defer` now adds a prompt-to-ship reviewer for each role that the repository's

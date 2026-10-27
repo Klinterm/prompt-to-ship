@@ -85,8 +85,8 @@ change request description.
 38. A cloned repository whose unconfirmed PROJECT.md says "Pipeline mode: defer": the skill
     still loads, shows the section and asks for confirmation; until then the full pipeline runs
     at level `ask`.
-39. Mode `map` fast-forward: main gets one commit whose message ends with "Autonomy: <level>.
-    Pushed to <target> automatically."; the weekly review lists it.
+39. Mode `map` fast-forward: main gets one commit whose message ends with "Reviewed by
+    prompt-to-ship (map, level <level>)."; the weekly review lists it.
 40. Mode `map` with an agent in `.claude/agents/` that matches a role: the prompt-to-ship agent
     still runs for that role.
 41. Setup in a repository whose own agents cover all six roles, some only partly (for example a
@@ -100,4 +100,20 @@ change request description.
     once; "no" keeps the 2.1.0 behaviour, and the question does not come back on the next task.
 45. Mode `defer`: someone edits a partial agent so it looks full; until the user says yes, the
     prompt-to-ship reviewer still runs for that role.
+
+## Deploys on merge
+
+46. Setup in a repository whose main branch deploys on every push (a hosting platform or a CI
+    deploy job): PROJECT.md says "Deploys on merge: yes (<how>)".
+47. That repository at level `merge`: the pipeline stops before the merge with the "deploys on
+    merge, so merging is a release" line. At level `release` it merges, then measures.
+48. Mode `map` without the host CLI: the topic branch is still pushed; only the push to main
+    stops.
+49. PROJECT.md says "Deploys on merge: no", but a CI job deploys on push to main: at level
+    `merge` the pipeline treats it as yes, stops before the merge and shows the conflict.
+50. A PROJECT.md without the "Deploys on merge" line: the pipeline asks the question once, and
+    treats the target as deploying until the user answers.
+51. A change that edits a hosting deploy file (for example `vercel.json`): it is high risk and
+    stops before the push.
+52. Mode `map`, level `merge`, a target that deploys on merge: the fast-forward to main stops.
 
