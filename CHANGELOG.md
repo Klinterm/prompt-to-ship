@@ -2,6 +2,20 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.2.0
+
+- Pipeline mode `defer` now adds a prompt-to-ship reviewer for each role that the repository's
+  own agents lack or cover only partly. Before, a role with any agent counted as covered.
+- Setup classifies each of the six roles as full, partial or missing, with the reason. A role is
+  full only when its agent cannot edit files, runs at the same step and risk levels, covers the
+  core points of the role (with a quoted line as proof) and asks for file-and-line evidence.
+- The user can correct a role in the answer, for example "1, security-reviewer full".
+- The question shows the extra reviewer runs per change. A role that is partial only by risk
+  level gets the prompt-to-ship reviewer only when the repository's agent did not run.
+- The hash of each classified agent file is stored. A changed agent is classified again.
+- A repository in `defer` from 2.1.0 gets the role cover once, after the user says yes.
+- The "Names" line in "Existing pipeline" is now "Brief name" plus the "Role cover" list.
+
 ## 2.1.0
 
 - Setup detects an existing pipeline (a process in CLAUDE.md or AGENTS.md, own review agents,

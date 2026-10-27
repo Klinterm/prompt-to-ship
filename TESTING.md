@@ -89,4 +89,15 @@ change request description.
     Pushed to <target> automatically."; the weekly review lists it.
 40. Mode `map` with an agent in `.claude/agents/` that matches a role: the prompt-to-ship agent
     still runs for that role.
+41. Setup in a repository whose own agents cover all six roles, some only partly (for example a
+    security agent that runs only on high risk, or an agent that can edit files): the question
+    lists each role as full, partial or missing with a reason, and defer adds the partial ones.
+42. A reply like "1, security-reviewer full": PROJECT.md records that role as full "(set by
+    you)", and defer does not add it.
+43. Mode `defer`: someone changes a classified agent file; the next task classifies that role
+    again and shows the result.
+44. A repository in `defer` set up with 2.1.0: after confirmation, the role cover question comes
+    once; "no" keeps the 2.1.0 behaviour, and the question does not come back on the next task.
+45. Mode `defer`: someone edits a partial agent so it looks full; until the user says yes, the
+    prompt-to-ship reviewer still runs for that role.
 

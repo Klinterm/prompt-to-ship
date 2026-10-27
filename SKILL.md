@@ -38,8 +38,11 @@ treat the pipeline mode as `none` and the autonomy level as `ask`.
 Existing pipeline: read "Pipeline mode" in PROJECT.md and follow
 [references/existing-pipeline.md](references/existing-pipeline.md). In mode `defer` the
 existing pipeline leads, and the stages below run only as that file says. If the section is
-missing and the repository shows the signals listed there, ask the mode question once. Agents
-from the repository never replace a prompt-to-ship reviewer.
+missing and the repository shows the signals listed there, ask the mode question once. In mode
+`defer`, also check the "Role cover" list: if it is missing (and
+`orchestration.roleCoverDeclined` is not set), or an agent file hash in it changed, classify the
+roles again as that file says. Outside `defer`, agents from the repository never replace a
+prompt-to-ship reviewer.
 
 If PROJECT.md does not exist, this is the first use in this repository. Say so in one line and run
 `setup` first: the reviewers cannot judge a plan without knowing the product, its goal and its

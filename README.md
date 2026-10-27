@@ -190,10 +190,14 @@ review agents. Setup finds this and asks you how prompt-to-ship must work with i
 
 | Mode | What happens |
 |---|---|
-| `defer` (recommended) | Your existing pipeline leads. prompt-to-ship only adds the reviewers it lacks. |
+| `defer` (recommended) | Your existing pipeline leads. prompt-to-ship adds its reviewer for each role that your agents lack or cover only partly. |
 | `map` | prompt-to-ship runs, with your names, house rules and git flow. The prompt-to-ship reviewers always run. |
 | `replace` | prompt-to-ship leads. Setup lists the lines in CLAUDE.md that you must change yourself. |
 | `none` | What setup found is not a pipeline. prompt-to-ship runs as normal. |
+
+For `defer`, setup compares each of your review agents with the matching prompt-to-ship
+reviewer. It marks each role as full, partial or missing, and tells you why. You can correct
+this in your answer.
 
 Setup never edits CLAUDE.md. A push to your main branch waits for you. In `map`, `replace` and
 `none`, autonomy level `merge` or higher can allow it. In `defer`, Claude always asks. To change

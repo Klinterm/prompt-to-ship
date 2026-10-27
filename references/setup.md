@@ -119,8 +119,10 @@ where the site and the product disagree; or "none">
 Pipeline mode: <none | defer | map | replace>
 - Document: <path, or "none">
 - Steps it covers: <...>
-- Names: <its name for the brief; its agents and the role each one covers>
-- Reviewers prompt-to-ship adds: <roles it lacks, or "none">
+- Brief name: <its name for the brief, or "none">
+- Role cover (defer only): <one line per role: full | partial | missing, agent path, hash,
+  what is missing; see existing-pipeline.md>
+- Reviewers prompt-to-ship adds: <every partial or missing role, or "none">
 - House rules that win over the defaults: <...>
 - Lines to change (replace only): <path, and a short quote of each line; or "none">
 

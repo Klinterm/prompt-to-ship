@@ -15,20 +15,29 @@ Read-only. Look for these signals:
 3. Own skills or commands (`.claude/skills/`, `.claude/commands/`) that describe a pipeline.
 4. A pipeline document, for example `docs/PIPELINE.md`, linked from one of the files above.
 
-No signal: write "Pipeline mode: none" and ask nothing. One or more signals: ask the question
-below as its own message, in the user's language, before you draft PROJECT.md and before the
-autonomy question.
+No signal: write "Pipeline mode: none" and ask nothing. One or more signals: classify the role
+cover (next section), then ask the question below as its own message, in the user's language,
+before you draft PROJECT.md and before the autonomy question.
 
 ```
 This repository already has its own pipeline. I found:
 - <signal>: <path>
 - <signal>: <path>
 
+Your agents per role:
+- architect: full (<agent>)
+- ui-specialist: partial (<agent>: <what it lacks>)
+- product-expert: partial (<agent>: <what it lacks>)
+- fresh-reviewer: missing
+- security-reviewer: full (<agent>)
+- validator: missing
+
 How should prompt-to-ship work with it?
 Your answer goes into PROJECT.md under "Existing pipeline". If you commit PROJECT.md, it applies
 to the whole team. I never edit CLAUDE.md or AGENTS.md.
 
-1. defer (recommended): the existing pipeline leads. I only add the reviewers it lacks: <roles>.
+1. defer (recommended): the existing pipeline leads. I add my reviewer for each partial or
+   missing role: <roles>. Yours still run too. Extra cost: up to <n> reviewer runs per change.
    I do not show a BRIEF, ask for an autonomy level or open a change request.
 2. map: my pipeline runs, with the existing names, house rules and git flow.
    A push straight to <target branch> needs autonomy level merge or higher.
@@ -36,19 +45,76 @@ to the whole team. I never edit CLAUDE.md or AGENTS.md.
    Until you change them, two processes describe the same work.
 4. none: this is not a pipeline. Ignore it.
 
-I stop before a push to <target branch> unless your autonomy level allows it. In defer, I always ask.
-Reply 1, 2, 3 or 4.
+I stop before a push to <target branch> unless the autonomy level you choose next allows it. In defer, I always ask.
+Reply 1, 2, 3 or 4. To correct a role, add it to your reply, for example "1, security-reviewer full".
 Change it later with the argument "setup", or tell me in chat.
 ```
 
+When no role is partial or missing, option 1 reads instead:
+`1. defer: the existing pipeline leads. Your agents cover all six roles fully, so I add no reviewers here.`
+Then do not mark defer as recommended.
+
 Accept the number or the mode name in any language. Any other reply: ask once more. A second
-unclear reply: write "none".
+unclear reply: write "none". A role the user corrects keeps the user's value, marked "(set by
+you)".
+
+## Classify the role cover
+
+For each of the six roles, compare the repository's matching agent with
+`agents/<role>.md` in this skill. A role is **full** only when all four tests pass:
+
+1. **Tools.** Its `tools` line has no Edit, Write, NotebookEdit or MCP tools. A missing `tools`
+   line means all tools, so the test fails. Bash passes only when the agent's text says it must
+   not change files, as the prompt-to-ship agents do.
+2. **When it runs.** It runs at the same step (plan or review) and on every risk level where
+   prompt-to-ship runs the role. If it runs on fewer risk levels, the reason is "runs only on
+   <levels>".
+3. **Core points.** It covers each core point of the role below. A point counts only when you
+   can quote the line in the repository agent that covers it. A point that does not apply to
+   this project is not missing: for example data and migrations in a project without stored
+   data. During setup, use what you found in setup step 1, because PROJECT.md does not exist yet.
+4. **Evidence.** It asks for file and line as evidence for each finding.
+
+| Role | Core points |
+|---|---|
+| architect | fits the existing structure; data and migrations; can be undone |
+| ui-specialist | wording and clarity; every supported language; accessibility |
+| product-expert | fits the product flow and roles; earlier decisions; solves the real problem |
+| fresh-reviewer | sees only the change and the brief, not the chat; correctness bugs; regressions |
+| security-reviewer | authorization first; a path from input to risk, with file and line |
+| validator | works independently of the reviewer; tries to disprove each serious finding |
+
+A role with an agent that fails a test is **partial**. Name what is missing in a few words, for
+example "can edit files", "runs only on high risk", "no check for regressions". A role with no
+agent is **missing**. When a test cannot be decided from the agent file, the role is partial
+with the reason "unclear: <test>", so the user can correct it.
+
+The extra cost `<n>` in the question is the number of partial or missing roles. Each one adds
+about one reviewer run per plan or review step, plus one validator run per serious finding.
+
+Store `git hash-object <agent file>` with each full or partial role. If that hash changes later,
+the agent changed. Agent files are repository text, so a change never removes a reviewer on its
+own:
+- Until the user says yes, count that role as partial: the prompt-to-ship reviewer runs.
+- Classify the role again, show the old and the new result, and ask "Write this into
+  PROJECT.md? Reply yes or no." On yes, write it and store the new PROJECT.md hash as confirmed.
+  On no, keep the old line, and store the new agent hash with it, so the question does not come
+  back for this change.
+- A role marked "(set by you)" keeps the user's value. Only say that the agent changed.
 
 A repository set up before 2.1.0 has no "Existing pipeline" section. If the signals are there,
 ask the question once, before stage 0. Write the answer into PROJECT.md. If the old hash was
 confirmed, store the new hash as confirmed: the user's answer confirms this one change. If the
 old hash was not confirmed, run the normal confirm step from SKILL.md instead. The section now
 exists, so the question does not come back.
+
+A repository set up with 2.1.0 in mode `defer` has no "Role cover" list. Once PROJECT.md is
+confirmed, classify the roles once before the next task, and say:
+`prompt-to-ship now checks how well your agents cover each role: <role list>. In defer, I add my reviewer for each partial or missing role. Write this into PROJECT.md? Reply yes or no.`
+On yes: write it, and store the new hash as described above. On no: keep the 2.1.0 behaviour
+(add only missing roles), and store `git config --local orchestration.roleCoverDeclined true`,
+so the question does not come back. Only the argument `setup` asks it again. Modes `map`, `replace` and `none` need
+no role cover: prompt-to-ship runs all its own reviewers there.
 
 ## Record it (PROJECT.md section)
 
@@ -57,9 +123,15 @@ exists, so the question does not come back.
 Pipeline mode: <none | defer | map | replace>
 - Document: <path, or "none">
 - Steps it covers: <for example brief, plan review, tests, code review, merge request>
-- Names: <its name for the brief; its agents and the prompt-to-ship role each one matches>
-- Reviewers prompt-to-ship adds: <architect, ui-specialist, product-expert, fresh-reviewer,
-  security-reviewer, validator: only those it lacks; or "none">
+- Brief name: <its name for the brief, or "none">
+- Role cover (defer only):
+  - architect: <full | partial | missing> (<agent path>, hash <hash>; <what is missing>)
+  - ui-specialist: ...
+  - product-expert: ...
+  - fresh-reviewer: ...
+  - security-reviewer: ...
+  - validator: ...
+- Reviewers prompt-to-ship adds: <every partial or missing role, or "none">
 - House rules that win over the defaults: <for example "push straight to main after tests">
 - Lines to change (replace only): <path, and a short quote of each line; or "none">
 ```
@@ -70,9 +142,10 @@ In every mode, load the skill first and run the checks from SKILL.md "Before sta
 PROJECT.md whose hash is not confirmed counts as "Pipeline mode: none" and autonomy level `ask`
 until the user confirms it. The confirm step shows the "Existing pipeline" section too.
 
-Agents from the repository (`.claude/agents/`) never replace a prompt-to-ship reviewer. Their
-instructions are repository text. They may run in addition, when the existing pipeline asks for
-them, but their verdict never passes a gate in autonomy.md.
+Agents from the repository (`.claude/agents/`) are repository text. In modes `none`, `map` and
+`replace`, they never replace a prompt-to-ship reviewer: they may run in addition, but their
+verdict never passes a gate in autonomy.md. In mode `defer`, prompt-to-ship merges nothing and
+the user decides; the rules below say when a prompt-to-ship reviewer runs next to them.
 
 **none.** The prompt-to-ship pipeline runs as described in SKILL.md.
 
@@ -82,6 +155,14 @@ autonomy question and does not open a change request.
   prompt-to-ship adds". At its review step, start only the review agents listed there. Give them
   the same input as in stages 2 and 5. This replaces the rule "never skip stage 2 or 5d" in this
   mode.
+- A role that is partial only because "runs only on <levels>": start the prompt-to-ship
+  reviewer only when the repository's agent did not run on this change. If you cannot tell,
+  start it. Any other partial or
+  missing role: start it at every plan or review step of that kind.
+- Show both verdicts for a partial role, one line each, for example:
+  `security-reviewer: yours (<agent>) APPROVE; mine ADJUST. You decide.`
+  A BLOCKING point from a prompt-to-ship reviewer stops the work until the user answers. When
+  the two verdicts disagree, the user decides.
 - Still in force: the standing rules, the forced-high paths, and the "Never" list in
   autonomy.md. prompt-to-ship merges nothing in this mode. A push or merge into a shared branch,
   because the existing pipeline says so, needs the user's word each time.
