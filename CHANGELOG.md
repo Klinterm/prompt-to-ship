@@ -2,6 +2,17 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.10.1
+
+- The plan has a fixed PLAN block in SKILL.md, like the BRIEF: approach, rejected approaches,
+  choice, threat model, research, facts and reviewers. The research decision is now visible in
+  every plan. In `defer`, only the research line shows; in `map`, the block takes the name of
+  the team's plan step.
+- Eval graders: `plans-research` no longer matches "Research: none" or "Research scope".
+  `no-research-for-code` now fails only when a plan lists research questions; a stop before the
+  plan passes. Every run that reached a plan showed the research line (4 of 4 in the
+  `--runs 5` check).
+
 ## 2.10.0
 
 Business rules, house style first, and reference years.

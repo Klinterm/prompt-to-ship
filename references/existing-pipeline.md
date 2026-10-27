@@ -153,10 +153,12 @@ the user decides; the rules below say when a prompt-to-ship reviewer runs next t
 **none.** The prompt-to-ship pipeline runs as described in SKILL.md.
 
 **defer.** The existing pipeline leads. prompt-to-ship does not show a BRIEF, does not ask the
-autonomy question and does not open a change request.
+autonomy question, does not show the PLAN block and does not open a change request. At the
+existing pipeline's plan step, it still shows one line: `Research: <the questions, or "none">`.
 - At the existing pipeline's plan step, start only the plan reviewers listed under "Reviewers
   prompt-to-ship adds". At its review step, start only the review agents listed there. Give them
-  the same input as in stages 2 and 5. This replaces the rule "never skip stage 2 or 5d" in this
+  the same input as in stages 2 and 5, with the existing pipeline's plan and the `Research:` line
+  in place of the PLAN block. This replaces the rule "never skip stage 2 or 5d" in this
   mode.
 - A role that is partial only because "runs only on <levels>": start the prompt-to-ship
   reviewer only when the repository's agent did not run on this change. If you cannot tell,
@@ -176,7 +178,8 @@ autonomy question and does not open a change request.
   because the existing pipeline says so, needs the user's word each time.
 
 **map.** The prompt-to-ship pipeline runs, in the existing pipeline's words.
-- Use its name for the brief, and its names for the steps. Run the prompt-to-ship agents for
+- Use its name for the brief, and its names for the steps. The PLAN block takes the name of its
+  plan step. Run the prompt-to-ship agents for
   every role.
 - Follow its house rules and git flow, within the standing rules.
 - A house rule "push straight to <target branch>" replaces the change request and the merge at

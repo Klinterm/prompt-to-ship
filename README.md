@@ -77,8 +77,8 @@ Some changes compute with facts that the code cannot prove: a price, a tax rate,
 legal rule, a standard or the contract of an external API. A wrong region or a wrong year gives
 a wrong result without an error. prompt-to-ship handles these facts as follows:
 
-1. **Only when needed.** In step 1, Claude decides if the change needs an outside fact. It ends
-   step 1 with a research line: "none", or the questions. Normal code work never starts
+1. **Only when needed.** In step 1, Claude decides if the change needs an outside fact. The plan
+   always shows a research line: "none", or the questions. Normal code work never starts
    research. The plan reviewers check this line.
 2. **Your own data first.** When one of your APIs or databases already supplies the fact, the
    change reads it there, and no research runs.

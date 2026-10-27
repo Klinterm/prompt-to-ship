@@ -197,10 +197,10 @@ change request description.
 
 ## Outside facts
 
-84. A code-only change (a new helper function): stage 1 ends with "Research: none", and no
+84. A code-only change (a new helper function): the PLAN block shows "Research: none", and no
     researcher runs.
 85. A change that computes with a rate that has no source in the repository, in a repository with
-    a "Research scope": stage 1 lists the research questions, and two researcher runs follow
+    a "Research scope": the PLAN block lists the research questions, and two researcher runs follow
     (find, then check mode).
 86. The same change with "Research scope: none" or no scope: the pipeline asks for the region,
     the currency and the reference years before any research runs.

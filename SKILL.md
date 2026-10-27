@@ -84,9 +84,20 @@ The reviewer agents are `prompt-to-ship:architect`, `prompt-to-ship:ui-specialis
 facts is `prompt-to-ship:researcher`. Always start them by these full names.
 
 1. **Understand** the code and its history. Find the rules that match the paths. Decide if the
-   change needs an outside fact (pipeline.md, "Outside facts"). End with the `Research:` line.
-2. **Plan** with approaches and a threat model; the architect, UI specialist and product expert
-   review it, always.
+   change needs an outside fact (pipeline.md, "Outside facts").
+2. **Plan** in this block; the architect, UI specialist and product expert review it,
+   always:
+
+```
+PLAN
+Approach:    <the choice>
+Rejected:    <other approaches, their downside>
+Choice:      <why this one>
+Threat model: <per new or changed entry point, or "none (low risk)">
+Research:    <the numbered questions, or "none">
+Facts:       <"table below", or "none">
+Reviewers:   <verdicts, filled after the review>
+```
 3. **Build** on one topic branch, test first.
 4. **Prove** with real output (checklist.md).
 5. **Review in layers:** 5a fresh reviewer, 5b security reviewer (normal and high risk), 5c a

@@ -5,7 +5,7 @@ name: research-for-unsourced-rate
 graders:
   - name: plans-research
     type: regex
-    pattern: '\bresearch'
+    pattern: '\bresearch(?!\W*(none|scope))'
     flags: i
     target: last_message
   - name: no-edit

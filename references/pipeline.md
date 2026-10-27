@@ -80,8 +80,8 @@ also gets the matching specialist areas and the path
 - Read the decisions and parked items that PROJECT.md points to.
 - If there is a remote: fetch, and check what others pushed since you last looked.
 - In a monorepo, find the package that owns the change and use its commands from PROJECT.md.
-- Decide on research (see "Outside facts"). End stage 1 with one line:
-  `Research: <the numbered questions, or "none">`.
+- Decide on research (see "Outside facts"). The decision goes in the `Research:` line of the
+  PLAN block (SKILL.md).
 
 ## Stage 2. Plan
 
@@ -94,9 +94,10 @@ also gets the matching specialist areas and the path
 - Start `prompt-to-ship:architect`, `prompt-to-ship:ui-specialist` and
   `prompt-to-ship:product-expert` in parallel, always, by these full names. Skip
   `ui-specialist` only when PROJECT.md says "User interface: none", and say so.
-- The plan, as shown to the user, repeats the `Research:` line and, after research, the confirmed fact table. The three
-  reviewers also check that line: a change that needs an outside fact with "Research: none" is a
-  BLOCKING point.
+- Show the plan in the PLAN block from SKILL.md, every time. After research, the confirmed fact
+  table goes below the block. The reviewers get the block without the `Reviewers:` line, which
+  you fill after their verdicts. They also check the `Research:` line: a change that needs an
+  outside fact with "Research: none" is a BLOCKING point.
 - Fold their verdicts into the plan. Show each verdict in at most five lines. A point marked
   BLOCKING stops the pipeline for the user's answer at every autonomy level.
 - Level `ask`: build only after the user's go (normal and high risk). Higher levels: continue,
