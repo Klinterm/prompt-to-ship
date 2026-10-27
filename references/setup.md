@@ -70,8 +70,10 @@ A repository that already has a confirmed PROJECT.md can ask to "draft domain.md
    - The boundaries: what is out of scope, what must never break?
    - The decisions: where are they written down, and who approves merges and releases?
    - The biggest worry right now: quality, speed, security, cost, something else?
-   - Only if setup found no house style (no theme or token files, no component library, no style
-     guide, no screens yet): which design skill, if any, should shape new screens?
+   - Which design skill, if any, should shape new screens? Without a house style (no theme or
+     token files, no component library, no style guide, no screens yet) it shapes them fully.
+     With a house style: may it guide only their layout and hierarchy?
+   - Which galleries or sites, if any, should inspire new screens?
    - Only if the code computes with prices, rates, legal rules or standards: for which region,
      currency and years, and which of your APIs or databases already supply them?
    - Only if detection failed: the code host, or the build and test commands.
@@ -189,7 +191,11 @@ Pipeline mode: <none | defer | map | replace>
 ## Design and wording
 House style: <theme or token files, component library, style guide, or "the existing screens";
 "none" only when the product has no screens yet>
-Design skill: <a skill for new screens, used only with "House style: none"; or none>
+Design skill: <a skill for new screens; or none>
+Design skill with house style: <no | layout> (layout: the skill guides layout and hierarchy of
+new screens, never colours, fonts or components; default no)
+Design inspiration: <galleries or sites the lead opens for new screens, emails or documents; or
+none>
 <supported languages, words to use and to avoid>
 
 ## Risk table

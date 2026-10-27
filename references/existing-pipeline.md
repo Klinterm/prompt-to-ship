@@ -71,7 +71,7 @@ For each of the six roles, compare the repository's matching agent with
    not change files, as the prompt-to-ship agents do.
 2. **When it runs.** It runs at the same step (plan or review) and on every risk level where
    prompt-to-ship runs the role. If it runs on fewer risk levels, the reason is "runs only on
-   <levels>".
+   <levels>". For the ui-specialist role, an agent that runs on every visible change passes.
 3. **Core points.** It covers each core point of the role below. A point counts only when you
    can quote the line in the repository agent that covers it. A point that does not apply to
    this project is not missing: for example data and migrations in a project without stored
@@ -163,7 +163,8 @@ existing pipeline's plan step, it still shows one line: `Research: <the question
 - A role that is partial only because "runs only on <levels>": start the prompt-to-ship
   reviewer only when the repository's agent did not run on this change. If you cannot tell,
   start it. Any other partial or
-  missing role: start it at every plan or review step of that kind.
+  missing role: start it at every plan or review step of that kind; the ui-specialist only on a
+  visible change (pipeline.md, "Visible change").
 - Show both verdicts for a partial role, one line each, for example:
   `security-reviewer: yours (<agent>) APPROVE; mine ADJUST. You decide.`
   A BLOCKING point from a prompt-to-ship reviewer stops the work until the user answers. When

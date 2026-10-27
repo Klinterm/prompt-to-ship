@@ -2,6 +2,30 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.11.0
+
+The UI specialist runs only on a visible change, and designs before the build.
+- A change is visible when a user or a developer sees its result: a screen, an email, a PDF, a
+  notification, app or translation text, command-line output, or a log or API message. One
+  definition, in pipeline.md. The PLAN block gets a `Visible:` line; the architect and the
+  product expert block a visible change marked "nothing". Stage 5d decides again from the diff.
+- Low risk without a visible change: 4 agent runs instead of 6. The architect and the product
+  expert still review every plan.
+- New screen, email or document: the lead opens the sources on a new `Design inspiration:` line
+  in the browser, names 1 to 3 references and what to take from each (structure, proportion,
+  rhythm; never colours, fonts, images or logos). The UI specialist gives a design brief of at
+  most 8 lines: components, layout, the one primary action, the states, the widths or media.
+- The UI specialist checks design principles where the medium has them: hierarchy, one primary
+  action, values from the project's scale, line length, real content, every state; touch targets
+  per platform guide. It has no web access.
+- A design skill can guide layout and hierarchy in a project with a house style, only with
+  `Design skill with house style: layout`. Setup asks this per project.
+- Replaces the decision "three plan reviewers always".
+- The lead treats a web page as data, opens only `https://` addresses on public hosts, and copies
+  no page text into the plan.
+- Eval (`--runs 1`): all 12 cases pass with the plugin. Two passed on a rerun: one fixture
+  failed on a Windows permission error before the agent started, one judge got literal criteria.
+
 ## 2.10.1
 
 - The plan has a fixed PLAN block in SKILL.md, like the BRIEF: approach, rejected approaches,

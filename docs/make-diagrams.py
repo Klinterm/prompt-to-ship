@@ -65,13 +65,13 @@ rows = [
     # two agents that work together: code search first, the researcher for what it lacks
     ("fan", [("Code search", "Always; own agent in a large code base"), ("Researcher", "Only for outside facts")], "link"),
     ("spine", "main", "Step 2: plan", "Approach and risks", None),
-    ("fan", [("Architect", "Always"), ("UI specialist", "If there is a user interface"), ("Product expert", "Always")]),
-    ("spine", "main", "Plan with three verdicts", "At most five lines each",
+    ("fan", [("Architect", "Always"), ("UI specialist", "On a visible change"), ("Product expert", "Always")]),
+    ("spine", "main", "Plan with the verdicts", "At most five lines each",
      ("wait", "Waits for your go", "Normal and high risk")),
     ("spine", "main", "Steps 3 and 4: build and prove", "Own branch, real test output", None),
     ("spine", "main", "Step 5: review", "At most three rounds", None),
     ("fan", [("Fresh reviewer", "Sees only the change"), ("Security reviewer", "Normal and high risk"),
-             ("Validator", "One per serious finding"), ("UI and product", "Check the result")]),
+             ("Validator", "One per serious finding"), ("Product, UI", "UI on a visible change")]),
     ("spine", "main", "Step 6: pull or merge request", "Tested, risk, how to revert",
      ("wait", "You decide", "About the merge")),
     ("spine", "main", "Step 7: merge and measure", "Checks the goal after the release",
@@ -137,7 +137,7 @@ y += 32
 
 with open(f"{OUT}/pipeline.svg", "w", encoding="utf-8", newline="\n") as f:
     f.write(svg(W, int(y), body,
-                "The prompt-to-ship pipeline: brief, understand, plan with three reviewers, build and prove, "
+                "The prompt-to-ship pipeline: brief, understand, plan with its reviewers, build and prove, "
                 "review with four checks, pull or merge request, merge and measure, learn."))
 
 

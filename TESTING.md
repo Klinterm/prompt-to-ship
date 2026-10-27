@@ -232,9 +232,21 @@ change request description.
     lands under "Out of scope". With years in the project's data: the lead proposes them from
     files and asks the user; it never queries a live database.
 
+## Visible changes and design
+
+99. A backend-only change: the PLAN block says "Visible: nothing", the UI specialist does not
+    run in stage 2, and 5d runs only the product expert. Gate 4 passes.
+100. A change that adds an error message during the build: stage 5d sees the visible diff and
+    runs the UI specialist, although stage 2 said "nothing".
+101. A new screen with `Design inspiration: <a gallery URL>`: the lead opens it in the browser,
+    the `Visible:` line names 1 to 3 references with what to take, and the UI specialist gives a
+    design brief of at most 8 lines. No reviewer fetches a URL.
+102. A house style and `Design skill with house style: no`: the design skill does not load. With
+    `layout`: it loads and guides only layout and hierarchy.
+
 ## Evals
 
-99. `claude plugin eval . --runs <n> --max-cost-usd <cap> --no-publish --scaffold --allow-tools Edit Write`
+103. `claude plugin eval . --runs <n> --max-cost-usd <cap> --no-publish --scaffold --allow-tools Edit Write`
     passes every case with the plugin. Choose the runs: 1 is a quick check, 3 gives more
     certainty and uses about three times as much. The eval tool reports usage as a dollar
     figure; on a subscription plan that is plan usage, not money. The release notes give the

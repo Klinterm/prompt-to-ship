@@ -75,8 +75,9 @@ nothing.
 3. a reviewer marks a point BLOCKING, in stage 2 or 5d;
 4. after the review rounds, a finding of severity Medium or higher is not fixed, a validator says
    "needs runtime validation", the product verdict in 5d is not APPROVE, or the UI verdict in 5d
-   is not APPROVE or NO VISIBLE CHANGE (a UI specialist skipped for "User interface: none"
-   passes). After you fix ADJUST points, run 5d again on the new diff; a new APPROVE passes;
+   is not APPROVE or NO VISIBLE CHANGE (a UI specialist skipped for "User interface: none",
+   or for a diff that is not visible (pipeline.md, "Visible change"), passes). After you fix
+   ADJUST points, run 5d again on the new diff; a new APPROVE passes;
 5. three review rounds still bring new findings;
 6. a local check fails;
 7. CI fails, or the repository has CI (a CI file from the list above, or checks reported by the

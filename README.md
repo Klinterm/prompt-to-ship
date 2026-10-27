@@ -2,7 +2,7 @@
 
 A pipeline for coding with Claude Code. A pipeline is a fixed series of steps that every change
 goes through. You ask for a change in plain words. Claude turns it into a precise task and makes
-a plan. Three reviewer agents check the plan. An agent is a separate Claude instance with one
+a plan. Reviewer agents check the plan. An agent is a separate Claude instance with one
 task and no access to your chat. Claude then builds the change and proves that it works. Other
 agents review the result. At the end, Claude opens a pull request or merge request: a request to
 add the change to the main code. You decide what gets merged and released.
@@ -19,7 +19,7 @@ for GitHub, GitLab and others.
 ## How it works
 
 <p align="center">
-  <img src="docs/pipeline.svg" width="760" alt="The pipeline. You ask for a change. A hook reminds Claude of every step. Step 0: brief, waits on high risk or an open question. Step 1: understand. Code search always looks in the code and your data first, with its own agent in a large code base. The researcher looks on the web only for outside facts that are not there. Step 2: plan, checked by the architect, the UI specialist if there is a user interface, and the product expert. The plan with three verdicts waits for your go on normal and high risk. Steps 3 and 4: build and prove. Step 5: review by a fresh reviewer, a security reviewer on normal and high risk, one validator per serious finding, and the UI and product reviewers. Step 6: pull or merge request, you decide about the merge. Step 7: merge and measure, your word each time. Step 8: learn.">
+  <img src="docs/pipeline.svg" width="760" alt="The pipeline. You ask for a change. A hook reminds Claude of every step. Step 0: brief, waits on high risk or an open question. Step 1: understand. Code search always looks in the code and your data first, with its own agent in a large code base. The researcher looks on the web only for outside facts that are not there. Step 2: plan, checked by the architect, the product expert, and the UI specialist when the change is visible. The plan with the verdicts waits for your go on normal and high risk. Steps 3 and 4: build and prove. Step 5: review by a fresh reviewer, a security reviewer on normal and high risk, one validator per serious finding, and the product reviewer, plus the UI reviewer on a visible change. Step 6: pull or merge request, you decide about the merge. Step 7: merge and measure, your word each time. Step 8: learn.">
 </p>
 
 The diagram shows the default level, `ask`. At a higher level, some red "waits for you" boxes
@@ -36,11 +36,13 @@ go away. See [Autonomy](#autonomy).
    own data sources; in a large code base it does the wide search. When the change needs a fact
    that is not there, such as a price, a tax rate or a legal rule, the **researcher** looks it
    up on the web. See [Outside facts](#outside-facts).
-2. **Plan.** Claude chooses an approach and names its risks. Three reviewer agents check the plan
-   at the same time. Each one gives a verdict: approve, or adjust with reasons.
+2. **Plan.** Claude chooses an approach and names its risks, in a fixed PLAN block. Reviewer
+   agents check the plan at the same time. Each one gives a verdict: approve, or adjust with
+   reasons.
    - The **architect** checks the structure, the data and whether the change can be undone.
-   - The **UI specialist** checks what users will see and read. It is skipped when the product
-     has no user interface.
+   - The **UI specialist** checks what users will see and read. It runs only when the change is
+     visible: a screen, an email, a document, a message or command-line output. For a new screen
+     it first gives a short design brief.
    - The **product expert** checks whether the change fits the product, its users and its
      business rules.
 3. **Build.** Claude works on its own branch. A branch is a separate copy of the code where work
@@ -52,7 +54,8 @@ go away. See [Autonomy](#autonomy).
    - The **security reviewer** looks for real vulnerabilities, with evidence. It runs on normal
      and high risk.
    - A **validator** tries to disprove each serious finding. False alarms drop out this way.
-   - The **UI specialist** and the **product expert** check the result against the plan.
+   - The **product expert**, and on a visible change the **UI specialist**, check the result
+     against the plan.
 
    Every finding gets an answer: fixed, or not fixed with a reason. After three rounds, Claude
    stops and asks you to rethink the approach.
@@ -121,9 +124,16 @@ New screens follow the look your product already has: its theme, its components,
 guide, or its existing screens. prompt-to-ship never restyles existing screens unless you ask for
 a redesign in your request. A new kind of screen is built from the nearest existing pattern.
 
-Only a product without a house style can use a design skill. Name it in the project file:
-`House style: none` and `Design skill: <skill name>`. When that skill is not installed, Claude
-says so and builds without it.
+For a new screen, email or document, Claude first looks at the sources on the
+`Design inspiration:` line of your project file, in the browser. It takes the structure, the
+proportions and the rhythm of 1 to 3 references, never their colours, fonts, images or logos.
+The UI specialist then gives a short design brief: components, layout, the one primary action,
+and the empty, loading and error states.
+
+A design skill (`Design skill: <skill name>`) shapes new screens in a product without a house
+style. With a house style, it guides only layout and hierarchy, and only when the project file
+says `Design skill with house style: layout`. When that skill is not installed, Claude says so
+and builds without it.
 
 ## Autonomy
 
@@ -313,9 +323,9 @@ single chat answer. Agent runs per change, for one review round:
 
 | Risk | Agent runs |
 |---|---|
-| Low | 6: three on the plan, the fresh reviewer, UI and product on the result |
-| Normal | 7: the same, plus the security reviewer |
-| High | 7, and you read the change yourself |
+| Low | 4: architect and product expert on the plan, the fresh reviewer, the product expert on the result; 6 on a visible change (plus the UI specialist twice) |
+| Normal | 5, or 7 on a visible change: the same, plus the security reviewer |
+| High | the same as normal, and you read the change yourself |
 
 Each serious finding adds one validator run. A change that needs outside facts adds two
 researcher runs: one to find them and one to check them. Most changes need none.

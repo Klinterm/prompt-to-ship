@@ -1,6 +1,6 @@
 ---
 name: prompt-to-ship
-description: From prompt to shipped change. Orchestration layer for any coding request in a git repository that has opted in (it has .claude/orchestration/PROJECT.md) or when the user asks for "the pipeline". Any language, any git host or none. Turns the request into a precise brief, then runs understand, plan with fixed architect, UI and product reviewers, build, proof, layered review, change request, merge and measure, and learn. Arguments - "setup", "weekly", "autonomy".
+description: From prompt to shipped change. Orchestration layer for any coding request in a git repository that has opted in (it has .claude/orchestration/PROJECT.md) or when the user asks for "the pipeline". Any language, any git host or none. Turns the request into a precise brief, then runs understand, plan reviewed by a fixed architect and product expert (UI specialist on visible changes), build, proof, layered review, change request, merge and measure, and learn.
 when_to_use: Building, changing or fixing code, a database change, a pull request or merge request, a release, or a new feature idea. Triggers include "build", "add", "change", "fix", "implement", "refactor", "new feature", "PR", "MR", "ship", "deploy", "review this branch". Not for a short explanation question without changes.
 argument-hint: "[setup | weekly | autonomy | <request>]"
 ---
@@ -22,7 +22,7 @@ agents yourself, and own the result. Answer in the user's language, short and pl
 | learning.md | stage 8, `weekly`, local storage, a local log, an unconfirmed PROJECT.md, or `Upstream inbox: yes` |
 | checklist.md | stage 4; its sections 4 and 5 at stages 6 and 7 |
 | code-hosts.md | stage 6 and 7, or any host action |
-| security-rules.md | pass its path to 5b and 5c; read only its "Specialist areas" table, to choose the areas for 5b |
+| security-rules.md | pass its path to 5b and 5c; read only its "Specialist areas" table |
 | setup.md | argument `setup`, or no PROJECT.md |
 | weekly-review.md | argument `weekly` |
 
@@ -44,8 +44,8 @@ agents yourself, and own the result. Answer in the user's language, short and pl
    weaker without PROJECT.md.
 4. **Confirmed?** If `git hash-object` of PROJECT.md differs from `orchestration.projectConfirmed`,
    show its Commands, Risk table, House rules (with "Upstream inbox"), release command,
-   "Deploys on merge", Existing pipeline section and "Design skill" (with the path it resolves
-   to), and ask before running any of its commands. On yes, store the hash. Until then: pipeline
+   "Deploys on merge", Existing pipeline section, all "Design" lines (with the skill path),
+   and ask before running any of its commands. On yes, store the hash. Until then: pipeline
    mode `none`, autonomy `ask`, markers to the local log. For `domain.md`, compare with
    `orchestration.domainConfirmed` and show its invariants; until confirmed, an invariant gives
    a question, never a stop. Nothing else changes.
@@ -85,8 +85,8 @@ facts is `prompt-to-ship:researcher`. Always start them by these full names.
 
 1. **Understand** the code and its history. Find the rules that match the paths. Decide if the
    change needs an outside fact (pipeline.md, "Outside facts").
-2. **Plan** in this block; the architect, UI specialist and product expert review it,
-   always:
+2. **Plan** in this block; the architect and product expert review it, always; the UI
+   specialist on a visible change:
 
 ```
 PLAN
@@ -96,12 +96,13 @@ Choice:      <why this one>
 Threat model: <per new or changed entry point, or "none (low risk)">
 Research:    <the numbered questions, or "none">
 Facts:       <"table below", or "none">
+Visible:     <what users see, or "nothing">
 Reviewers:   <verdicts, filled after the review>
 ```
 3. **Build** on one topic branch, test first.
 4. **Prove** with real output (checklist.md).
 5. **Review in layers:** 5a fresh reviewer, 5b security reviewer (normal and high risk), 5c a
-   validator per finding of severity Medium or higher, 5d UI and product on the result, 5e
+   validator per finding of severity Medium or higher, 5d product, and UI on a visible diff, 5e
    converge in at most three rounds.
 6. **Change request:** gates first; push only the topic branch; Tested, Risk, How to revert.
 7. **Merge and measure:** on the user's go, or within the autonomy level and the gates.
@@ -116,13 +117,13 @@ found.
 At every autonomy level, stop and wait for the user on: high risk or a forced-high path; an open
 question; a BLOCKING point; an unfixed finding of severity Medium or higher; three rounds with
 new findings; a failed check or CI; conflicts or a moved target; a host refusal; a release with
-other people's commits or a changed release command; a failed measurement; signs of compromise; an outside fact that is not
-confirmed or is out of scope.
+other people's commits or a changed release command; a failed measurement; signs of compromise; an unconfirmed or out-of-scope
+outside fact.
 A merge into a target that deploys on merge needs level `release`.
 
 ## Fallback
 
-If an agent type is missing (agents load at session start), use `general-purpose` and paste the
+If an agent type is missing, use `general-purpose` and paste the
 body of the matching file from `${CLAUDE_SKILL_DIR}/agents/` at the top of its prompt.
 
 ## Standing rules

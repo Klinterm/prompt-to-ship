@@ -5,8 +5,8 @@ PROJECT.md.
 
 ## Product
 A Claude Code skill and plugin that runs every coding request through one pipeline: brief,
-understand, plan with three fixed reviewers, build, prove, layered review, change request, measure,
-learn. Users install it once and opt in per repository with a PROJECT.md.
+understand, plan with fixed reviewers (a UI reviewer on a visible change), build, prove, layered
+review, change request, measure, learn. Users install it once and opt in per repository with a PROJECT.md.
 
 ## Goal and success
 Goal: an orchestration layer that anyone can use in any repository, whatever the language, the
@@ -132,8 +132,13 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
   without it, or "no eval run". An llm judge checks visible text in the final message
   (`focus: last_message`, literal criteria); judges that read the whole trace gave false fails.
-- Decision 2026-10-27 (maintainer): three plan reviewers always, also for low risk (no light
-  lane). R6 "cheap where possible" applies to stage 5, not to stage 2.
+- Decision 2026-10-27 (maintainer), replaced on 2026-10-28: three plan reviewers always, also
+  for low risk (no light lane).
+- Decision 2026-10-28 (maintainer): the architect and the product expert review every plan, also
+  for low risk; the UI specialist runs only on a visible change (R6: no review that can only say
+  "no visible change"). On a new screen it gives a design brief. Inspiration sources are opened
+  by the lead in the browser, never by a reviewer. A personal design skill guides layout with a
+  house style only when the project opts in.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
