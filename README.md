@@ -140,18 +140,46 @@ To share it with a team, copy the folder into the repository's `.claude/skills/`
 commit it. Do not copy the `.git` folder inside it. Each teammate accepts the workspace trust
 prompt once.
 
+## Commands
+
+Type these in the Claude Code chat. With install way B (skills folder) the command is
+`/prompt-to-ship`. With way A (plugin) it is `/prompt-to-ship:prompt-to-ship`.
+
+| Way B (skills folder) | Way A (plugin) | What it does |
+|---|---|---|
+| `/prompt-to-ship setup` | `/prompt-to-ship:prompt-to-ship setup` | Gets to know the repository and writes `.claude/orchestration/PROJECT.md`. Asks the pipeline mode and your autonomy level. |
+| `/prompt-to-ship autonomy` | `/prompt-to-ship:prompt-to-ship autonomy` | Shows your autonomy level and lets you change it. |
+| `/prompt-to-ship weekly` | `/prompt-to-ship:prompt-to-ship weekly` | Reviews the pull or merge requests of the last 7 days. Changes nothing. |
+| `/prompt-to-ship <your request>` | `/prompt-to-ship:prompt-to-ship <your request>` | Runs the pipeline on your request. |
+
+After setup you do not need the command for a change. Ask in plain words, for example "Fix the
+date format on the invoice page". The hook reminds Claude to use the pipeline.
+
+You can also say these things in the chat:
+
+| You say | What happens |
+|---|---|
+| "go" | Claude continues after a stop, for example after the plan. |
+| "stop" | Claude stops the current task. |
+| "do this one manually" | Claude uses level `ask` for this task only. |
+| "revert" | After a failed check following a release, Claude runs the revert it proposed. |
+
+Commands for install, update and removal are in [Install](#install) and
+[Update and remove](#update-and-remove).
+
 ## Use
 
 1. Start Claude Code in the root folder of your repository.
-2. Run the command with `setup`. The first use does this automatically. Claude reads the code,
+2. Run `/prompt-to-ship setup` (see [Commands](#commands)). The first use does this
+   automatically. Claude reads the code,
    the build files, the documents and the public website. It finds the git host. Then it asks
    you up to seven questions about the goal, the users and the limits. It writes the result to
    `.claude/orchestration/PROJECT.md`. Read this file and correct it. The reviewers base their
    verdicts on it.
-3. Choose your autonomy level when Claude asks.
+3. Choose your autonomy level when Claude asks. Change it later with `/prompt-to-ship autonomy`.
 4. Ask for a change in plain words. You see the brief first, then the plan with the three
    verdicts.
-5. Run the command with `weekly` once a week, or schedule it.
+5. Run `/prompt-to-ship weekly` once a week, or schedule it.
 
 In a repository without `.claude/orchestration/PROJECT.md`, the hook prints nothing.
 
@@ -168,8 +196,9 @@ review agents. Setup finds this and asks you how prompt-to-ship must work with i
 | `none` | What setup found is not a pipeline. prompt-to-ship runs as normal. |
 
 Setup never edits CLAUDE.md. A push to your main branch waits for you. In `map`, `replace` and
-`none`, autonomy level `merge` or higher can allow it. In `defer`, Claude always asks. The full rules are in
-[references/existing-pipeline.md](references/existing-pipeline.md).
+`none`, autonomy level `merge` or higher can allow it. In `defer`, Claude always asks. To change
+the mode later, run `/prompt-to-ship setup` again, or tell Claude in the chat. The full rules are
+in [references/existing-pipeline.md](references/existing-pipeline.md).
 
 ## Update and remove
 
