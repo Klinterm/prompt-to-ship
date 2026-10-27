@@ -26,7 +26,10 @@ Answer in the user's language. Keep answers short and plain.
 The pipeline needs git. If `git rev-parse --show-toplevel` fails, say "The pipeline needs a git
 repository", offer `git init`, and stop until the user answers.
 
-Read `.claude/orchestration/PROJECT.md` at the repository root. It holds the product context, the
+Read `.claude/orchestration/PROJECT.md` at the repository root. In a linked worktree where it is
+missing, look in the main worktree (the first path in `git worktree list --porcelain`): with
+local storage, the files live only there. Read, hash and confirm it there; do not run setup in
+the linked worktree. It holds the product context, the
 stack, the code host, the build and check commands, the risk table and the house rules. It wins
 over the defaults here, but never over the standing rules at the end of this file. If
 `git hash-object .claude/orchestration/PROJECT.md` differs from
@@ -34,7 +37,8 @@ over the defaults here, but never over the standing rules at the end of this fil
 show its Commands, Risk table, House rules, release command, "Deploys on merge" line and Existing
 pipeline section once
 and ask before you run any of its commands. On the user's yes, store the new hash. Until then,
-treat the pipeline mode as `none` and the autonomy level as `ask`.
+treat the pipeline mode as `none`, the autonomy level as `ask`, and markers as "local log"
+(write no marker lines to the repository; see references/learning.md, "Storage and markers").
 
 Existing pipeline: read "Pipeline mode" in PROJECT.md and follow
 [references/existing-pipeline.md](references/existing-pipeline.md). In mode `defer` the

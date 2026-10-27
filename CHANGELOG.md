@@ -2,6 +2,22 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.5.0
+
+For repositories with strict rules: nothing but product code, and no tool or AI mentions.
+- New lines under House rules in PROJECT.md: "Storage: shared | local" and "Markers:
+  description | local log". Setup asks both in one message. Without a Storage line, an excluded
+  `.claude/orchestration/` counts as local.
+- Local storage: incidents and rules are written directly in the excluded folder after the
+  user's yes; no learn branch, no push. In a linked worktree, the folder of the main worktree is
+  used.
+- Local log: every marker line goes to `<git common dir>/prompt-to-ship/log.md`, shared by all
+  worktrees and never committed. No attribution lines; the skill offers to switch off Claude
+  Code's own attribution in `.claude/settings.local.json`.
+- The weekly review counts from the log, matches entries to merged changes (change request
+  link, merge sha, then sha), says how many it skipped, and says that it covers this clone only.
+- An unconfirmed PROJECT.md uses the local log: it writes nothing to the repository.
+
 ## 2.4.0
 
 A real learning loop for stage 8 (`references/learning.md`). Ideas taken from Every's

@@ -108,14 +108,15 @@ Then push only the topic branch and open the change request as described in code
 Description with three short parts:
 - **Tested:** what was run or looked at, with the result. Add the lines "Rules matched",
   "Rules that caught something", "Rules overruled" and "Near-miss" from learning.md, only those
-  that apply.
+  that apply. With "Markers: local log" in PROJECT.md, these lines and the "Autonomy:" line go to
+  the local log instead, and no tool or AI attribution goes in the description or the commits.
 - **Risk:** low, normal or high, and why.
 - **How to revert:** revert the merge, roll back the migration (if any), switch off a flag.
 
 One topic per change request. Give the link. With no host: give the branch name and the diff
 command, and put the description in the last commit message. At levels `merge` and `release`,
 add the line "Autonomy: <level>. This change request may be merged automatically." to the
-description, so the weekly review can find it.
+description (with "Markers: local log": to the log), so the weekly review can find it.
 
 Level `ask`: stop here. Higher levels: wait for CI (autonomy.md, gate 7), report the result, and
 continue to stage 7 only at levels `merge` and `release`.

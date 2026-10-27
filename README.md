@@ -189,6 +189,16 @@ Commands for install, update and removal are in [Install](#install) and
 
 In a repository without `.claude/orchestration/PROJECT.md`, the hook prints nothing.
 
+### A repository with strict rules
+
+Some teams allow nothing in a repository except product code, or forbid any mention of tools or
+AI in commits. Setup asks two questions for this:
+- **Files: local.** PROJECT.md and the learning files stay on your machine. They are not shared
+  with teammates, and `git clean -x` deletes them.
+- **Tool lines: local log.** Lines such as "Rules matched" go to a log inside your git folder,
+  never into descriptions or commits. Claude also offers to switch off Claude Code's own
+  attribution lines, in a local settings file.
+
 ### A repository with its own pipeline
 
 Some repositories already have their own process, for example in CLAUDE.md or with their own

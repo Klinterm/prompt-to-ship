@@ -179,7 +179,8 @@ autonomy question and does not open a change request.
   1. If the target branch moved since the topic branch started, stop: a rebase would change
      what was reviewed. Otherwise squash the reviewed work into one commit on top of the target.
      The content stays the same. Its message ends with "Reviewed by prompt-to-ship (map, level
-     <level>)." This commit is the reviewed sha.
+     <level>)." (with "Markers: local log": no such line; the log gets it). This commit is the
+     reviewed sha.
   2. Push the topic branch (code-hosts.md, Pushes). This needs only git, so do it also when the
      host CLI is missing: the user and CI can then see the reviewed commit.
   3. Wait until CI passes on the reviewed sha. Without CI, the local checks count.

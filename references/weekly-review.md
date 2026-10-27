@@ -32,7 +32,9 @@ command is `/prompt-to-ship weekly` for a skills-folder install and
    <level>. This change request may be merged automatically.", and the commits on the target
    branch with "Reviewed by prompt-to-ship (map, level merge)" or "(map, level release)", or
    the older line "Pushed to <target> automatically." (pipeline mode `map`). A map commit at
-   level `ask` or `change-request` was pushed by the user: skip it. List each one, and check
+   level `ask` or `change-request` was pushed by the user: skip it. With "Markers: local log",
+   find them in the local log instead (learning.md), and say that this covers this clone only.
+   List each one, and check
    that no gate from autonomy.md applied at that moment (risk, forced-high paths, failed CI,
    unresolved findings, and a merge at level `merge` into a target that deploys on merge). A
    gate that was missed is a high finding.
@@ -67,4 +69,6 @@ and the one-line rules summary from learning.md.
 Create a weekly scheduled task in the repository folder with the weekly command above as the
 prompt (in the desktop app, or with the `/schedule` command).
 Local scheduled tasks read personal skills; cloud sessions do not, unless the skill is committed
-to the repository or installed as a plugin on the user's account.
+to the repository or installed as a plugin on the user's account. With "Storage: local" or
+"Markers: local log", run the weekly review locally: a cloud session cannot read the local files
+or the log.

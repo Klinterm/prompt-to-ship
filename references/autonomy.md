@@ -226,4 +226,6 @@ Never use a rebase merge at these levels: one revert must undo the whole change.
 
 At levels `merge` and `release`, the change request description carries the line
 "Autonomy: <level>. This change request may be merged automatically." (with no host: the last
-commit message). The weekly review uses it to find and check every automatic merge and release.
+commit message; with "Markers: local log": the local log, plus "Merged as: <sha>" after the
+merge, see learning.md). The weekly review uses it to find and check every automatic merge and
+release.

@@ -140,3 +140,28 @@ change request description.
 61. A closed change request from someone else says "Rules overruled: RULE-003": `weekly` does
     not count it.
 
+## Storage and markers
+
+62. Setup asks the files and tool-lines question in one message, and writes "Storage" and
+    "Markers" under House rules.
+63. "Storage: local": a lesson is written directly in the excluded folder after "yes"; no
+    branch is created locally or on the remote; `git status` shows no new or changed file.
+64. "Storage: local" in a linked worktree: the pipeline reads PROJECT.md and rules.md from the
+    main worktree.
+65. "Markers: local log": no marker line and no attribution line appears in the description or
+    the commits; the log in the git folder gets the entry; the chat still shows the rules line.
+66. `weekly` with a local log and a squash-merged change: the entry is matched by its change
+    request link, and the report says "this clone only". An automatic merge is matched by
+    "Merged as"; a merged change of this developer without an entry is listed under "Not
+    checked".
+67. A PROJECT.md without a Storage line in an excluded folder: the pipeline says once that
+    storage is local.
+68. A tracked PROJECT.md: setup does not offer local storage, and offers the local log instead.
+69. "Markers: local log" and yes to the attribution question: `.claude/settings.local.json`
+    has the attribution setting, its other keys are unchanged, it is in `.git/info/exclude`, and
+    `git status` stays clean.
+70. "Storage: local": someone removes a row from rules.md by hand; the next task shows the
+    change and asks before it uses the rules.
+71. Local log: an automatic merge whose log entry is gone still gets the gate checks in
+    `weekly`, listed as "no log entry".
+

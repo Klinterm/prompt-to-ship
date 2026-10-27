@@ -71,12 +71,32 @@ does not tell that. Nothing else in the repository changes.
    not apply; never delete it. Keep it under 200 lines; link to documents for details.
 7. **Check with the user.** Show a short summary: the product in three sentences, the goal, the
    users, the detected host and commands, "Deploys on merge", the pipeline mode (or "Existing pipeline: none
-   found."), and every `(to confirm)` item. Correct it with their
-   answers, then write `.claude/orchestration/PROJECT.md` at the repository root, and store its
-   hash as confirmed: `git config --local orchestration.projectConfirmed "$(git hash-object .claude/orchestration/PROJECT.md)"`.
-8. Ask whether the file should be committed (shared with the team) or kept local. If local, add
-   `.claude/orchestration/` to `.git/info/exclude` (not to `.gitignore`, which would be a change
-   in the repository).
+   found."), and every `(to confirm)` item. Correct it with their answers.
+8. **Files and tool lines.** Ask this as one message, in the user's language:
+
+```
+Two choices about what lands in this repository:
+1. Files: commit PROJECT.md and the learning files (shared with the team), or keep them on this
+   machine only (local)?
+2. Tool lines: may the pipeline add lines such as "Rules matched" and "Reviewed by prompt-to-ship"
+   to change request descriptions and commit messages? Or must they go to a local log, because
+   your house rules forbid tool or AI mentions?
+Suggested: <local / local log>, because <what setup found>. Answer like "1 local, 2 log", or "ok".
+```
+
+   Give the "Suggested" reason only when setup found one: a house rule that forbids process
+   files or tool mentions, an existing pipeline that says so, or an existing exclude.
+   Write the answers as "Storage: shared | local" and "Markers: description | local log" under
+   House rules. Then write `.claude/orchestration/PROJECT.md`, and store its hash as confirmed:
+   `git config --local orchestration.projectConfirmed "$(git hash-object .claude/orchestration/PROJECT.md)"`.
+   - Local: add `.claude/orchestration/` to `.git/info/exclude` (not to `.gitignore`, which would
+     be a change in the repository). Say what this costs, in one line: "Lessons stay on this
+     machine: not shared with teammates or other clones, and `git clean -x` deletes them."
+   - PROJECT.md is already tracked (a team shares it): local is not possible without a team
+     decision. Keep shared, and offer "Markers: local log" if the house rules need it.
+   - Local log: also propose to switch off Claude Code's own attribution lines, as learning.md
+     "Storage and markers" says.
+   The full rules are in [learning.md](learning.md), "Storage and markers".
 9. **Autonomy level.** Skip this in pipeline mode `defer`. Otherwise ask the level question
    from [autonomy.md](autonomy.md) as its own message, and store the answer in git config. This is the developer's own choice; it is not
    part of PROJECT.md.
@@ -158,6 +178,8 @@ Pipeline mode: <none | defer | map | replace>
 ## House rules
 Autonomy limit: <ask | change-request | merge | release> (the team's maximum; each developer
 chooses up to this)
+Storage: <shared | local> (local: prompt-to-ship files stay on this machine)
+Markers: <description | local log> (local log: no tool lines in descriptions or commits)
 <what never happens without the user: pushes to shared branches, spending, ...>
 
 ## Documents, decisions and parked items
