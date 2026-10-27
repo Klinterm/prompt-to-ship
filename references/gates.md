@@ -136,6 +136,8 @@ These hold at every level, also when the user said go:
 |---|---|---|
 | `orchestration.autonomy` | the autonomy level | the user, in chat |
 | `orchestration.projectConfirmed` | the PROJECT.md hash the user confirmed | the user's yes |
+| `orchestration.domainConfirmed` | the domain.md hash the user confirmed | the user's yes |
+| `orchestration.domainCoverDeclined` | the user said no to the product expert for domain.md in `defer` | the user's no |
 | `orchestration.rulesConfirmed` | the rules.md hash (local storage) | a stored lesson |
 | `orchestration.releaseCommand` | the confirmed release command | the user's yes |
 | `orchestration.deploysOnMerge` | true or false | the user's answer |

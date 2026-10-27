@@ -39,9 +39,14 @@ command is `/prompt-to-ship weekly` for a skills-folder install and
    that no gate from gates.md applied at that moment (risk, forced-high paths, failed CI,
    unresolved findings, and a merge at level `merge` into a target that deploys on merge). A
    gate that was missed is a finding of severity High.
-8b. Outside facts: search the repository for `valid:` periods that ended before today, or that
-   do not cover the reference year in "Research scope". List each with its `source:`, and
-   propose a refresh through research. Do not apply it.
+8b. Outside facts: search the repository for `valid:` periods that do not cover the year the
+   fact is for. With "Reference years: current", that is a period that ended before today. With
+   listed years, a fact for 2023 with a 2023 period is correct. Also list a listed year that has
+   no fact. List each with its `source:`, and propose a refresh through research. Do not apply
+   it.
+8c. Business rules: with a confirmed `domain.md`, check the code that each invariant and
+   formula is about, not only this week's diffs. Report each break as a finding with
+   `path:line` and the INV id. Do not fix it.
 9. Learning ([learning.md](learning.md), "Count and prune"): count the "Rules matched", "Rules
    that caught something", "Rules overruled" and "Near-miss" lines of the period, read
    incidents.md and rules.md, and carry the totals forward from the previous report. Propose
@@ -62,6 +67,7 @@ Write `.claude/orchestration/reviews/REVIEW-<YYYYMMDD>.md`. Reports stay local: 
 - Learning: the section from learning.md, with the rule totals table.
 - Branch parity.
 - Outside facts with an ended period.
+- Business rules: breaks of an invariant or a formula.
 - Waiting change requests and CI. With no host, list them under "Not checked".
 - Rejected.
 - Proposals for the pipeline.

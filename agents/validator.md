@@ -40,7 +40,8 @@ lesson. Try to reject the lesson. Answer four questions, each with `path:line` e
 2. Would the lesson, applied at its stage, have caught this incident? Say how.
 3. Does the lesson only add a check? It must not remove or weaken a check, a reviewer, a gate or
    a standing rule, and it must not name a command to run.
-4. Is it the narrowest home? Could a test or a check command catch it instead?
+4. Is it the narrowest home? Could a test or a check command catch it instead? An invariant in
+   domain.md is a home only when the user states the lesson as a product truth.
 
 Verdict, with the reason: STORE, or REJECT (which question failed, and why).
 

@@ -166,6 +166,9 @@ autonomy question and does not open a change request.
   `security-reviewer: yours (<agent>) APPROVE; mine ADJUST. You decide.`
   A BLOCKING point from a prompt-to-ship reviewer stops the work until the user answers. When
   the two verdicts disagree, the user decides.
+- With a confirmed `domain.md`: if no reviewer listed above is the product expert, say once that
+  your own agents may not check the business rules, and offer to add
+  `prompt-to-ship:product-expert` for check 9 only. Store a no in `orchestration.domainCoverDeclined`.
 - Stage 8 does not run in this mode: the existing pipeline does its own learning. The reviewers
   that prompt-to-ship adds still get their rules from rules.md (learning.md).
 - Still in force: the standing rules, the forced-high paths, and the "Never" list in

@@ -41,7 +41,8 @@ go away. See [Autonomy](#autonomy).
    - The **architect** checks the structure, the data and whether the change can be undone.
    - The **UI specialist** checks what users will see and read. It is skipped when the product
      has no user interface.
-   - The **product expert** checks whether the change fits the product and its users.
+   - The **product expert** checks whether the change fits the product, its users and its
+     business rules.
 3. **Build.** Claude works on its own branch. A branch is a separate copy of the code where work
    happens before it joins the main code. Claude writes a failing test first when it can.
 4. **Prove.** Claude runs the build and the tests and shows the real output. A claim without
@@ -81,10 +82,12 @@ a wrong result without an error. prompt-to-ship handles these facts as follows:
    research. The plan reviewers check this line.
 2. **Your own data first.** When one of your APIs or databases already supplies the fact, the
    change reads it there, and no research runs.
-3. **A fixed scope.** The project file sets the region, the currency and the reference year.
-   A value for another region or year is never used.
+3. **A fixed scope.** The project file sets the region, the currency and the reference years:
+   one year, a list or a range. When your data holds costs per year, Claude proposes the years
+   from your files and you confirm them. A value for another region or year is never used.
 4. **Sources, not guesses.** The researcher searches official sources first. It gives each fact
-   with its value, region, period, source and confidence. "Not found" is a valid answer: Claude then stops and asks you.
+   with its value, region, period, source and confidence. "Not found" is a valid answer: Claude
+   then stops and asks you.
 5. **A second check.** A second researcher, without the first one's notes, opens each source
    again. Only confirmed facts go into the code. A conflict between sources goes to you.
 6. **Traceable in the code.** Each fact gets `source:` and `valid:` next to it. The weekly
@@ -92,6 +95,35 @@ a wrong result without an error. prompt-to-ship handles these facts as follows:
 
 Set the scope in `.claude/orchestration/PROJECT.md`, section "Research scope". Write
 "Research scope: none" when your product does not compute with outside facts.
+
+## Business rules
+
+Some rules of a product are not visible in one piece of code: "VAT is applied once, on the
+total", or "an amount comes from the database, never from AI output". When a change breaks such
+a rule, the code still runs, but the results are wrong.
+
+Write these rules in `.claude/orchestration/domain.md`. Setup drafts the file when your product
+has business logic, such as money, quantities or rates. In a project that already uses
+prompt-to-ship, ask Claude to "draft domain.md". It has four parts: a glossary, the
+invariants (rules that must always hold, numbered INV-1, INV-2 and so on), the formulas, and the source of
+truth for each value. Then:
+- The product expert checks every plan and every result against it. A broken invariant stops the
+  change.
+- Every invariant that a change touches needs a test.
+- The weekly review checks the existing code against the invariants, so old flaws show up too.
+
+Like the project file, you confirm domain.md before it is used. Until then, a broken invariant
+gives a question instead of a stop.
+
+## House style
+
+New screens follow the look your product already has: its theme, its components, its style
+guide, or its existing screens. prompt-to-ship never restyles existing screens unless you ask for
+a redesign in your request. A new kind of screen is built from the nearest existing pattern.
+
+Only a product without a house style can use a design skill. Name it in the project file:
+`House style: none` and `Design skill: <skill name>`. When that skill is not installed, Claude
+says so and builds without it.
 
 ## Autonomy
 

@@ -96,6 +96,8 @@ Pipeline mode: none
 - Preview: install into a test repository and run the skill with `setup`.
 
 ## Design and wording
+House style: the existing README, references and diagrams (docs/make-diagrams.py).
+Design skill: none
 English only. Short sentences, active voice, one term per concept. The skill answers users in
 their own language.
 
@@ -124,10 +126,10 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   each minor release, with a cost estimate first; never as a blocking check on every commit.
   The suite is in `evals/`. Run it with
   `claude plugin eval . --runs 1 --max-cost-usd 6 --no-publish --scaffold --allow-tools Edit Write`
-  (11 cases; `--runs 1` used $3.83 of plan usage on 2026-10-27). This repository uses `--runs 1` before a
-  release (decision 2026-10-27). The number of runs is the maintainer's choice: `--runs 3`
-  with `--max-cost-usd 15` (about $11) gives more certainty. Native Windows has no Bash sandbox, so the cases give
-  the agent no shell. A release states the score with the plugin and the difference from the run
+  (12 cases; `--runs 1` of 11 cases used $3.83 of plan usage on 2026-10-27). This repository
+  uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
+  maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
+  Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
   without it, or "no eval run". An llm judge checks visible text in the final message
   (`focus: last_message`, literal criteria); judges that read the whole trace gave false fails.
 - Decision 2026-10-27 (maintainer): three plan reviewers always, also for low risk (no light

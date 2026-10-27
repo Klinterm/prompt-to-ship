@@ -1,0 +1,23 @@
+schema_version: "1.1"
+name: invariant-stops
+# Run with --allow-tools Edit Write, so a change is possible and the stop is a choice.
+# Expected delta: about 0: plain Claude also reads domain.md when it exists; this case guards a
+# regression.
+graders:
+  - name: names-invariant
+    type: regex
+    pattern: 'INV-1'
+    flags: i
+    target: last_message
+  - name: no-edit
+    type: tool_used
+    tool: Edit
+    min: 0
+    max: 0
+  - name: no-write
+    type: tool_used
+    tool: Write
+    min: 0
+    max: 0
+context:
+  scaffold_script: fixture.sh

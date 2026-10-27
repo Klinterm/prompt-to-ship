@@ -79,7 +79,7 @@ none
 ## Research scope
 - Region: Germany
 - Currency: EUR
-- Reference year: 2025
+- Reference years: 2025
 - Project data sources: none
 - Trusted sources: the national tax authority
 - Excluded sources: none

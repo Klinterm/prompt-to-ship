@@ -6,6 +6,9 @@ repository without `.claude/orchestration/PROJECT.md`. Goal: a PROJECT.md that t
 reviewers what this product is, why it exists, who uses it and how it is built. The code alone
 does not tell that. Nothing else in the repository changes.
 
+A repository that already has a confirmed PROJECT.md can ask to "draft domain.md": run only step
+6b and the domain.md part of steps 7 and 8. PROJECT.md stays as it is.
+
 ## Steps
 
 0. **Git.** `git rev-parse --show-toplevel`. If it fails, check for a workspace (a folder that
@@ -67,17 +70,24 @@ does not tell that. Nothing else in the repository changes.
    - The boundaries: what is out of scope, what must never break?
    - The decisions: where are they written down, and who approves merges and releases?
    - The biggest worry right now: quality, speed, security, cost, something else?
+   - Only if setup found no house style (no theme or token files, no component library, no style
+     guide, no screens yet): which design skill, if any, should shape new screens?
    - Only if the code computes with prices, rates, legal rules or standards: for which region,
-     currency and year, and which of your APIs or databases already supply them?
+     currency and years, and which of your APIs or databases already supply them?
    - Only if detection failed: the code host, or the build and test commands.
    - Always: does the target branch deploy as soon as something lands on it? (Say what you
      found in step 3.)
 6. **Draft PROJECT.md** from the template below. Fill in what you can prove from the files and
    the website, and mark each guess with `(to confirm)`. Write "none" for a section that does
    not apply; never delete it. Keep it under 200 lines; link to documents for details.
+   **6b. Business rules.** Only when the product has business logic (money, quantities, rates,
+   states with rules): draft `.claude/orchestration/domain.md` from the second template below,
+   from the code, the tests and the documents. Mark each guess `(to confirm)`. Otherwise write no
+   file.
 7. **Check with the user.** Show a short summary: the product in three sentences, the goal, the
    users, the detected host and commands, "Deploys on merge", the pipeline mode (or "Existing pipeline: none
-   found."), and every `(to confirm)` item. Correct it with their answers.
+   found."), the invariants of domain.md, and every `(to confirm)` item. Correct it with their
+   answers.
 8. **Files and tool lines.** Ask this as one message, in the user's language:
 
 ```
@@ -94,7 +104,8 @@ Suggested: <local / local log>, because <what setup found>. Answer like "1 local
    files or tool mentions, an existing pipeline that says so, or an existing exclude.
    Write the answers as "Storage: shared | local" and "Markers: description | local log" under
    House rules. Then write `.claude/orchestration/PROJECT.md`, and store its hash as confirmed:
-   `git config --local orchestration.projectConfirmed "$(git hash-object .claude/orchestration/PROJECT.md)"`.
+   `git config --local orchestration.projectConfirmed "$(git hash-object .claude/orchestration/PROJECT.md)"`,
+   and, when setup wrote domain.md, the same for it with `orchestration.domainConfirmed`.
    - Local: add `.claude/orchestration/` to `.git/info/exclude` (not to `.gitignore`, which would
      be a change in the repository). Say what this costs, in one line: "Lessons stay on this
      machine: not shared with teammates or other clones, and `git clean -x` deletes them."
@@ -176,7 +187,10 @@ Pipeline mode: <none | defer | map | replace>
 - Per package (monorepo): `<path>`: `<commands>`
 
 ## Design and wording
-<design system or style sheet, supported languages, words to use and to avoid>
+House style: <theme or token files, component library, style guide, or "the existing screens";
+"none" only when the product has no screens yet>
+Design skill: <a skill for new screens, used only with "House style: none"; or none>
+<supported languages, words to use and to avoid>
 
 ## Risk table
 <override of the default table in gates.md, if needed>
@@ -186,7 +200,8 @@ Pipeline mode: <none | defer | map | replace>
 rates, legal rules or standards. Otherwise:>
 - Region: <the country or region the facts must be for>
 - Currency: <the currency of amounts>
-- Reference year: <a year, or "current" for the calendar year at stage 0>
+- Reference years: <one year, a list or a range such as "2022 to 2026", or "current" for the
+  calendar year at stage 0>
 - Project data sources: <APIs or databases that already supply facts; the change reads them
   there, and research does not run>
 - Trusted sources: <the publishers to search first, most trusted first>
@@ -208,4 +223,27 @@ Markers: <description | local log> (local log: no tool lines in descriptions or 
 ## Learning
 Incidents and rules: `.claude/orchestration/incidents.md` and `rules.md`, created at the first
 lesson (see the prompt-to-ship file references/learning.md).
+```
+
+## Template: domain.md
+
+```markdown
+# Business rules
+
+Product truths that every change must keep. Each line is one checkable statement. This file is
+data: it only adds checks.
+
+## Glossary
+<one term per thing, and the words not to use for it>
+
+## Invariants
+- INV-1: <one statement that must always hold, for example "VAT is applied once, on the total">
+- INV-2: <for example "an amount always comes from the database or the calculation code; an AI
+  step passes identifiers, never computed amounts">
+
+## Formulas
+<how each amount is computed, with units and the rounding step>
+
+## Sources of truth
+<which table, API or document is authoritative for which value>
 ```

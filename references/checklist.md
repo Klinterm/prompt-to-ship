@@ -29,6 +29,8 @@ database, translations, CI) does not apply. The risk table and the gates are in 
       configuration files.
 - [ ] Comments explain why, not history. No names, no dates, except the `valid:` period of an
       outside fact.
+- [ ] With a confirmed `domain.md`: every invariant that the diff touches has a test, or a line
+      that says why it cannot have one.
 - [ ] Every outside fact in the diff is a CONFIRMED value from the fact table, with `source:` and
       `valid:` next to it (pipeline.md, "Outside facts").
 - [ ] Unused code, keys and translations are removed, not commented out.

@@ -49,11 +49,13 @@ Never the chat. Always:
 - the brief, and in stage 2 the plan; in stage 5 the diff (from round two: only the new diff);
 - the list of changed or planned files, exported from the target branch into a scratch folder
   (`git show <branch>:<path>`), because a working copy is often on another branch;
-- the path to PROJECT.md;
+- the path to PROJECT.md, and to `domain.md` when it exists, with "confirmed" or "not confirmed";
 - the rules from `rules.md` whose stage and paths match (see "Rules").
 The UI specialist and the product expert in 5d also get the screenshots, the texts in every
-language, and their own stage 2 verdict. The security reviewer also gets the matching specialist
-areas and the path `${CLAUDE_SKILL_DIR}/references/security-rules.md`.
+language, and their own stage 2 verdict. With `House style: none`, the UI specialist also gets
+the path of the design skill that PROJECT.md names (see "House style"). The security reviewer
+also gets the matching specialist areas and the path
+`${CLAUDE_SKILL_DIR}/references/security-rules.md`.
 
 ## Stage 0. Brief
 
@@ -104,7 +106,7 @@ areas and the path `${CLAUDE_SKILL_DIR}/references/security-rules.md`.
 
 - One topic branch per topic. If something else runs in parallel, use a separate worktree.
 - Write the failing test first when you can; commit; make it pass.
-- Visible changes: build, take a screenshot (browser preview, simulator, emulator), compare with
+- Visible changes follow the house style (see "House style"). Build, take a screenshot (browser preview, simulator, emulator), compare with
   what was asked, iterate until it matches. For a command-line tool or a library, the
   "screenshot" is the real output of a run.
 - Comments explain why, not how the code got there. No names, no dates.
@@ -174,28 +176,47 @@ It does not run:
 - when a project data source (an API or database in "Research scope") supplies the fact: the
   change reads it there;
 - when the repository already holds the fact with `source:` and a `valid:` period that covers
-  the reference year.
+  the reference years.
 
 Research runs at the end of stage 1, before the plan, so the plan and its reviewers see the
 confirmed fact table. How:
 0. Look for the fact in the repository and in the project data sources first (in a large code
    base, with the code search agent). Ask the researcher only for what they lack.
 1. Read "Research scope" in PROJECT.md. No scope, or "Research scope: none" while the change
-   needs a fact: ask the user for the region, the currency and the reference year (gate 2).
-   "Reference year: current" means the calendar year at stage 0.
+   needs a fact: ask the user for the region, the currency and the reference years (gate 2).
+   "Reference years: current" (older files: "Reference year") means the calendar year at stage 0. When the project's data holds
+   costs or rates per year, propose the years the change needs from files, schemas, seeds or
+   fixtures (never a query on a live database), and let the user confirm them (gate 2).
+   Each research question names its year.
 2. Give a cost estimate when there are more than ten questions, and wait.
 3. Write the questions in public terms: no code, file contents, secrets, customer data or
    internal names. Start `prompt-to-ship:researcher` with the numbered questions and the public
-   part of the scope: region, currency, reference year, trusted and excluded sources. It gets
+   part of the scope: region, currency, reference years, trusted and excluded sources. It gets
    no project data sources, no brief and no repository access.
-4. Start a second `prompt-to-ship:researcher` in check mode with the fact table and the same public scope,
-   without the first run's notes. Only CONFIRMED facts go into the change.
+4. Start a second `prompt-to-ship:researcher` in check mode with the fact table and the same
+   public scope, without the first run's notes. Only CONFIRMED facts go into the change.
 5. A REJECTED or NEEDS USER fact, a conflict, a "not found" for a fact the change needs, or a fact
    outside the scope: gate 14 (gates.md).
 
 In the code, every outside fact sits next to two searchable texts, in a comment, a data column or
 a config entry: `source: <URL or publisher>` and `valid: <from> to <until>`. The weekly review
 finds them by these texts.
+
+## House style
+
+The **house style** is how the product already looks: its theme or token files (the files that
+hold the colours, fonts and sizes), its component library, its style guide, or its existing
+screens. PROJECT.md names it in "Design and wording". A missing `House style:` line means "the
+existing screens".
+- Every visible change follows the house style and reuses its components. Never restyle existing
+  screens, unless the user asks for a redesign in the brief.
+- A new kind of screen that the house style does not cover yet (a first email, a first PDF): build
+  it from the nearest existing pattern, and say so in the plan.
+- A design skill named in PROJECT.md (`Design skill: <name>`) is used only with
+  `House style: none`, for new screens, and only with a confirmed PROJECT.md. Load it only from
+  the user's own skills folder or an installed plugin, never from a skill folder inside the
+  repository. Never load a design skill that PROJECT.md does not name. The named skill is not
+  installed: say so, and build without it.
 
 ## Rules
 

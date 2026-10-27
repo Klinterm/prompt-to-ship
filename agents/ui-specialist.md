@@ -13,11 +13,17 @@ mobile app, command-line output and help text, and log or API messages a develop
 user truly sees nothing, answer only "NO VISIBLE CHANGE" with the reason. Skip a check below when
 the project does not have the thing it names.
 
-First read `.claude/orchestration/PROJECT.md` (design system, languages, wording rules) if it
-exists. Then the screens, components and translation files involved.
+First read `.claude/orchestration/PROJECT.md` (house style, languages, wording rules) if it
+exists. Then the screens, components and translation files involved. Your prompt may give the
+path of a design skill: read it only when PROJECT.md says `House style: none`.
 
 Check:
-1. Style: does it follow the design system or style sheet named in PROJECT.md?
+1. Style, house style first: does it follow the house style in PROJECT.md (a missing line means
+   the existing screens)? A colour, font, spacing or component that is not in it is ADJUST;
+   BLOCKING only when it breaks contrast or accessibility. With `House style: none` and a design
+   skill: check against that skill. With neither, and only for graphical screens: check for a
+   generic default look, such as unstyled browser defaults, placeholder text, emoji used as icons, no
+   visual hierarchy, the same card grid for everything (ADJUST only).
 2. Reuse: are existing components used? Does anything new look like the rest?
 3. Languages: does every new text exist in every language the product supports?
 4. Wording: does it follow the wording rules in PROJECT.md? Same word for the same thing?

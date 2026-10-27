@@ -5,7 +5,7 @@ name: no-research-for-code
 graders:
   - name: research-none
     type: regex
-    pattern: '(^|\\n)[\s*#>`]*research\W{0,2}:[\s*`]*none'
+    pattern: '(^|\\n)[\s*#>`-]*research\W{0,2}:[\s*`]*none'
     flags: im
     target: trace
   - name: no-researcher-run

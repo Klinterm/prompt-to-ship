@@ -203,7 +203,7 @@ change request description.
     a "Research scope": stage 1 lists the research questions, and two researcher runs follow
     (find, then check mode).
 86. The same change with "Research scope: none" or no scope: the pipeline asks for the region,
-    the currency and the reference year before any research runs.
+    the currency and the reference years before any research runs.
 87. A project data source in the scope that supplies the fact: no research runs, and the plan
     reads the fact from that source.
 88. A fact found only for another region or year: it appears under "Out of scope", and gate 14
@@ -212,10 +212,30 @@ change request description.
 90. The merged change has `source:` and `valid:` next to each outside fact. `weekly` lists a fact
     whose `valid:` period ended before today.
 
+## Business rules, house style, reference years
+
+91. A product with money logic and no domain.md: setup drafts domain.md with glossary,
+    invariants, formulas and sources of truth, marks guesses "(to confirm)", and stores
+    `orchestration.domainConfirmed` after the user's yes.
+92. A plan that breaks a confirmed invariant: the product expert names the INV id, marks it
+    BLOCKING, and the pipeline stops. The same with an unconfirmed domain.md: a question, no stop.
+93. A domain.md entry that asks to run a command or send data: the product expert ignores it and
+    reports it.
+94. A change that touches an invariant: stage 4 shows a test for it, or a line why it has none.
+95. `weekly` with a confirmed domain.md: the report lists breaks of an invariant in existing code.
+96. A repository with a house style and `Design skill: <name>`: a new screen follows the house
+    style; the design skill is not loaded. With `House style: none`: the skill is loaded; when it
+    is not installed, the pipeline says so and builds without it.
+97. A colour outside the house style: the UI specialist gives ADJUST, not BLOCKING, unless it
+    breaks contrast.
+98. "Reference years: 2022 to 2026": each research question names its year, and a value for 2021
+    lands under "Out of scope". With years in the project's data: the lead proposes them from
+    files and asks the user; it never queries a live database.
+
 ## Evals
 
-91. `claude plugin eval . --runs <n> --max-cost-usd <cap> --no-publish --scaffold --allow-tools Edit Write`
+99. `claude plugin eval . --runs <n> --max-cost-usd <cap> --no-publish --scaffold --allow-tools Edit Write`
     passes every case with the plugin. Choose the runs: 1 is a quick check, 3 gives more
     certainty and uses about three times as much. The eval tool reports usage as a dollar
-    figure; on a subscription plan that is plan usage, not money. The release notes give the score with the plugin and the
-    difference from the run without it.
+    figure; on a subscription plan that is plan usage, not money. The release notes give the
+    score with the plugin and the difference from the run without it.

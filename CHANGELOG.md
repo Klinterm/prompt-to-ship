@@ -2,6 +2,34 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.10.0
+
+Business rules, house style first, and reference years.
+- New optional `.claude/orchestration/domain.md`: glossary, invariants (INV-1 and on), formulas
+  and sources of truth. Setup drafts it when the product has business logic. You confirm it by
+  hash (`orchestration.domainConfirmed`), like PROJECT.md.
+- The product expert checks plans and results against it. A broken confirmed invariant stops
+  the pipeline; an unconfirmed one gives a question. Every touched invariant needs a test. The
+  weekly review checks the existing code against the invariants.
+- An invariant is a separate learning home, used only when you state a product truth.
+- In pipeline mode `defer`, a repository agent with full product cover stays full. With a
+  confirmed domain.md, the pipeline offers once to add the product expert for the business
+  rules only.
+- House style first: visible work follows the product's own look and reuses its components. A
+  design skill named in PROJECT.md (`Design skill:`) is used only with `House style: none`. A
+  missing `House style:` line means the existing screens. A design skill loads only with a
+  confirmed PROJECT.md, and never from a skill folder inside the repository. The UI specialist gives ADJUST for a
+  deviation, BLOCKING only when accessibility breaks. The PROJECT.md confirm step now shows the
+  design skill.
+- The research scope takes reference years: one year, a list or a range. When your data holds
+  years, the lead proposes them from files and you confirm them; it never queries a live
+  database.
+- New eval case `invariant-stops`. It passes with and without the plugin: plain Claude also reads
+  domain.md when the file exists, so it guards a regression and shows no difference.
+- Eval result (`--runs 1`): 11 of 12 cases pass with the plugin; 6 score 0 to 0.33 without it.
+  Known gap: in `no-research-for-code` the agent started no research, as it should, but showed
+  the `Research: none` line in only 2 of 4 runs.
+
 ## 2.9.2
 
 - Diagram: code search always runs; only in a large code base does it get its own agent. The
