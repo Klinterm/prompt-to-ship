@@ -63,7 +63,7 @@ https://github.com/Klinterm/prompt-to-ship. The README is the home page.
 - `agents/`: six read-only reviewers.
 - `hooks/`: the opt-in reminder.
 - `references/`: pipeline, setup, existing pipeline, checklist, security rules, code hosts,
-  autonomy, weekly review.
+  autonomy, learning, weekly review.
 - `TESTING.md`: the acceptance test before a release.
 Out of scope: running code on behalf of reviewers, merges that bypass host protection, automatic
 reverts, non-git version control.
@@ -122,8 +122,6 @@ merges and tags)
 The hook runs a shell command on every prompt for every user. It must stay a read-only, fixed
 command. Reviewers must never execute project code.
 
-## Incidents
-| Date | What went wrong | Stage that should have caught it | Rule added |
-|---|---|---|---|
-| 2026-10-27 | First real test: level `merge` would let a merge reach production in a repository whose main deploys on every push | 2 (plan): the autonomy design | autonomy.md "Deploys on merge": such a merge is a release and needs level `release` |
-| 2026-10-27 | 2.1.0 shipped with "version 2.0.0" in the README status line | 4 (prove): the release checks | The README names no version; TESTING.md static check 3 now fails on a version number outside CHANGELOG.md |
+## Learning
+Incidents and rules: `.claude/orchestration/incidents.md` and `rules.md` (rules.md appears at the
+first stage rule). See references/learning.md.

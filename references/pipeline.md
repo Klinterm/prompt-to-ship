@@ -106,7 +106,9 @@ the same text that steered the author.
 
 Then push only the topic branch and open the change request as described in code-hosts.md.
 Description with three short parts:
-- **Tested:** what was run or looked at, with the result.
+- **Tested:** what was run or looked at, with the result. Add the lines "Rules matched",
+  "Rules that caught something", "Rules overruled" and "Near-miss" from learning.md, only those
+  that apply.
 - **Risk:** low, normal or high, and why.
 - **How to revert:** revert the merge, roll back the migration (if any), switch off a flag.
 
@@ -131,10 +133,9 @@ continue to stage 7 only at levels `merge` and `release`.
 
 ## Stage 8. Learn
 
-1. Which stage should have caught this?
-2. Put the rule there: PROJECT.md, checklist.md, or the agent file.
-3. Log the incident in the incident table of PROJECT.md.
-4. A rule that never catches anything and costs time may go. Tell the user.
+Follow [learning.md](learning.md): log the incident, run the lesson test, choose the narrowest
+home, let the validator check the lesson, and propose it. A lesson goes on its own branch, after
+the change that caused it. End each change with the one-line rules summary.
 
 ## Rhythm
 

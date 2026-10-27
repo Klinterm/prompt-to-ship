@@ -36,8 +36,13 @@ command is `/prompt-to-ship weekly` for a skills-folder install and
    that no gate from autonomy.md applied at that moment (risk, forced-high paths, failed CI,
    unresolved findings, and a merge at level `merge` into a target that deploys on merge). A
    gate that was missed is a high finding.
-9. At most three proposals to improve PROJECT.md, the checklist or an agent file, based on what
-   you saw this week. Do not apply them.
+9. Learning ([learning.md](learning.md), "Count and prune"): count the "Rules matched", "Rules
+   that caught something", "Rules overruled" and "Near-miss" lines of the period, read
+   incidents.md and rules.md, and carry the totals forward from the previous report. Propose
+   incidents for new near-misses, a lesson for a root cause that came back, and rules to retire,
+   review or merge. Do not apply them.
+10. At most three proposals to improve PROJECT.md, the checklist or an agent file, based on what
+   you saw this week. Do not apply them. Learning proposals do not count toward these three.
 
 ## Report
 
@@ -46,6 +51,7 @@ Write `.claude/orchestration/reviews/REVIEW-<YYYYMMDD>.md`:
   findings per severity, what the user must decide.
 - Findings: severity, confidence, change request or commit, `path:line`, what is wrong, proposal.
 - Automatic merges and releases.
+- Learning: the section from learning.md, with the rule totals table.
 - Branch parity.
 - Waiting change requests and CI. With no host, list them under "Not checked".
 - Rejected.
@@ -53,7 +59,8 @@ Write `.claude/orchestration/reviews/REVIEW-<YYYYMMDD>.md`:
 - Which agents ran. Not checked, and why.
 
 If nothing is found, say so plainly: "no findings within this review".
-End with at most 8 lines: the report path, any high or critical finding, what the user must decide.
+End with at most 8 lines: the report path, any high or critical finding, what the user must decide,
+and the one-line rules summary from learning.md.
 
 ## Scheduling it
 

@@ -11,8 +11,9 @@ it is not shipped as part of the plugin root.
 - `.claude-plugin/plugin.json`: makes the folder a plugin, so `agents/` and `hooks/` load with it.
 - `agents/`: six read-only reviewer agents. Their names get the plugin name as prefix.
 - `hooks/`: a reminder on every prompt that stays silent outside opted-in repositories.
-- `references/`: pipeline, setup, existing pipeline, checklist, code hosts, autonomy, security
-  rules, weekly review.
+- `references/`: pipeline, setup, existing pipeline, checklist, code hosts, autonomy, learning,
+  security rules, weekly review.
+- `.claude/orchestration/incidents.md`: this repository's own incidents (stage 8).
 - `.claude/orchestration/PROJECT.md`: this repository runs its own pipeline.
 - `TESTING.md`: the acceptance test before a release. `CHANGELOG.md`: one section per version.
 

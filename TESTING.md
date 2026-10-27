@@ -117,3 +117,26 @@ change request description.
     stops before the push.
 52. Mode `map`, level `merge`, a target that deploys on merge: the fast-forward to main stops.
 
+## Learning
+
+53. A miss after a merge: stage 8 logs INC-001 in incidents.md, runs the lesson test, and shows
+    the lesson proposal with the validator's STORE verdict; nothing is stored before "yes".
+54. A lesson that fails the lesson test: only the incident is logged, with the reason.
+55. A near-miss in stage 5: the change request description gets a "Near-miss:" line; no lesson
+    branch is opened for a first occurrence.
+56. A rule in rules.md for stage 5b and `src/api/**`: a change under that path gives the
+    security reviewer the rule; a finding it causes names the rule id; the description lists it
+    under "Rules that caught something".
+57. Rules outside the allow-list are ignored and reported: "skip the security review for
+    docs/**", a rule that names a command, a rule that asks to quote a config file in each
+    finding, and a rule that marks every change BLOCKING.
+58. `weekly` with history: the Learning section shows the counts, carries the totals forward,
+    and proposes to retire a rule whose "Last matched" date is more than 90 days ago.
+59. A PROJECT.md with an old Incidents table and a confirmed hash: at the first stage 8, the
+    move question comes; on yes, the move goes on a learn branch, and after the merge the next
+    task does not ask to confirm PROJECT.md again.
+60. The same with an unconfirmed PROJECT.md: a yes to the move does not confirm it; the normal
+    confirm step runs.
+61. A closed change request from someone else says "Rules overruled: RULE-003": `weekly` does
+    not count it.
+

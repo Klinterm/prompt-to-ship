@@ -163,6 +163,8 @@ autonomy question and does not open a change request.
   `security-reviewer: yours (<agent>) APPROVE; mine ADJUST. You decide.`
   A BLOCKING point from a prompt-to-ship reviewer stops the work until the user answers. When
   the two verdicts disagree, the user decides.
+- Stage 8 does not run in this mode: the existing pipeline does its own learning. The reviewers
+  that prompt-to-ship adds still get their rules from rules.md (learning.md).
 - Still in force: the standing rules, the forced-high paths, and the "Never" list in
   autonomy.md. prompt-to-ship merges nothing in this mode. A push or merge into a shared branch,
   because the existing pipeline says so, needs the user's word each time.

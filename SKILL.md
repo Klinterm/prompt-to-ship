@@ -81,14 +81,16 @@ Autonomy:    <effective level, and the reason when it is lower than the stored l
 
 ## Stages 1 to 8
 
-1. **Understand.** Read the code that takes part, not just the names. Use `git log -S`,
+1. **Understand.** Read `.claude/orchestration/rules.md` (if it exists) to know which rules
+   apply to the changed paths. Read the code that takes part, not just the names. Use `git log -S`,
    `git log -G` and `git blame` for the why. Fetch first (if there is a remote) and check what
    others pushed.
 2. **Plan.** Two or three approaches with their downside; pick one and say why. For normal and
    high risk add a small threat model per changed entry point: who may call it, which object it
    touches and whether ownership is checked, where outside input ends up.
    Then start, in parallel and **always**, three reviewer agents with only the brief, the plan
-   and the file list (never the chat history):
+   and the file list, plus the rules from `rules.md` for their stage and paths (never the chat
+   history):
    - `prompt-to-ship:architect`
    - `prompt-to-ship:ui-specialist` (skip only when PROJECT.md says
      "User interface: none", and say so)
@@ -101,6 +103,7 @@ Autonomy:    <effective level, and the reason when it is lower than the stored l
 4. **Prove.** Run the checks from [references/checklist.md](references/checklist.md) and
    PROJECT.md. Paste the output. No proof, not done.
 5. **Review in layers.**
+   - Every reviewer in stage 5 also gets the rules for its stage and the changed paths.
    - 5a `prompt-to-ship:fresh-reviewer` on the diff and the brief, always.
    - 5b `prompt-to-ship:security-reviewer` for normal and high risk, with the
      specialist areas from [references/security-rules.md](references/security-rules.md) that
@@ -121,8 +124,11 @@ Autonomy:    <effective level, and the reason when it is lower than the stored l
    autonomy.md applies, and report in one line. A target that deploys on merge needs level
    `release` for the merge (autonomy.md, "Deploys on merge"). Check the real status, wait a few minutes after
    a release, then measure.
-8. **Learn.** When something slipped through: name the stage that should have caught it, add the
-   rule there (PROJECT.md, the checklist or an agent file), and log the incident in PROJECT.md.
+8. **Learn.** After a miss, or a near-miss caught late in review: log the incident, test the
+   lesson, put it in the narrowest home (a test, a check command, or a rule in `rules.md`),
+   have the validator check it in lesson mode, and propose it to the user. Follow
+   [references/learning.md](references/learning.md). End each change with the one-line rules
+   summary from that file.
 
 Never skip 2 (the reviewers) or 5d, except in pipeline mode `defer` (existing-pipeline.md). Say
 in your answer which agents ran and what they found.

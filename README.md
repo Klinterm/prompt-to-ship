@@ -55,8 +55,11 @@ go away. See [Autonomy](#autonomy).
 6. **Pull or merge request.** The description always has three parts: what was tested, the risk,
    and how to revert the change.
 7. **Merge and measure.** After the release, Claude checks that the goal from the brief is met.
-8. **Learn.** When a mistake gets through, Claude adds a rule at the step that should have caught
-   it.
+8. **Learn.** When a mistake gets through, or a late review catches what an earlier step should
+   have caught, Claude logs it. If the lesson is worth keeping, Claude puts it in the narrowest
+   place: a test, a check command, or a rule for one step. You confirm each one. The weekly
+   review shows which rules still catch problems and proposes to retire the rest. See
+   [How it learns](#how-it-learns).
 
 Each reviewer agent gets only the brief, the plan and the files. It never sees the chat. This
 keeps its view fresh.
@@ -241,8 +244,33 @@ Each serious finding adds one validator run. A repository without a user interfa
   the maximum.
 - **Evidence for security findings.** Each finding needs a path from the input to the risk, with
   file and line. A validator tries to disprove it.
-- **Learning.** Each mistake that gets through becomes a rule at the step that should have
-  caught it.
+- **Learning.** Each mistake that gets through becomes a check at the step that should have
+  caught it. Checks that stop paying off are retired.
+
+## How it learns
+
+Claude keeps two files next to PROJECT.md: `incidents.md` (what went wrong) and `rules.md` (the
+checks it learned).
+
+1. **Log.** A miss (a problem that reached your main branch or production) is logged right
+   away. A near-miss
+   (a late review caught what the plan should have caught) is first one line in the request.
+   It becomes a lesson only when the same cause comes back.
+2. **Test.** A lesson is kept only when it is non-obvious, durable and material.
+3. **Narrowest home.** A test first, then a check command, then a rule for one step and the
+   files it applies to.
+4. **Verify.** The validator checks that the lesson would have caught the mistake, and that it
+   only adds a check. A rule can never remove a reviewer, a gate or a safety rule.
+5. **Confirm.** You see each lesson and decide.
+6. **Use.** Each reviewer gets the rules for its own step. A finding names the rule that caused
+   it.
+7. **Count and retire.** The weekly review counts how often each rule applied, caught something
+   or was overruled. It shows whether old mistakes come back, and proposes to retire rules that
+   no longer help.
+
+At the end of each change you see one line, for example: "Rules: 11 active, 3 matched this
+change, 1 caught (RULE-012)." The full rules are in
+[references/learning.md](references/learning.md).
 
 ## Problems and ideas
 
@@ -259,7 +287,7 @@ prompt-to-ship/
                                    fresh-reviewer, security-reviewer, validator (all read-only)
   hooks/                           a short reminder on each message, silent in other repositories
   references/                      pipeline, setup, existing pipeline, checklist, code hosts,
-                                   autonomy, security rules, weekly review
+                                   autonomy, learning, security rules, weekly review
   docs/                            the README diagrams, and the script that draws them
   TESTING.md                       the acceptance test before a release
   CHANGELOG.md, LICENSE

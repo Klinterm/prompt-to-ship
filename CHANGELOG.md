@@ -2,6 +2,26 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.4.0
+
+A real learning loop for stage 8 (`references/learning.md`). Ideas taken from Every's
+compound-engineering plugin, obra/superpowers, the ACE paper and Anthropic's best practices.
+- Incidents go in `.claude/orchestration/incidents.md`, rules in `rules.md` (a table with
+  RULE-ids, stage, paths, check, why, added, retire when). PROJECT.md only points to them. An old
+  Incidents table in PROJECT.md keeps working, and is moved on the user's yes.
+- A lesson must pass a test (non-obvious, durable, material), goes to the narrowest home (a
+  test, a check command, a rule), is checked by the validator in a new lesson mode (STORE or
+  REJECT), and needs the user's yes. It lands on its own branch, after the change.
+- A miss gives a lesson proposal right away. A near-miss is first a line in the description and
+  becomes a lesson when its root cause comes back.
+- Each reviewer gets the rules for its stage and paths, and cites rule ids. A rule can only add
+  a check and never names a command.
+- The weekly review counts matched, caught and overruled per rule in its own report, proposes to
+  retire, review or merge rules, and reports how often old mistakes come back.
+- Each change ends with a one-line rules summary.
+- Known limit: the validator judges whether a lesson would have caught the incident; it does not
+  replay it.
+
 ## 2.3.0
 
 Lessons from the first real test run:

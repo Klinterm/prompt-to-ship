@@ -166,7 +166,7 @@ chooses up to this)
 ## Security context
 <can anyone sign up? what is internal? known open findings and where they are tracked>
 
-## Incidents
-| Date | What went wrong | Stage that should have caught it | Rule added |
-|---|---|---|---|
+## Learning
+Incidents and rules: `.claude/orchestration/incidents.md` and `rules.md`, created at the first
+lesson (see the prompt-to-ship file references/learning.md).
 ```
