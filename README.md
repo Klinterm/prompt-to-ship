@@ -322,6 +322,8 @@ prompt-to-ship/
   references/                      pipeline, gates, setup, workspace, existing pipeline, checklist,
                                    code hosts, autonomy, learning, security rules, weekly review
   docs/                            the README diagrams, and the script that draws them
+  evals/                           behaviour tests for maintainers (claude plugin eval); users do
+                                   not need them
   TESTING.md                       the acceptance test before a release
   CHANGELOG.md, LICENSE
 ```

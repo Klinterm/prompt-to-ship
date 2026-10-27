@@ -122,7 +122,11 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Parked: agent teams as the default for stage 2 (cost).
 - Decision 2026-10-27 (maintainer): evals are unparked. A `claude plugin eval` suite runs before
   each minor release, with a cost estimate first; never as a blocking check on every commit.
-  Until the suite exists (Phase B), a release states "no eval run".
+  The suite is in `evals/`. Run it with
+  `claude plugin eval . --runs 1 --max-cost-usd 3 --no-publish --scaffold --allow-tools Edit Write`
+  (the pilot of 2 cases used about $0.75). Native Windows has no Bash sandbox, so the cases give
+  the agent no shell. A release states the score with the plugin and the difference from the run without it, or
+  "no eval run".
 - Decision 2026-10-27 (maintainer): three plan reviewers always, also for low risk (no light
   lane). R6 "cheap where possible" applies to stage 5, not to stage 2.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
