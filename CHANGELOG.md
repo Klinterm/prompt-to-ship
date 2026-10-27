@@ -2,6 +2,32 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.9.0
+
+Outside facts and an eval suite. (2.8.0 was not released; its eval work is part of this
+version.)
+- New agent `prompt-to-ship:researcher`. It finds outside facts (prices, rates, tariffs, legal or
+  tax rules, standards, external API contracts) on the web, with sources, and never invents a
+  value. A second run in check mode, without the first run's notes, confirms each fact.
+- Research runs only when a change needs an outside fact. Stage 1 ends with
+  `Research: <questions | none>`, and the three plan reviewers check that line. No research runs
+  when a project API or database already supplies the fact.
+- New "Research scope" section in PROJECT.md: region, currency, reference year, project data
+  sources, trusted and excluded sources.
+- New gate 14: an outside fact that is not confirmed, out of scope, from an excluded source, in
+  conflict or not found stops the pipeline.
+- Every outside fact in code has `source:` and `valid:` next to it. The weekly review lists facts
+  whose period has ended.
+- The researcher is not a review role: defer mode role cover does not change.
+- Cost estimates follow your setup: tokens and agent runs on a subscription plan, a price on
+  API billing.
+- New `evals/` folder with 11 behaviour cases for `claude plugin eval` (maintainers only).
+- Eval result (`--runs 1`, one run per arm): all 11 cases pass with the plugin. Without it, 6
+  cases score 0 to 0.33 (brief, high risk, forced-high path, first use, repository text as data,
+  research for an unsourced rate), 2 cases score 0.67, and 3 guard cases score 1.0: Claude already
+  does this on its own, and the cases catch a regression. One case passed after a judge fix, one
+  after a skill fix (the plan now shows the `Research:` line); each was then rerun on its own.
+
 ## 2.7.0
 
 Coherence and load (from an audit of the whole skill). No new features. No eval run (the eval

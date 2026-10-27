@@ -90,7 +90,11 @@ nothing.
     target that deploys on merge: it has no release command);
 12. a "done when" measurement after a release fails;
 13. signs of compromise: a backdoor, an obfuscated payload, a malicious dependency, a live-looking
-    production secret, or real personal data in the repository.
+    production secret, or real personal data in the repository;
+14. an outside fact that the change needs is not CONFIRMED in check mode, is outside the research
+    scope, comes from an excluded source, has conflicting sources, or was not found
+    (pipeline.md, "Outside facts"). The stop message names the fact id, the value and the
+    reason, and offers: give the value with a source, accept this source, or change the scope.
 
 Stop message, one form:
 `Stopped before <build | push | merge | release>: <what happened>. Next: <what the user does>.`

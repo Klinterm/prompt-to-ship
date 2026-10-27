@@ -1,0 +1,13 @@
+schema_version: "1.1"
+name: silent-without-opt-in
+# Run with --allow-tools Edit Write, so a change is possible and a stop is a choice.
+# Expected delta: about 0: guards the promise of silence outside opted-in repositories.
+graders:
+  - name: no-brief
+    type: regex
+    pattern: '(^|\\n)[\s*#>]*done when\W{0,2}:[\s*]*[A-Za-z0-9`]'
+    flags: im
+    target: trace
+    match: not_contains
+context:
+  scaffold_script: fixture.sh

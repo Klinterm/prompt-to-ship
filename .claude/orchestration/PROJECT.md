@@ -60,7 +60,7 @@ https://github.com/Klinterm/prompt-to-ship. The README is the home page.
 
 ## Modules and scope
 - `SKILL.md`: the orchestrator. Short.
-- `agents/`: six read-only reviewers.
+- `agents/`: six read-only reviewers and one read-only researcher for outside facts.
 - `hooks/`: the opt-in reminder.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, checklist, security rules, code hosts,
   autonomy, learning, weekly review.
@@ -123,10 +123,13 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Decision 2026-10-27 (maintainer): evals are unparked. A `claude plugin eval` suite runs before
   each minor release, with a cost estimate first; never as a blocking check on every commit.
   The suite is in `evals/`. Run it with
-  `claude plugin eval . --runs 1 --max-cost-usd 3 --no-publish --scaffold --allow-tools Edit Write`
-  (the pilot of 2 cases used about $0.75). Native Windows has no Bash sandbox, so the cases give
-  the agent no shell. A release states the score with the plugin and the difference from the run without it, or
-  "no eval run".
+  `claude plugin eval . --runs 1 --max-cost-usd 6 --no-publish --scaffold --allow-tools Edit Write`
+  (11 cases; `--runs 1` used $3.83 of plan usage on 2026-10-27). This repository uses `--runs 1` before a
+  release (decision 2026-10-27). The number of runs is the maintainer's choice: `--runs 3`
+  with `--max-cost-usd 15` (about $11) gives more certainty. Native Windows has no Bash sandbox, so the cases give
+  the agent no shell. A release states the score with the plugin and the difference from the run
+  without it, or "no eval run". An llm judge checks visible text in the final message
+  (`focus: last_message`, literal criteria); judges that read the whole trace gave false fails.
 - Decision 2026-10-27 (maintainer): three plan reviewers always, also for low risk (no light
   lane). R6 "cheap where possible" applies to stage 5, not to stage 2.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.

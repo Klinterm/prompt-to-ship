@@ -19,7 +19,7 @@ for GitHub, GitLab and others.
 ## How it works
 
 <p align="center">
-  <img src="docs/pipeline.svg" width="760" alt="The pipeline. You ask for a change. A hook reminds Claude of every step. Step 0: brief, waits on high risk or an open question. Step 1: understand, with an optional search agent in a large code base. Step 2: plan, checked by the architect, the UI specialist if there is a user interface, and the product expert. The plan with three verdicts waits for your go on normal and high risk. Steps 3 and 4: build and prove. Step 5: review by a fresh reviewer, a security reviewer on normal and high risk, one validator per serious finding, and the UI and product reviewers. Step 6: pull or merge request, you decide about the merge. Step 7: merge and measure, your word each time. Step 8: learn.">
+  <img src="docs/pipeline.svg" width="760" alt="The pipeline. You ask for a change. A hook reminds Claude of every step. Step 0: brief, waits on high risk or an open question. Step 1: understand, with an optional code search agent in a large code base, and an optional researcher when the change needs outside facts. Step 2: plan, checked by the architect, the UI specialist if there is a user interface, and the product expert. The plan with three verdicts waits for your go on normal and high risk. Steps 3 and 4: build and prove. Step 5: review by a fresh reviewer, a security reviewer on normal and high risk, one validator per serious finding, and the UI and product reviewers. Step 6: pull or merge request, you decide about the merge. Step 7: merge and measure, your word each time. Step 8: learn.">
 </p>
 
 The diagram shows the default level, `ask`. At a higher level, some red "waits for you" boxes
@@ -32,7 +32,9 @@ go away. See [Autonomy](#autonomy).
    also says how to prove that the work is done. On high risk or an open question, Claude stops
    and asks you.
 1. **Understand.** Claude reads the code that takes part, and the git history that explains it.
-   In a large code base, a search agent does the wide search.
+   In a large code base, a code search agent does the wide search. When the change needs a fact
+   from outside the code, such as a price, a tax rate or a legal rule, the **researcher** looks
+   it up on the web. See [Outside facts](#outside-facts).
 2. **Plan.** Claude chooses an approach and names its risks. Three reviewer agents check the plan
    at the same time. Each one gives a verdict: approve, or adjust with reasons.
    - The **architect** checks the structure, the data and whether the change can be undone.
@@ -66,6 +68,29 @@ keeps its view fresh.
 
 Once a week, the `weekly` command reviews the pull or merge requests of the last 7 days. It
 only reads and changes nothing.
+
+## Outside facts
+
+Some changes compute with facts that the code cannot prove: a price, a tax rate, a tariff, a
+legal rule, a standard or the contract of an external API. A wrong region or a wrong year gives
+a wrong result without an error. prompt-to-ship handles these facts as follows:
+
+1. **Only when needed.** In step 1, Claude decides if the change needs an outside fact. It ends
+   step 1 with a research line: "none", or the questions. Normal code work never starts
+   research. The plan reviewers check this line.
+2. **Your own data first.** When one of your APIs or databases already supplies the fact, the
+   change reads it there, and no research runs.
+3. **A fixed scope.** The project file sets the region, the currency and the reference year.
+   A value for another region or year is never used.
+4. **Sources, not guesses.** The researcher searches official sources first. It gives each fact
+   with its value, region, period, source and confidence. "Not found" is a valid answer: Claude then stops and asks you.
+5. **A second check.** A second researcher, without the first one's notes, opens each source
+   again. Only confirmed facts go into the code. A conflict between sources goes to you.
+6. **Traceable in the code.** Each fact gets `source:` and `valid:` next to it. The weekly
+   review lists facts whose period has ended, for example after a new year starts.
+
+Set the scope in `.claude/orchestration/PROJECT.md`, section "Research scope". Write
+"Research scope: none" when your product does not compute with outside facts.
 
 ## Autonomy
 
@@ -259,8 +284,11 @@ single chat answer. Agent runs per change, for one review round:
 | Normal | 7: the same, plus the security reviewer |
 | High | 7, and you read the change yourself |
 
-Each serious finding adds one validator run. A repository without a user interface can set
-"User interface: none" in its project file. This saves two runs per change.
+Each serious finding adds one validator run. A change that needs outside facts adds two
+researcher runs: one to find them and one to check them. Most changes need none.
+
+A repository without a user interface can set "User interface: none" in its project file. This
+saves two runs per change.
 
 ## Why it works this way
 
@@ -317,7 +345,8 @@ prompt-to-ship/
   .claude-plugin/plugin.json       makes the folder a plugin, so agents and the hook load with it
   .claude-plugin/marketplace.json  lets you install this repository as a plugin
   agents/                          architect, ui-specialist, product-expert,
-                                   fresh-reviewer, security-reviewer, validator (all read-only)
+                                   fresh-reviewer, security-reviewer, validator, and the
+                                   researcher for outside facts (all read-only)
   hooks/                           a short reminder on each message, silent in other repositories
   references/                      pipeline, gates, setup, workspace, existing pipeline, checklist,
                                    code hosts, autonomy, learning, security rules, weekly review
@@ -333,7 +362,10 @@ prompt-to-ship/
 This repository uses its own pipeline. Its project file is
 [.claude/orchestration/PROJECT.md](.claude/orchestration/PROJECT.md). When you change a behaviour,
 raise the version in `.claude-plugin/plugin.json` and add a line to `CHANGELOG.md`. Run the checks
-in [TESTING.md](TESTING.md) before a release. When a step changes, change the diagrams too:
+in [TESTING.md](TESTING.md) before a release, including the behaviour tests in `evals/`:
+`claude plugin eval . --runs <n> --max-cost-usd <cap> --no-publish --scaffold --allow-tools Edit Write`.
+You choose the number of runs: 1 is a quick check, 3 gives more certainty and uses about three
+times as much. When a step changes, change the diagrams too:
 edit `docs/make-diagrams.py` and run `python docs/make-diagrams.py docs`.
 
 ## License

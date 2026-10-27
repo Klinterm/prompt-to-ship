@@ -57,7 +57,7 @@ rows = [
     ("spine", "main", "Step 0: brief", "Your request becomes a precise task",
      ("wait", "Waits on high risk", "or on an open question")),
     ("spine", "main", "Step 1: understand", "Code, git history, documents",
-     ("agent", "Search agent", "Optional, in a large code base")),
+     ("agent", "Code search, researcher", "Optional: large code base, outside facts")),
     ("spine", "main", "Step 2: plan", "Approach and risks", None),
     ("fan", [("Architect", "Always"), ("UI specialist", "If there is a user interface"), ("Product expert", "Always")]),
     ("spine", "main", "Plan with three verdicts", "At most five lines each",

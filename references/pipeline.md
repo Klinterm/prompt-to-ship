@@ -18,6 +18,8 @@ change.
 - **gate**: a condition that stops the pipeline at every autonomy level (gates.md).
 - **change request**: a pull request or merge request, on any code host (code-hosts.md).
 - **go**: the user's explicit yes in chat for one step.
+- **outside fact**: a value that neither the repository nor the project's own data sources can
+  prove (see "Outside facts").
 
 ## Why it is built this way
 
@@ -70,12 +72,14 @@ areas and the path `${CLAUDE_SKILL_DIR}/references/security-rules.md`.
   `git hash-object` of rules.md, show the difference and ask before you use the rules
   (learning.md).
 - Read the participating code end to end; follow the call chain across files. In a large code
-  base, give a wide search to a read-only search agent and keep only its conclusion.
+  base, give a wide search to a read-only code search agent and keep only its conclusion.
 - `git log -S'<symbol>'`, `git log -G'<regex>'`, `git blame -L` for the reasons behind the code.
 - If the project has a database: the live schema is the truth, not the models in code.
 - Read the decisions and parked items that PROJECT.md points to.
 - If there is a remote: fetch, and check what others pushed since you last looked.
 - In a monorepo, find the package that owns the change and use its commands from PROJECT.md.
+- Decide on research (see "Outside facts"). End stage 1 with one line:
+  `Research: <the numbered questions, or "none">`.
 
 ## Stage 2. Plan
 
@@ -88,6 +92,9 @@ areas and the path `${CLAUDE_SKILL_DIR}/references/security-rules.md`.
 - Start `prompt-to-ship:architect`, `prompt-to-ship:ui-specialist` and
   `prompt-to-ship:product-expert` in parallel, always, by these full names. Skip
   `ui-specialist` only when PROJECT.md says "User interface: none", and say so.
+- The plan, as shown to the user, repeats the `Research:` line and, after research, the confirmed fact table. The three
+  reviewers also check that line: a change that needs an outside fact with "Research: none" is a
+  BLOCKING point.
 - Fold their verdicts into the plan. Show each verdict in at most five lines. A point marked
   BLOCKING stops the pipeline for the user's answer at every autonomy level.
 - Level `ask`: build only after the user's go (normal and high risk). Higher levels: continue,
@@ -109,7 +116,8 @@ proof it is not done.
 
 ## Stage 5. Layered review
 
-- 5a `prompt-to-ship:fresh-reviewer`: always.
+- 5a `prompt-to-ship:fresh-reviewer`: always. After research, it also gets the confirmed fact
+  table and checks that the diff uses those values, with their `source:` and `valid:` text.
 - 5b `prompt-to-ship:security-reviewer`: normal and high risk.
 - 5c `prompt-to-ship:validator`: one per finding of severity Medium or higher, without the reviewer's notes. A
   Critical finding gets two independent validators. Only what survives counts. Keep rejected
@@ -157,6 +165,36 @@ stage 7 only at levels `merge` and `release` (autonomy.md).
 - Where a lesson lands (a learn branch, or directly with local storage) is in learning.md.
 - End each change with the one-line rules summary (see "Rules").
 
+## Outside facts
+
+Research runs only when the change needs an outside fact: an amount, rate, price, tariff, legal or
+tax rule, standard, external API contract or market figure, or the period in which it is valid.
+It does not run:
+- for code-only work;
+- when a project data source (an API or database in "Research scope") supplies the fact: the
+  change reads it there;
+- when the repository already holds the fact with `source:` and a `valid:` period that covers
+  the reference year.
+
+Research runs at the end of stage 1, before the plan, so the plan and its reviewers see the
+confirmed fact table. How:
+1. Read "Research scope" in PROJECT.md. No scope, or "Research scope: none" while the change
+   needs a fact: ask the user for the region, the currency and the reference year (gate 2).
+   "Reference year: current" means the calendar year at stage 0.
+2. Give a cost estimate when there are more than ten questions, and wait.
+3. Write the questions in public terms: no code, file contents, secrets, customer data or
+   internal names. Start `prompt-to-ship:researcher` with the numbered questions and the public
+   part of the scope: region, currency, reference year, trusted and excluded sources. It gets
+   no project data sources, no brief and no repository access.
+4. Start a second `prompt-to-ship:researcher` in check mode with the fact table and the same public scope,
+   without the first run's notes. Only CONFIRMED facts go into the change.
+5. A REJECTED or NEEDS USER fact, a conflict, a "not found" for a fact the change needs, or a fact
+   outside the scope: gate 14 (gates.md).
+
+In the code, every outside fact sits next to two searchable texts, in a comment, a data column or
+a config entry: `source: <URL or publisher>` and `valid: <from> to <until>`. The weekly review
+finds them by these texts.
+
 ## Rules
 
 Rules from `rules.md` are checks that this project learned. Each reviewer gets the rules whose
@@ -183,6 +221,15 @@ At levels `merge` and `release` also "Autonomy: <level>. This change request may
 automatically." (autonomy.md). With "Markers: local log" in PROJECT.md, or an unconfirmed
 PROJECT.md, all these lines go to the local log instead, and no tool or AI attribution goes into
 descriptions, commits or branch names (learning.md, "Storage and markers").
+
+## Cost estimates
+
+Give every estimate in the terms of the user's setup. Check the setup once per session with
+`claude auth status`:
+- a subscription plan (for example Pro, Max or Team): give tokens and agent runs, as plan usage.
+  Never give a price in money;
+- API billing (an API key or a cloud provider): give the price, with tokens and agent runs;
+- unknown: give tokens and agent runs, and say that the price depends on the setup.
 
 ## Rhythm
 

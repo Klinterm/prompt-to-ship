@@ -60,6 +60,9 @@ you)".
 
 ## Classify the role cover
 
+The researcher is not a review role: in every mode it runs only on its trigger (pipeline.md,
+"Outside facts"), and it never counts in the role cover.
+
 For each of the six roles, compare the repository's matching agent with
 `agents/<role>.md` in this skill. A role is **full** only when all four tests pass:
 

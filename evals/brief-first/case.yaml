@@ -1,6 +1,7 @@
 schema_version: "1.1"
 name: brief-first
 # Run with --allow-tools Edit Write, so the arm without the plugin can edit.
+# Expected delta: high: without the plugin there is no brief.
 graders:
   - name: has-done-when
     type: regex

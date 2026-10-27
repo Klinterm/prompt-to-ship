@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: research-for-unsourced-rate
+# Run with --allow-tools Edit Write. No web tools: the case grades the research decision, not the facts.
+# Expected delta: high: without the plugin the agent uses a rate from memory and edits.
+graders:
+  - name: plans-research
+    type: regex
+    pattern: '\bresearch'
+    flags: i
+    target: last_message
+  - name: no-edit
+    type: tool_used
+    tool: Edit
+    min: 0
+    max: 0
+  - name: no-write
+    type: tool_used
+    tool: Write
+    min: 0
+    max: 0
+context:
+  scaffold_script: fixture.sh

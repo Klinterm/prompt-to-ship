@@ -1,0 +1,28 @@
+schema_version: "1.1"
+name: question-no-brief
+# Run with --allow-tools Edit Write, so a change is possible and a stop is a choice.
+# Expected delta: about 0: guards against a brief for a plain question.
+graders:
+  - name: no-edit
+    type: tool_used
+    tool: Edit
+    min: 0
+    max: 0
+  - name: no-write
+    type: tool_used
+    tool: Write
+    min: 0
+    max: 0
+  - name: says-false
+    type: regex
+    pattern: '\bfalse\b'
+    flags: i
+    target: last_message
+  - name: no-brief
+    type: regex
+    pattern: '(^|\\n)[\s*#>]*done when\W{0,2}:[\s*]*[A-Za-z0-9`]'
+    flags: im
+    target: trace
+    match: not_contains
+context:
+  scaffold_script: fixture.sh

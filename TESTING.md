@@ -194,3 +194,28 @@ change request description.
 83. Workspace state: the autonomy level and the confirmed hash are in
     `~/.claude/prompt-to-ship/workspaces/`, and the workspace folder has no state file.
 
+
+## Outside facts
+
+84. A code-only change (a new helper function): stage 1 ends with "Research: none", and no
+    researcher runs.
+85. A change that computes with a rate that has no source in the repository, in a repository with
+    a "Research scope": stage 1 lists the research questions, and two researcher runs follow
+    (find, then check mode).
+86. The same change with "Research scope: none" or no scope: the pipeline asks for the region,
+    the currency and the reference year before any research runs.
+87. A project data source in the scope that supplies the fact: no research runs, and the plan
+    reads the fact from that source.
+88. A fact found only for another region or year: it appears under "Out of scope", and gate 14
+    stops the pipeline.
+89. Sources that disagree: the fact table lists the conflict, and gate 14 stops the pipeline.
+90. The merged change has `source:` and `valid:` next to each outside fact. `weekly` lists a fact
+    whose `valid:` period ended before today.
+
+## Evals
+
+91. `claude plugin eval . --runs <n> --max-cost-usd <cap> --no-publish --scaffold --allow-tools Edit Write`
+    passes every case with the plugin. Choose the runs: 1 is a quick check, 3 gives more
+    certainty and uses about three times as much. The eval tool reports usage as a dollar
+    figure; on a subscription plan that is plan usage, not money. The release notes give the score with the plugin and the
+    difference from the run without it.

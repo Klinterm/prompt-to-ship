@@ -67,6 +67,8 @@ does not tell that. Nothing else in the repository changes.
    - The boundaries: what is out of scope, what must never break?
    - The decisions: where are they written down, and who approves merges and releases?
    - The biggest worry right now: quality, speed, security, cost, something else?
+   - Only if the code computes with prices, rates, legal rules or standards: for which region,
+     currency and year, and which of your APIs or databases already supply them?
    - Only if detection failed: the code host, or the build and test commands.
    - Always: does the target branch deploy as soon as something lands on it? (Say what you
      found in step 3.)
@@ -178,6 +180,17 @@ Pipeline mode: <none | defer | map | replace>
 
 ## Risk table
 <override of the default table in gates.md, if needed>
+
+## Research scope
+<"Research scope: none" when the product never computes with outside facts such as prices,
+rates, legal rules or standards. Otherwise:>
+- Region: <the country or region the facts must be for>
+- Currency: <the currency of amounts>
+- Reference year: <a year, or "current" for the calendar year at stage 0>
+- Project data sources: <APIs or databases that already supply facts; the change reads them
+  there, and research does not run>
+- Trusted sources: <the publishers to search first, most trusted first>
+- Excluded sources: <publishers never to use, or "none">
 
 ## House rules
 Autonomy limit: <ask | change-request | merge | release> (the team's maximum; each developer
