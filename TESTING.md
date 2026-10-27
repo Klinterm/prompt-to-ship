@@ -8,7 +8,9 @@ change request description.
 1. `claude plugin validate .` passes.
 2. No em dashes, en dashes or curly quotes:
    `rg -n "[\x{2013}\x{2014}\x{2018}\x{2019}\x{201C}\x{201D}]" .` prints nothing.
-3. The version in `.claude-plugin/plugin.json` has a section in `CHANGELOG.md`.
+3. The version in `.claude-plugin/plugin.json` has a section in `CHANGELOG.md`. No other file
+   names a version number, except CHANGELOG.md (`rg -n "\b\d+\.\d+\.\d+\b" README.md SKILL.md`
+   prints nothing).
 4. The plugin name, the folder name, the agent prefixes in `SKILL.md` and the README match.
 
 ## Install paths

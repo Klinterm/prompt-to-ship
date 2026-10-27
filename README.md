@@ -10,8 +10,8 @@ add the change to the main code. You decide what gets merged and released.
 **For whom:** developers who use Claude Code and want changes that are planned, tested and
 reviewed before they reach the main code.
 
-**Status:** version 2.0.0, a working prototype. The acceptance test in [TESTING.md](TESTING.md)
-is not complete yet.
+**Status:** a working prototype. The acceptance test in [TESTING.md](TESTING.md) is not complete
+yet. The current version and its changes are in [CHANGELOG.md](CHANGELOG.md).
 
 It works in any git repository and in any programming language. See [Code hosts](#code-hosts)
 for GitHub, GitLab and others.

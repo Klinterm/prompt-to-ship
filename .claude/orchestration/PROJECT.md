@@ -125,3 +125,4 @@ command. Reviewers must never execute project code.
 ## Incidents
 | Date | What went wrong | Stage that should have caught it | Rule added |
 |---|---|---|---|
+| 2026-10-27 | 2.1.0 shipped with "version 2.0.0" in the README status line | 4 (prove): the release checks | The README names no version; TESTING.md static check 3 now fails on a version number outside CHANGELOG.md |
