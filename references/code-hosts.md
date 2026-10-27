@@ -83,7 +83,8 @@ and descriptions in a file, so the shell does not expand text from the repositor
   environments" in PROJECT.md. A force push only to the topic branch, with `--force-with-lease`.
 - Pushes to a shared branch, approvals and comments on the host need the user's explicit word,
   each time. Merges and releases too, unless the user's autonomy level allows them and no gate
-  applies (autonomy.md).
+  applies (autonomy.md). One exception for a shared branch: the fast-forward after CI in
+  pipeline mode `map` (existing-pipeline.md), at level `merge` or higher, never with `--force`.
 - Never approve your own change request, never use admin or bypass flags (`--admin`, skip CI),
   never change branch protection.
 - Set the target branch explicitly. Never rely on the host's default.

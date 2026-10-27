@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -f \"${CLAUDE_PROJECT_DIR:-.}/.claude/orchestration/PROJECT.md\" ] && cat \"${CLAUDE_PLUGIN_ROOT}/hooks/reminder.txt\"; exit 0",
+            "command": "f=\"${CLAUDE_PROJECT_DIR:-.}/.claude/orchestration/PROJECT.md\"; [ -f \"$f\" ] || exit 0; if grep -q '^Pipeline mode: defer[[:space:]]*$' \"$f\"; then cat \"${CLAUDE_PLUGIN_ROOT}/hooks/reminder-defer.txt\"; else cat \"${CLAUDE_PLUGIN_ROOT}/hooks/reminder.txt\"; fi; exit 0",
             "timeout": 10
           }
         ]

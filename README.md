@@ -155,6 +155,22 @@ prompt once.
 
 In a repository without `.claude/orchestration/PROJECT.md`, the hook prints nothing.
 
+### A repository with its own pipeline
+
+Some repositories already have their own process, for example in CLAUDE.md or with their own
+review agents. Setup finds this and asks you how prompt-to-ship must work with it:
+
+| Mode | What happens |
+|---|---|
+| `defer` (recommended) | Your existing pipeline leads. prompt-to-ship only adds the reviewers it lacks. |
+| `map` | prompt-to-ship runs, with your names, house rules and git flow. The prompt-to-ship reviewers always run. |
+| `replace` | prompt-to-ship leads. Setup lists the lines in CLAUDE.md that you must change yourself. |
+| `none` | What setup found is not a pipeline. prompt-to-ship runs as normal. |
+
+Setup never edits CLAUDE.md. A push to your main branch waits for you. In `map`, `replace` and
+`none`, autonomy level `merge` or higher can allow it. In `defer`, Claude always asks. The full rules are in
+[references/existing-pipeline.md](references/existing-pipeline.md).
+
 ## Update and remove
 
 - **Update, way A:** run `/plugin marketplace update prompt-to-ship`.
@@ -206,8 +222,8 @@ prompt-to-ship/
   agents/                          architect, ui-specialist, product-expert,
                                    fresh-reviewer, security-reviewer, validator (all read-only)
   hooks/                           a short reminder on each message, silent in other repositories
-  references/                      pipeline, setup, checklist, code hosts, autonomy,
-                                   security rules, weekly review
+  references/                      pipeline, setup, existing pipeline, checklist, code hosts,
+                                   autonomy, security rules, weekly review
   docs/                            the README diagrams, and the script that draws them
   TESTING.md                       the acceptance test before a release
   CHANGELOG.md, LICENSE

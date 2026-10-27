@@ -29,7 +29,9 @@ command is `/prompt-to-ship weekly` for a skills-folder install and
 6. Change requests open longer than 7 days (host only).
 7. CI: failed runs, and releases waiting for a manual step (host only).
 8. Automatic merges and releases: the change requests (or commits) with the line "Autonomy:
-   <level>. This change request may be merged automatically." List each one, and
+   <level>. This change request may be merged automatically.", and the commits on the target
+   branch with "Autonomy: <level>. Pushed to <target> automatically." (pipeline mode `map`).
+   List each one, and
    check that no gate from autonomy.md applied at that moment (risk, forced-high paths, failed
    CI, unresolved findings). A gate that was missed is a high finding.
 9. At most three proposals to improve PROJECT.md, the checklist or an agent file, based on what

@@ -2,6 +2,9 @@
 
 Read this once per task, after the brief. SKILL.md is the summary; this file is the reference.
 
+This file describes pipeline mode `none` and `replace`. In mode `defer` and `map`, read
+[existing-pipeline.md](existing-pipeline.md) first: it says which stages change.
+
 ## Why it is built this way
 
 - Most bugs in agent-written code are routine and caught by automation; human attention is kept

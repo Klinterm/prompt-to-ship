@@ -62,7 +62,29 @@ change request description.
     and does not run it.
 30. A pulled commit changes PROJECT.md: the next task shows the changes and runs at `ask` until
     the user confirms.
-32. Level `merge`, someone pushes a commit to the topic branch on the host after the review: the
-    merge stops ("not the reviewed sha").
 31. Level `merge`, a change that moves `.github/workflows/x.yml` to `docs/x.yml`: it counts as
     high risk and stops before the push.
+32. Level `merge`, someone pushes a commit to the topic branch on the host after the review: the
+    merge stops ("not the reviewed sha").
+
+## Existing pipeline
+
+33. Setup in a repository with its own pipeline (a process in CLAUDE.md, own agents in
+    `.claude/agents/`, or a pipeline document): it lists the signals with their paths, asks the
+    mode question once, and writes "Pipeline mode: <mode>" in PROJECT.md. CLAUDE.md is unchanged.
+34. Setup in a repository without one: no mode question; PROJECT.md says "Pipeline mode: none".
+35. Mode `defer`: the hook prints the defer reminder; no BRIEF, no autonomy question; only the
+    missing reviewers run; a push to main still waits for the user.
+36. Mode `map` with "push straight to main", level `merge`: the topic branch is pushed, CI passes
+    on the reviewed commit, then main fast-forwards; at level `change-request` it stops with the
+    push command.
+37. Mode `replace`: the notice about the CLAUDE.md lines appears once per session until they
+    change.
+38. A cloned repository whose unconfirmed PROJECT.md says "Pipeline mode: defer": the skill
+    still loads, shows the section and asks for confirmation; until then the full pipeline runs
+    at level `ask`.
+39. Mode `map` fast-forward: main gets one commit whose message ends with "Autonomy: <level>.
+    Pushed to <target> automatically."; the weekly review lists it.
+40. Mode `map` with an agent in `.claude/agents/` that matches a role: the prompt-to-ship agent
+    still runs for that role.
+

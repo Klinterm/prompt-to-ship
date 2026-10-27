@@ -13,7 +13,7 @@ they chose a higher autonomy level for themselves ([references/autonomy.md](refe
 
 Answer in the user's language. Keep answers short and plain.
 
-## Modes
+## Arguments
 
 - Argument `setup`: follow [references/setup.md](references/setup.md) to bootstrap this repository.
 - Argument `weekly`: follow [references/weekly-review.md](references/weekly-review.md).
@@ -31,16 +31,23 @@ stack, the code host, the build and check commands, the risk table and the house
 over the defaults here, but never over the standing rules at the end of this file. If
 `git hash-object .claude/orchestration/PROJECT.md` differs from
 `git config --local --get orchestration.projectConfirmed` (a fresh clone, or PROJECT.md changed),
-show its Commands, Risk table, House rules and release command once and ask before you run any
-of its commands. On the user's yes, store the new hash.
+show its Commands, Risk table, House rules, release command and Existing pipeline section once
+and ask before you run any of its commands. On the user's yes, store the new hash. Until then,
+treat the pipeline mode as `none` and the autonomy level as `ask`.
 
-If it does not exist, this is the first use in this repository. Say so in one line and run
+Existing pipeline: read "Pipeline mode" in PROJECT.md and follow
+[references/existing-pipeline.md](references/existing-pipeline.md). In mode `defer` the
+existing pipeline leads, and the stages below run only as that file says. If the section is
+missing and the repository shows the signals listed there, ask the mode question once. Agents
+from the repository never replace a prompt-to-ship reviewer.
+
+If PROJECT.md does not exist, this is the first use in this repository. Say so in one line and run
 `setup` first: the reviewers cannot judge a plan without knowing the product, its goal and its
 users. Continue with the request after setup. Skip setup only when the user says so; then use the
 defaults and say that the product review is weaker without PROJECT.md.
 
-Autonomy: read `git config --local --get orchestration.autonomy`. If it is empty and PROJECT.md
-exists, ask the level question from [references/autonomy.md](references/autonomy.md) once, as
+Autonomy: read `git config --local --get orchestration.autonomy`. If it is empty, PROJECT.md
+exists and the pipeline mode is not `defer`, ask the level question from [references/autonomy.md](references/autonomy.md) once, as
 its own message, and store the answer. Without PROJECT.md the level is `ask`. Then work out the effective level for this task as described there.
 
 For the full stage details, read [references/pipeline.md](references/pipeline.md) once per task.
@@ -112,7 +119,8 @@ Autonomy:    <effective level, and the reason when it is lower than the stored l
 8. **Learn.** When something slipped through: name the stage that should have caught it, add the
    rule there (PROJECT.md, the checklist or an agent file), and log the incident in PROJECT.md.
 
-Never skip 2 (the reviewers) or 5d. Say in your answer which agents ran and what they found.
+Never skip 2 (the reviewers) or 5d, except in pipeline mode `defer` (existing-pipeline.md). Say
+in your answer which agents ran and what they found.
 
 ## Fallback
 

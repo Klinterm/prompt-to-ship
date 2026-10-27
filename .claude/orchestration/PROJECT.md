@@ -62,7 +62,8 @@ https://github.com/Klinterm/prompt-to-ship. The README is the home page.
 - `SKILL.md`: the orchestrator. Short.
 - `agents/`: six read-only reviewers.
 - `hooks/`: the opt-in reminder.
-- `references/`: pipeline, setup, checklist, security rules, code hosts, autonomy, weekly review.
+- `references/`: pipeline, setup, existing pipeline, checklist, security rules, code hosts,
+  autonomy, weekly review.
 - `TESTING.md`: the acceptance test before a release.
 Out of scope: running code on behalf of reviewers, merges that bypass host protection, automatic
 reverts, non-git version control.
@@ -73,6 +74,9 @@ REST APIs. No paid service.
 
 ## Architecture and stack
 Markdown and JSON only, plus one shell line in the hook. No build step.
+
+## Existing pipeline
+Pipeline mode: none
 
 ## Code host
 - Host: github (https://github.com/Klinterm/prompt-to-ship)

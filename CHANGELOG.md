@@ -2,6 +2,25 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.1.0
+
+- Setup detects an existing pipeline (a process in CLAUDE.md or AGENTS.md, own review agents,
+  own skills or commands, a pipeline document) and asks one question: defer, map, replace or
+  none. The answer goes into a new PROJECT.md section "Existing pipeline". Rules in
+  `references/existing-pipeline.md`.
+- defer: the existing pipeline leads; prompt-to-ship only adds the reviewers it lacks. The hook
+  then prints a different, fixed reminder.
+- map: prompt-to-ship runs with the existing names, house rules and git flow. A house rule
+  "push straight to main" becomes: squash into one commit, push the topic branch, wait for CI on
+  that commit, check the branch protection, then fast-forward main, only at autonomy level merge
+  or higher.
+- Agents from the repository never replace a prompt-to-ship reviewer.
+- replace: prompt-to-ship leads; setup lists the CLAUDE.md lines to change and never edits them.
+- A changed "Existing pipeline" section needs the user's confirmation, like the other sections.
+- Repositories set up with 2.0.0 that have an existing pipeline get the mode question once,
+  before the next task.
+- SKILL.md: the section "Modes" is now "Arguments", so "mode" means only the pipeline mode.
+
 ## 2.0.0
 
 - New name: `prompt-to-ship` (was `optimal-coding-orchestration`). The skill command, the agent
