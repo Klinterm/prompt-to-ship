@@ -113,7 +113,8 @@ Description with three short parts:
 - **Risk:** low, normal or high, and why.
 - **How to revert:** revert the merge, roll back the migration (if any), switch off a flag.
 
-One topic per change request. Give the link. With no host: give the branch name and the diff
+One topic per change request. In a workspace, one change request per folder, linked to each
+other, merged as one set (workspace.md). Give the link. With no host: give the branch name and the diff
 command, and put the description in the last commit message. At levels `merge` and `release`,
 add the line "Autonomy: <level>. This change request may be merged automatically." to the
 description (with "Markers: local log": to the log), so the weekly review can find it.

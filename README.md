@@ -189,6 +189,23 @@ Commands for install, update and removal are in [Install](#install) and
 
 In a repository without `.claude/orchestration/PROJECT.md`, the hook prints nothing.
 
+### A workspace with several repositories
+
+Do you keep one folder for a whole product, with several git repositories and documents, and
+start Claude there? Then setup offers a **workspace**:
+
+```
+product/      the workspace (not a git repository)
+  api/        a git repository
+  web/        a git repository
+  docs/       documents
+```
+
+One PROJECT.md for the workspace lists the repositories, with their target branch, code host and
+commands. Each change names the repositories it touches, gets one pull or merge request per
+repository, and is merged as one set in a fixed order. Everything prompt-to-ship writes stays in
+the workspace folder on your machine. Start Claude in the workspace, not inside one repository.
+
 ### A repository with strict rules
 
 Some teams allow nothing in a repository except product code, or forbid any mention of tools or
@@ -278,6 +295,11 @@ checks it learned).
    or was overruled. It shows whether old mistakes come back, and proposes to retire rules that
    no longer help.
 
+Some lessons are about the pipeline itself, not about your code: a missing question or gate that
+would matter in any repository. Claude writes those as a generic proposal, with no names from
+your project, in a file in your home folder. The prompt-to-ship repository reads that file, so
+every project you use it in can make the pipeline better.
+
 At the end of each change you see one line, for example: "Rules: 11 active, 3 matched this
 change, 1 caught (RULE-012)." The full rules are in
 [references/learning.md](references/learning.md).
@@ -296,8 +318,8 @@ prompt-to-ship/
   agents/                          architect, ui-specialist, product-expert,
                                    fresh-reviewer, security-reviewer, validator (all read-only)
   hooks/                           a short reminder on each message, silent in other repositories
-  references/                      pipeline, setup, existing pipeline, checklist, code hosts,
-                                   autonomy, learning, security rules, weekly review
+  references/                      pipeline, setup, workspace, existing pipeline, checklist,
+                                   code hosts, autonomy, learning, security rules, weekly review
   docs/                            the README diagrams, and the script that draws them
   TESTING.md                       the acceptance test before a release
   CHANGELOG.md, LICENSE

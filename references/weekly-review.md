@@ -15,7 +15,9 @@ command is `/prompt-to-ship weekly` for a skills-folder install and
 
 1. Read `.claude/orchestration/PROJECT.md` and the previous report in
    `.claude/orchestration/reviews/` (if any), so nothing is reported twice.
-2. Find the host (code-hosts.md). With a host: list all change requests of the last 7 days:
+2. In a workspace, do steps 2 to 8 per folder from the "Repositories" table, and write one
+   report with a section per folder (workspace.md, "Weekly review").
+   Find the host (code-hosts.md). With a host: list all change requests of the last 7 days:
    open, merged and closed. With no host: list the commits on the target branch of the last
    7 days, and the local branches changed in that time.
 3. Per merged or open change request (or per commit range): read the diff. Find real bugs

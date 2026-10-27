@@ -8,7 +8,11 @@ does not tell that. Nothing else in the repository changes.
 
 ## Steps
 
-0. **Git.** `git rev-parse --show-toplevel`. If it fails, say "the pipeline needs a git
+0. **Git.** `git rev-parse --show-toplevel`. If it fails, check for a workspace (a folder that
+   holds several repositories, see [workspace.md](workspace.md)); in workspace mode, run steps 1
+   to 3 per folder and add the "Repositories" section. In workspace mode, step 8 asks only the
+   tool-lines question (storage is local), and every `git config --local` value of setup goes
+   in the workspace state file instead (workspace.md, "State"). Otherwise say "the pipeline needs a git
    repository", offer `git init`, and stop until the user answers. Work from the repository root.
 1. **The codebase.** README, docs folder, build and package files, CI config, folder structure,
    existing CLAUDE.md or other agent instruction files, and the git log of the last months (what

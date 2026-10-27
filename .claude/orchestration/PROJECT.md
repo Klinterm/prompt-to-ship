@@ -111,6 +111,7 @@ Autonomy limit: change-request (every change here touches the skill's own rules;
 merges and tags)
 Storage: shared
 Markers: description
+Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/prompt-to-ship/upstream.md at stage 0)
 - Never merge, push to `main` or tag a release without the maintainer's word.
 - Generic: no company, product, customer or stack names in shipped files.
 - The plugin name, the folder name, the agent prefixes in `SKILL.md` and the README must match.

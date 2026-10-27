@@ -2,6 +2,22 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.6.0
+
+- Workspace mode (`references/workspace.md`): a folder that is not a git repository but holds
+  several repositories. One PROJECT.md for the workspace with a "Repositories" table. Each change
+  names its folders, works in a new worktree by default, gets one change request per folder with
+  cross-links, and merges as one set in a fixed order: when one part hits a gate, nothing merges.
+- Workspace values live in a state file in the user's home (`git config --file`), so no
+  repository can plant it; values for one folder stay in its own git config; the lowest level
+  wins. Workspace mode starts only outside every git repository. A folder's own committed
+  PROJECT.md can only make things stricter.
+- A set of change requests has the lowest level of its folders; all gates are checked before the
+  first merge; a failure after a partial merge stops and shows the reverts, never runs them.
+- Pipeline lessons go upward: a lesson about the pipeline itself is written generic, with no
+  project details, to `~/.claude/prompt-to-ship/upstream.md`. The prompt-to-ship repository
+  reads it (`Upstream inbox: yes`), so every project can improve the engine.
+
 ## 2.5.0
 
 For repositories with strict rules: nothing but product code, and no tool or AI mentions.

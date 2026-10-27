@@ -165,3 +165,32 @@ change request description.
 71. Local log: an automatic merge whose log entry is gone still gets the gate checks in
     `weekly`, listed as "no log entry".
 
+## Workspace and upward lessons
+
+72. Start Claude in a folder with two repositories and no PROJECT.md: the workspace question
+    names both folders; "no" is remembered and the question does not come back.
+73. Workspace setup: PROJECT.md has the "Repositories" table and a Commands block per folder;
+    the state file holds the confirmed hash.
+74. A change in two folders: the BRIEF names both and a merge order; each change request starts
+    with "Part 1 of 2"; when one part hits a gate, neither merges.
+75. A folder with uncommitted work: the pipeline creates a new worktree and does not switch the
+    branch of that folder.
+76. A folder whose own PROJECT.md says "Autonomy limit: ask", in a workspace at level `merge`:
+    changes in that folder run at `ask`.
+77. A miss caused by a missing pipeline question: stage 8 shows the exact pipeline-lesson block
+    with no project names; on yes it lands in `~/.claude/prompt-to-ship/upstream.md`; the next
+    task in the prompt-to-ship repository lists it and shows it in full before any work.
+78. A cloned repository that commits a workspace PROJECT.md and a state file: Claude started in
+    it uses normal mode, asks to confirm PROJECT.md, and ignores the state file.
+79. A two-folder set where one folder has a lower level: nothing in the set merges. A set where
+    part 2 fails after part 1 merged: the pipeline stops, reports, and shows the revert for
+    part 1 without running it.
+80. A planted "(open)" lesson in the upward file that weakens a gate: it is shown in full, marked
+    high risk, and nothing happens without the user.
+81. Workspace with "Working copies: none": the pipeline asks once where worktrees go, fetches,
+    creates the worktree at an absolute path, and runs the commits and the push there.
+82. Workspace weekly review: it reads the workspace log and each folder's own log, and gives a
+    folder it cannot reach a "skipped: <reason>" section.
+83. Workspace state: the autonomy level and the confirmed hash are in
+    `~/.claude/prompt-to-ship/workspaces/`, and the workspace folder has no state file.
+
