@@ -2,6 +2,12 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.9.1
+
+- Code search and the researcher work in order: the pipeline looks for a fact in the code and
+  the project data sources first, and asks the researcher only for what they lack. The diagram
+  shows them as two agents, and the README says the same.
+
 ## 2.9.0
 
 Outside facts and an eval suite. (2.8.0 was not released; its eval work is part of this

@@ -29,6 +29,11 @@ def arrow(x1, y1, x2, y2):
     return f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{LINE}" stroke-width="1.5" marker-end="url(#a)"/>'
 
 
+def arrow2(x1, y1, x2, y2):
+    return (f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{LINE}" stroke-width="1.5" '
+            f'marker-start="url(#a)" marker-end="url(#a)"/>')
+
+
 def line(x1, y1, x2, y2, dash=False):
     d = ' stroke-dasharray="5 5"' if dash else ""
     return f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{LINE}" stroke-width="1.5"{d}/>'
@@ -38,7 +43,7 @@ def svg(w, h, body, label):
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" '
         f'role="img" aria-label="{escape(label)}" font-family="{FONT}">'
-        f'<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">'
+        f'<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">'
         f'<path d="M0,1 L9,5 L0,9" fill="none" stroke="{LINE}" stroke-width="1.6"/></marker></defs>'
         f'<rect width="{w}" height="{h}" rx="14" fill="{BG}"/>' + "".join(body) + "</svg>\n"
     )
@@ -56,8 +61,9 @@ rows = [
     ("spine", "start", "Hook (automatic)", "Reminds Claude of every step", None),
     ("spine", "main", "Step 0: brief", "Your request becomes a precise task",
      ("wait", "Waits on high risk", "or on an open question")),
-    ("spine", "main", "Step 1: understand", "Code, git history, documents",
-     ("agent", "Code search, researcher", "Optional: large code base, outside facts")),
+    ("spine", "main", "Step 1: understand", "Code, git history, documents", None),
+    # two optional agents that work together: code search first, the researcher for what it lacks
+    ("fan", [("Code search", "Optional: code and your data"), ("Researcher", "Only for outside facts")], "link"),
     ("spine", "main", "Step 2: plan", "Approach and risks", None),
     ("fan", [("Architect", "Always"), ("UI specialist", "If there is a user interface"), ("Product expert", "Always")]),
     ("spine", "main", "Plan with three verdicts", "At most five lines each",
@@ -96,7 +102,9 @@ for i, row in enumerate(rows):
     else:
         agents = row[1]
         n = len(agents)
-        if n == 3:
+        if n == 2:
+            bw, xs = 300, [70, 490]
+        elif n == 3:
             bw, xs = 270, [40, 345, 650]
         else:
             bw, xs = 202, [25, 255, 485, 715]
@@ -106,6 +114,8 @@ for i, row in enumerate(rows):
         for x, c, (t, s) in zip(xs, centers, agents):
             body.append(arrow(c, top - FAN + 18, c, top - 2))
             body.append(box(x, top, bw, H, "agent", t, s))
+        if len(row) > 2 and row[2] == "link":
+            body.append(arrow2(xs[0] + bw + 4, top + H / 2, xs[1] - 4, top + H / 2))
         bot = top + H
         y_bus = bot + 18
         for c in centers:

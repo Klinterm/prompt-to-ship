@@ -19,7 +19,7 @@ for GitHub, GitLab and others.
 ## How it works
 
 <p align="center">
-  <img src="docs/pipeline.svg" width="760" alt="The pipeline. You ask for a change. A hook reminds Claude of every step. Step 0: brief, waits on high risk or an open question. Step 1: understand, with an optional code search agent in a large code base, and an optional researcher when the change needs outside facts. Step 2: plan, checked by the architect, the UI specialist if there is a user interface, and the product expert. The plan with three verdicts waits for your go on normal and high risk. Steps 3 and 4: build and prove. Step 5: review by a fresh reviewer, a security reviewer on normal and high risk, one validator per serious finding, and the UI and product reviewers. Step 6: pull or merge request, you decide about the merge. Step 7: merge and measure, your word each time. Step 8: learn.">
+  <img src="docs/pipeline.svg" width="760" alt="The pipeline. You ask for a change. A hook reminds Claude of every step. Step 0: brief, waits on high risk or an open question. Step 1: understand. A code search agent looks in the code and your data first. The researcher looks on the web only for outside facts that are not there. Step 2: plan, checked by the architect, the UI specialist if there is a user interface, and the product expert. The plan with three verdicts waits for your go on normal and high risk. Steps 3 and 4: build and prove. Step 5: review by a fresh reviewer, a security reviewer on normal and high risk, one validator per serious finding, and the UI and product reviewers. Step 6: pull or merge request, you decide about the merge. Step 7: merge and measure, your word each time. Step 8: learn.">
 </p>
 
 The diagram shows the default level, `ask`. At a higher level, some red "waits for you" boxes
@@ -32,9 +32,10 @@ go away. See [Autonomy](#autonomy).
    also says how to prove that the work is done. On high risk or an open question, Claude stops
    and asks you.
 1. **Understand.** Claude reads the code that takes part, and the git history that explains it.
-   In a large code base, a code search agent does the wide search. When the change needs a fact
-   from outside the code, such as a price, a tax rate or a legal rule, the **researcher** looks
-   it up on the web. See [Outside facts](#outside-facts).
+   Two agents can help, in this order. The **code search** agent looks in the code and in your
+   own data sources; in a large code base it does the wide search. When the change needs a fact
+   that is not there, such as a price, a tax rate or a legal rule, the **researcher** looks it
+   up on the web. See [Outside facts](#outside-facts).
 2. **Plan.** Claude chooses an approach and names its risks. Three reviewer agents check the plan
    at the same time. Each one gives a verdict: approve, or adjust with reasons.
    - The **architect** checks the structure, the data and whether the change can be undone.

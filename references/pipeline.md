@@ -178,6 +178,8 @@ It does not run:
 
 Research runs at the end of stage 1, before the plan, so the plan and its reviewers see the
 confirmed fact table. How:
+0. Look for the fact in the repository and in the project data sources first (in a large code
+   base, with the code search agent). Ask the researcher only for what they lack.
 1. Read "Research scope" in PROJECT.md. No scope, or "Research scope: none" while the change
    needs a fact: ask the user for the region, the currency and the reference year (gate 2).
    "Reference year: current" means the calendar year at stage 0.
