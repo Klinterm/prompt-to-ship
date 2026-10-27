@@ -95,4 +95,5 @@ One finding per root cause, with a location list when it repeats.
 The validator tries to kill each finding: attacker control in the deployed configuration,
 reachability, missed upstream controls, cited lines exist and say what is claimed, severity right
 for this system. Verdicts: confirmed, downgraded, upgraded, rejected, needs runtime validation.
-Critical findings get two independent validators.
+How many validators run is set in pipeline.md (5c): one per finding of severity Medium or higher,
+two for a Critical finding.

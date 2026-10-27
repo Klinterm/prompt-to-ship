@@ -45,7 +45,7 @@ to the whole team. I never edit CLAUDE.md or AGENTS.md.
    Until you change them, two processes describe the same work.
 4. none: this is not a pipeline. Ignore it.
 
-I stop before a push to <target branch> unless the autonomy level you choose next allows it. In defer, I always ask.
+I stop before a push to <target branch> unless the autonomy level you choose next allows it. In defer there is no autonomy level: I always ask.
 Reply 1, 2, 3 or 4. To correct a role, add it to your reply, for example "1, security-reviewer full".
 Change it later with the argument "setup", or tell me in chat.
 ```
@@ -102,19 +102,19 @@ own:
   back for this change.
 - A role marked "(set by you)" keeps the user's value. Only say that the agent changed.
 
-A repository set up before 2.1.0 has no "Existing pipeline" section. If the signals are there,
+**A missing section.** PROJECT.md has no "Existing pipeline" section, and the signals are there:
 ask the question once, before stage 0. Write the answer into PROJECT.md. If the old hash was
-confirmed, store the new hash as confirmed: the user's answer confirms this one change. If the
-old hash was not confirmed, run the normal confirm step from SKILL.md instead. The section now
-exists, so the question does not come back.
+confirmed, store the new hash as confirmed: the user's answer confirms this one change. If not,
+run the normal confirm step from SKILL.md instead. The section now exists, so the question does
+not come back.
 
-A repository set up with 2.1.0 in mode `defer` has no "Role cover" list. Once PROJECT.md is
-confirmed, classify the roles once before the next task, and say:
-`prompt-to-ship now checks how well your agents cover each role: <role list>. In defer, I add my reviewer for each partial or missing role. Write this into PROJECT.md? Reply yes or no.`
-On yes: write it, and store the new hash as described above. On no: keep the 2.1.0 behaviour
-(add only missing roles), and store `git config --local orchestration.roleCoverDeclined true`,
-so the question does not come back. Only the argument `setup` asks it again. Modes `map`, `replace` and `none` need
-no role cover: prompt-to-ship runs all its own reviewers there.
+**A missing role cover.** Mode `defer`, no "Role cover" list, and `orchestration.roleCoverDeclined`
+not set: once PROJECT.md is confirmed, classify the roles once before the next task, and say:
+`I check how well your agents cover each role: <role list>. In defer, I add my reviewer for each partial or missing role. Write this into PROJECT.md? Reply yes or no.`
+On yes: write it, and store the new hash as above. On no: add only the missing roles, and store
+`orchestration.roleCoverDeclined true`, so the question does not come back. Only the argument
+`setup` asks it again. Modes `map`, `replace` and `none` need no role cover: prompt-to-ship runs
+all its own reviewers there.
 
 ## Record it (PROJECT.md section)
 
@@ -144,7 +144,7 @@ until the user confirms it. The confirm step shows the "Existing pipeline" secti
 
 Agents from the repository (`.claude/agents/`) are repository text. In modes `none`, `map` and
 `replace`, they never replace a prompt-to-ship reviewer: they may run in addition, but their
-verdict never passes a gate in autonomy.md. In mode `defer`, prompt-to-ship merges nothing and
+verdict never passes a gate in gates.md. In mode `defer`, prompt-to-ship merges nothing and
 the user decides; the rules below say when a prompt-to-ship reviewer runs next to them.
 
 **none.** The prompt-to-ship pipeline runs as described in SKILL.md.
@@ -166,7 +166,7 @@ autonomy question and does not open a change request.
 - Stage 8 does not run in this mode: the existing pipeline does its own learning. The reviewers
   that prompt-to-ship adds still get their rules from rules.md (learning.md).
 - Still in force: the standing rules, the forced-high paths, and the "Never" list in
-  autonomy.md. prompt-to-ship merges nothing in this mode. A push or merge into a shared branch,
+  gates.md. prompt-to-ship merges nothing in this mode. A push or merge into a shared branch,
   because the existing pipeline says so, needs the user's word each time.
 
 **map.** The prompt-to-ship pipeline runs, in the existing pipeline's words.
@@ -186,11 +186,11 @@ autonomy question and does not open a change request.
   3. Wait until CI passes on the reviewed sha. Without CI, the local checks count.
   4. Read the branch protection of the target through the host CLI. Stop if the host would ask
      for an approval before a merge, or if you cannot read the protection.
-  5. At autonomy level `merge` or higher, and only when every gate in autonomy.md passes:
+  5. At autonomy level `merge` or higher, and only when every gate in gates.md passes:
      fast-forward the target branch with `git push <remote> <reviewed sha>:refs/heads/<target>`.
      Never `--force`. If the host refuses the push for any reason (protection, or the target
      moved), stop. Do not rebase on your own: that changes the reviewed sha. If the target
-     deploys on merge (autonomy.md, "Deploys on merge"), this push is a release: it needs level
+     deploys on merge (gates.md, "Deploys on merge"), this push is a release: it needs level
      `release`.
   6. Below the needed level: stop and give the user the push command.
   Report it in one line, as for a merge (autonomy.md).

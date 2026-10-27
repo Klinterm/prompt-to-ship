@@ -9,7 +9,7 @@ an answer, add the host's word: "change request (merge request on GitLab)". Neve
 
 ## Find the host
 
-1. Read the "Code host" section of PROJECT.md. If it is missing (PROJECT.md from before 1.2.0),
+1. Read the "Code host" section of PROJECT.md. If it is missing,
    detect the host as below and offer the section to the user in one line.
 2. `git remote -v`, the push URL:
    - `github.com`: github
@@ -77,14 +77,14 @@ and descriptions in a file, so the shell does not expand text from the repositor
 
 - Stage 6 may push the topic branch it created, and on Gerrit push it to `refs/for/<target>`,
   and then open the change request. That is all. Nothing else is pushed in stage 6.
-- High risk, or a diff that touches a forced-high path (autonomy.md): the user reads the diff and
+- High risk, or a diff that touches a forced-high path (gates.md): the user reads the diff and
   says go before that push, at every autonomy level. A push can start CI with secrets.
 - Push with an explicit refspec: `git push <remote> <branch>:refs/heads/<branch>`. Never a bare
   `git push`. Refuse when `<branch>` is the target branch or a branch from "Branches and
   environments" in PROJECT.md. A force push only to the topic branch, with `--force-with-lease`.
 - Pushes to a shared branch, approvals and comments on the host need the user's explicit word,
   each time. Merges and releases too, unless the user's autonomy level allows them and no gate
-  applies (autonomy.md). One exception for a shared branch: the fast-forward after CI in
+  applies (gates.md). One exception for a shared branch: the fast-forward after CI in
   pipeline mode `map` (existing-pipeline.md), at level `merge` or higher (level `release` when
   the target deploys on merge), never with `--force`.
 - Never approve your own change request, never use admin or bypass flags (`--admin`, skip CI),

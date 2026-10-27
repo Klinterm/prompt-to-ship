@@ -32,14 +32,13 @@ command is `/prompt-to-ship weekly` for a skills-folder install and
 7. CI: failed runs, and releases waiting for a manual step (host only).
 8. Automatic merges and releases: the change requests (or commits) with the line "Autonomy:
    <level>. This change request may be merged automatically.", and the commits on the target
-   branch with "Reviewed by prompt-to-ship (map, level merge)" or "(map, level release)", or
-   the older line "Pushed to <target> automatically." (pipeline mode `map`). A map commit at
+   branch with "Reviewed by prompt-to-ship (map, level merge)" or "(map, level release)" (pipeline mode `map`). A map commit at
    level `ask` or `change-request` was pushed by the user: skip it. With "Markers: local log",
    find them in the local log instead (learning.md), and say that this covers this clone only.
    List each one, and check
-   that no gate from autonomy.md applied at that moment (risk, forced-high paths, failed CI,
+   that no gate from gates.md applied at that moment (risk, forced-high paths, failed CI,
    unresolved findings, and a merge at level `merge` into a target that deploys on merge). A
-   gate that was missed is a high finding.
+   gate that was missed is a finding of severity High.
 9. Learning ([learning.md](learning.md), "Count and prune"): count the "Rules matched", "Rules
    that caught something", "Rules overruled" and "Near-miss" lines of the period, read
    incidents.md and rules.md, and carry the totals forward from the previous report. Propose
@@ -50,7 +49,9 @@ command is `/prompt-to-ship weekly` for a skills-folder install and
 
 ## Report
 
-Write `.claude/orchestration/reviews/REVIEW-<YYYYMMDD>.md`:
+Write `.claude/orchestration/reviews/REVIEW-<YYYYMMDD>.md`. Reports stay local: if
+`git check-ignore` says the folder is not ignored, add `.claude/orchestration/reviews/` to
+`.git/info/exclude` first. They are never committed.
 - Summary (max 5 lines): the mode (host name, or "plain git: commits on <branch>"), counts,
   findings per severity, what the user must decide.
 - Findings: severity, confidence, change request or commit, `path:line`, what is wrong, proposal.
@@ -63,8 +64,8 @@ Write `.claude/orchestration/reviews/REVIEW-<YYYYMMDD>.md`:
 - Which agents ran. Not checked, and why.
 
 If nothing is found, say so plainly: "no findings within this review".
-End with at most 8 lines: the report path, any high or critical finding, what the user must decide,
-and the one-line rules summary from learning.md.
+End with at most 8 lines: the report path, any finding of severity High or Critical, what the user must decide,
+and the one-line rules summary (pipeline.md, "Rules").
 
 ## Scheduling it
 

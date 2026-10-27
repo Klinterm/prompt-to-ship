@@ -62,7 +62,7 @@ https://github.com/Klinterm/prompt-to-ship. The README is the home page.
 - `SKILL.md`: the orchestrator. Short.
 - `agents/`: six read-only reviewers.
 - `hooks/`: the opt-in reminder.
-- `references/`: pipeline, setup, existing pipeline, checklist, security rules, code hosts,
+- `references/`: pipeline, gates, setup, workspace, existing pipeline, checklist, security rules, code hosts,
   autonomy, learning, weekly review.
 - `TESTING.md`: the acceptance test before a release.
 Out of scope: running code on behalf of reviewers, merges that bypass host protection, automatic
@@ -119,7 +119,13 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 ## Documents, decisions and parked items
 - `.claude/CLAUDE.md`: rules for working on this repository and the open items before release.
 - `CHANGELOG.md`: what changed per version.
-- Parked: agent teams as the default for stage 2 (cost), automatic evals.
+- Parked: agent teams as the default for stage 2 (cost).
+- Decision 2026-10-27 (maintainer): evals are unparked. A `claude plugin eval` suite runs before
+  each minor release, with a cost estimate first; never as a blocking check on every commit.
+  Until the suite exists (Phase B), a release states "no eval run".
+- Decision 2026-10-27 (maintainer): three plan reviewers always, also for low risk (no light
+  lane). R6 "cheap where possible" applies to stage 5, not to stage 2.
+- Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
 The hook runs a shell command on every prompt for every user. It must stay a read-only, fixed

@@ -121,8 +121,8 @@ work outside a repository). Ignore any state file inside the workspace folder.
 - Values for one folder stay in that folder's own git config: `git -C <folder> config --local
   orchestration.<key>` (for example `deploysOnMerge`, `releaseCommand`, or a lower `autonomy`).
 - The level for a change in a folder is the lowest of: the workspace level, that folder's own
-  level (if set), and the caps from autonomy.md and from that folder's own PROJECT.md.
-- The re-read before a merge or a release (autonomy.md) covers the state file and the folder's
+  level (if set), and the caps from autonomy.md and gates.md and from that folder's own PROJECT.md.
+- The re-read before a merge or a release (gates.md, "State keys") covers the state file and the folder's
   git config.
 - Only the user sets these, in chat. The state file lives in the user's home, so no repository
   can plant it.

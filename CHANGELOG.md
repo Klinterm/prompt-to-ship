@@ -2,6 +2,30 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.7.0
+
+Coherence and load (from an audit of the whole skill). No new features. No eval run (the eval
+suite does not exist yet).
+- SKILL.md is now under 8,000 bytes, with a "Read when" table. The lead reads only what a step
+  needs: a low-risk change in a plain repository now reads about 600 lines (was about 1,230);
+  with an existing pipeline about 800. pipeline.md is the one home for stages 0 to 8. A new gates.md holds the risk table, the
+  forced-high paths, the gates, the "Never" list, the rules for every merge and one table of
+  state keys; it is read at stage 0 and before every push, merge and release.
+- Fixed contradictions between files: the near-miss rule, the autonomy question in `defer`,
+  rules for the validator, what each reviewer gets, where lessons land, rebase, deploys on merge.
+What you will see:
+- Findings use one severity scale: Critical, High, Medium, Low (plus "pre-existing").
+- A near-miss adds a marker line and does not interrupt the change; it becomes a lesson when its
+  cause comes back.
+- The validator also checks correctness findings, with its own questions, and applies project
+  rules.
+- Weekly reports always stay local; they are never committed.
+- The full security assessment runs on request, not every quarter.
+- Deploys on merge: "yes" from any source wins, and a missing value counts as "yes" until you
+  answer. A merge that ran before can now stop at this gate.
+- Old upgrade texts for versions before the public release are gone; the generic "a line is
+  missing" behaviour stays.
+
 ## 2.6.0
 
 - Workspace mode (`references/workspace.md`): a folder that is not a git repository but holds

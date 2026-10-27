@@ -48,7 +48,7 @@ does not tell that. Nothing else in the repository changes.
 3. **Code host.** Detect it as described in [code-hosts.md](code-hosts.md). Ask only when the
    remote name tells nothing.
    **Deploys on merge.** Look for a CI job that deploys on push to the target branch, and for
-   hosting deploy files (the "Hosting and deploy files" list in [autonomy.md](autonomy.md)). A
+   hosting deploy files (the "Hosting and deploy files" list in [gates.md](gates.md)). A
    hosting platform can also watch the branch with no file in the repository, so always ask in
    step 5: "Does <target> deploy as soon as something lands on it?"
 4. **Documents and website.** Look for product documents next to the code: roadmap, decisions,
@@ -177,7 +177,7 @@ Pipeline mode: <none | defer | map | replace>
 <design system or style sheet, supported languages, words to use and to avoid>
 
 ## Risk table
-<override of the default table in checklist.md, if needed>
+<override of the default table in gates.md, if needed>
 
 ## House rules
 Autonomy limit: <ask | change-request | merge | release> (the team's maximum; each developer

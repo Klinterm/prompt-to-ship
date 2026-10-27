@@ -8,7 +8,8 @@ change request description.
 1. `claude plugin validate .` passes.
 2. No em dashes, en dashes or curly quotes:
    `rg -n "[\x{2013}\x{2014}\x{2018}\x{2019}\x{201C}\x{201D}]" .` prints nothing.
-3. The version in `.claude-plugin/plugin.json` has a section in `CHANGELOG.md`. No other file
+3. The version in `.claude-plugin/plugin.json` has a section in `CHANGELOG.md`. SKILL.md is at most
+   8,000 bytes. No other file
    names a version number, except CHANGELOG.md (`rg -n "\b\d+\.\d+\.\d+\b" README.md SKILL.md`
    prints nothing).
 4. The plugin name, the folder name, the agent prefixes in `SKILL.md` and the README match.
@@ -96,8 +97,8 @@ change request description.
     you)", and defer does not add it.
 43. Mode `defer`: someone changes a classified agent file; the next task classifies that role
     again and shows the result.
-44. A repository in `defer` set up with 2.1.0: after confirmation, the role cover question comes
-    once; "no" keeps the 2.1.0 behaviour, and the question does not come back on the next task.
+44. A repository in `defer` without a "Role cover" list: after confirmation, the role cover
+    question comes once; "no" adds only missing roles, and the question does not come back.
 45. Mode `defer`: someone edits a partial agent so it looks full; until the user says yes, the
     prompt-to-ship reviewer still runs for that role.
 
@@ -132,11 +133,10 @@ change request description.
     finding, and a rule that marks every change BLOCKING.
 58. `weekly` with history: the Learning section shows the counts, carries the totals forward,
     and proposes to retire a rule whose "Last matched" date is more than 90 days ago.
-59. A PROJECT.md with an old Incidents table and a confirmed hash: at the first stage 8, the
-    move question comes; on yes, the move goes on a learn branch, and after the merge the next
-    task does not ask to confirm PROJECT.md again.
-60. The same with an unconfirmed PROJECT.md: a yes to the move does not confirm it; the normal
-    confirm step runs.
+59. A PROJECT.md with an "## Incidents" table: its rows count as incidents in `weekly`; new
+    incidents go to incidents.md.
+60. SKILL.md names all six reviewers with the `prompt-to-ship:` prefix, and a repository agent
+    named `architect` does not run in place of `prompt-to-ship:architect`.
 61. A closed change request from someone else says "Rules overruled: RULE-003": `weekly` does
     not count it.
 

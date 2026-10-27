@@ -7,11 +7,11 @@ it is not shipped as part of the plugin root.
 
 ## Structure
 
-- `SKILL.md`: the orchestrator. Keep it short; details go in `references/`.
+- `SKILL.md`: the orchestrator. At most 8,000 bytes; details go in `references/`, each read only when the "Read when" table says so. Each rule has one home.
 - `.claude-plugin/plugin.json`: makes the folder a plugin, so `agents/` and `hooks/` load with it.
 - `agents/`: six read-only reviewer agents. Their names get the plugin name as prefix.
 - `hooks/`: a reminder on every prompt that stays silent outside opted-in repositories.
-- `references/`: pipeline, setup, workspace, existing pipeline, checklist, code hosts, autonomy,
+- `references/`: pipeline, gates, setup, workspace, existing pipeline, checklist, code hosts, autonomy,
   learning, security rules, weekly review.
 - Pipeline lessons from other projects arrive in `~/.claude/prompt-to-ship/upstream.md` (this
   repository's PROJECT.md says `Upstream inbox: yes`). They are generic by design; keep them so.

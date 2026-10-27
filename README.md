@@ -81,7 +81,7 @@ At every level, Claude stops and waits for you in these cases:
 - The risk is high.
 - The change touches CI, build, dependency, migration, access, secret or agent setup files. CI
   (continuous integration) is the automatic build and test that your host runs. The full list of
-  files is in [references/autonomy.md](references/autonomy.md).
+  files is in [references/gates.md](references/gates.md).
 - The brief has an open question, or a reviewer marks a point as blocking.
 - A finding is not fixed, or a test or CI run fails.
 - The merge has a conflict, or the branch protection on your host refuses it.
@@ -266,6 +266,7 @@ Each serious finding adds one validator run. A repository without a user interfa
 
 - **Layers.** Each review misses some problems. Few problems get through all of them.
 - **Proof.** A test run or a screenshot shows that something works. A statement does not.
+- **Short instructions.** The main file stays small; the rest loads only when a step needs it.
 - **Fresh eyes.** A reviewer that did not see the chat finds what the author missed.
 - **A limit on rounds.** An author agent and a reviewer agent can go on forever. Three rounds is
   the maximum.
@@ -318,7 +319,7 @@ prompt-to-ship/
   agents/                          architect, ui-specialist, product-expert,
                                    fresh-reviewer, security-reviewer, validator (all read-only)
   hooks/                           a short reminder on each message, silent in other repositories
-  references/                      pipeline, setup, workspace, existing pipeline, checklist,
+  references/                      pipeline, gates, setup, workspace, existing pipeline, checklist,
                                    code hosts, autonomy, learning, security rules, weekly review
   docs/                            the README diagrams, and the script that draws them
   TESTING.md                       the acceptance test before a release
