@@ -1,0 +1,12 @@
+{
+  "name": "prompt-to-ship",
+  "version": "2.0.0",
+  "description": "From prompt to shipped change, in any language and on any git host. Every request becomes a precise brief, gets a plan reviewed by fixed architect, UI and product reviewers, is built with proof, reviewed in layers (fresh, security, validation) and delivered as a change request. You merge, or the pipeline merges within fixed gates if you choose so. Every miss becomes a new rule.",
+  "author": {
+    "name": "Karel Lintermans"
+  },
+  "homepage": "https://github.com/Klinterm/prompt-to-ship",
+  "repository": "https://github.com/Klinterm/prompt-to-ship",
+  "license": "MIT",
+  "keywords": ["orchestration", "code-review", "security-review", "pipeline", "subagents", "pull-request", "merge-request"]
+}

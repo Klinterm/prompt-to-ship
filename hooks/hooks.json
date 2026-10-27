@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f \"${CLAUDE_PROJECT_DIR:-.}/.claude/orchestration/PROJECT.md\" ] && cat \"${CLAUDE_PLUGIN_ROOT}/hooks/reminder.txt\"; exit 0",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

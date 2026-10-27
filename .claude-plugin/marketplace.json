@@ -1,0 +1,14 @@
+{
+  "name": "prompt-to-ship",
+  "owner": {
+    "name": "Karel Lintermans"
+  },
+  "description": "From prompt to shipped change for Claude Code: brief, reviewed plan, proof, layered review, change request.",
+  "plugins": [
+    {
+      "name": "prompt-to-ship",
+      "source": "./",
+      "description": "Brief, plan with fixed reviewers, build with proof, layered review, change request. For any language and any git host."
+    }
+  ]
+}
