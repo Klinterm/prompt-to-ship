@@ -62,8 +62,8 @@ rows = [
     ("spine", "main", "Step 0: brief", "Your request becomes a precise task",
      ("wait", "Waits on high risk", "or on an open question")),
     ("spine", "main", "Step 1: understand", "Code, git history, documents", None),
-    # two optional agents that work together: code search first, the researcher for what it lacks
-    ("fan", [("Code search", "Optional: code and your data"), ("Researcher", "Only for outside facts")], "link"),
+    # two agents that work together: code search first, the researcher for what it lacks
+    ("fan", [("Code search", "Always; own agent in a large code base"), ("Researcher", "Only for outside facts")], "link"),
     ("spine", "main", "Step 2: plan", "Approach and risks", None),
     ("fan", [("Architect", "Always"), ("UI specialist", "If there is a user interface"), ("Product expert", "Always")]),
     ("spine", "main", "Plan with three verdicts", "At most five lines each",

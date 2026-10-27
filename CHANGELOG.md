@@ -2,6 +2,11 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.9.2
+
+- Diagram: code search always runs; only in a large code base does it get its own agent. The
+  label no longer says "Optional".
+
 ## 2.9.1
 
 - Code search and the researcher work in order: the pipeline looks for a fact in the code and
