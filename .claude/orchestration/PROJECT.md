@@ -86,7 +86,8 @@ Pipeline mode: none
 
 ## Branches and environments
 `main` is the release branch. A release is a tag `vX.Y.Z` that matches `plugin.json`.
-- Release command: none (the maintainer tags releases by hand)
+- Release command: `git tag -a vX.Y.Z -m "prompt-to-ship X.Y.Z" <merge sha> && git push origin vX.Y.Z && gh release create vX.Y.Z --title "prompt-to-ship X.Y.Z" --notes-file <the CHANGELOG section of X.Y.Z>`
+  (X.Y.Z is the version in plugin.json; only on the maintainer's word)
 
 ## Commands
 - Build: none.
