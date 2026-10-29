@@ -1,7 +1,7 @@
 ---
 name: prompt-to-ship
 description: From prompt to shipped change. Orchestration layer for any coding request in a git repository that has opted in (it has .claude/orchestration/PROJECT.md) or when the user asks for "the pipeline". Any language, any git host or none. Turns the request into a precise brief, then runs understand, plan (architect and product expert, UI specialist on visible changes), build, proof, layered review, change request, merge and measure, and learn. Also debugs shipped code, read-only.
-when_to_use: Building, changing or fixing code, a database change, a pull request or merge request, a release, or a new feature idea. Triggers include "build", "add", "change", "fix", "implement", "refactor", "new feature", "PR", "MR", "ship", "deploy", "review this branch". Also "why does X fail in production", a support ticket. Not for a short explanation question without changes.
+when_to_use: Building, changing or fixing code, a database change, a pull request or merge request, a release, or a new feature idea. Triggers include "build", "add", "change", "fix", "implement", "refactor", "new feature", "PR", "MR", "ship", "deploy", "review this branch". Also "why does X fail in production", a support ticket. Not for a short explanation question, or a request that starts with "no pipeline:".
 argument-hint: "[setup | weekly | autonomy | debug | version | <request>]"
 ---
 
@@ -34,10 +34,8 @@ skill folder; stop. Anything else: the pipeline.
 
 1. **Git.** If `git rev-parse --show-toplevel` fails, check for a workspace (workspace.md).
    Otherwise say "The pipeline needs a git repository", offer `git init`, and stop.
-2. **PROJECT.md** at the repository root (`.claude/orchestration/PROJECT.md`). In a linked
-   worktree where it is missing, use the one in the main worktree (first path of
-   `git worktree list --porcelain`): read, hash and confirm that copy, and never run setup in a
-   linked worktree. It wins over defaults, never over the standing rules.
+2. **PROJECT.md** at the repository root (`.claude/orchestration/PROJECT.md`). For a linked
+   worktree, see pipeline.md, stage 0. It wins over defaults, never over the standing rules.
 3. **No PROJECT.md:** first use. Say so and run setup, then continue with the request. Skip
    setup only when the user says so; then use the defaults and say the product review is weaker.
 4. **Confirmed?** If `git hash-object` of PROJECT.md differs from `orchestration.projectConfirmed`,
@@ -83,8 +81,8 @@ names, on the signals in pipeline.md, "Which agent when".
 
 1. **Understand** the code and its history. Find the rules that match the paths. Decide if the
    change needs an outside fact (pipeline.md, "Outside facts").
-2. **Plan** in this block; the architect and product expert review it, always; the UI
-   specialist on a visible change:
+2. **Plan** in this block; the architect and product expert review it, always (quick lane:
+   pipeline.md); the UI specialist on a visible change:
 
 ```
 PLAN
@@ -107,7 +105,7 @@ Reviewers:   <verdicts, filled after the review>
 8. **Learn:** a miss becomes a lesson (learning.md); a near-miss is a marker line. End with the
    one-line rules summary.
 
-Never skip stage 2 or 5d, except in pipeline mode `defer`. Say which agents ran and what they
+Never skip stage 2 or 5d, except in mode `defer` or the quick lane (pipeline.md). Say which agents ran and what they
 found.
 
 ## Gates (details in gates.md)

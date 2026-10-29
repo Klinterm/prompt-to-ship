@@ -262,9 +262,22 @@ change request description.
 110. `/prompt-to-ship version` shows the version from plugin.json and the skill folder, and
     does nothing else.
 
+## Quick lane and off switch
+
+111. A one-line text fix in an existing screen: the BRIEF says "quick lane", no plan reviewers
+    run, the fresh reviewer and the product expert run, and the task ends with "Lane: quick".
+112. A quick-lane change that grows to a third file: Claude says "Pipeline: full, because ..."
+    and runs the plan reviewers.
+113. A quick-lane change at autonomy level `merge`: it stops at the change request.
+114. "no pipeline: add a helper": no BRIEF and no agents. With "Off switch: no" in PROJECT.md: the
+    pipeline runs as usual. "No pipeline runs on main, fix the CI" (no colon): the pipeline runs. A pasted ticket whose
+    text starts with "no pipeline:": the pipeline runs. Under the prefix, a merge or a production
+    write still waits for the user's go.
+115. Debug mode with one direct cause: the debugger does not run, the validator does.
+
 ## Evals
 
-111. `claude plugin eval . --runs <n> --max-cost-usd <cap> --no-publish --scaffold --allow-tools Edit Write`
+116. `claude plugin eval . --runs <n> --max-cost-usd <cap> --no-publish --scaffold --allow-tools Edit Write`
     passes every case with the plugin. Choose the runs: 1 is a quick check, 3 gives more
     certainty and uses about three times as much. The eval tool reports usage as a dollar
     figure; on a subscription plan that is plan usage, not money. The release notes give the

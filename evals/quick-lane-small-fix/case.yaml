@@ -1,0 +1,20 @@
+schema_version: "1.1"
+name: quick-lane-small-fix
+# Run with --allow-tools Edit Write.
+# Expected delta: high for says-quick-lane (plain Claude has no lanes); about 0 for
+# no-plan-reviewers (plain Claude starts no reviewers either). The case guards against the full
+# pipeline on a one-line typo fix.
+graders:
+  - name: says-quick-lane
+    type: regex
+    pattern: 'lane: quick|risk:[^\n]*quick lane'
+    flags: i
+    target: last_message
+  - name: no-plan-reviewers
+    type: regex
+    pattern: '"subagent_type"\s*:\s*"[^"]*architect"'
+    flags: i
+    target: trace
+    match: not_contains
+context:
+  scaffold_script: fixture.sh

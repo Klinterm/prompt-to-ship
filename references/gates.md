@@ -12,7 +12,7 @@ Use the risk table in PROJECT.md. Without one, use this default:
 
 | Risk | Examples | Extra |
 |---|---|---|
-| Low | text, translation, colour, documentation | the full pipeline; no security review |
+| Low | text, translation, colour, documentation | the full pipeline or the quick lane (pipeline.md); no security review |
 | Normal | a screen, a new endpoint, a new command or public function, a report | plus security review; at level `ask`, wait for go on the plan |
 | High | auth and permissions, money, signatures or final documents, file storage, schema migrations, CI, releases, production, public API or file format changes | plus the user reads the diff before the push |
 

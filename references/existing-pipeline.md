@@ -182,7 +182,8 @@ existing pipeline's plan step, it still shows one line: `Research: <the question
 
 **map.** The prompt-to-ship pipeline runs, in the existing pipeline's words.
 - Use its name for the brief, and its names for the steps. The PLAN block takes the name of its
-  plan step. Run the prompt-to-ship agents for
+  plan step. The quick lane (pipeline.md) is the one exception to "the prompt-to-ship agents for
+  every role". Run the prompt-to-ship agents for
   every role.
 - Follow its house rules and git flow, within the standing rules.
 - A house rule "push straight to <target branch>" replaces the change request and the merge at

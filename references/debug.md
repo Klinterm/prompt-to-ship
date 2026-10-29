@@ -71,6 +71,9 @@ Never print a secret. Mask personal data and customer ids in everything you show
 (also in questions to the researcher and in prompts to other agents).
 
 **D3. Hypotheses.** Start `prompt-to-ship:debugger` with the CASE and the evidence, not the chat.
+Quick debug: skip the debugger when the evidence points to one cause directly (a code line that
+produces the symptom, plus a log line, data or a reproduction that shows it) and the cause has
+no auth, data exposure or business rule signal. The validator in D4 still runs.
 
 **D4. Root cause.** Run the separating checks the debugger names. Then start
 `prompt-to-ship:validator` in root cause mode with the CASE, the evidence and the proposed cause,
@@ -91,7 +94,7 @@ Next:        <what the user decides or does>
 
 **D5. Fix.**
 - Code: the normal pipeline from stage 0, with the CASE as context and the playbook check as a
-  "done when" item. In pipeline mode `defer`, hand the fix to the existing pipeline.
+  "done when" item. A small fix may take the quick lane (pipeline.md). In pipeline mode `defer`, hand the fix to the existing pipeline.
 - Data, config or any other write on a production system: gate 15. Show each action, its rollback
   and the expected effect (for example the row count), test it on a copy when one exists, and wait
   for the user's go per action, at every autonomy level.

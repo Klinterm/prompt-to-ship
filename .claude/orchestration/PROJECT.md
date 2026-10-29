@@ -105,7 +105,7 @@ their own language.
 ## Risk table
 | Risk | Examples |
 |---|---|
-| Low | wording in references, README |
+| Low | wording in references and README that changes no behaviour (a change to a rule in references is Normal) |
 | Normal | a new stage rule, a new reference file, agent instructions |
 | High | the hook, the standing rules, the plugin manifest, anything about merges or secrets |
 
@@ -116,7 +116,8 @@ Storage: shared
 Markers: description
 Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/prompt-to-ship/upstream.md at stage 0)
 - Never merge, push to `main` or tag a release without the maintainer's word.
-- Generic: no company, product, customer or stack names in shipped files.
+- Generic: no company, product, customer or stack names in shipped files. One recorded exception:
+  the design gallery that setup suggests (decision 2026-10-29).
 - The plugin name, the folder name, the agent prefixes in `SKILL.md` and the README must match.
 
 ## Documents, decisions and parked items
@@ -126,8 +127,8 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Decision 2026-10-27 (maintainer): evals are unparked. A `claude plugin eval` suite runs before
   each minor release, with a cost estimate first; never as a blocking check on every commit.
   The suite is in `evals/`. Run it with
-  `claude plugin eval . --runs 1 --max-cost-usd 6 --no-publish --scaffold --allow-tools Edit Write`
-  (12 cases; `--runs 1` of 11 cases used $3.83 of plan usage on 2026-10-27). This repository
+  `claude plugin eval . --runs 1 --max-cost-usd 7 --no-publish --scaffold --allow-tools Edit Write`
+  (15 cases; `--runs 1` of 13 cases used $4.79 of plan usage on 2026-10-29; use `--max-cost-usd 7`). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -140,6 +141,14 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   "no visible change"). On a new screen it gives a design brief. Inspiration sources are opened
   by the lead in the browser, never by a reviewer. A personal design skill guides layout with a
   house style only when the project opts in.
+- Decision 2026-10-29 (maintainer): setup suggests one public design gallery (designeer.xyz) as a
+  starting point for "Design inspiration". A deliberate exception to the generic rule: it is a
+  suggestion the user accepts or changes, never a default.
+- Decision 2026-10-29 (maintainer): quick lane for small low-risk changes (brief, build, proof,
+  fresh reviewer, product expert on the result, UI on a visible diff; never merges on its own).
+  It replaces "no light lane" (2026-10-27) and "the architect and product expert review every
+  plan" (2026-10-28) for that lane only. Stage 1 and stage 8 stay; in mode map it never pushes. Off switch "no pipeline:" via the reminder text; a team
+  turns it off with "Off switch: no".
 - Decision 2026-10-29 (maintainer): debug mode for shipped code (Phase A was done in 2.7.0). The lead may read production
   systems only through the methods in a confirmed debug/access.md, with limits and timeouts;
   every write to a production system is gate 15, per action. Monitoring that runs on its own is

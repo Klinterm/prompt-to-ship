@@ -24,7 +24,8 @@ it is not shipped as part of the plugin root.
 
 - Everything in English. The skill answers users in their own language.
 - Generic: no company, product, customer or stack names. Product knowledge belongs in each user
-  repository's `.claude/orchestration/PROJECT.md`.
+  repository's `.claude/orchestration/PROJECT.md`. One recorded exception: the design gallery
+  that setup suggests (PROJECT.md, decision 2026-10-29).
 - No em dashes, en dashes or curly quotes.
 - Host neutral: every code host action goes through `references/code-hosts.md`. Language
   neutral: no check may assume a database, a frontend or a framework.

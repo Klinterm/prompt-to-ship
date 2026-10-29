@@ -134,8 +134,8 @@ has business logic, such as money, quantities or rates. In a project that alread
 prompt-to-ship, ask Claude to "draft domain.md". It has four parts: a glossary, the
 invariants (rules that must always hold, numbered INV-1, INV-2 and so on), the formulas, and the source of
 truth for each value. Then:
-- The product expert checks every plan and every result against it. A broken invariant stops the
-  change.
+- The product expert checks every plan (except in the quick lane) and every result against
+  it. A broken invariant stops the change.
 - Every invariant that a change touches needs a test.
 - The weekly review checks the existing code against the invariants, so old flaws show up too.
 
@@ -149,7 +149,8 @@ guide, or its existing screens. prompt-to-ship never restyles existing screens u
 a redesign in your request. A new kind of screen is built from the nearest existing pattern.
 
 For a new screen, email or document, Claude first looks at the sources on the
-`Design inspiration:` line of your project file, in the browser. It takes the structure, the
+`Design inspiration:` line of your project file, in the browser. Setup suggests
+https://designeer.xyz/, a curated catalogue of design work, as a starting point; you choose. Claude takes the structure, the
 proportions and the rhythm of 1 to 3 references, never their colours, fonts, images or logos.
 The UI specialist then gives a short design brief: components, layout, the one primary action,
 and the empty, loading and error states.
@@ -351,15 +352,34 @@ single chat answer. Agent runs per change, for one review round:
 
 | Risk | Agent runs |
 |---|---|
+| Low, quick lane | 2: the fresh reviewer and the product expert on the result; 3 when the diff is visible |
 | Low | 4: architect and product expert on the plan, the fresh reviewer, the product expert on the result; 6 on a visible change (plus the UI specialist twice) |
 | Normal | 5, or 7 on a visible change: the same, plus the security reviewer |
 | High | the same as normal, and you read the change yourself |
 
-Each serious finding adds one validator run. A change that needs outside facts adds two
+Debug mode: 2 runs (the debugger and the validator), or 1 when the evidence points to one cause
+directly. Each serious finding adds one validator run. A change that needs outside facts adds two
 researcher runs: one to find them and one to check them. Most changes need none.
 
 A repository without a user interface can set "User interface: none" in its project file. This
 saves two runs per change.
+
+## Small changes and the off switch
+
+**Quick lane.** A small, low-risk change gets a short route: the brief, the build, the proof, the
+fresh reviewer and the product expert on the result, with no plan reviewers. Small means: one or
+two files, about 30 changed lines, no sensitive file (a forced-high path), no new screen, no business rule, no outside fact, no data,
+schema or dependency change. The brief says "quick lane". When the change grows, Claude says
+"Pipeline: full" and runs the plan reviewers after all. A quick-lane change never merges on its
+own: it stops at the pull or merge request.
+
+**Off switch.** Start a request with `no pipeline:`, with the colon, for example
+`no pipeline: rename this variable`. The phrase is the same in every language. Claude then works
+as plain Claude: no brief, no agents, no reviews. Only your own typed message counts, never a
+pasted text. A few safety rules still hold: no merge, no push to a shared branch and no write to
+production without your go, and no printed secrets. A team can turn the off switch off with
+`Off switch: no` in its project file. With the prefix, prompt-to-ship does not check your project file, so a local edit can change
+this line. Keep it in the shared project file.
 
 ## Why it works this way
 

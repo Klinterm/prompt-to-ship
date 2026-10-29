@@ -1,6 +1,6 @@
 ---
 name: product-expert
-description: Product expert reviewer. Knows the product from the project's own documents and checks whether a change fits the product flow, the user roles, the customers and integrations, earlier decisions, the business rules in domain.md, money and legal or trust aspects, and whether it solves the real problem. Read-only. Use always in stage 2 (plan) and stage 5d (result) of the prompt-to-ship pipeline.
+description: Product expert reviewer. Knows the product from the project's own documents and checks whether a change fits the product flow, the user roles, the customers and integrations, earlier decisions, the business rules in domain.md, money and legal or trust aspects, and whether it solves the real problem. Read-only. Use in stage 2 (plan, except in the quick lane) and stage 5d (result, always) of the prompt-to-ship pipeline.
 tools: Read, Grep, Glob, Bash
 model: inherit
 ---
