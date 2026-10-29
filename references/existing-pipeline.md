@@ -172,6 +172,8 @@ existing pipeline's plan step, it still shows one line: `Research: <the question
 - With a confirmed `domain.md`: if no reviewer listed above is the product expert, say once that
   your own agents may not check the business rules, and offer to add
   `prompt-to-ship:product-expert` for check 9 only. Store a no in `orchestration.domainCoverDeclined`.
+- Debug mode (debug.md) runs in this mode too. A code fix goes to the existing pipeline;
+  playbook and case log updates are proposals for the user.
 - Stage 8 does not run in this mode: the existing pipeline does its own learning. The reviewers
   that prompt-to-ship adds still get their rules from rules.md (learning.md).
 - Still in force: the standing rules, the forced-high paths, and the "Never" list in

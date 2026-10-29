@@ -60,10 +60,11 @@ https://github.com/Klinterm/prompt-to-ship. The README is the home page.
 
 ## Modules and scope
 - `SKILL.md`: the orchestrator. Short.
-- `agents/`: six read-only reviewers and one read-only researcher for outside facts.
+- `agents/`: six read-only reviewers, a read-only researcher for outside facts and a read-only
+  debugger for shipped code.
 - `hooks/`: the opt-in reminder.
-- `references/`: pipeline, gates, setup, workspace, existing pipeline, checklist, security rules, code hosts,
-  autonomy, learning, weekly review.
+- `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
+  rules, code hosts, autonomy, learning, weekly review.
 - `TESTING.md`: the acceptance test before a release.
 Out of scope: running code on behalf of reviewers, merges that bypass host protection, automatic
 reverts, non-git version control.
@@ -139,6 +140,10 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   "no visible change"). On a new screen it gives a design brief. Inspiration sources are opened
   by the lead in the browser, never by a reviewer. A personal design skill guides layout with a
   house style only when the project opts in.
+- Decision 2026-10-29 (maintainer): debug mode for shipped code (Phase A was done in 2.7.0). The lead may read production
+  systems only through the methods in a confirmed debug/access.md, with limits and timeouts;
+  every write to a production system is gate 15, per action. Monitoring that runs on its own is
+  out of scope (R6).
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

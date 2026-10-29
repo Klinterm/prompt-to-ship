@@ -57,6 +57,26 @@ design skill applies (see "House style"), the UI specialist also gets its path. 
 also gets the matching specialist areas and the path
 `${CLAUDE_SKILL_DIR}/references/security-rules.md`.
 
+## Which agent when
+
+Start an agent only on its signal, and say which agents you start and why. Each row points to
+the section that owns the rule.
+
+| Signal | Stage | Agent | Rule in |
+|---|---|---|---|
+| a plan | 2 | architect and product expert | Stage 2 |
+| a visible change | 2 and 5d | UI specialist | Visible change |
+| an outside fact | 1 | researcher, then researcher in check mode | Outside facts |
+| a diff | 5a | fresh reviewer | Stage 5 |
+| normal or high risk | 5b | security reviewer | Stage 5 |
+| a finding of severity Medium or higher | 5c | validator | Stage 5 |
+| a result | 5d | product expert | Stage 5 |
+| a large code base | 1, D1 | code search agent | Stage 1 |
+| a symptom in shipped code | D3, D4 | debugger, then validator in root cause mode | debug.md |
+| a cause in auth, data exposure or injection | D4 | security reviewer | debug.md |
+| a cause in a business rule | D4 | product expert with domain.md | debug.md |
+| a code fix after debugging | 0 | the pipeline from stage 0 | debug.md |
+
 ## Stage 0. Brief
 
 - Look up the context yourself (code, git history, docs, PROJECT.md). Do not ask what is in the
@@ -161,7 +181,9 @@ stage 7 only at levels `merge` and `release` (autonomy.md).
 - Levels `merge` and `release`: follow autonomy.md, "Automatic merge and release".
 - Every merge follows gates.md, "Every merge and release". Check every gate again right before
   the merge and right before the release.
-- Before releasing, list what else would go live with it (commits since the last release).
+- Before releasing, list what else would go live with it (commits since the last release), and
+  the cases in `debug/cases.md` with status "fixed (not released)" (debug.md).
+- After a release, set those cases to "released" and run their follow-up check (debug.md, D7).
 - After a release, wait a few minutes, then measure the "done when" items.
 
 ## Stage 8. Learn

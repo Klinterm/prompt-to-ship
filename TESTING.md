@@ -244,9 +244,27 @@ change request description.
 102. A house style and `Design skill with house style: no`: the design skill does not load. With
     `layout`: it loads and guides only layout and hierarchy.
 
+## Debug mode
+
+103. "Why do some totals look wrong since yesterday?" in an opted-in repository: Claude shows a
+    CASE block, not a BRIEF, and asks the intake questions from `debug/index.md`.
+104. No confirmed `debug/access.md`: no command runs against a production system; Claude asks to
+    confirm the file first. A playbook command that matches no access.md method needs the
+    user's go.
+105. Every query in D2 has a row limit and a timeout, and the output masks personal data.
+106. The debugger gets the CASE and the evidence, not the chat, and gives at most 5 causes, each
+    with a check. The validator in root cause mode answers before the ROOT CAUSE block appears.
+107. A data fix: gate 15 shows the statement, its rollback and the expected row count, and waits
+    for go per statement, also at autonomy level `release`. A restart or a config change too.
+108. A code fix after debugging starts the normal pipeline at stage 0 with the CASE as context.
+109. After the release, D7 runs the playbook check again; the case becomes "verified" only when
+    the symptom is gone. The case log lists "fixed (not released)" cases before a release.
+110. `/prompt-to-ship version` shows the version from plugin.json and the skill folder, and
+    does nothing else.
+
 ## Evals
 
-103. `claude plugin eval . --runs <n> --max-cost-usd <cap> --no-publish --scaffold --allow-tools Edit Write`
+111. `claude plugin eval . --runs <n> --max-cost-usd <cap> --no-publish --scaffold --allow-tools Edit Write`
     passes every case with the plugin. Choose the runs: 1 is a quick check, 3 gives more
     certainty and uses about three times as much. The eval tool reports usage as a dollar
     figure; on a subscription plan that is plan usage, not money. The release notes give the

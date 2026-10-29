@@ -2,6 +2,28 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.12.0
+
+Debug shipped code, and one routing table for agents.
+- New debug mode (`references/debug.md`), read-only: a CASE block, a matching playbook, evidence
+  through read-only methods only (every command shown first, row limits and timeouts, personal
+  data masked), a new `prompt-to-ship:debugger` agent that ranks causes, the validator in a new
+  root cause mode, a ROOT CAUSE block, a fix route, a playbook as the lesson, and a check after
+  the release. Start it with `/prompt-to-ship debug <problem>` or ask why shipped code fails.
+- Per project, `.claude/orchestration/debug/`: index (intake questions, symptoms), access
+  (read-only methods per environment, confirmed by hash as `orchestration.debugConfirmed`),
+  playbooks and a case log with status and release. "Draft debug files" starts them.
+- New gate 15: any write to a production system (data, config, flag, restart, cache, queue, mail,
+  deploy) waits for the user's go per action, at every autonomy level.
+- New "Which agent when" table in pipeline.md: the lead starts an agent only on its signal.
+- SKILL.md drops its Arguments section; the "Read when" table already covers it.
+- New command `/prompt-to-ship version`: shows the version and the skill folder.
+- Before each production command the lead hashes access.md again. A playbook command that is not
+  exactly a confirmed method needs the user's go. Masking also covers what is sent to other
+  agents and to the web.
+- The gate summary in SKILL.md now names the main gates and points to gates.md for all of them.
+- New eval case `debug-case-first`. Eval (`--runs 1`): all 13 cases pass with the plugin.
+
 ## 2.11.0
 
 The UI specialist runs only on a visible change, and designs before the build.

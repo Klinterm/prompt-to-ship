@@ -118,9 +118,9 @@ with `git config --file <that file> <key> <value>` (`git config --file` and `git
 work outside a repository). Ignore any state file inside the workspace folder.
 
 - In the state file, only workspace values: `orchestration.projectConfirmed`,
-  `orchestration.domainConfirmed`, `orchestration.rulesConfirmed`, `orchestration.autonomy`,
-  `orchestration.roleCoverDeclined`, `orchestration.domainCoverDeclined`,
-  `workspace.declined`.
+  `orchestration.domainConfirmed`, `orchestration.debugConfirmed`, `orchestration.rulesConfirmed`,
+  `orchestration.autonomy`, `orchestration.roleCoverDeclined`,
+  `orchestration.domainCoverDeclined`, `workspace.declined`.
 - Values for one folder stay in that folder's own git config: `git -C <folder> config --local
   orchestration.<key>` (for example `deploysOnMerge`, `releaseCommand`, or a lower `autonomy`).
 - The level for a change in a folder is the lowest of: the workspace level, that folder's own
@@ -133,7 +133,7 @@ work outside a repository). Ignore any state file inside the workspace folder.
 ## Storage, markers and learning
 
 - The workspace is not a repository, so storage is local by definition: PROJECT.md, incidents.md,
-  rules.md, domain.md, reviews/ and log.md live in `<workspace>/.claude/orchestration/`. Lessons are written
+  rules.md, domain.md, debug/, reviews/ and log.md live in `<workspace>/.claude/orchestration/`. Lessons are written
   directly after the user's yes. Setup does not ask the Storage question; it writes
   "Storage: local (workspace)". `orchestration.rulesConfirmed` goes in the state file.
 - The "Markers" line still decides between descriptions and the log. In a workspace, the log is

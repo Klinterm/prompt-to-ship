@@ -99,6 +99,30 @@ a wrong result without an error. prompt-to-ship handles these facts as follows:
 Set the scope in `.claude/orchestration/PROJECT.md`, section "Research scope". Write
 "Research scope: none" when your product does not compute with outside facts.
 
+## Debug shipped code
+
+Sometimes you do not want to build something, but to find out why shipped code fails. Ask in
+plain words ("why do some invoices show the wrong total since yesterday?"), or type
+`/prompt-to-ship debug <problem>`. Claude then works read-only:
+
+1. **Case.** It writes the problem as a CASE: symptom, what should happen, where, since when,
+   evidence. It asks what is missing.
+2. **Playbook.** It looks for a known failure mode in your project's debug files.
+3. **Evidence.** It reads logs, data and the git history around the release, only in the
+   read-only ways that your debug files allow. It shows every command first, and it masks
+   personal data.
+4. **Causes.** A separate **debugger** agent ranks the possible causes, each with the check that
+   proves or rules it out.
+5. **Root cause.** A validator tries to disprove the cause. Only a cause that survives reaches you.
+6. **Fix.** A code fix goes through the normal pipeline. Any write on a production system, such as
+   a data fix, a config change or a restart, waits for your go per action.
+7. **Learn.** The case becomes a playbook, so the next case with the same symptom goes faster.
+   After the release, Claude checks again that the symptom is gone.
+
+Your debug files live in `.claude/orchestration/debug/`: intake questions, how to read each
+environment read-only, one playbook per known failure mode, and a case log. Ask "draft debug
+files" to start them. You confirm the access file before any command from it runs.
+
 ## Business rules
 
 Some rules of a product are not visible in one piece of code: "VAT is applied once, on the
@@ -224,6 +248,8 @@ Type these in the Claude Code chat. With install way B (skills folder) the comma
 | `/prompt-to-ship setup` | `/prompt-to-ship:prompt-to-ship setup` | Gets to know the repository and writes `.claude/orchestration/PROJECT.md`. Asks the pipeline mode and your autonomy level. |
 | `/prompt-to-ship autonomy` | `/prompt-to-ship:prompt-to-ship autonomy` | Shows your autonomy level and lets you change it. |
 | `/prompt-to-ship weekly` | `/prompt-to-ship:prompt-to-ship weekly` | Reviews the pull or merge requests of the last 7 days. Changes nothing. |
+| `/prompt-to-ship debug <problem>` | `/prompt-to-ship:prompt-to-ship debug <problem>` | Finds the cause of a problem in shipped code. Read-only. |
+| `/prompt-to-ship version` | `/prompt-to-ship:prompt-to-ship version` | Shows the installed version and the folder it runs from. Changes nothing. |
 | `/prompt-to-ship <your request>` | `/prompt-to-ship:prompt-to-ship <your request>` | Runs the pipeline on your request. |
 
 After setup you do not need the command for a change. Ask in plain words, for example "Fix the
@@ -237,6 +263,8 @@ You can also say these things in the chat:
 | "stop" | Claude stops the current task. |
 | "do this one manually" | Claude uses level `ask` for this task only. |
 | "revert" | After a failed check following a release, Claude runs the revert it proposed. |
+| "draft debug files" | Claude drafts the debug files for this project: intake questions, read-only access, playbooks. |
+| "draft domain.md" | Claude drafts the business rules for this project. |
 
 Commands for install, update and removal are in [Install](#install) and
 [Update and remove](#update-and-remove).
@@ -389,9 +417,9 @@ prompt-to-ship/
   .claude-plugin/marketplace.json  lets you install this repository as a plugin
   agents/                          architect, ui-specialist, product-expert,
                                    fresh-reviewer, security-reviewer, validator, and the
-                                   researcher for outside facts (all read-only)
+                                   researcher for outside facts, debugger (all read-only)
   hooks/                           a short reminder on each message, silent in other repositories
-  references/                      pipeline, gates, setup, workspace, existing pipeline, checklist,
+  references/                      pipeline, gates, setup, workspace, existing pipeline, debug, checklist,
                                    code hosts, autonomy, learning, security rules, weekly review
   docs/                            the README diagrams, and the script that draws them
   evals/                           behaviour tests for maintainers (claude plugin eval); users do

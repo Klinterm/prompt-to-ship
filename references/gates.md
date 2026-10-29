@@ -95,10 +95,13 @@ nothing.
 14. an outside fact that the change needs is not CONFIRMED in check mode, is outside the research
     scope, comes from an excluded source, has conflicting sources, or was not found
     (pipeline.md, "Outside facts"). The stop message names the fact id, the value and the
-    reason, and offers: give the value with a source, accept this source, or change the scope.
+    reason, and offers: give the value with a source, accept this source, or change the scope;
+15. any write to a production system, in every mode (debug.md, "Terms"): show the action, its
+    rollback and the expected effect, test it on a copy when one exists, and wait for the user's
+    go for that one action.
 
 Stop message, one form:
-`Stopped before <build | push | merge | release>: <what happened>. Next: <what the user does>.`
+`Stopped before <build | push | merge | release | write>: <what happened>. Next: <what the user does>.`
 Use "build" for gates in stages 0 to 5 (an open question, a BLOCKING point, a failed check). After
 a failed measurement add: `I did not revert. Say "revert" to run: <command>.` Build that command
 only from the merge sha you recorded (`git revert -m 1 <sha>` or `git revert <sha>`, on a new
@@ -138,6 +141,7 @@ These hold at every level, also when the user said go:
 | `orchestration.autonomy` | the autonomy level | the user, in chat |
 | `orchestration.projectConfirmed` | the PROJECT.md hash the user confirmed | the user's yes |
 | `orchestration.domainConfirmed` | the domain.md hash the user confirmed | the user's yes |
+| `orchestration.debugConfirmed` | the debug/access.md hash the user confirmed | the user's yes |
 | `orchestration.domainCoverDeclined` | the user said no to the product expert for domain.md in `defer` | the user's no |
 | `orchestration.rulesConfirmed` | the rules.md hash (local storage) | a stored lesson |
 | `orchestration.releaseCommand` | the confirmed release command | the user's yes |
@@ -154,5 +158,7 @@ never sets or raises them.
 
 Re-read `orchestration.autonomy`, `orchestration.releaseCommand`,
 `orchestration.deploysOnMerge`, `orchestration.projectConfirmed` and
-`orchestration.rulesConfirmed` at stage 0, and again right before every merge and release. If one
+`orchestration.rulesConfirmed` at stage 0, and again right before every merge and release.
+Right before every command against a production system, hash `debug/access.md` again and compare
+it with `orchestration.debugConfirmed` (debug.md, "Trust"). If one
 changed during the task (code the pipeline ran can write git config), stop and tell the user.

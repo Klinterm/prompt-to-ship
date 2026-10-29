@@ -6,6 +6,7 @@ repository without `.claude/orchestration/PROJECT.md`. Goal: a PROJECT.md that t
 reviewers what this product is, why it exists, who uses it and how it is built. The code alone
 does not tell that. Nothing else in the repository changes.
 
+The user can also ask to "draft debug files" (debug.md, "The project's debug files").
 A repository that already has a confirmed PROJECT.md can ask to "draft domain.md": run only step
 6b and the domain.md part of steps 7 and 8. PROJECT.md stays as it is.
 
