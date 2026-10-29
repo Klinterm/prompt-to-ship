@@ -364,6 +364,22 @@ researcher runs: one to find them and one to check them. Most changes need none.
 A repository without a user interface can set "User interface: none" in its project file. This
 saves two runs per change.
 
+**Agent models.** Not every agent needs your main model:
+
+| Agent | Default model |
+|---|---|
+| architect, product expert, UI specialist, fresh reviewer, debugger | sonnet |
+| security reviewer, validator, researcher | your main model |
+
+The security reviewer and the validator decide gates, and the researcher's facts go into your
+code, so these three keep your main model. The defaults come from a comparison on haiku, sonnet and opus (`evals-models/`): all three found
+every planted problem, but the cases are small, so the default is sonnet, not haiku.
+
+To change it, tell Claude, for example "use opus for the architect" or "use haiku for all
+agents". Claude stores it for you only, in local git config (`orchestration.agentModels`), like
+the autonomy level. When your own main model is haiku, a sonnet default costs more than your main
+model: then tell Claude "use haiku for all agents".
+
 ## Small changes and the off switch
 
 **Quick lane.** A small, low-risk change gets a short route: the brief, the build, the proof, the
@@ -440,10 +456,12 @@ prompt-to-ship/
                                    researcher for outside facts, debugger (all read-only)
   hooks/                           a short reminder on each message, silent in other repositories
   references/                      pipeline, gates, setup, workspace, existing pipeline, debug, checklist,
-                                   code hosts, autonomy, learning, security rules, weekly review
+                                   code hosts, autonomy, learning, security rules, weekly review,
+                                   research (outside facts), design (house style)
   docs/                            the README diagrams, and the script that draws them
   evals/                           behaviour tests for maintainers (claude plugin eval); users do
                                    not need them
+  evals-models/                    the agent model comparison for maintainers
   TESTING.md                       the acceptance test before a release
   CHANGELOG.md, LICENSE
 ```

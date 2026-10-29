@@ -2,6 +2,25 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.14.0
+
+Cheaper agents, measured.
+- The architect, product expert, UI specialist, fresh reviewer and debugger run on sonnet by
+  default (`model: sonnet`). The security reviewer, the validator and the researcher keep
+  `inherit`, your main model, because gates depend on them.
+- Evidence: a new comparison suite, `evals-models/` (10 cases, one planted problem each, two per
+  agent). With the lead fixed on sonnet and `--runs 2`, haiku, sonnet and opus each found all 10
+  problems. Haiku needed a rerun: in 2 runs the eval tool blocked file reads. The cases are
+  small, so sonnet is the default and haiku stays a choice.
+- Your own choice: tell Claude, for example "use opus for the architect". It is stored per
+  developer in local git config, `orchestration.agentModels` (pipeline.md, "Agent models").
+- pipeline.md is about 16 percent shorter (20 KB to 17 KB): "Outside facts" moved to
+  references/research.md and "House style" to references/design.md, each read only when it
+  applies.
+- Eval (--runs 1): 12 of 15 cases passed at once with the plugin. debug-case-first failed only on
+  an LLM judge mistake; invariant-stops and pipeline-first-use passed on a rerun. Mean score 0.92
+  with the plugin, 0.62 without.
+
 ## 2.13.0
 
 Fewer tokens for small work.

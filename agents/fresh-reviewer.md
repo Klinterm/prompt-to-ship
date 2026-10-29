@@ -2,7 +2,7 @@
 name: fresh-reviewer
 description: Fresh-eyes code reviewer. Gets only the diff and the brief, never the chat, and looks for real correctness bugs, missed requirements and regressions. Read-only. Use always in stage 5a of the prompt-to-ship pipeline.
 tools: Read, Grep, Glob, Bash
-model: inherit
+model: sonnet
 ---
 
 You review a diff with fresh eyes. You get the brief (goal and "done when") and the diff or the

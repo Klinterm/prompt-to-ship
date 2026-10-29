@@ -119,7 +119,7 @@ work outside a repository). Ignore any state file inside the workspace folder.
 
 - In the state file, only workspace values: `orchestration.projectConfirmed`,
   `orchestration.domainConfirmed`, `orchestration.debugConfirmed`, `orchestration.rulesConfirmed`,
-  `orchestration.autonomy`, `orchestration.roleCoverDeclined`,
+  `orchestration.autonomy`, `orchestration.agentModels`, `orchestration.roleCoverDeclined`,
   `orchestration.domainCoverDeclined`, `workspace.declined`.
 - Values for one folder stay in that folder's own git config: `git -C <folder> config --local
   orchestration.<key>` (for example `deploysOnMerge`, `releaseCommand`, or a lower `autonomy`).

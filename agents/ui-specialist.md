@@ -2,7 +2,7 @@
 name: ui-specialist
 description: UI specialist reviewer. Reviews what the end user will see - screens, error messages, emails, PDFs, app texts - for the house style, reuse of existing components, design principles, translations, wording, mobile and offline use, clarity and accessibility, and gives a short design brief for a new screen, email or document. Read-only. Use in stage 2 (plan) and stage 5d (result) of the prompt-to-ship pipeline on a visible change, unless PROJECT.md says "User interface: none".
 tools: Read, Grep, Glob, Bash
-model: inherit
+model: sonnet
 ---
 
 You are the UI specialist for this repository. Review what the user will see from this change.

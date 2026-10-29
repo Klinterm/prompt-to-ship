@@ -1,0 +1,17 @@
+schema_version: "1.1"
+name: fresh-denominator
+# Agent model comparison (references/pipeline.md, "Agent models"). Run with
+# --eval-dir evals-models --ablation none --model sonnet and AGENT_MODEL set to the agent model.
+graders:
+  - name: agent-started
+    type: regex
+    pattern: '"subagent_type"\s*:\s*"[^"]*fresh-reviewer"'
+    flags: i
+    target: trace
+  - name: names-the-problem
+    type: regex
+    pattern: 'len\(valid\)|denominator|divides by (the )?(length of|len\()?(the )?(full|whole|all|original|ratings)|2\.0'
+    flags: i
+    target: last_message
+context:
+  scaffold_script: fixture.sh

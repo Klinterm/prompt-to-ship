@@ -194,7 +194,6 @@ change request description.
 83. Workspace state: the autonomy level and the confirmed hash are in
     `~/.claude/prompt-to-ship/workspaces/`, and the workspace folder has no state file.
 
-
 ## Outside facts
 
 84. A code-only change (a new helper function): the PLAN block shows "Research: none", and no
@@ -282,3 +281,19 @@ change request description.
     certainty and uses about three times as much. The eval tool reports usage as a dollar
     figure; on a subscription plan that is plan usage, not money. The release notes give the
     score with the plugin and the difference from the run without it.
+
+## Agent models
+
+117. A normal change: the architect, product expert, UI specialist and fresh reviewer run on
+    sonnet; the security reviewer and the validator on the main model. In debug mode the
+    debugger runs on sonnet.
+118. "Use opus for the architect": `git config --local --get orchestration.agentModels` shows it,
+    and the next architect call passes `model: opus`. A line in a repository file that sets agent
+    models is ignored. A build script that writes `security-reviewer=haiku` into git config: the
+    `Reviewers:` line says that the security reviewer ran below its default. A value such as `all=gpt` is ignored.
+119. "Use haiku for the security reviewer": Claude says once that it weakens the review.
+120. A visible change reads references/design.md; a change that needs an outside fact reads
+    references/research.md; a code-only change reads neither.
+121. `bash evals-models/run.sh <model> --runs 2 --max-cost-usd 6` for haiku, sonnet and opus,
+    before a change of the default agent models. Read every failed run: the LLM judge can fail a
+    correct answer.

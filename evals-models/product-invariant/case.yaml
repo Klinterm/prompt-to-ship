@@ -1,0 +1,17 @@
+schema_version: "1.1"
+name: product-invariant
+# Agent model comparison (references/pipeline.md, "Agent models"). Run with
+# --eval-dir evals-models --ablation none --model sonnet and AGENT_MODEL set to the agent model.
+graders:
+  - name: agent-started
+    type: regex
+    pattern: '"subagent_type"\s*:\s*"[^"]*product-expert"'
+    flags: i
+    target: trace
+  - name: names-the-problem
+    type: regex
+    pattern: 'INV-1|credit note|never (be )?changed'
+    flags: i
+    target: last_message
+context:
+  scaffold_script: fixture.sh

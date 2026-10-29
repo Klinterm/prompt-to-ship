@@ -81,7 +81,7 @@ without the debugger's notes. Only a CONFIRMED cause goes to the user as the roo
 NEEDS MORE EVIDENCE, run the check it names first, or show the open check to the user. Also start, by signal:
 the security reviewer when the cause touches auth, data exposure or injection; the product expert
 with domain.md when it touches a business rule; the researcher when an outside fact changed (an
-external API, a rate). Then show:
+external API, a rate; research.md). Then show:
 
 ```
 ROOT CAUSE

@@ -64,7 +64,7 @@ https://github.com/Klinterm/prompt-to-ship. The README is the home page.
   debugger for shipped code.
 - `hooks/`: the opt-in reminder.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
-  rules, code hosts, autonomy, learning, weekly review.
+  rules, code hosts, autonomy, learning, weekly review, research, design.
 - `TESTING.md`: the acceptance test before a release.
 Out of scope: running code on behalf of reviewers, merges that bypass host protection, automatic
 reverts, non-git version control.
@@ -154,6 +154,13 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   systems only through the methods in a confirmed debug/access.md, with limits and timeouts;
   every write to a production system is gate 15, per action. Monitoring that runs on its own is
   out of scope (R6).
+- Decision 2026-10-29 (maintainer): agent models. The architect, product expert, UI specialist,
+  fresh reviewer and debugger default to sonnet; the security reviewer, validator and researcher
+  keep `inherit`. A developer changes it in chat; it lives in local git config
+  (`orchestration.agentModels`), never in the repository. Evidence: `evals-models/`, run with
+  `bash evals-models/run.sh <haiku|sonnet|opus> --runs 2 --max-cost-usd 6` (about $2 per model
+  on 2026-10-29). Its llm judge gave false fails on correct answers; read the failed runs before
+  you decide. Rerun it when a new model family arrives.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

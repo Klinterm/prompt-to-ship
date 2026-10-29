@@ -26,6 +26,8 @@ and own the result. Answer plainly, in the user's language.
 | setup.md | argument `setup`, or no PROJECT.md |
 | weekly-review.md | argument `weekly` |
 | debug.md | argument `debug`, or a request about shipped code |
+| research.md | the change may need an outside fact |
+| design.md | a visible change |
 
 Argument `version`: show `version` from `${CLAUDE_SKILL_DIR}/.claude-plugin/plugin.json` and the
 skill folder; stop. Anything else: the pipeline.
@@ -77,10 +79,10 @@ The reviewer agents are `prompt-to-ship:architect`, `prompt-to-ship:ui-specialis
 `prompt-to-ship:product-expert`, `prompt-to-ship:fresh-reviewer`,
 `prompt-to-ship:security-reviewer` and `prompt-to-ship:validator`. The researcher for outside
 facts is `prompt-to-ship:researcher`, the debugger `prompt-to-ship:debugger`. Start them by these full
-names, on the signals in pipeline.md, "Which agent when".
+names, on the signals and with the models in pipeline.md.
 
 1. **Understand** the code and its history. Find the rules that match the paths. Decide if the
-   change needs an outside fact (pipeline.md, "Outside facts").
+   change needs an outside fact (research.md).
 2. **Plan** in this block; the architect and product expert review it, always (quick lane:
    pipeline.md); the UI specialist on a visible change:
 

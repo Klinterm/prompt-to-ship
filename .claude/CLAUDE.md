@@ -13,7 +13,7 @@ it is not shipped as part of the plugin root.
   read-only debugger for shipped code. Their names get the plugin name as prefix.
 - `hooks/`: a reminder on every prompt that stays silent outside opted-in repositories.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, code
-  hosts, autonomy, learning, security rules, weekly review.
+  hosts, autonomy, learning, security rules, weekly review, research, design.
 - Pipeline lessons from other projects arrive in `~/.claude/prompt-to-ship/upstream.md` (this
   repository's PROJECT.md says `Upstream inbox: yes`). They are generic by design; keep them so.
 - `.claude/orchestration/incidents.md`: this repository's own incidents (stage 8).

@@ -1,0 +1,17 @@
+schema_version: "1.1"
+name: debugger-zero-default
+# Agent model comparison (references/pipeline.md, "Agent models"). Run with
+# --eval-dir evals-models --ablation none --model sonnet and AGENT_MODEL set to the agent model.
+graders:
+  - name: agent-started
+    type: regex
+    pattern: '"subagent_type"\s*:\s*"[^"]*debugger"'
+    flags: i
+    target: trace
+  - name: names-the-problem
+    type: regex
+    pattern: 'get\(sku, ?0\)|default(s)? (of |to |value )?0|missing price|no price'
+    flags: i
+    target: last_message
+context:
+  scaffold_script: fixture.sh
