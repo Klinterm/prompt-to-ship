@@ -16,8 +16,46 @@ A repository that already has a confirmed PROJECT.md can ask to "draft domain.md
    holds several repositories, see [workspace.md](workspace.md)); in workspace mode, run steps 1
    to 3 per folder and add the "Repositories" section. In workspace mode, step 8 asks only the
    tool-lines question (storage is local), and every `git config --local` value of setup goes
-   in the workspace state file instead (workspace.md, "State"). Otherwise say "the pipeline needs a git
-   repository", offer `git init`, and stop until the user answers. Work from the repository root.
+   in the workspace state file instead (workspace.md, "State"). Otherwise follow "No git yet"
+   below. Work from the repository root. When that root is too broad for one project (the list
+   below; often a home folder kept in git), never set up there: offer a new project folder, as
+   "No git yet" says. That folder gets its own repository inside the broad one; git allows this.
+
+   **No git yet.** The one home for a folder that is not a git repository. Write every message in
+   the user's language; keep URLs and commands as they are. Check in this order:
+   - `git --version` fails: "Git is a free program that keeps every version of your files. It is
+     not installed yet. Install it from https://git-scm.com/downloads, then say 'done'." Wait.
+   - `git rev-parse` fails although a `.git` folder or file exists here or in a parent folder (git
+     refused it, for example "dubious ownership"): never run `git init`, and never run or advise
+     `safe.directory`. Show git's own error and say "Ask whoever manages this computer, or start
+     Claude in another folder." Stop.
+   - A git repository one or two folder levels down, and no workspace: say "There is already a
+     git repository in <folder>. Start Claude in that folder to work on it." Run `git init` here
+     only when the user then asks for it.
+   - The start folder is too broad for one project: the home folder, a drive root, `/`, a system
+     folder (`C:\Windows`, `C:\Program Files`, `/usr`, `/etc`, `/System` and similar), or the
+     Desktop, Documents, Downloads or a sync root (for example OneDrive) itself. Compare paths
+     without case on Windows. Say "This folder is too broad for one project. Make a new folder for
+     it, with its own git repository? It stays on this computer; nothing goes online. Suggested:
+     <full path>. Reply yes, or give another name." The name is one plain folder name (letters,
+     digits, `-` and `_`), made directly in the start folder; show the full path before the yes.
+     On yes, create it and run the rest of this step there. Say that later sessions start in that
+     folder.
+   - Otherwise one message, the question last: "Your project needs a git repository first. Git
+     keeps every version of your files, so each change can be checked and undone. It stays on this
+     computer; nothing goes online. Deleting the hidden `.git` folder undoes it." When the folder
+     holds files, add "This folder has <n> files. Git changes and deletes none of them." Inside a
+     synced folder (OneDrive, Dropbox, iCloud and similar), add "Sync programs can damage a git
+     repository; a folder outside the synced folder is safer." Then "Turn this folder into a git
+     repository? Reply yes or no."
+   On yes, before PROJECT.md is confirmed (it runs nothing from the folder): `git init -b main`
+   (older git: `git init`, then `git symbolic-ref HEAD refs/heads/main`). When `git config
+   user.name` or `user.email` is empty, ask: "Git writes a name and email next to each change.
+   Which name and email should it use? A made-up email is fine. It stays on this computer." Store
+   the answer with `git config --local user.name` and `user.email`, each value as its own
+   argument. These are the user's own answers, not state keys (gates.md). No commit. Then go on
+   with step 1. On no: "I need a git repository to work here. Say yes when you want to start."
+   Stop.
 1. **The codebase.** README, docs folder, build and package files, CI config, folder structure,
    existing CLAUDE.md or other agent instruction files, and the git log of the last months (what
    changed, who works on it, what keeps coming back). Use a read-only subagent for a large

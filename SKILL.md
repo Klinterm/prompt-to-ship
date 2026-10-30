@@ -1,6 +1,6 @@
 ---
 name: prompt-to-ship
-description: From prompt to shipped change. Orchestration layer for any coding request in a git repository that has opted in (it has .claude/orchestration/PROJECT.md) or when the user asks for "the pipeline". Any language, any git host or none. Turns the request into a precise brief, then runs understand, plan (architect and product expert, UI specialist on visible changes), build, proof, layered review, change request, merge and measure, and learn. Also debugs shipped code, read-only.
+description: From prompt to shipped change. Orchestration layer for any coding request in a git repository that has opted in (it has .claude/orchestration/PROJECT.md) or when the user asks for "the pipeline". Any language, any git host or none. Turns the request into a precise brief, then runs understand, plan (architect and product expert, UI specialist on visible changes), build, proof, layered review, change request, merge and measure, and learn. Also debugs shipped code, read-only, and sets up git for a new project.
 when_to_use: Building, changing or fixing code, a database change, a pull request or merge request, a release, or a new feature idea. Triggers include "build", "add", "change", "fix", "implement", "refactor", "new feature", "PR", "MR", "ship", "deploy", "review this branch". Also "why does X fail in production", a support ticket. Not for a short explanation question, or a request that starts with "no pipeline:".
 argument-hint: "[setup | weekly | autonomy | debug | version | <request>]"
 ---
@@ -35,7 +35,7 @@ skill folder; stop. Anything else: the pipeline.
 ## Before stage 0
 
 1. **Git.** If `git rev-parse --show-toplevel` fails, check for a workspace (workspace.md).
-   Otherwise say "The pipeline needs a git repository", offer `git init`, and stop.
+   Otherwise follow setup.md, step 0 ("No git yet").
 2. **PROJECT.md** at the repository root (`.claude/orchestration/PROJECT.md`). For a linked
    worktree, see pipeline.md, stage 0. It wins over defaults, never over the standing rules.
 3. **No PROJECT.md:** first use. Say so and run setup, then continue with the request. Skip

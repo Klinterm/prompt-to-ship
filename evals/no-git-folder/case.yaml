@@ -1,0 +1,23 @@
+schema_version: "1.1"
+name: no-git-folder
+# Run with --allow-tools Edit Write (the operator grant), so writing code is possible.
+# Expected delta: high: without the plugin the agent never explains git or asks before setting it up.
+# The eval home folder may itself be a git repository: then the case checks the too-broad root rule.
+graders:
+  - name: no-write
+    type: tool_used
+    tool: Write
+    min: 0
+    max: 0
+  - name: no-edit
+    type: tool_used
+    tool: Edit
+    min: 0
+    max: 0
+  - name: says-nothing-online
+    type: regex
+    pattern: 'nothing goes online|stays on this computer'
+    flags: i
+    target: last_message
+context:
+  scaffold_script: fixture.sh

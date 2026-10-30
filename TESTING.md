@@ -28,7 +28,11 @@ change request description.
 
 ## Pipeline
 
-10. Setup in a folder without git: it stops with "needs a git repository" and offers `git init`.
+10. Setup in a folder without git: one plain message about git and the question "Turn this folder
+    into a git repository?"; on yes `git init -b main`, the name and email question when git has
+    none, no commit; on no a stop. In the home folder or Documents: the new-folder offer. With git
+    missing: the install link. A repository one level down: no `git init`. A start folder inside a
+    home folder that is a git repository: the new-folder offer, no setup in the home folder.
 11. Setup in at least two repositories with different ecosystems (for example a Node package
     and a Go or Python service, one of them a monorepo): the commands in PROJECT.md are correct.
 12. A low-risk change through all stages, on a repository with a GitHub or GitLab remote: the

@@ -2,6 +2,29 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.16.0
+
+Git for people who do not know git.
+- In a folder without git, setup explains git in a few plain sentences and asks "Turn this folder
+  into a git repository?". On yes it runs `git init -b main` itself, asks for a name and email
+  when git has none (stored only in this repository), and goes on with setup. No commit, no
+  remote, nothing online.
+- In a folder that is too broad (the home folder, a drive root, a system folder, Documents,
+  Desktop, Downloads or a sync root), setup offers to make a project folder first, with a plain name.
+  Inside a synced folder it warns once that sync programs can damage a git repository.
+- Never `git init` when git refuses an existing repository (and never `safe.directory`), or when a
+  repository sits one or two levels down, unless the user asks. When the
+  repository root is itself too broad (often a home folder kept in git), setup offers a new
+  project folder with its own repository. The eval found this case: its home folder is a git
+  repository.
+- Installing git itself stays manual: setup gives the download link and waits.
+- The rule has one home: references/setup.md, step 0, "No git yet".
+- New eval case `no-git-folder`.
+- Eval (--runs 1): 15 of 17 cases passed at once; debug-case-first and pipeline-first-use failed
+  only on the LLM judge and passed on a rerun with the final text. Mean 0.96 with the plugin, 0.60
+  without. no-git-folder hit the too-broad branch (the eval home folder is a git repository); the
+  plain "Turn this folder into a git repository?" branch is covered by TESTING item 10.
+
 ## 2.15.0
 
 Start from an idea.

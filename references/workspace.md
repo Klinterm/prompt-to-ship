@@ -28,8 +28,8 @@ product/            the workspace (not a git repository)
    `This folder is not a git repository, but it holds <n> git repositories: <folder>, <folder>, <folder>. I can treat this folder as one workspace: one PROJECT.md here, and each change names the repositories it touches. Set up this folder as a workspace? Reply yes or no.`
    - Yes: run setup in workspace mode.
    - No: store `workspace.declined true` in the state file, and say:
-     `Then start Claude inside one of these repositories. Run git init here only if this folder should become one repository itself.`
-4. Otherwise: the normal message, "The pipeline needs a git repository".
+     `Then start Claude inside one of these repositories.` Run `git init` in this folder only when the user asks for it.
+4. Otherwise: setup.md, step 0, "No git yet".
 
 A session started inside one repository or one working copy uses normal mode. It does not see
 the workspace PROJECT.md. For workspace work, start Claude in the workspace.

@@ -206,7 +206,8 @@ plain git and tells you how to sign in.
 ## Requirements
 
 - [Claude Code](https://code.claude.com).
-- A git repository.
+- Git, the free program that keeps every version of your files (https://git-scm.com/downloads).
+  You do not need a repository yet: Claude asks and sets it up in your project folder.
 - Optional: the command-line tool of your host, signed in. See [Code hosts](#code-hosts).
 - Windows: Git for Windows. Claude Code runs hooks in Git Bash. A hook is a small command that
   Claude Code runs on each message. Without Git Bash the hook stays silent, and the skill still
@@ -288,10 +289,13 @@ In a repository without `.claude/orchestration/PROJECT.md`, the hook prints noth
 
 ### Start from an idea
 
-You have an idea and an empty folder. Run `git init` there, start Claude, and type
+You have an idea and an empty folder. Start Claude in that folder and type
 `/prompt-to-ship build an app where neighbours can lend each other tools`. Claude then works in
 small, checked steps:
 
+0. **A git repository.** If the folder has no git repository yet, Claude explains in a few plain
+   sentences what git does and asks to set one up. Nothing goes online. In a folder that is too broad, such as your
+   Documents folder, Claude first offers to make a new project folder.
 1. **A few questions.** Claude asks at most six plain questions about the idea: what it is, who uses
    it, what the first version must do, what it becomes (a website, a phone app, a program), and
    what it must use. Then one question about going live. "Skip" and "you choose" are fine answers.

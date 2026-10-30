@@ -129,7 +129,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   each minor release, with a cost estimate first; never as a blocking check on every commit.
   The suite is in `evals/`. Run it with
   `claude plugin eval . --runs 1 --max-cost-usd 7 --no-publish --scaffold --allow-tools Edit Write`
-  (16 cases; `--runs 1` of 13 cases used $4.79 of plan usage on 2026-10-29; use `--max-cost-usd 7`). This repository
+  (17 cases; `--runs 1` of 13 cases used $4.79 of plan usage on 2026-10-29; use `--max-cost-usd 7`). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
