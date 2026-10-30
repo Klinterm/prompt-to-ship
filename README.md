@@ -286,6 +286,27 @@ Commands for install, update and removal are in [Install](#install) and
 
 In a repository without `.claude/orchestration/PROJECT.md`, the hook prints nothing.
 
+### Start from an idea
+
+You have an idea and an empty folder. Run `git init` there, start Claude, and type
+`/prompt-to-ship build an app where neighbours can lend each other tools`. Claude then works in
+small, checked steps:
+
+1. **A few questions.** Claude asks at most six plain questions about the idea: what it is, who uses
+   it, what the first version must do, what it becomes (a website, a phone app, a program), and
+   what it must use. Then one question about going live. "Skip" and "you choose" are fine answers.
+2. **A choice of how to build it.** Claude proposes two or three options. Each one says what it
+   is, why it fits your answers, and what it costs in money, effort or lock-in. The first one is
+   the recommendation. The architect and the product expert check the options first. You answer
+   A, B or C.
+3. **A list of small steps.** The first version becomes 3 to 7 steps, each one a result you can
+   see, such as "You can sign up and see an empty list". Step 1 is always a running empty app with
+   one passing test. It proves that the setup works.
+4. **Step 1, then the next.** Claude shows the plan for step 1, with every package it will install.
+   It builds after your go, and you read the result before it is merged. Then you ask for step 2,
+   and so on. Nothing goes online and no account is
+   made without your word.
+
 ### A workspace with several repositories
 
 Do you keep one folder for a whole product, with several git repositories and documents, and

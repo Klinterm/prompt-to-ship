@@ -297,3 +297,18 @@ change request description.
 121. `bash evals-models/run.sh <model> --runs 2 --max-cost-usd 6` for haiku, sonnet and opus,
     before a change of the default agent models. Read every failed run: the LLM judge can fail a
     correct answer.
+
+## New project
+
+122. An empty repository (only a README) and "build an app that ...": Claude says it is a new
+    project and asks at most six numbered idea questions with examples, then the deploy question.
+    No file changes. A README that names a framework does not decide the choice. "Add a licence" in the
+    same repository runs the normal setup.
+123. After the answers: PROJECT.md says "to be decided (stack choice)" and "Commands: none yet";
+    a stack PLAN block with two or three options, the recommended one first, reviewed by the
+    architect and the product expert. With no direction in the answers, Claude asks instead.
+124. Slices: 3 to 7, each a visible result; slice 1 is "a running empty app and one passing test".
+    Slice 1 runs at high risk (manifests, lockfiles); its plan lists each package with version and
+    registry, and waits for the go; no remote, push or hosting account without the user's word.
+    After its merge, setup proposes the new commands. Each PROJECT.md edit gets one proposal and,
+    on yes, one new projectConfirmed hash.

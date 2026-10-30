@@ -2,6 +2,21 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.15.0
+
+Start from an idea.
+- Setup has a new-project path (references/setup.md, "New project") for an empty repository
+  and a product idea. Claude asks at most six plain idea questions with examples ("skip" and
+  "you choose" are fine), writes PROJECT.md, and proposes two or three ways to build it, reviewed by the architect
+  and the product expert, the recommended one first. It never picks a default stack.
+- The first version becomes 3 to 7 slices, each a result the user can see. Slice 1 is always a
+  running empty app with one passing test. It runs at high risk (manifests and lockfiles) and
+  waits for the user's go on a plan that lists every package. No remote, push or hosting account without the user's word. After it,
+  setup proposes the detected commands.
+- New eval case `new-project-idea`.
+- Eval (--runs 1): all 16 cases pass with the plugin. Mean score 1.0 with the plugin, 0.64
+  without. new-project-idea: 1.0 with, 0.75 without (also 1.0 on a rerun after the review fixes).
+
 ## 2.14.0
 
 Cheaper agents, measured.

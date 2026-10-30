@@ -1,6 +1,6 @@
 {
   "name": "prompt-to-ship",
-  "version": "2.14.0",
+  "version": "2.15.0",
   "description": "From prompt to shipped change, in any language and on any git host. Every request becomes a precise brief, gets a plan reviewed by a fixed architect and product expert (plus a UI specialist on a visible change), is built with proof, reviewed in layers (fresh, security, validation) and delivered as a change request. It also debugs shipped code, read-only. You merge, or the pipeline merges within fixed gates if you choose so. Every miss becomes a new rule.",
   "author": {
     "name": "Karel Lintermans"

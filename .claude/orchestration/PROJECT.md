@@ -129,7 +129,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   each minor release, with a cost estimate first; never as a blocking check on every commit.
   The suite is in `evals/`. Run it with
   `claude plugin eval . --runs 1 --max-cost-usd 7 --no-publish --scaffold --allow-tools Edit Write`
-  (15 cases; `--runs 1` of 13 cases used $4.79 of plan usage on 2026-10-29; use `--max-cost-usd 7`). This repository
+  (16 cases; `--runs 1` of 13 cases used $4.79 of plan usage on 2026-10-29; use `--max-cost-usd 7`). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -161,6 +161,9 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   `bash evals-models/run.sh <haiku|sonnet|opus> --runs 2 --max-cost-usd 6` (about $2 per model
   on 2026-10-29). Its llm judge gave false fails on correct answers; read the failed runs before
   you decide. Rerun it when a new model family arrives.
+- Decision 2026-10-30 (maintainer): a new-project path in setup for an empty repository and an
+  idea: idea questions, a reviewed choice of how to build it (never a default stack), 3 to 7
+  slices, and slice 1 as a running empty app with one passing test, at high risk.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

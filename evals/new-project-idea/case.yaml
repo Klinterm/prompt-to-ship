@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: new-project-idea
+# Run with --allow-tools Edit Write (the operator grant), so writing code is possible.
+# Expected delta: high: without the plugin the agent starts writing an app at once.
+graders:
+  - name: no-write
+    type: tool_used
+    tool: Write
+    min: 0
+    max: 0
+  - name: no-edit
+    type: tool_used
+    tool: Edit
+    min: 0
+    max: 0
+  - name: says-new-project
+    type: regex
+    pattern: 'new project'
+    flags: i
+    target: last_message
+context:
+  scaffold_script: fixture.sh
