@@ -1,0 +1,38 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    env:
+      LC_ALL: C.UTF-8
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: No em dashes, en dashes or curly quotes
+        run: |
+          if grep -rnP '[\x{2013}\x{2014}\x{2018}\x{2019}\x{201C}\x{201D}]' --exclude-dir=.git --exclude-dir=results .; then
+            exit 1
+          fi
+
+      - name: SKILL.md is at most 8,000 bytes
+        run: |
+          size=$(wc -c < SKILL.md)
+          echo "SKILL.md: $size bytes"
+          test "$size" -le 8000
+
+      - name: plugin.json version matches the newest CHANGELOG section
+        run: |
+          v=$(sed -n 's/.*"version": *"\([^"]*\)".*/\1/p' .claude-plugin/plugin.json)
+          c=$(grep -m1 '^## [0-9]' CHANGELOG.md | sed 's/^## //')
+          echo "plugin.json $v, CHANGELOG $c"
+          test "$v" = "$c"

@@ -17,7 +17,7 @@ change request description.
 ## Install paths
 
 5. Path A (marketplace) and path B (skills folder) each load in a new session: the skill shows
-   in the skill list and the six agents show in `/agents`. Note the exact skill command per path.
+   in the skill list and the eight agents show in `/agents`. Note the exact skill command per path.
 6. `${CLAUDE_SKILL_DIR}` in `SKILL.md` resolves to the folder that holds `SKILL.md`.
 
 ## Hook
@@ -316,3 +316,22 @@ change request description.
     registry, and waits for the go; no remote, push or hosting account without the user's word.
     After its merge, setup proposes the new commands. Each PROJECT.md edit gets one proposal and,
     on yes, one new projectConfirmed hash.
+
+## Self-review fixes (2.17.0)
+
+125. `/agents` shows the seven reviewer and debugger agents with only Read, Grep and Glob. A review
+    of a change gets `git log` and `git blame` output from the lead in its prompt; an agent that
+    ends with "Needs from the lead:" gets that command's output in the next round.
+126. Debug D4: a check the debugger names that is not an access.md method or a repository read is
+    shown and waits for the go.
+127. Change `orchestration.autonomy` with `git config` between two tasks: the next stage 0 shows
+    the changed key and asks. A new clone with no stored hash asks nothing.
+128. Quick lane in pipeline mode `defer`: not offered. In mode `map` it never pushes to the target.
+129. Setup suggests the design gallery for "Design inspiration"; the user can change or refuse it.
+    The lead opens only `https://` pages on public hosts and copies no page text into the plan.
+130. CI (`.github/workflows/checks.yml`) passes on a push: style, SKILL.md size and version match.
+131. A missing prompt-to-ship agent type (plugin not loaded): the lead stops with the reload
+    message and starts no `general-purpose` agent.
+132. An agent ends with "Needs from the lead: git log -p --ext-diff" or "git config ...": the lead
+    does not run it, and shows it to the user. "Needs from the lead: git log -n5 -- src/app.py": the
+    lead runs it and passes at most 200 lines.

@@ -76,7 +76,7 @@ rows = [
      ("wait", "You decide", "About the merge")),
     ("spine", "main", "Step 7: merge and measure", "Checks the goal after the release",
      ("wait", "Your word, each time", "Also for the release")),
-    ("spine", "main", "Step 8: learn", "A mistake becomes a new rule", None),
+    ("spine", "main", "Step 8: learn", "A lesson worth keeping becomes a rule", None),
 ]
 
 body, y = [], 28

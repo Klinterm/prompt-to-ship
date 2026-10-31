@@ -36,8 +36,9 @@ A repository that already has a confirmed PROJECT.md can ask to "draft domain.md
      folder (`C:\Windows`, `C:\Program Files`, `/usr`, `/etc`, `/System` and similar), or the
      Desktop, Documents, Downloads or a sync root (for example OneDrive) itself. Compare paths
      without case on Windows. Say "This folder is too broad for one project. Make a new folder for
-     it, with its own git repository? It stays on this computer; nothing goes online. Suggested:
-     <full path>. Reply yes, or give another name." The name is one plain folder name (letters,
+     it, with its own git repository? Git keeps every version of your files, so each change can be
+     checked and undone. It stays on this computer; nothing goes online. Suggested: <full path>.
+     Reply yes, or give another name." The name is one plain folder name (letters,
      digits, `-` and `_`), made directly in the start folder; show the full path before the yes.
      On yes, create it and run the rest of this step there. Say that later sessions start in that
      folder.

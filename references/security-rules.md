@@ -36,6 +36,7 @@ Used by the security-reviewer (stage 5b), the validator (stage 5c) and the weekl
 - Access-control bugs: start at the entry point and walk forward. Per handler: who is allowed,
   what is enforced, on which object.
 - `git log -S` and `git log -G` find removed secrets, reverted fixes and checks switched off.
+  The lead runs them and puts the output in the prompt; ask for more under "Needs from the lead:".
 
 ## Specialist areas: pick by what changed
 

@@ -281,8 +281,8 @@ Commands for install, update and removal are in [Install](#install) and
    `.claude/orchestration/PROJECT.md`. Read this file and correct it. The reviewers base their
    verdicts on it.
 3. Choose your autonomy level when Claude asks. Change it later with `/prompt-to-ship autonomy`.
-4. Ask for a change in plain words. You see the brief first, then the plan with the three
-   verdicts.
+4. Ask for a change in plain words. You see the brief first, then the plan with the reviewers'
+   verdicts (the quick lane has no plan verdicts).
 5. Run `/prompt-to-ship weekly` once a week, or schedule it.
 
 In a repository without `.claude/orchestration/PROJECT.md`, the hook prints nothing.
@@ -412,7 +412,8 @@ fresh reviewer and the product expert on the result, with no plan reviewers. Sma
 two files, about 30 changed lines, no sensitive file (a forced-high path), no new screen, no business rule, no outside fact, no data,
 schema or dependency change. The brief says "quick lane". When the change grows, Claude says
 "Pipeline: full" and runs the plan reviewers after all. A quick-lane change never merges on its
-own: it stops at the pull or merge request.
+own: it stops at the pull or merge request. A repository in pipeline mode `defer` gets no quick
+lane.
 
 **Off switch.** Start a request with `no pipeline:`, with the colon, for example
 `no pipeline: rename this variable`. The phrase is the same in every language. Claude then works
@@ -432,8 +433,12 @@ this line. Keep it in the shared project file.
   the maximum.
 - **Evidence for security findings.** Each finding needs a path from the input to the risk, with
   file and line. A validator tries to disprove it.
-- **Learning.** Each mistake that gets through becomes a check at the step that should have
-  caught it. Checks that stop paying off are retired.
+- **Read-only agents.** The reviewer agents have no shell: they can only read files. Claude runs
+  the git history commands itself and gives them the output. An agent that needs more asks for a
+  plain git command, and Claude shows you anything else first. So text in your code cannot make a
+  reviewer run a command.
+- **Learning.** A mistake that gets through gives a lesson. A lesson that passes the test and your
+  yes becomes a check at the step that should have caught it. Checks that stop paying off are retired.
 
 ## How it learns
 

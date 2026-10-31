@@ -67,7 +67,7 @@ For each of the six roles, compare the repository's matching agent with
 
 1. **Tools.** Its `tools` line has no Edit, Write, NotebookEdit or MCP tools. A missing `tools`
    line means all tools, so the test fails. Bash passes only when the agent's text says it must
-   not change files, as the prompt-to-ship agents do.
+   not change files (the prompt-to-ship agents have no shell at all).
 2. **When it runs.** It runs at the same step (plan or review) and on every risk level where
    prompt-to-ship runs the role. If it runs on fewer risk levels, the reason is "runs only on
    <levels>". For the ui-specialist role, an agent that runs on every visible change passes.

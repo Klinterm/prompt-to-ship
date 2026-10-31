@@ -163,3 +163,13 @@ Re-read `orchestration.autonomy`, `orchestration.releaseCommand`,
 Right before every command against a production system, hash `debug/access.md` again and compare
 it with `orchestration.debugConfirmed` (debug.md, "Trust"). If one
 changed during the task (code the pipeline ran can write git config), stop and tell the user.
+
+Between tasks: at the end of each task, after the user's last setting change, store the hash of
+the keys outside the repository:
+`git config --local --get-regexp '^orchestration\.' | LC_ALL=C sort | git hash-object --stdin`
+in `~/.claude/prompt-to-ship/state/<id>`, where `<id>` is
+`printf %s "$(git rev-parse --show-toplevel)" | git hash-object --stdin` (in a workspace: the
+workspace folder path, and its state file holds the keys). At stage 0, compare. A
+missing file: store it silently (a new clone asks nothing). A difference: show the changed keys
+and ask before using them. This detects a change between tasks; it is not a boundary, because
+anything that runs as the user can write both places.

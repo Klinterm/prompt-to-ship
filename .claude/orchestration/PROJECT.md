@@ -63,6 +63,7 @@ https://github.com/Klinterm/prompt-to-ship. The README is the home page.
 - `agents/`: six read-only reviewers, a read-only researcher for outside facts and a read-only
   debugger for shipped code.
 - `hooks/`: the opt-in reminder.
+- `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
   rules, code hosts, autonomy, learning, weekly review, research, design.
 - `TESTING.md`: the acceptance test before a release.
@@ -128,8 +129,8 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Decision 2026-10-27 (maintainer): evals are unparked. A `claude plugin eval` suite runs before
   each minor release, with a cost estimate first; never as a blocking check on every commit.
   The suite is in `evals/`. Run it with
-  `claude plugin eval . --runs 1 --max-cost-usd 7 --no-publish --scaffold --allow-tools Edit Write`
-  (17 cases; `--runs 1` of 13 cases used $4.79 of plan usage on 2026-10-29; use `--max-cost-usd 7`). This repository
+  `claude plugin eval . --runs 1 --max-cost-usd 8 --no-publish --scaffold --allow-tools Edit Write`
+  (17 cases; `--runs 1` used about $6 of plan usage on 2026-10-30; use `--max-cost-usd 8`). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -164,11 +165,17 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Decision 2026-10-30 (maintainer): a new-project path in setup for an empty repository and an
   idea: idea questions, a reviewed choice of how to build it (never a default stack), 3 to 7
   slices, and slice 1 as a running empty app with one passing test, at high risk.
+- Decision 2026-10-30 (maintainer): setup runs `git init` itself after one plain question, and
+  offers a project folder in a folder that is too broad (2.16.0).
+- Decision 2026-10-31 (maintainer): the reviewer and debugger agents have no shell (Read, Grep,
+  Glob only); the lead runs the git history commands and passes the output. A guard hook was
+  tried first and dropped: five security rounds kept finding ways for read-only git commands to
+  start a program. A missing agent type stops the review; no general-purpose stand-in.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
 The hook runs a shell command on every prompt for every user. It must stay a read-only, fixed
-command. Reviewers must never execute project code.
+command. The reviewer agents have no shell. Reviewers must never execute project code.
 
 ## Learning
 Incidents and rules: `.claude/orchestration/incidents.md` and `rules.md` (rules.md appears at the

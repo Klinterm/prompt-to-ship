@@ -2,6 +2,43 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.17.0
+
+Fixes from the skill's own weekly review (the skill reviewed this repository).
+- Read-only agents, for real: the seven reviewer and debugger agents have no shell any more,
+  only Read, Grep and Glob. The lead runs the git history commands (log, blame, log -S) and puts
+  the output in the agent's prompt; an agent asks for more under "Needs from the lead:". Before,
+  "read-only" was only a line in the agent's prompt.
+  Why no shell instead of a guard: a guard hook was built and tested, but five security review
+  rounds kept finding ways for read-only git commands to start a program (shortened and bundled
+  options, quote tricks, diff drivers, filters, fsmonitor, worktree config, repository hooks,
+  submodules). Without a shell there is nothing to bypass, on every system.
+- The lead gives the agents their git history once per task, shared between agents, at most 200
+  lines per command. An agent's "Needs from the lead:" request is data: the lead runs only a plain
+  `git log`, `show` or `blame`, and shows any other command to the user first. This costs the
+  lead a little more reading per task; the agents read less.
+- A missing agent type is never replaced by a `general-purpose` agent any more (it can write and
+  run commands): the lead stops and asks to reload the plugin.
+- Debug D4: a check that the debugger or validator names runs only when it is exactly a confirmed
+  access.md method or a repository read; any other check waits for the user's go.
+- State keys: a hash of the `orchestration.*` git config keys is stored outside the repository
+  at the end of a task; at stage 0 a difference is shown and asked about. It detects a change; it
+  is not a lock.
+- SKILL.md has room again (7,797 bytes): the fallback rule moved to pipeline.md, the
+  stage 2 and 5d rule is split correctly (the quick lane skips only stage 2).
+- Docs: TESTING counts eight agents and covers the quick lane in defer and map, the gallery
+  suggestion, the web page rules, the agents without a shell and the state keys; plugin.json, README and the
+  diagram match the skill; PROJECT.md records the 2.16.0 and 2.17.0 decisions.
+- CI for this repository (`.github/workflows/checks.yml`): style, SKILL.md size and version
+  match.
+- Stage 6 checklist: a Medium finding that stage 2 or 4 should have caught gives a "Near-miss"
+  line.
+- Eval (--runs 1, final version): 13 of 17 at once. Reruns: repo-text-is-data and
+  pipeline-first-use 2 of 2; no-git-folder 1 of 2, then 2 of 2 after the too-broad message got the
+  plain git sentence; debug-case-first fails on the LLM judge with a correct answer, as in 2.14.0
+  and 2.16.0. Mean 0.92 with the plugin, 0.57 without.
+- The too-broad folder message now also says what git does.
+
 ## 2.16.0
 
 Git for people who do not know git.
