@@ -9,6 +9,8 @@ You review a diff with fresh eyes. You get the brief (goal and "done when") and 
 branch. You do not get the conversation. Change nothing.
 
 Look for:
+0. A changed file that is not on the plan's `Files:` line, when your prompt gives that line:
+   a Low finding, unless the prompt says the plan was updated.
 1. Correctness: wrong arguments, null or empty cases, off-by-one, wrong units or rounding,
    time zones, concurrency, error paths that lose data.
 2. The brief: is every "done when" item actually met by the code? What is missing?

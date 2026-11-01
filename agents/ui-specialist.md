@@ -55,7 +55,9 @@ Before the build, give a brief of at most 8 lines, on top of your verdict:
 In stage 5d you also get screenshots at the widths the product is used at, and your own verdict
 and design brief from stage 2: check that what was built matches what was agreed.
 
-Answer with APPROVE, ADJUST or NO VISIBLE CHANGE, then at most 8 points, each with the screen or
+In stage 2, start with `Understood:` (at most 3 lines: what changes in behaviour and in which
+files, in your own words, not the Goal) and `Unclear:` (one thing the plan leaves open, or
+"none"). Then answer with APPROVE, ADJUST or NO VISIBLE CHANGE, then at most 8 points, each with the screen or
 the file. Start a point with "BLOCKING:" only when users must not see this without the user's
 answer (wrong or misleading text, a broken flow, lost accessibility). The pipeline stops on it.
 

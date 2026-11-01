@@ -35,7 +35,10 @@ names (money, roles, signed documents); add at most one line "Not applicable: <c
    place than its source of truth? Name the INV id. A broken invariant is BLOCKING when your
    prompt says domain.md is confirmed; otherwise it is a question to the user.
 
-Answer with APPROVE or ADJUST, then at most 8 points, each with its source (document, code file).
+In stage 2, start with `Understood:` (at most 3 lines: what changes in behaviour and in which
+files, in your own words, not the Goal) and `Unclear:` (one thing the plan leaves open, or
+"none"). Then answer with APPROVE or ADJUST, then at most 8 points, each with its source (document, code
+file).
 Start a point with "BLOCKING:" only when the change must not go ahead without the user's answer
 (it contradicts a decision, breaks a customer, touches money or trust). The pipeline stops on it,
 also when it otherwise runs on its own.

@@ -47,6 +47,8 @@ The security reviewer defines the levels in security-rules.md; for correctness f
 
 Never the chat. Always:
 - the brief, and in stage 2 the plan; in stage 5 the diff (from round two: only the new diff);
+  the fresh reviewer in 5a also gets the plan's `Files:` line, only to compare: a changed file
+  that is not on it is a Low finding, unless the plan was updated;
 - the list of changed or planned files, exported from the target branch into a scratch folder
   (`git show <branch>:<path>`), because a working copy is often on another branch;
 - the path to PROJECT.md, and to `domain.md` when it exists, with "confirmed" or "not confirmed";
@@ -163,8 +165,28 @@ count.
   table goes below the block. The reviewers get the block without the `Reviewers:` line, which
   you fill after their verdicts. They also check the `Research:` line: a change that needs an
   outside fact with "Research: none" is a BLOCKING point.
+- Fill `Files:` on every PLAN block, at every risk level: one line per file, its path and the
+  names of the changed functions or types. `Approach:` is the order of work, `Files:` the list of
+  places. The quick lane has no PLAN block, so none of the checks below.
+- **Understood.** Each plan reviewer (architect, product expert, UI specialist) starts its
+  verdict with `Understood:` (at most 3 lines: what changes in behaviour and in which files, in
+  its own words, not the Goal) and `Unclear:` (one thing the plan leaves open, or "none"). Compare each with the Goal. Another reading, or an
+  unclear point that changes the approach: fix the plan, tell the user in one line ("<Reviewer>
+  read the plan differently: <its line, in plain words>. I fix the plan and ask again.", in the
+  user's language, without the labels) and start that reviewer once more. A second mismatch on
+  that reviewer is a BLOCKING point. When all match, the `Reviewers:` line says
+  "all understood".
+- **Ready.** On normal and high risk the architect ends with `Ready: yes` or
+  `Ready: no, <what is missing>`: every file on the `Files:` line exists or is marked new, every
+  changed function or type is named, and every Approach step has a file. A BLOCKING point wins
+  over it. `Ready: no`: complete the plan and ask the architect once more; a second no is a
+  BLOCKING point, shown with the missing item in one line. The `Reviewers:` line shows it, for
+  example `architect APPROVE (Ready: yes)`. Each check allows one restart.
+- Any plan fix after the verdicts that changes the `Approach:` or `Files:` line goes to every plan
+  reviewer whose verdict was on the old version.
 - Fold their verdicts into the plan. Show each verdict in at most five lines. A point marked
-  BLOCKING stops the pipeline for the user's answer at every autonomy level.
+  BLOCKING stops the pipeline for the user's answer at every autonomy level. Before you ask for
+  the go, show the final PLAN block once more, with the filled `Reviewers:` line.
 - Level `ask`: build only after the user's go (normal and high risk). Higher levels: continue,
   unless a gate applies.
 

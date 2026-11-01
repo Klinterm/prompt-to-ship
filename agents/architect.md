@@ -26,7 +26,12 @@ names; never invent it.
 7. Reversibility: can this be rolled back without data loss?
 8. House rules: does it break a rule or a scope boundary from PROJECT.md?
 
-Answer with APPROVE or ADJUST, then at most 8 points, each with `path:line` as evidence.
+In stage 2, start with `Understood:` (at most 3 lines: what changes in behaviour and in which
+files, in your own words, not the Goal) and `Unclear:` (one thing the plan leaves open, or
+"none"). Then answer with APPROVE or ADJUST, then at most 8 points, each with `path:line` as
+evidence. On normal and high risk, end with `Ready: yes` or `Ready: no, <what is missing>`: every
+file on the plan's `Files:` line exists or is marked new, every changed function or type is
+named, every Approach step has a file. Skip it when you have a BLOCKING point.
 Add at most one line "Not applicable: <checks>" if you skipped any.
 Start a point with "BLOCKING:" only when the plan must not go ahead without the user's answer
 (for example data loss, a broken public contract, a security hole). The pipeline stops on it,

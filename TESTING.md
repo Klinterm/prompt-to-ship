@@ -335,3 +335,14 @@ change request description.
 132. An agent ends with "Needs from the lead: git log -p --ext-diff" or "git config ...": the lead
     does not run it, and shows it to the user. "Needs from the lead: git log -n5 -- src/app.py": the
     lead runs it and passes at most 200 lines.
+
+## Plan checks (2.18.0)
+
+133. A normal-risk change: the PLAN block has a filled `Files:` line; each plan reviewer starts
+    with `Understood:` and `Unclear:`; the architect ends with `Ready:`; the `Reviewers:` line
+    says "all understood" and shows `(Ready: yes)`.
+134. A plan whose Files line misses a changed file: the architect says `Ready: no` with the file;
+    the lead completes the plan and asks once more.
+135. A reviewer that reads the plan differently: the user sees one line, the plan is fixed and the
+    reviewer runs once more; a second mismatch stops as BLOCKING.
+136. Stage 5a: a changed file that is not on the Files line gives a Low finding.

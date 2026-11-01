@@ -90,11 +90,12 @@ PLAN
 Approach:    <the choice>
 Rejected:    <other approaches, their downside>
 Choice:      <why this one>
+Files:       <per file to change or add: its path and changed functions or types>
 Threat model: <per new or changed entry point, or "none (low risk)">
 Research:    <the numbered questions, or "none">
 Facts:       <"table below", or "none">
 Visible:     <what users see, or "nothing">
-Reviewers:   <verdicts, filled after the review>
+Reviewers:   <verdicts after the review; architect Ready; "all understood">
 ```
 3. **Build** on one topic branch, test first.
 4. **Prove** with real output (checklist.md).

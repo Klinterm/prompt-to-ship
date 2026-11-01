@@ -2,6 +2,28 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.18.0
+
+Two plan checks, after the Elephant-Goldfish Model idea (Google Open Source, 2026-10): a plan
+must be understood and concrete before the build. Three near-misses in 2.15.0 to 2.17.0 came
+from plans that were too vague to walk through.
+- The PLAN block has a `Files:` line: each file to change or add, with the changed functions or
+  types.
+- Understood: each plan reviewer first says in its own words what changes, and names one thing
+  the plan leaves unclear. A different reading means the plan is unclear: the lead fixes it and
+  asks once more; a second mismatch stops. This only catches a plan that is ambiguous, not a plan
+  that is wrong; the verdicts still do that.
+- Ready: on normal and high risk the architect says `Ready: yes` or `Ready: no` with what is
+  missing (files, functions or types, a step without a file).
+- Stage 5a: a changed file that is not on the Files line is a Low finding.
+- No extra agent run in the normal case; at most one restart when a check fails.
+- New eval case `plan-files-ready`.
+- Before the go, the lead shows the final PLAN block with its filled Reviewers line.
+- Eval (--runs 1): 15 of 18 at once; mean 0.94 with the plugin, 0.54 without. Reruns:
+  plan-files-ready 2 of 2 after the final-PLAN rule (with the plugin 1.0, without 0 and 0.33);
+  no-git-folder 2 of 2 (the first run hit a denied file read in the eval tool); debug-case-first
+  fails now and then on the LLM judge or the CASE block, as in earlier releases.
+
 ## 2.17.0
 
 Fixes from the skill's own weekly review (the skill reviewed this repository).

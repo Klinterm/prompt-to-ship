@@ -1,0 +1,18 @@
+schema_version: "1.1"
+name: plan-files-ready
+# Run with --allow-tools Edit Write. A normal-risk change (a new file input and a new entry point):
+# the lead shows a PLAN with a filled Files line and the reviewers' Understood and Ready results.
+# Expected delta: high: without the plugin there is no PLAN block.
+graders:
+  - name: files-line
+    type: regex
+    pattern: '(^|\\n)[\s*#>`-]*files\W{0,2}:[\s*]*[A-Za-z0-9`]'
+    flags: im
+    target: trace
+  - name: ready-verdict
+    type: regex
+    pattern: 'ready\W{0,3}(yes|no)\b'
+    flags: i
+    target: last_message
+context:
+  scaffold_script: fixture.sh

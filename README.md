@@ -36,9 +36,11 @@ go away. See [Autonomy](#autonomy).
    own data sources; in a large code base it does the wide search. When the change needs a fact
    that is not there, such as a price, a tax rate or a legal rule, the **researcher** looks it
    up on the web. See [Outside facts](#outside-facts).
-2. **Plan.** Claude chooses an approach and names its risks, in a fixed PLAN block. Reviewer
-   agents check the plan at the same time. Each one gives a verdict: approve, or adjust with
-   reasons.
+2. **Plan.** Claude chooses an approach and names its risks, in a fixed PLAN block. The plan names
+   each file it changes. Reviewer agents check the plan at the same time. Each one first says in
+   its own words what the plan does, so an unclear plan shows up before the build. Then it gives
+   a verdict: approve, or adjust with reasons. On normal and high risk the architect also says
+   whether the plan is ready to build.
    - The **architect** checks the structure, the data and whether the change can be undone.
    - The **UI specialist** checks what users will see and read. It runs only when the change is
      visible: a screen, an email, a document, a message or command-line output. For a new screen

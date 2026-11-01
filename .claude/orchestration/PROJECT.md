@@ -130,7 +130,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   each minor release, with a cost estimate first; never as a blocking check on every commit.
   The suite is in `evals/`. Run it with
   `claude plugin eval . --runs 1 --max-cost-usd 8 --no-publish --scaffold --allow-tools Edit Write`
-  (17 cases; `--runs 1` used about $6 of plan usage on 2026-10-30; use `--max-cost-usd 8`). This repository
+  (18 cases; `--runs 1` of 17 cases used about $6 of plan usage on 2026-10-30, so about $7 for 18; use `--max-cost-usd 8`). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -171,6 +171,10 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   Glob only); the lead runs the git history commands and passes the output. A guard hook was
   tried first and dropped: five security rounds kept finding ways for read-only git commands to
   start a program. A missing agent type stops the review; no general-purpose stand-in.
+- Decision 2026-11-01 (maintainer): two plan checks from the Elephant-Goldfish Model idea: each
+  plan reviewer first restates the plan (Understood, Unclear), and the architect gives a Ready
+  verdict on normal and high risk. The PLAN block names its files. No extra agent run in the
+  normal case; one restart per check, then BLOCKING.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
