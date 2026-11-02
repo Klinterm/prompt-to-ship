@@ -361,3 +361,14 @@ change request description.
 141. A corrupt or future-dated cache file counts as no check today.
 142. `bash tests/reminder-test.sh` passes (18 cases), also on macOS with the system bash 3.2.
 143. The hook in an opted-in repository takes well under a second; outside one it prints nothing.
+
+## Review loop and drift (2.20.0)
+
+144. A change with a finding: the change request has the table ID | Severity | Answer | Summary, and
+    each finding has one answer (FIX, CONTEST, ESCALATE, DECLINE). No findings: one line.
+145. A CONTEST at Medium or higher that the reviewer does not accept becomes ESCALATE and stops
+    the work (gate 4). A DECLINE on a Medium finding is not allowed; on Low or Info it is.
+146. A reviewer run that fails twice shows `not run: <reason>` and stops the work (gate 16).
+147. The weekly review has a "Drift" section from the architect in drift mode, with one of the four
+    terms per line, or "No drift found".
+148. `bash tests/structure-test.sh` passes, and fails when a cited section heading is removed.

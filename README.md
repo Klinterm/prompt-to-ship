@@ -59,8 +59,16 @@ go away. See [Autonomy](#autonomy).
    - The **product expert**, and on a visible change the **UI specialist**, check the result
      against the plan.
 
-   Every finding gets an answer: fixed, or not fixed with a reason. After three rounds, Claude
-   stops and asks you to rethink the approach.
+   Every finding gets an ID and one answer. FIX: fixed. CONTEST: not fixed, with evidence, and
+   the reviewer must accept that. ESCALATE: you decide. DECLINE: only for severity Low, with a
+   reason. A required reviewer that fails twice shows as "not run" and stops the work; a missing review
+   never counts as "no findings". After three rounds with new findings, Claude stops and asks you
+   to rethink the approach. In the pull request it looks like this:
+
+   | ID | Severity | Answer | Summary |
+   |---|---|---|---|
+   | FR-1-1 | Medium | FIX | an empty list returned None instead of 0 |
+   | SR-1-1 | Low | DECLINE | the debug log is off in production builds |
 6. **Pull or merge request.** The description always has three parts: what was tested, the risk,
    and how to revert the change.
 7. **Merge and measure.** After the release, Claude checks that the goal from the brief is met.
@@ -74,7 +82,8 @@ Each reviewer agent gets only the brief, the plan and the files. It never sees t
 keeps its view fresh.
 
 Once a week, the `weekly` command reviews the pull or merge requests of the last 7 days. It
-only reads and changes nothing.
+also checks whether your project file and business rules still match the code, and lists each
+place where they drift apart. It only reads and changes nothing.
 
 ## Outside facts
 

@@ -64,7 +64,8 @@ https://github.com/Klinterm/prompt-to-ship. The README is the home page.
 - `agents/`: six read-only reviewers, a read-only researcher for outside facts and a read-only
   debugger for shipped code.
 - `hooks/`: the opt-in reminder (reminder.sh), with the version line from the local cache.
-- `tests/reminder-test.sh`: the hook test, also run in CI.
+- `tests/reminder-test.sh`: the hook test. `tests/structure-test.sh`: references, the Read-when
+  table, agent frontmatter and the case count. Both run in CI.
 - `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
   rules, code hosts, autonomy, learning, weekly review, research, design, update.
@@ -131,7 +132,9 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Decision 2026-10-27 (maintainer): evals are unparked. A `claude plugin eval` suite runs before
   each minor release, with a cost estimate first; never as a blocking check on every commit.
   The suite is in `evals/`. Run it with
-  `claude plugin eval . --runs 1 --max-cost-usd 8 --no-publish --scaffold --allow-tools Edit Write`
+  `claude plugin eval . --runs 1 -j 4 --max-cost-usd 8 --no-publish --scaffold --allow-tools Edit Write`
+  (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
+  `--ablation none`, half the runs)
   (18 cases; `--runs 1` used about $6.5 of plan usage on 2026-11-01; use `--max-cost-usd 8`). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
@@ -173,6 +176,11 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   Glob only); the lead runs the git history commands and passes the output. A guard hook was
   tried first and dropped: five security rounds kept finding ways for read-only git commands to
   start a program. A missing agent type stops the review; no general-purpose stand-in.
+- Decision 2026-11-02 (maintainer): stage 5 findings get IDs and one answer (FIX, CONTEST,
+  ESCALATE, DECLINE). A contest is settled only when the reviewer accepts it; at Medium or higher an
+  unaccepted contest becomes ESCALATE. A required reviewer that did not run is gate 16. The weekly
+  review adds a drift report by the architect (one run a week, per folder in a workspace). Ideas from
+  the Elephant-Goldfish Model repository.
 - Decision 2026-11-01 (maintainer): a daily version check whenever the skill runs (also at setup;
   outside opted-in repositories the hook stays silent), on by default with a global opt-out. The skill may update its own code
   only after the user's own word "update", only a clean pinned clone on main, only to the named

@@ -42,6 +42,10 @@ database, translations, CI) does not apply. The risk table and the gates are in 
 - [ ] Only the topic branch is pushed, with an explicit refspec, to an explicit target branch.
 - [ ] Description: Tested (with the marker lines), Risk, How to revert. A stage 5 finding of
       severity Medium or higher that stage 2 or 4 should have caught gives a "Near-miss" line.
+- [ ] Under Tested, the findings of stage 5 in a table with the columns ID | Severity | Answer |
+      Summary (pipeline.md, "Answers"). Summary is one line: what the finding is, plus the evidence
+      for CONTEST or the reason for DECLINE. No findings: one line "No findings". A reviewer that
+      did not run: a row `<prefix> | - | NOT RUN | <reason>`.
 - [ ] Give the link (or the branch and diff command). Level `ask`: stop.
 
 ## 5. Merge and release (stage 7)

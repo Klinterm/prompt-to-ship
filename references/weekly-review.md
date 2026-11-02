@@ -47,6 +47,11 @@ command is `/prompt-to-ship weekly` for a skills-folder install and
 8c. Business rules: with a confirmed `domain.md`, check the code that each invariant and
    formula is about, not only this week's diffs. Report each break as a finding with
    `path:line` and the INV id. Do not fix it.
+8d. Drift: start `prompt-to-ship:architect` in drift mode (its agent file, "Drift mode") with
+   the paths of PROJECT.md, a confirmed `domain.md` and the debug files, and the git history it
+   asks for (pipeline.md, "Git history for agents"). It names where the documents and the code
+   no longer match. One run per review; in a workspace, one per folder. Do not apply its
+   proposals.
 9. Learning ([learning.md](learning.md), "Count and prune"): count the "Rules matched", "Rules
    that caught something", "Rules overruled" and "Near-miss" lines of the period, read
    incidents.md and rules.md, and carry the totals forward from the previous report. Propose
@@ -68,6 +73,7 @@ Write `.claude/orchestration/reviews/REVIEW-<YYYYMMDD>.md`. Reports stay local: 
 - Branch parity.
 - Outside facts with an ended period.
 - Business rules: breaks of an invariant or a formula.
+- Drift: the architect's lines from step 8d, or "No drift found".
 - Waiting change requests and CI. With no host, list them under "Not checked".
 - Rejected.
 - Proposals for the pipeline.

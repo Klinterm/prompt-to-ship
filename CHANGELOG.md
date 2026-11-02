@@ -2,6 +2,31 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.20.0
+
+Answering findings, clear review loops, a drift report and a structure test. Ideas from the
+Elephant-Goldfish Model repository (Google, 2026-10): its resolve step, review loop, drift report
+and offline tests.
+- Every stage 5 finding gets an ID (for example FR-1-2) and one answer: FIX; CONTEST, with
+  evidence the reviewer could see ("this was intentional" is not evidence), settled only when the
+  reviewer accepts it; ESCALATE, to the user; DECLINE, only for severity Low or Info. At Medium or higher
+  an unaccepted contest becomes ESCALATE, so gate 4 stays as strong.
+- Loop rules: a settled finding stays settled unless new evidence comes; a returning finding is
+  reopened under its old ID; churn (a fix that creates a new finding at the same place) is named.
+- A reviewer run that fails gets one retry, then shows as "not run", never as "no findings". New
+  gate 16: a required reviewer that did not run.
+- The change request lists the findings in a table: ID, severity, answer, summary.
+- The weekly review has a drift report: the architect, in a new drift mode, names where
+  PROJECT.md, domain.md or the debug files no longer match the code (missing, incomplete,
+  shortcut, divergence). One agent run a week.
+- tests/structure-test.sh checks citations in the form `file.md, "Section"`, the Read-when table, agent frontmatter and the
+  eval case count, and proves itself on a planted error. It runs in CI. It found one broken
+  reference at once: debug.md "Trust" was a bold label, not a heading; it is a heading now.
+- The eval command in PROJECT.md runs four cases at once (`-j 4`): about 7 minutes instead of 25.
+- Eval (--runs 1): 16 of 18 at once; mean 0.92 with the plugin, 0.46 without. new-project-idea
+  failed on a Git Bash start error in its fixture and passes on a rerun; pipeline-first-use is the
+  known judge noise (1 of 2 on a rerun).
+
 ## 2.19.0
 
 Know when a newer version is out.

@@ -46,7 +46,8 @@ The security reviewer defines the levels in security-rules.md; for correctness f
 ## What each reviewer gets
 
 Never the chat. Always:
-- the brief, and in stage 2 the plan; in stage 5 the diff (from round two: only the new diff);
+- the brief, and in stage 2 the plan; in stage 5 the diff (from round two: only the new diff, and
+  the open CONTESTs on its own findings with their evidence);
   the fresh reviewer in 5a also gets the plan's `Files:` line, only to compare: a changed file
   that is not on it is a Low finding, unless the plan was updated;
 - the list of changed or planned files, exported from the target branch into a scratch folder
@@ -215,9 +216,36 @@ proof it is not done.
   findings with their reason, so they are not raised again.
 - 5d product-expert on the result: always. ui-specialist on the result: when the diff is visible
   (see "Visible change"), also when stage 2 said "nothing"; never with "User interface: none".
-- 5e converge: every finding is fixed or answered with a reason. Three rounds with new findings
+- 5e converge: every finding gets an ID and one answer (below). Three rounds with new findings
   means the approach is wrong: stop and rethink with the user. From round two, review only the
   new diff, and name the class of bug so the author fixes all instances at once.
+
+### Finding IDs
+
+`<prefix>-<round>-<n>`, for example FR-1-2. Prefixes: FR fresh reviewer, SR security reviewer,
+PE product expert, UI UI specialist. The validator gives verdicts on findings, not findings of its own.
+
+### Answers
+
+The lead gives each finding one answer, with one plain sentence in the change request:
+- FIX: fixed in the next diff.
+- CONTEST: not fixed, with evidence the reviewer could have read (`path:line`, test output, a
+  document). "This was intentional" is not evidence. The same reviewer sees the contest in the
+  next round, and it is settled only when that reviewer accepts it. At severity Medium or higher,
+  a contest that is not accepted, or that gets no further round, becomes ESCALATE.
+- ESCALATE: the evidence is outside the reviewer's reach, or the choice is the user's. It goes to
+  the user unfixed (at severity Medium or higher this is gate 4).
+- DECLINE: only for severity Low or Info, with one line why.
+
+### Loop rules
+
+A finding is settled when it is fixed or when its reviewer accepted a contest. A
+settled finding stays settled: a reviewer reopens it only with new evidence, and a fixed finding
+that comes back is reopened under its old ID. Churn is a fix whose next round brings a new
+finding at the same place: name the class and fix all instances at once. A reviewer run that
+fails (an error, a timeout, an empty or cut-off answer) gets one retry; then it is
+`not run: <reason>`, never "no findings", and when the route requires that reviewer, it is gate
+16. The quick lane requires only its own reviewers.
 
 ## Stage 6. Change request
 

@@ -39,3 +39,6 @@ jobs:
 
       - name: Reminder hook
         run: bash tests/reminder-test.sh
+
+      - name: Structure
+        run: bash tests/structure-test.sh

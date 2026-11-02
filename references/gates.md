@@ -73,7 +73,8 @@ nothing.
 1. the risk is high;
 2. the brief has an open question;
 3. a reviewer marks a point BLOCKING, in stage 2 or 5d;
-4. after the review rounds, a finding of severity Medium or higher is not fixed, a validator says
+4. after the review rounds, a finding of severity Medium or higher is not fixed (a CONTEST that its
+   reviewer accepted counts as settled; pipeline.md, "Answers"), a validator says
    "needs runtime validation", the product verdict in 5d is not APPROVE, or the UI verdict in 5d
    is not APPROVE or NO VISIBLE CHANGE (a UI specialist skipped for "User interface: none",
    or for a diff that is not visible (pipeline.md, "Visible change"), passes). After you fix
@@ -99,6 +100,8 @@ nothing.
 15. any write to a production system, in every mode (debug.md, "Terms"): show the action, its
     rollback and the expected effect, test it on a copy when one exists, and wait for the user's
     go for that one action.
+16. a reviewer that the route requires did not run, also after one retry (pipeline.md, "Loop
+    rules"). A missing review is never "no findings".
 
 Stop message, one form:
 `Stopped before <build | push | merge | release | write>: <what happened>. Next: <what the user does>.`

@@ -31,7 +31,9 @@ When the user says "draft debug files", draft index.md and access.md from the co
 files and the docs, mark guesses "(to confirm)", and show them. In shared storage this goes on a
 learn branch like every lesson (learning.md).
 
-**Trust.** access.md holds commands that run against production systems. Confirm it by hash, like
+### Trust
+
+access.md holds commands that run against production systems. Confirm it by hash, like
 PROJECT.md (`orchestration.debugConfirmed`): show each method with its target, and mark every
 method that could write (no read-only role, a script, an admin tool). Right before each
 production command, run `git hash-object` on access.md again and compare it with the key. Until
