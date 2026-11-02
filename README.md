@@ -253,7 +253,7 @@ Type these in the Claude Code chat. With install way B (skills folder) the comma
 | `/prompt-to-ship autonomy` | `/prompt-to-ship:prompt-to-ship autonomy` | Shows your autonomy level and lets you change it. |
 | `/prompt-to-ship weekly` | `/prompt-to-ship:prompt-to-ship weekly` | Reviews the pull or merge requests of the last 7 days. Changes nothing. |
 | `/prompt-to-ship debug <problem>` | `/prompt-to-ship:prompt-to-ship debug <problem>` | Finds the cause of a problem in shipped code. Read-only. |
-| `/prompt-to-ship version` | `/prompt-to-ship:prompt-to-ship version` | Shows the installed version and the folder it runs from. Changes nothing. |
+| `/prompt-to-ship version` | `/prompt-to-ship:prompt-to-ship version` | Shows the installed version, the folder it runs from, and the newest version seen. Changes nothing. |
 | `/prompt-to-ship <your request>` | `/prompt-to-ship:prompt-to-ship <your request>` | Runs the pipeline on your request. |
 
 After setup you do not need the command for a change. Ask in plain words, for example "Fix the
@@ -363,8 +363,16 @@ in [references/existing-pipeline.md](references/existing-pipeline.md).
 
 ## Update and remove
 
+When the skill runs, Claude looks for a new version, at most once a day, at
+https://github.com/Klinterm/prompt-to-ship. It keeps the answer in a small file in
+`~/.claude/prompt-to-ship/`. When a new version is out, you see one line before the brief, with a
+link to what is new. Reply just `update` to install it, or just continue: the line comes back in
+your next conversation. Claude installs it only into an unchanged copy of this repository, and
+only that version. In every other case it shows you the command to type. To switch the check off,
+run `git config --global prompt-to-ship.versionCheck false`.
+
 - **Update, way A:** run `/plugin marketplace update prompt-to-ship`.
-- **Update, way B:** run `git pull` in the skills folder.
+- **Update, way B:** reply `update` to the offer, or run `git pull` in the skills folder.
 - **Remove, way A:** run `/plugin uninstall prompt-to-ship@prompt-to-ship`.
 - **Remove, way B:** delete the folder `~/.claude/skills/prompt-to-ship`.
 
@@ -489,7 +497,8 @@ prompt-to-ship/
   hooks/                           a short reminder on each message, silent in other repositories
   references/                      pipeline, gates, setup, workspace, existing pipeline, debug, checklist,
                                    code hosts, autonomy, learning, security rules, weekly review,
-                                   research (outside facts), design (house style)
+                                   research (outside facts), design (house style), update
+  tests/                           the hook test (reminder-test.sh), also run in CI
   docs/                            the README diagrams, and the script that draws them
   evals/                           behaviour tests for maintainers (claude plugin eval); users do
                                    not need them

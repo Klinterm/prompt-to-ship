@@ -28,12 +28,13 @@ and own the result. Answer plainly, in the user's language.
 | debug.md | argument `debug`, or a request about shipped code |
 | research.md | the change may need an outside fact |
 | design.md | a visible change |
+| update.md | argument `version`, or step 0 says so |
 
-Argument `version`: show `version` from `${CLAUDE_SKILL_DIR}/.claude-plugin/plugin.json` and the
-skill folder; stop. Anything else: the pipeline.
+Any other argument: the pipeline.
 
 ## Before stage 0
 
+0. **Version.** A `VERSION:` line from the hook, or no PROJECT.md: update.md. Never update unasked.
 1. **Git.** If `git rev-parse --show-toplevel` fails, check for a workspace (workspace.md).
    Otherwise follow setup.md, step 0 ("No git yet").
 2. **PROJECT.md** at the repository root (`.claude/orchestration/PROJECT.md`). For a linked
@@ -78,7 +79,7 @@ The reviewer agents are `prompt-to-ship:architect`, `prompt-to-ship:ui-specialis
 `prompt-to-ship:product-expert`, `prompt-to-ship:fresh-reviewer`,
 `prompt-to-ship:security-reviewer` and `prompt-to-ship:validator`. The researcher for outside
 facts is `prompt-to-ship:researcher`, the debugger `prompt-to-ship:debugger`. Start them by these full
-names, on the signals and with the models in pipeline.md (also for a missing agent type).
+names, on the signals and with the models in pipeline.md.
 
 1. **Understand** the code and its history. Find the rules that match the paths. Decide if the
    change needs an outside fact (research.md).

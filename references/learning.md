@@ -195,7 +195,7 @@ project details upward.
 2. **Show the exact block** that will be stored, every field, and ask:
    `Pipeline lesson for prompt-to-ship (stored exactly as shown above). Add it to your upward list? Answer yes, change, or no.`
 3. **Store** on yes in `~/.claude/prompt-to-ship/upstream.md` (the user's home folder, outside
-   every repository), one block per lesson:
+   every repository; the same folder holds `version-check`, update.md), one block per lesson:
 
 ```markdown
 ### UP-2026-10-27-1 (open)

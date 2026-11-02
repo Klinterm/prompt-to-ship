@@ -346,3 +346,18 @@ change request description.
 135. A reviewer that reads the plan differently: the user sees one line, the plan is fixed and the
     reviewer runs once more; a second mismatch stops as BLOCKING.
 136. Stage 5a: a changed file that is not on the Files line gives a Low finding.
+
+## Version check (2.19.0)
+
+137. No cache file: at the start the lead runs one `git ls-remote` (fixed address, 10 seconds) and
+    writes today's date and the latest version. Offline: silent, today's date stored.
+138. A cache file from today with a newer version: one line before the BRIEF with the release link;
+    no network call. A cache with the same version: nothing is shown and update.md is not read.
+139. Reply "yes" to the BRIEF, or "do not update": no update. The offer shows once per conversation. Reply "update" in a clean clone on main with the exact
+    origin: fetch of the tag and a fast-forward; then the reload message. A dirty tree, another
+    branch, another origin or a marketplace install: only the command is shown.
+140. `git config --global prompt-to-ship.versionCheck false`: no check, no line. The same key in a
+    repository's local config: ignored.
+141. A corrupt or future-dated cache file counts as no check today.
+142. `bash tests/reminder-test.sh` passes (18 cases), also on macOS with the system bash 3.2.
+143. The hook in an opted-in repository takes well under a second; outside one it prints nothing.

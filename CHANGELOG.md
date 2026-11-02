@@ -2,6 +2,32 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.19.0
+
+Know when a newer version is out.
+- When the skill runs, it checks for a newer release, with at most one read-only network call a
+  day (`git ls-remote` on the fixed GitHub address, https only, no password prompt, 10 seconds).
+  The answer is cached in `~/.claude/prompt-to-ship/version-check`. Offline or any error: silent.
+- A newer version gives one line before the BRIEF, with the release link: "Reply update, or go on".
+  It shows once per conversation, and comes back in the next one until you update or switch it off.
+- The update runs only after your reply "update" (just that word; "do not update" never counts), only for a clean clone on `main` whose origin
+  is exactly the GitHub address, and only to that release tag (fetch the tag, fast-forward). In any
+  other case, a marketplace install too, you get the command to type.
+- Off switch: `git config --global prompt-to-ship.versionCheck false`.
+- The argument `version` moved to references/update.md; it also shows the latest version seen.
+- The reminder hook is now a script (hooks/reminder.sh). In an opted-in repository it reads the local
+  cache, offline, and adds one line when the check is due or a newer version is known. Without it,
+  the lead skipped the check in the eval. It stays silent outside opted-in repositories, works in
+  bash 3.2 (macOS), and takes about 0.15 second on Windows. `tests/reminder-test.sh` (18 cases)
+  runs in CI.
+- No eval case: in `claude plugin eval` the hook output does not reach the session and the lead has
+  no shell to find the home folder. The hook is tested by `tests/reminder-test.sh`; the offer line
+  was seen once in an eval run before the case was dropped.
+- A failed or skipped version check stays silent; the eval showed a "could not run" note before.
+- Eval (--runs 1): 15 of 18 at once; mean 0.94 with the plugin, 0.53 without. The three fails were
+  LLM judges on correct answers (debug-case-first, brief-first, invariant-stops); reruns pass 1 of 2
+  each, the same judge noise as in earlier releases.
+
 ## 2.18.0
 
 Two plan checks, after the Elephant-Goldfish Model idea (Google Open Source, 2026-10): a plan

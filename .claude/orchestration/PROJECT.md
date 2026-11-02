@@ -18,7 +18,8 @@ Success, as checks:
    the skill.
 3. The pipeline works with GitHub, GitLab, Bitbucket, Azure DevOps, Gitea or Forgejo, Gerrit, and
    with plain git without a code host.
-4. Outside opted-in repositories the skill adds no text and no cost.
+4. Outside opted-in repositories the hook adds no text and no cost; the skill itself runs only when
+   the user calls it or the repository opted in (its daily version check runs only then).
 5. No file in the shipped skill names a company, product, customer or stack of a user.
 
 Stage: working prototype, before the first public release.
@@ -62,10 +63,11 @@ https://github.com/Klinterm/prompt-to-ship. The README is the home page.
 - `SKILL.md`: the orchestrator. Short.
 - `agents/`: six read-only reviewers, a read-only researcher for outside facts and a read-only
   debugger for shipped code.
-- `hooks/`: the opt-in reminder.
+- `hooks/`: the opt-in reminder (reminder.sh), with the version line from the local cache.
+- `tests/reminder-test.sh`: the hook test, also run in CI.
 - `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
-  rules, code hosts, autonomy, learning, weekly review, research, design.
+  rules, code hosts, autonomy, learning, weekly review, research, design, update.
 - `TESTING.md`: the acceptance test before a release.
 Out of scope: running code on behalf of reviewers, merges that bypass host protection, automatic
 reverts, non-git version control.
@@ -75,7 +77,7 @@ Claude Code (skills, plugins, subagents, hooks). Code host CLIs: `gh`, `glab`, `
 REST APIs. No paid service.
 
 ## Architecture and stack
-Markdown and JSON only, plus one shell line in the hook. No build step.
+Markdown and JSON, plus one bash script for the hook (hooks/reminder.sh). No build step.
 
 ## Existing pipeline
 Pipeline mode: none
@@ -130,7 +132,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   each minor release, with a cost estimate first; never as a blocking check on every commit.
   The suite is in `evals/`. Run it with
   `claude plugin eval . --runs 1 --max-cost-usd 8 --no-publish --scaffold --allow-tools Edit Write`
-  (18 cases; `--runs 1` of 17 cases used about $6 of plan usage on 2026-10-30, so about $7 for 18; use `--max-cost-usd 8`). This repository
+  (18 cases; `--runs 1` used about $6.5 of plan usage on 2026-11-01; use `--max-cost-usd 8`). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -171,6 +173,13 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   Glob only); the lead runs the git history commands and passes the output. A guard hook was
   tried first and dropped: five security rounds kept finding ways for read-only git commands to
   start a program. A missing agent type stops the review; no general-purpose stand-in.
+- Decision 2026-11-01 (maintainer): a daily version check whenever the skill runs (also at setup;
+  outside opted-in repositories the hook stays silent), on by default with a global opt-out. The skill may update its own code
+  only after the user's own word "update", only a clean pinned clone on main, only to the named
+  release tag; otherwise it shows the command. This is not a merge, so the autonomy limit does not
+  apply; the skill now runs one read-only git network call a day. The hook (not the lead's memory)
+  triggers it: the eval showed the lead skips a version step in SKILL.md; the hook reads only the
+  local cache.
 - Decision 2026-11-01 (maintainer): two plan checks from the Elephant-Goldfish Model idea: each
   plan reviewer first restates the plan (Understood, Unclear), and the architect gives a Ready
   verdict on normal and high risk. The PLAN block names its files. No extra agent run in the
@@ -178,8 +187,9 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
-The hook runs a shell command on every prompt for every user. It must stay a read-only, fixed
-command. The reviewer agents have no shell. Reviewers must never execute project code.
+The hook runs a fixed bash script on every prompt for every user. It must stay read-only and
+offline: it prints fixed text and, from the local version cache, one line with checked numbers
+only. It starts no program but grep, cat and at most one date. The reviewer agents have no shell. Reviewers must never execute project code.
 
 ## Learning
 Incidents and rules: `.claude/orchestration/incidents.md` and `rules.md` (rules.md appears at the

@@ -36,3 +36,6 @@ jobs:
           c=$(grep -m1 '^## [0-9]' CHANGELOG.md | sed 's/^## //')
           echo "plugin.json $v, CHANGELOG $c"
           test "$v" = "$c"
+
+      - name: Reminder hook
+        run: bash tests/reminder-test.sh
