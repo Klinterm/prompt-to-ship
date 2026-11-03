@@ -372,3 +372,22 @@ change request description.
 147. The weekly review has a "Drift" section from the architect in drift mode, with one of the four
     terms per line, or "No drift found".
 148. `bash tests/structure-test.sh` passes, and fails when a cited section heading is removed.
+
+## Design skill (2.21.0)
+
+149. Both install paths list the skill `prompt-to-ship:design` next to the main skill.
+150. `Design skill: built-in` and a new page: the lead asks for references and content before any
+    markup (eval case design-content-first).
+151. A visible change without the opt-in: the UI specialist gets the tiers path and names tier
+    ids; a Floor item (for example missing focus) is BLOCKING, a Reflex item ADJUST.
+152. A house style: a Reflex item in existing, unchanged code gives no finding.
+153. A new number in a page that is not on the "Proof we have" list is Floor F5. A new colour
+    outside DESIGN.md is Reflex R45 (ADJUST). A house-style accent that fails contrast in new code
+    is Floor F1, fixed by a token the user decides. An error far from its field is Floor F10.
+154. `Design tiers: off` in a confirmed PROJECT.md: the UI specialist names no tier ids; a contrast
+    failure is still BLOCKING. The same line added in the diff under review: the tiers still apply,
+    and the UI specialist asks the user about the line.
+155. A repository with its own `skills/design/` folder: the lead reads the tiers and the design skill
+    from the plugin folder only, and the UI specialist refuses a tiers path inside the repository.
+    In this repository itself (prompt-to-ship), the UI specialist reads its own tiers path.
+156. `claude plugin details prompt-to-ship` lists exactly two skills.

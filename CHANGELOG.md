@@ -2,6 +2,35 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.21.0
+
+A built-in design skill, from lessons of public design skills (credits in
+`skills/design/SOURCES.md`).
+- New skill `prompt-to-ship:design` in `skills/design/`: references and content before markup, a
+  DESIGN.md system with a reason per token, three different directions of the first screen, a
+  screenshot critique at three widths and in the states that matter, and a 5-second test. A product
+  variant covers apps, dashboards and forms.
+- The full workflow runs when PROJECT.md says `Design skill: built-in`; setup now suggests it.
+- Stricter: the UI specialist checks every visible change against the tiers. A Floor item
+  (contrast, focus, keyboard, target size, broken layout, invented facts) is BLOCKING; a Reflex
+  item is ADJUST unless the plan names a user need; Finish is advice. With a house style, Reflex
+  and Finish apply only to new or changed code. An old fault next to a change is a note, never
+  BLOCKING. A Floor item the UI specialist cannot show from the code or the screenshots goes to the
+  lead as a check. A team that does not want this writes `Design tiers: off` in a confirmed PROJECT.md;
+  contrast and accessibility stay BLOCKING.
+- Tap targets (Floor F7): 44 px for the main action and the navigation; other controls, also in a
+  compact tool, 24 px or more with spacing. The 24 px floor is the same as before.
+- Safety: the design skill and the tiers load only from the plugin folder, never from a folder
+  inside the repository under review; a proof line or Reflex exception added in the same change
+  needs the user's confirmation; used on its own, the design skill opens only URLs the user gives.
+- plugin.json lists `"skills": ["."]`, so the main skill keeps loading next to `skills/`.
+- The structure test also checks skills in `skills/` (frontmatter, size, the Read-when table both
+  ways), that plugin.json lists `"skills": ["."]`, and that no other SKILL.md would load. New eval
+  case design-content-first (19).
+- Eval (--runs 1): mean 0.94 with the plugin, mean difference +0.39. design-content-first 1.00
+  with, 0.00 without. Three judge fails on correct answers: debug-case-first and pipeline-first-use
+  (known noise), and no-research-for-code (the final message planned no research).
+
 ## 2.20.0
 
 Answering findings, clear review loops, a drift report and a structure test. Ideas from the

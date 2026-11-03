@@ -56,8 +56,9 @@ Never the chat. Always:
 - the rules from `rules.md` whose stage and paths match (see "Rules");
 - the git history it needs (see "Git history for agents").
 The UI specialist and the product expert in 5d also get the screenshots, the texts in every
-language, and their own stage 2 verdict (for the UI specialist: with its design brief). When the
-design skill applies (design.md), the UI specialist also gets its path. The security reviewer
+language, and their own stage 2 verdict (for the UI specialist: with its design brief). The UI
+specialist always gets the absolute path of the design tiers file, and the design skill's path
+when it applies (design.md, "The built-in design skill"). The security reviewer
 also gets the matching specialist areas and the path
 `${CLAUDE_SKILL_DIR}/references/security-rules.md`.
 

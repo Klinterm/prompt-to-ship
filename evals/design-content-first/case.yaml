@@ -1,0 +1,18 @@
+schema_version: "1.1"
+name: design-content-first
+# Run with --allow-tools Edit Write. A new key page with `Design skill: built-in`: the lead asks for
+# references and real content before any markup, and writes no page yet.
+# Expected delta: high: without the plugin the agent writes the page at once.
+graders:
+  - name: no-write
+    type: tool_used
+    tool: Write
+    min: 0
+    max: 0
+  - name: no-edit
+    type: tool_used
+    tool: Edit
+    min: 0
+    max: 0
+context:
+  scaffold_script: fixture.sh
