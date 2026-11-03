@@ -114,9 +114,10 @@ A repository that already has a confirmed PROJECT.md can ask to "draft domain.md
    - The boundaries: what is out of scope, what must never break?
    - The decisions: where are they written down, and who approves merges and releases?
    - The biggest worry right now: quality, speed, security, cost, something else?
-   - Which design skill, if any, should shape new screens? Without a house style (no theme or
-     token files, no component library, no style guide, no screens yet) it shapes them fully.
-     With a house style: may it guide only their layout and hierarchy?
+   - Which design skill, if any, should shape new screens? Suggest `built-in`, the plugin's own
+     design skill (design.md). Without a house style (no theme or token files, no component
+     library, no style guide, no screens yet) it shapes them fully. With a house style: may it
+     guide only their layout and hierarchy?
    - Which galleries or sites, if any, should inspire new screens? Suggest https://designeer.xyz/
      (a curated catalogue of design work) as a starting point; write the line only after the
      user's answer.
@@ -292,7 +293,9 @@ Pipeline mode: <none | defer | map | replace>
 ## Design and wording
 House style: <theme or token files, component library, style guide, or "the existing screens";
 "none" only when the product has no screens yet>
-Design skill: <a skill for new screens; or none>
+Design skill: <built-in (this plugin's design skill), another skill's name, or none>
+Design tiers: <on (default) | off> (off: no tier check; contrast and accessibility stay BLOCKING;
+the UI specialist checks for a generic look, ADJUST)
 Design skill with house style: <no | layout> (layout: the skill guides layout and hierarchy of
 new screens, never colours, fonts or components; default no)
 Design inspiration: <galleries or sites the lead opens for new screens, emails or documents; or

@@ -12,6 +12,8 @@ it is not shipped as part of the plugin root.
 - `agents/`: six read-only reviewer agents, a read-only researcher for outside facts and a
   read-only debugger for shipped code. Their names get the plugin name as prefix.
 - `hooks/`: a reminder on every prompt that stays silent outside opted-in repositories.
+- `skills/design/`: the built-in design skill (`prompt-to-ship:design`). plugin.json lists
+  `"skills": ["."]` so the root SKILL.md keeps loading.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, code
   hosts, autonomy, learning, security rules, weekly review, research, design, update.
 - Pipeline lessons from other projects arrive in `~/.claude/prompt-to-ship/upstream.md` (this
@@ -24,8 +26,9 @@ it is not shipped as part of the plugin root.
 
 - Everything in English. The skill answers users in their own language.
 - Generic: no company, product, customer or stack names. Product knowledge belongs in each user
-  repository's `.claude/orchestration/PROJECT.md`. One recorded exception: the design gallery
-  that setup suggests (PROJECT.md, decision 2026-10-29).
+  repository's `.claude/orchestration/PROJECT.md`. Two recorded exceptions: the design gallery
+  that setup suggests (PROJECT.md, decision 2026-10-29), and the credits in
+  `skills/design/SOURCES.md` (decision 2026-11-03).
 - No em dashes, en dashes or curly quotes.
 - Host neutral: every code host action goes through `references/code-hosts.md`. Language
   neutral: no check may assume a database, a frontend or a framework.

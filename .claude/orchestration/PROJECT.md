@@ -65,10 +65,12 @@ https://github.com/Klinterm/prompt-to-ship. The README is the home page.
   debugger for shipped code.
 - `hooks/`: the opt-in reminder (reminder.sh), with the version line from the local cache.
 - `tests/reminder-test.sh`: the hook test. `tests/structure-test.sh`: references, the Read-when
-  table, agent frontmatter and the case count. Both run in CI.
+  table, agent frontmatter, skills in `skills/` and the case count. Both run in CI.
 - `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
   rules, code hosts, autonomy, learning, weekly review, research, design, update.
+- `skills/design/`: the built-in design skill (`prompt-to-ship:design`): workflow, tiers,
+  references and the DESIGN.md template. `SOURCES.md` credits the projects it learned from.
 - `TESTING.md`: the acceptance test before a release.
 Out of scope: running code on behalf of reviewers, merges that bypass host protection, automatic
 reverts, non-git version control.
@@ -135,7 +137,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   `claude plugin eval . --runs 1 -j 4 --max-cost-usd 8 --no-publish --scaffold --allow-tools Edit Write`
   (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
   `--ablation none`, half the runs)
-  (18 cases; `--runs 1` used about $6.5 of plan usage on 2026-11-01; use `--max-cost-usd 8`). This repository
+  (19 cases; `--runs 1` used about $6.5 of plan usage on 2026-11-01; use `--max-cost-usd 8`). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -192,6 +194,17 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   plan reviewer first restates the plan (Understood, Unclear), and the architect gives a Ready
   verdict on normal and high risk. The PLAN block names its files. No extra agent run in the
   normal case; one restart per check, then BLOCKING.
+- Decision 2026-11-03 (maintainer): a built-in design skill (`skills/design/`, invoked as
+  `prompt-to-ship:design`) from lessons of public design skills. The full workflow is opt-in with
+  `Design skill: built-in`, so decision 2026-10-28 stands. Its tiers check every visible change:
+  a Floor item (objective only: contrast, focus, keyboard, target size, broken layout, invented
+  facts) is BLOCKING, which is stricter than before; Reflex is ADJUST unless the plan names a user
+  need; Finish is advice. With a house style, Reflex and Finish apply only to new or changed
+  code. A team turns the tier check off with `Design tiers: off`
+  (confirmed PROJECT.md only; contrast and accessibility stay BLOCKING). A second
+  exception to the generic rule: `skills/design/SOURCES.md` names the projects it learned from
+  (credit and licence), and nowhere else. plugin.json says `"skills": ["."]` so the root skill
+  keeps loading next to `skills/`.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

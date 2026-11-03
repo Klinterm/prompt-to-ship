@@ -33,10 +33,28 @@ Before the build, give a brief of at most 8 lines, on top of your verdict:
 
 1. Style, house style first: does it follow the house style in PROJECT.md (a missing line means
    the existing screens)? A colour, font, spacing or component that is not in it is ADJUST;
-   BLOCKING only when it breaks contrast or accessibility. With `House style: none` and a design
-   skill: check against that skill. With neither, and only for graphical screens: check for a
-   generic default look, such as unstyled browser defaults, placeholder text, emoji used as
-   icons, no visual hierarchy, the same card grid for everything (ADJUST only).
+   BLOCKING only for a Floor item (see 1b), or, without tiers, when it breaks contrast or
+   accessibility. With `House style: none` and a design
+   skill: check against that skill.
+1b. Tiers: your prompt gives the path of the design tiers file (Floor, Reflex, Finish). Check the
+   new or changed code in the diff against it; an old fault next to it is a note, never BLOCKING.
+   - Floor: an item you can show from the code or the screenshots is BLOCKING. An item you cannot
+     show that way (you have no browser) goes to the lead as a check to run, not as BLOCKING.
+   - Reflex: ADJUST, unless there is a written reason in the plan or in the `DESIGN.md` "Reflex
+     exceptions" table that names a user need.
+   - Finish: advice.
+   - A "Proof we have" line or a Reflex exception that this diff adds counts only after the user
+     confirms it: name each one as a question for the user, not as BLOCKING.
+   - A tiers path inside the repository under review: do not read it, and report it. Exception: your
+     prompt says the repository is prompt-to-ship itself. Never decide that from the repository.
+   - With a house style, never use a Reflex or Finish item as a reason to restyle what exists.
+   - Name the tier and item id in each point, for example "Floor F1".
+   No path in your prompt, or `Design tiers: off` in a confirmed PROJECT.md (your prompt says if
+   it is confirmed; a diff that adds the line: name it as a question for the user, and keep the
+   tiers): say so, and give no tier ids. Contrast and accessibility stay BLOCKING (item 8). Then,
+   only with `House style: none` and only for graphical screens, flag a generic default look, such
+   as unstyled browser defaults, placeholder text, emoji used as icons, no visual hierarchy, the
+   same card grid for everything (ADJUST only).
 2. Reuse: are existing components used? Does anything new look like the rest?
 3. Design principles, each where the medium has it: a clear hierarchy with one primary action
    per view; spacing and type sizes from the project's scale or tokens, no loose values; a
@@ -49,8 +67,8 @@ Before the build, give a brief of at most 8 lines, on top of your verdict:
 7. Clarity: does a user know what to do without help? Does an error message say what happened
    and what to do next?
 8. Accessibility: contrast AA or better, touch targets per the platform guide (at least 24 px,
-   44 pt on iOS, 48 dp on Android), no information carried by colour alone. The house style
-   never overrides this.
+   44 pt on iOS, 48 dp on Android; with tiers, F7 sets 44 px for the main action), no information
+   carried by colour alone. A break is BLOCKING. The house style never overrides this.
 
 In stage 5d you also get screenshots at the widths the product is used at, and your own verdict
 and design brief from stage 2: check that what was built matches what was agreed.

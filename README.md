@@ -171,6 +171,26 @@ style. With a house style, it guides only layout and hierarchy, and only when th
 says `Design skill with house style: layout`. When that skill is not installed, Claude says so
 and builds without it.
 
+### The built-in design skill
+
+The plugin ships its own design skill. Turn it on with `Design skill: built-in` in your project
+file, or call it directly as `/prompt-to-ship:design`. For a new key screen it asks for
+references and real content first, writes the system down in a `DESIGN.md`, builds three
+directions of the first screen for you to pick from, and then critiques screenshots at three
+widths. It has a product variant for apps, dashboards and forms.
+
+Its tier list checks every visible change, also without the opt-in:
+- Floor: objective items such as contrast, focus, keyboard use, target size, a broken layout or
+  an invented fact. A Floor failure stops the change.
+- Reflex: the usual generated look. It goes, unless the plan or the "Reflex exceptions" table in
+  `DESIGN.md` gives a reason that names a user need.
+- Finish: polish. It is advice.
+
+Only new or changed code is checked. With a house style, Reflex and Finish never restyle what
+exists. To turn the tier check off, write `Design tiers: off` in your project file;
+contrast and accessibility still stop a change.
+`skills/design/SOURCES.md` credits the public projects it learned from.
+
 ## Autonomy
 
 The first time the skill loads in a repository, it asks how far it may go on its own. You can
@@ -507,7 +527,8 @@ prompt-to-ship/
   references/                      pipeline, gates, setup, workspace, existing pipeline, debug, checklist,
                                    code hosts, autonomy, learning, security rules, weekly review,
                                    research (outside facts), design (house style), update
-  tests/                           the hook test (reminder-test.sh), also run in CI
+  skills/design/                   the built-in design skill (/prompt-to-ship:design)
+  tests/                           the hook test and the structure test, also run in CI
   docs/                            the README diagrams, and the script that draws them
   evals/                           behaviour tests for maintainers (claude plugin eval); users do
                                    not need them
