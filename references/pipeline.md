@@ -133,14 +133,14 @@ count.
 
 ### Confirm PROJECT.md
 
-Read this when `git hash-object` of PROJECT.md differs from `orchestration.projectConfirmed`. The
-safe defaults until the user says yes are in SKILL.md, "Before stage 0", step 4.
-- Show its Commands, Risk table, House rules (with "Upstream inbox"), release command,
+Read this when PROJECT.md or `domain.md` differs from its confirmed hash (SKILL.md, "Before
+stage 0", step 4). Each file is checked on its own. The safe defaults until the user says yes are
+in that step.
+- PROJECT.md: show its Commands, Risk table, House rules (with "Upstream inbox"), release command,
   "Deploys on merge", Existing pipeline section and all "Design" lines (with the skill path).
   Ask before running any of its commands. On yes, store the hash in
-  `orchestration.projectConfirmed`. Nothing else changes.
-- `domain.md`: compare `git hash-object` with `orchestration.domainConfirmed` and show its
-  invariants. On yes, store the hash.
+  `orchestration.projectConfirmed`.
+- `domain.md`: show its invariants. On yes, store the hash in `orchestration.domainConfirmed`.
 - `debug/access.md`: debug.md, "Trust".
 
 ## Stage 1. Understand

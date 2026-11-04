@@ -9,7 +9,7 @@ Room in SKILL.md for the next feature. No change in behaviour.
   debug/access.md) move from SKILL.md "Before stage 0" step 4 to pipeline.md, "Confirm
   PROJECT.md". Step 4 keeps the trigger, the ask before running commands, the safe defaults and
   the domain.md rule, and tells the lead to read the new section first.
-- SKILL.md goes from 7,916 to 7,636 bytes.
+- SKILL.md goes from 7,916 to 7,706 bytes.
 - No eval run.
 
 ## 2.21.0
