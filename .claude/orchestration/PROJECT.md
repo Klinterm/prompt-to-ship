@@ -226,7 +226,8 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   `orchestration.diffGoCovers` in chat (the maintainer's words, translated: "Yes, for that diff",
   to the question whether a go on a high-risk diff should from now on also cover its merge and
   release; the lead records it as a standing setting, and the maintainer confirms that at the diff
-  read): the go on a high-risk diff also
+  read; without that confirmation the go covers the push only and the pipeline stops before the
+  merge): the go on a high-risk diff also
   covers the merge and the release of exactly that sha. Every other gate still stops, and a
   high-risk diff still waits for the maintainer's diff read. A merge to main deploys (marketplace
   installs follow main); the tag runs right after it when the version is higher. A minor version

@@ -487,3 +487,5 @@ change request description.
     ... for <reviewed sha>." appears only in the change request description, never in a commit
     message, and the reviewed sha does not change. In mode `map`, the re-check of gate 10 uses
     `git merge-base --is-ancestor` instead of the first parent.
+197. The user clears `orchestration.diffGoCovers` in chat: any cover ends, and the next high-risk
+    merge asks again after the diff go.
