@@ -44,7 +44,7 @@ go away. See [Autonomy](#autonomy).
    - The **architect** checks the structure, the data and whether the change can be undone.
    - The **UI specialist** checks what users will see and read. It runs only when the change is
      visible: a screen, an email, a document, a message or command-line output. For a new screen
-     it first gives a short design brief.
+     it first gives a short layout brief, or reviews the design brief of the built-in design skill.
    - The **product expert** checks whether the change fits the product, its users and its
      business rules.
 3. **Build.** Claude works on its own branch. A branch is a separate copy of the code where work
@@ -163,8 +163,9 @@ For a new screen, email or document, Claude first looks at the sources on the
 `Design inspiration:` line of your project file, in the browser. Setup suggests
 https://designeer.xyz/, a curated catalogue of design work, as a starting point; you choose. Claude takes the structure, the
 proportions and the rhythm of 1 to 3 references, never their colours, fonts, images or logos.
-The UI specialist then gives a short design brief: components, layout, the one primary action,
-and the empty, loading and error states.
+The UI specialist then gives a short layout brief: components, layout, the one primary action,
+and the empty, loading and error states. With the built-in design skill, Claude writes the design
+brief itself and the UI specialist reviews it.
 
 A design skill (`Design skill: <skill name>`) shapes new screens in a product without a house
 style. With a house style, it guides only layout and hierarchy, and only when the project file
@@ -178,6 +179,14 @@ file, or call it directly as `/prompt-to-ship:design`. For a new key screen it a
 references and real content first, writes the system down in a `DESIGN.md`, builds three
 directions of the first screen for you to pick from, and then critiques screenshots at three
 widths. It has a product variant for apps, dashboards and forms.
+
+A redesign or rebuild that you name in your request lifts the old look for the pages in the
+change. For a site that already has pages, the skill also makes an inventory of the old site,
+maps every old URL to a new one, a redirect or a confirmed "gone", keeps search basics, finds the
+consent and legal rules for your region through research instead of writing them from memory,
+builds page templates and sweeps every page, and launches only with a way back. A 3D scene in the
+browser can be one of the three directions when the subject needs it (scene mode); you pick it.
+In the pipeline, a separate screenshot-only check answers the 5-second test.
 
 Its tier list checks every visible change, also without the opt-in:
 - Floor: objective items such as contrast, focus, keyboard use, target size, a broken layout or

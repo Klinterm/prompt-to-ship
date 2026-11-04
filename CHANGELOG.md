@@ -2,6 +2,37 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.23.0
+
+The rebuild path: a full website rebuild runs through the pipeline with the full design
+workflow. From the weekly review of 2026-11-04 (FR-W3-1 to FR-W3-8).
+- A redesign or rebuild that the user asks for and the BRIEF names lifts the old look for the
+  pages in the change. With `Design skill: built-in` the full workflow runs; colours and fonts come
+  from the new DESIGN.md.
+- New `skills/design/references/rebuild.md` for a site that has pages: an inventory of the old
+  site, a URL map (new URL, redirect or confirmed "gone", grouped by pattern, every language),
+  content as input not copy, search basics, privacy and consent through research ("unknown, ask
+  the user" without it; never legal text from memory), who edits after launch, page templates and
+  a site-wide sweep, a budget the team sets, a launch with a way back, and old against new.
+- `references/design.md` is the one home for how the pipeline uses the design skill: a table of
+  who does what per stage. The skill's own "Inside prompt-to-ship" table is gone.
+- Two terms: the lead's **design brief** (the skill's steps 1 to 3 plus the pick) and the UI
+  specialist's **layout brief** (without the built-in skill). With the skill, the UI specialist
+  reviews the design brief.
+- The direction pick is an open question (gate 2) at every autonomy level. Hero code stays on the
+  local topic branch. "Pick for me" stays "not approved by user".
+- 5d: the UI specialist scores the audit (H1 to K3) when it gets the path of critique.md; what it
+  cannot show is "not shown" and never counts toward the stop condition. A separate run in
+  screenshot-only mode answers the 5-second test; the lead compares the answers.
+- The lead names the DESIGN.md items the user confirmed in this task; the UI specialist never
+  confirms one itself.
+- A URL the user types in the chat may be opened as a reference (https, public host).
+- `Design tiers: off`: invented proof (F5) stays BLOCKING next to contrast and accessibility.
+- DESIGN.md lives at the repository root, or in the folder of the site in a monorepo.
+- Still open: the stack choice for a site with no code (setup's new-project path) and content
+  editing beyond the "who edits" question.
+- TESTING.md items 168 to 180. No eval run.
+
 ## 2.22.0
 
 Scene mode: the design skill can guide a page whose main form is a 3D scene in the browser.

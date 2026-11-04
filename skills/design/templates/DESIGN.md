@@ -2,6 +2,8 @@
 # DESIGN.md tokens. The YAML block is the source of truth for values.
 # The code (CSS variables, theme file, design tokens) must match it.
 # Replace every <...>. Delete lines you do not use.
+# Lives at the repository root, or in the folder of the site in a monorepo.
+# Committed: no secrets and no personal data.
 name: <product or screen>
 status: draft            # draft | locked <date> | extracted <date>
 source: new              # new | extracted from <files or URL>
@@ -136,3 +138,17 @@ the tokens it uses.
 | 1 | <...> | <...> | <...> |
 
 Not tested, and why: <...> (scene mode: each budget number not measured)
+
+<!-- Rebuild only (references/rebuild.md). Delete this section otherwise.
+## Rebuild
+
+Inventory: | Old URL | Purpose | Keep | Languages | Visitors (if known) |
+Not seen: <pages the inventory could not reach, and why>
+Forms: | Form | Sends data to |
+Integrations: <analytics, chat, booking, payments, ...>
+URL map: | Old URL or pattern | New URL, redirect or gone | Confirmed by the user |
+Who edits after launch: <...>
+Budget: first content <s>, page weight <KB>, slow connection <...> (or "not measured, and why")
+Way back: <how to switch back to the old site>
+Old against new: <screenshot paths of the top pages>
+-->

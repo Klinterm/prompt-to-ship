@@ -71,7 +71,7 @@ nothing.
 ## Gates that always stop
 
 1. the risk is high;
-2. the brief has an open question;
+2. the brief has an open question, also a design direction that waits for the user's pick (design.md);
 3. a reviewer marks a point BLOCKING, in stage 2 or 5d;
 4. after the review rounds, a finding of severity Medium or higher is not fixed (a CONTEST that its
    reviewer accepted counts as settled; pipeline.md, "Answers"), a validator says

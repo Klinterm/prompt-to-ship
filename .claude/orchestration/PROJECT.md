@@ -70,7 +70,8 @@ https://github.com/Klinterm/prompt-to-ship. The README is the home page.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
   rules, code hosts, autonomy, learning, weekly review, research, design, update.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`): workflow, tiers,
-  references (with scene mode in `immersive.md`) and the DESIGN.md template. `SOURCES.md` credits
+  references (with scene mode in `immersive.md` and the rebuild path in `rebuild.md`) and the
+  DESIGN.md template. `SOURCES.md` credits
   the projects it learned from.
 - `TESTING.md`: the acceptance test before a release.
 Out of scope: running code on behalf of reviewers, merges that bypass host protection, automatic
@@ -211,6 +212,12 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   it as one direction when the subject passes the reason test, and it starts only on the user's
   pick. Floor stays as it is; the HTML text stays the page. Budget numbers are the team's own and
   never BLOCKING on their own.
+- Decision 2026-11-04 (maintainer): the rebuild path (2.23.0). A redesign or rebuild the user asks
+  for lifts the old look for the pages in the change; `skills/design/references/rebuild.md` covers
+  a site that has pages; references/design.md is the one home for who does what per stage. It
+  extends decision 2026-10-28: the UI specialist's brief is now the "layout brief" (without the
+  built-in skill), and a URL the user types in the chat may be opened as a reference. Decision
+  2026-11-03 is unchanged: the full workflow stays opt-in with `Design skill: built-in`.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

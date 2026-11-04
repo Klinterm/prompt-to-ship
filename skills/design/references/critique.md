@@ -82,8 +82,10 @@ measured value.
 3. Ask: what is this, who is it for, what can you do here?
 4. Pass: all three answers match the idea sentence in `DESIGN.md`.
 
-In an agent setup, a fresh-context reviewer plays the stranger. Give it only the screenshots,
-no code, no brief, no chat. Compare its answers with the idea sentence yourself.
+In an agent setup, a reviewer with no context plays the stranger. Give it only the screenshots,
+no code, no brief, no chat. Compare its answers with the idea sentence yourself. Inside
+prompt-to-ship, the pipeline's references/design.md names who does it. When the test does not
+run, write "5-second test not run" in the log: the stop condition below is then not met.
 
 ## 5. The loop
 
@@ -97,9 +99,10 @@ no code, no brief, no chat. Compare its answers with the idea sentence yourself.
 6. Log each fix with a measured value before and after. A fix without an after value does not
    count.
 
-## 6. Fresh reviewer
+## 6. Independent scorer
 
-Prefer a reviewer that did not build the screen. Give it the screenshots (or a URL), `DESIGN.md`
+Prefer a scorer that did not build the screen (inside prompt-to-ship: the pipeline's
+references/design.md names it). Give it the screenshots (or a URL), `DESIGN.md`
 and this file. Instruction for the reviewer:
 
 > You did not build this. Score each audit criterion 0, 1 or 2 against DESIGN.md only. For each
