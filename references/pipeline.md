@@ -120,8 +120,8 @@ count.
 ## Stage 0. Brief
 
 - In a linked worktree without PROJECT.md, use the one in the main worktree (first path of
-  `git worktree list --porcelain`): read, hash and confirm that copy. Never run setup in a
-  linked worktree.
+  `git worktree list --porcelain`): read, hash and confirm that copy (see "Confirm PROJECT.md").
+  Never run setup in a linked worktree.
 
 - Look up the context yourself (code, git history, docs, PROJECT.md). Do not ask what is in the
   files.
@@ -130,6 +130,18 @@ count.
 - "Done when" must be measurable: "GET /api/x returns 200 with the new field on staging", not
   "it works".
 - At most ten lines. The template is in SKILL.md.
+
+### Confirm PROJECT.md
+
+Read this when PROJECT.md or `domain.md` differs from its confirmed hash (SKILL.md, "Before
+stage 0", step 4). Each file is checked on its own. The safe defaults until the user says yes are
+in that step.
+- PROJECT.md: show its Commands, Risk table, House rules (with "Upstream inbox"), release command,
+  "Deploys on merge", Existing pipeline section and all "Design" lines (with the skill path).
+  Ask before running any of its commands. On yes, store the hash in
+  `orchestration.projectConfirmed`.
+- `domain.md`: show its invariants. On yes, store the hash in `orchestration.domainConfirmed`.
+- `debug/access.md`: debug.md, "Trust".
 
 ## Stage 1. Understand
 

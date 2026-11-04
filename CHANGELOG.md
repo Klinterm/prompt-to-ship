@@ -2,6 +2,16 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.21.1
+
+Room in SKILL.md for the next feature. No change in behaviour.
+- The details of the PROJECT.md confirmation (what to show, storing the hash, domain.md and
+  debug/access.md) move from SKILL.md "Before stage 0" step 4 to pipeline.md, "Confirm
+  PROJECT.md". Step 4 keeps the trigger, the ask before running commands, the safe defaults and
+  the domain.md rule, and tells the lead to read the new section first.
+- SKILL.md goes from 7,916 to 7,706 bytes.
+- No eval run.
+
 ## 2.21.0
 
 A built-in design skill, from lessons of public design skills (credits in
