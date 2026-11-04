@@ -142,11 +142,11 @@ Not tested, and why: <...> (scene mode: each budget number not measured)
 <!-- Rebuild only (references/rebuild.md). Delete this section otherwise.
 ## Rebuild
 
-Inventory: | Old path | Purpose | Keep | Languages | Visitors (if known) |
+Inventory: | Old host and path | Purpose | Keep | Languages | Visitors (if known) |
 Not seen: <pages the inventory could not reach, and why>
 Forms: | Form | Sends data to |
 Integrations: <analytics, chat, booking, payments, ...>
-URL map: | Old path or pattern | New URL, redirect or gone | Confirmed by the user |
+URL map: | Old host and path, or pattern | New URL, redirect or gone | Confirmed by the user |
 Who edits after launch: <...>
 Budget: first content <s>, page weight <KB>, slow connection <...> (or "not measured, and why")
 Way back: <how to switch back to the old site>
