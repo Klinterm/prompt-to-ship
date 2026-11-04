@@ -528,6 +528,7 @@ change request description.
 210. Path A: `/plugin marketplace add Klinterm/prompt-to-ship` with read access and a git sign-in
     installs; without access it fails with no password prompt.
 211. A global `insteadOf` rule for the fixed address: the check stays silent and "update" takes
-    the fallback. A second `remote.origin.url` line, a local `url.*`, `credential.*` or `include`
-    line in the skills clone: "update" takes the fallback, with no network call to another host. A
+    the fallback. A second `remote.origin.url` line, or a local `url.*`, `credential.*`, `http.*`
+    (for example a proxy with `sslVerify=false`) or `include` line in the skills clone: only
+    "update" takes the fallback, with no network call. A
     failed update shows "The update did not finish." and no git error text.

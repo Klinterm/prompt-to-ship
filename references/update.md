@@ -64,11 +64,11 @@ Run it only when all of these hold; any doubt takes the fallback:
   the address above (with or without `.git` at the end);
 - `git -C "<skill folder>" ls-remote --get-url origin` (no network call) prints that same address,
   so no `insteadOf` rule sends it elsewhere;
-- `git -C "<skill folder>" config --local --get-regexp '^(url|credential|include|includeif)\.'`
-  prints nothing (no local rule, and no included file that could add one).
+- `git -C "<skill folder>" config --local --includes --get-regexp '^(url|credential|http|include|includeif)\.'`
+  prints nothing (no local rule, no proxy or TLS setting, and no included file that could add one).
 
 Then, with the same environment values as the check, fetch from the fixed address itself:
-`git -C "<skill folder>" -c core.askPass= -c protocol.allow=never -c protocol.https.allow=always fetch --quiet https://github.com/Klinterm/prompt-to-ship tag vX.Y.Z` and
+`git -C "<skill folder>" -c core.askPass= -c http.sslVerify=true -c protocol.allow=never -c protocol.https.allow=always fetch --quiet https://github.com/Klinterm/prompt-to-ship tag vX.Y.Z` and
 `git -C "<skill folder>" merge --ff-only vX.Y.Z`.
 The fetch may use the user's own credential helper, as the check does.
 On success: "Run /reload-plugins, or start a new session, to load X.Y.Z." On failure: one fixed
