@@ -163,9 +163,9 @@ For a new screen, email or document, Claude first looks at the sources on the
 `Design inspiration:` line of your project file, in the browser. Setup suggests
 https://designeer.xyz/, a curated catalogue of design work, as a starting point; you choose. Claude takes the structure, the
 proportions and the rhythm of 1 to 3 references, never their colours, fonts, images or logos.
-The UI specialist then gives a short layout brief: components, layout, the one primary action,
-and the empty, loading and error states. With the built-in design skill, Claude writes the design
-brief itself and the UI specialist reviews it.
+Without the built-in design skill, the UI specialist then gives a short layout brief: components,
+layout, the one primary action, and the empty, loading and error states. With it, Claude writes
+the design brief itself and the UI specialist reviews it.
 
 A design skill (`Design skill: <skill name>`) shapes new screens in a product without a house
 style. With a house style, it guides only layout and hierarchy, and only when the project file

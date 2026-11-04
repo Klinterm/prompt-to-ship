@@ -33,7 +33,7 @@ critique loop on real screenshots.
 ## Size of the job
 
 - New product or new key screen (home, first screen of an app, a main dashboard): all steps.
-- New screen inside an existing system: steps 0, 2, 5, 6 (one round), 7.
+- New screen inside an existing system: steps 0, 2, 3 (drift check), 5, 6 (one round), 7.
 - Small change (a text, a colour fix, one component state): step 7 only. No directions, no
   loop.
 - Review only: steps 6 and 7 on the screenshots or code you get.

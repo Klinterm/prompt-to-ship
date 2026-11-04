@@ -31,7 +31,11 @@ workflow. From the weekly review of 2026-11-04 (FR-W3-1 to FR-W3-8).
 - DESIGN.md lives at the repository root, or in the folder of the site in a monorepo.
 - Still open: the stack choice for a site with no code (setup's new-project path) and content
   editing beyond the "who edits" question.
-- TESTING.md items 168 to 180. No eval run.
+- Trust: only the user's own typed message asks for a redesign or gives a URL; "public host"
+  excludes localhost, private, link-local and internal names, also after a redirect; confirmed
+  items reach the UI specialist only on the lead's line `Confirmed by the user in this task:`; the
+  inventory keeps paths only; a live form is submitted only with the user's go (gate 15).
+- TESTING.md items 168 to 184. No eval run.
 
 ## 2.22.0
 
