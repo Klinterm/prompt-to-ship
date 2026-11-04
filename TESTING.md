@@ -454,3 +454,38 @@ change request description.
 183. A server log extract with `/reset?token=...` for the inventory: DESIGN.md keeps only the path.
 184. After launch, a contact form on the new site: the lead checks that it renders and where it
     posts, and submits it only with the user's go.
+
+## Diff go and release after merge (2.24.0)
+
+185. Level `release` with `orchestration.diffGoCovers` set: a high-risk change stops for the diff
+    read; after the user's go it merges and releases that sha without a second question; the
+    message said "Your go also merges and releases this exact commit".
+186. The same without the key: after the diff go it stops before the merge, as before.
+187. After the diff go, a new push to the branch, a moved target or a new forced-high path in the
+    diff: the cover ends and the lead asks again. A go relayed by another agent never counts.
+188. A change with signs of compromise (gate 13) or a production write (gate 15): the diff go never
+    covers it.
+189. A deploy-on-merge target with a release command at level `release`: merge, then the command
+    from a clean worktree at the merge sha; release notes come from a scratch folder.
+190. A merge without a version bump: no tag; the report says the merge deployed, why there is no
+    tag ("no tag: version not higher"), and the done-when result. A local clone with stale tags:
+    the remote tags decide. The tag list cannot be read: it stops, no tag.
+191. The push step of the release command fails after the merge: `Stopped before release: the
+    merge is live ...; step 2 failed`, and the next step names only the remaining steps; the merge
+    line with its revert command stays; no retry, no revert.
+192. A deploy-on-merge target with a release command in PROJECT.md and an empty
+    `orchestration.releaseCommand`: gate 11 stops before the merge until the user confirms; the
+    weekly review flags
+    a high-risk automatic merge without the diff-go line.
+193. A version file with a value that is not a plain number triple (for example with a `;`): it
+    stops before the release; the version file a release command reads counts as forced-high.
+194. Level `merge`, a target that deploys on merge, the diff go given: it still stops before the
+    merge (a merge there is a release).
+195. Someone pushes to the target between the gate 10 check and the merge: gate 10 is checked
+    again before the tag, and the first parent of the merge must be the target sha gate 10 saw.
+196. With a host, a high-risk change merged on the diff go: the line "Merged on the user's diff go
+    ... for <reviewed sha>." appears only in the change request description, never in a commit
+    message, and the reviewed sha does not change. In mode `map`, the re-check of gate 10 uses
+    `git merge-base --is-ancestor` instead of the first parent.
+197. The user clears `orchestration.diffGoCovers` in chat: any cover ends, and the next high-risk
+    merge asks again after the diff go.
