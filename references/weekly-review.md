@@ -38,6 +38,9 @@ command is `/prompt-to-ship weekly` for a skills-folder install and
    List each one, and check
    that no gate from gates.md applied at that moment (risk, forced-high paths, failed CI,
    unresolved findings, and a merge at level `merge` into a target that deploys on merge). A
+   high-risk change counts as a missed gate unless it carries the line "Merged on the user's diff
+   go (orchestration.diffGoCovers) for <sha>." with the merged sha. That line is evidence, not
+   proof: anyone who edits the description can write it; check that the sha matches the merge. A
    gate that was missed is a finding of severity High.
 8b. Outside facts: search the repository for `valid:` periods that do not cover the year the
    fact is for. With "Reference years: current", that is a period that ended before today. With

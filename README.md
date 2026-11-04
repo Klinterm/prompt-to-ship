@@ -220,6 +220,10 @@ At every level, Claude stops and waits for you in these cases:
 - The merge has a conflict, or the branch protection on your host refuses it.
 - A check fails after a release. Claude then proposes a revert, but does not run it.
 
+At levels merge and release you can tell Claude in chat that your go on a high-risk diff also
+covers its merge and release. Claude then still shows you the diff and waits, but after your go it
+merges and releases exactly that commit without asking again. Every other stop above still holds.
+
 Claude never approves its own pull or merge request. It never bypasses branch protection.
 
 Does your main branch deploy as soon as something lands on it? Then a merge is a release. Setup

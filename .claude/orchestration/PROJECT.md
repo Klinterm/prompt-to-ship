@@ -95,7 +95,9 @@ Pipeline mode: none
 ## Branches and environments
 `main` is the release branch. A release is a tag `vX.Y.Z` that matches `plugin.json`.
 - Release command: `git tag -a vX.Y.Z -m "prompt-to-ship X.Y.Z" <merge sha> && git push origin vX.Y.Z && gh release create vX.Y.Z --title "prompt-to-ship X.Y.Z" --notes-file <the CHANGELOG section of X.Y.Z>`
-  (X.Y.Z is the version in plugin.json; only on the maintainer's word)
+  (X.Y.Z is the version in `.claude-plugin/plugin.json`, the version file; it runs right after
+  the merge at level release, when that version is higher than the latest tag; autonomy.md)
+- Deploys on merge: yes (a marketplace install follows main)
 
 ## Commands
 - Build: none.
@@ -119,12 +121,13 @@ their own language.
 | High | the hook, the standing rules, the plugin manifest, anything about merges or secrets |
 
 ## House rules
-Autonomy limit: change-request (every change here touches the skill's own rules; the maintainer
-merges and tags)
+Autonomy limit: release (the maintainer's word on 2026-11-04; a high-risk diff still waits for the
+maintainer's diff read)
 Storage: shared
 Markers: description
 Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/prompt-to-ship/upstream.md at stage 0)
-- Never merge, push to `main` or tag a release without the maintainer's word.
+- Merge, push to `main` and tag only through the pipeline at the maintainer's stored level, and
+  never past a gate.
 - Generic: no company, product, customer or stack names in shipped files. One recorded exception:
   the design gallery that setup suggests (decision 2026-10-29).
 - The plugin name, the folder name, the agent prefixes in `SKILL.md` and the README must match.
@@ -136,10 +139,10 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Decision 2026-10-27 (maintainer): evals are unparked. A `claude plugin eval` suite runs before
   each minor release, with a cost estimate first; never as a blocking check on every commit.
   The suite is in `evals/`. Run it with
-  `claude plugin eval . --runs 1 -j 4 --max-cost-usd 8 --no-publish --scaffold --allow-tools Edit Write`
+  `claude plugin eval . --runs 1 -j 4 --max-cost-usd 10 --no-publish --scaffold --allow-tools Edit Write`
   (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
   `--ablation none`, half the runs)
-  (19 cases; `--runs 1` used about $6.5 of plan usage on 2026-11-01; use `--max-cost-usd 8`). This repository
+  (19 cases; `--runs 1` used about $8.2 to $8.4 of plan usage on 2026-11-04; use `--max-cost-usd 10`). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -218,6 +221,13 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   extends decision 2026-10-28: the UI specialist's brief is now the "layout brief" (without the
   built-in skill), and a URL the user types in the chat may be opened as a reference. Decision
   2026-11-03 is unchanged: the full workflow stays opt-in with `Design skill: built-in`.
+- Decision 2026-11-04 (maintainer): level release for this repository. The maintainer set
+  `orchestration.diffGoCovers` in chat ("Ja, voor die diff"): the go on a high-risk diff also
+  covers the merge and the release of exactly that sha. Every other gate still stops, and a
+  high-risk diff still waits for the maintainer's diff read. A merge to main deploys (marketplace
+  installs follow main); the tag runs right after it when the version is higher. A minor version
+  shows the eval cost (tokens and runs, cap `--max-cost-usd 10`) in the BRIEF, stops there for
+  the maintainer's own typed go, and puts the eval result in the CHANGELOG before the diff read.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

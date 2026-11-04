@@ -42,7 +42,8 @@ This is your choice. It is stored only in this clone (git config), never committ
 
 At every level I still stop for, among others: high risk, changes to CI, build, dependency,
 migration, access, secret or agent setup files, open questions, unfixed findings, failed CI and
-merge conflicts.
+merge conflicts. At levels 3 and 4 you can also let your go on such a diff cover its merge and
+release: tell me in chat.
 Reply 1, 2, 3 or 4. Any other reply keeps 1.
 Change it later with the argument "autonomy", or tell me in chat.
 ```
@@ -50,8 +51,9 @@ Change it later with the argument "autonomy", or tell me in chat.
 Accept the number or the level name in any language. Store the English key. When the user picks
 `release`, check these in order:
 1. The target deploys on merge: the merge itself is the release. Show the "Deploys on merge"
-   line and ask to confirm it. Leave `orchestration.releaseCommand` empty: there is no command
-   to run.
+   line and ask to confirm it. With a release command in PROJECT.md for the step after the merge
+   (for example a tag), show it, ask to confirm it, and store it as `orchestration.releaseCommand`;
+   without one, leave the key empty.
 2. Otherwise, a release command in PROJECT.md "Branches and environments" (in a workspace: in
    the folder's block under "## Commands"): show it, ask to confirm it, and store it as
    `orchestration.releaseCommand`.
@@ -67,8 +69,22 @@ it). The short rule is in gates.md. In full:
   level `release`.
 - Below that level, stop before the merge:
   `Stopped before merge: <target> deploys on merge, so merging is a release. Next: say "go", or choose level release.`
-- At level `release`, there is no separate release command. After the merge, wait a few
-  minutes, then measure the "done when" items as in stage 7.
+- At level `release`, after the merge: a release command in PROJECT.md for the step after the
+  merge (for example a tag and release notes) runs right away, from a clean worktree at the merge
+  sha. Merge and command are one release, with one "done when" measurement after the command.
+  - Fill the placeholders from the merge: the version from the version file PROJECT.md names, at
+    the merge sha; the merge sha from the host; release notes written from the CHANGELOG section
+    into a scratch folder, never into the repository.
+  - Run it only when that version is higher than the latest release tag on the remote
+    (`git ls-remote --tags --refs <remote>`, only `vX.Y.Z` with digits, compared as numbers). No
+    tag yet: run it. Otherwise skip it, and say so in the report.
+  - Gate 10 is checked before the merge, because the merge is the release.
+  - The command fails after a successful merge: stop with `Stopped before release: the merge is
+    live as <sha>; <what failed>. Next: run the stored release command by hand, or say what to
+    do.` Keep the merge line with its revert command in the report. No retry, no revert: a
+    published tag is public, so the way back is a higher version.
+  Without a release command, after the merge, wait a few minutes, then measure the "done when"
+  items as in stage 7.
 - A deploy file or job that says yes while PROJECT.md says no: treat it as yes, show the conflict
   and propose the line for PROJECT.md.
 - A missing line: ask once, together with the level question or before the next merge:
@@ -85,7 +101,9 @@ Take the lowest of:
    it: say "Your level is <x>. Change it with the argument autonomy.");
 4. `ask`, while `git hash-object .claude/orchestration/PROJECT.md` differs from
    `orchestration.projectConfirmed`, or PROJECT.md does not exist;
-5. `ask` for this task, when a gate applies (gates.md);
+5. `ask` for this task, when a gate applies (gates.md); with `orchestration.diffGoCovers`, gate 1
+   only (high risk and forced-high paths) stops only until the user's go on the diff (gates.md,
+   "Diff go covers merge");
 6. `change-request` for the merge step, when the target deploys on merge and the effective level
    after 1 to 5 is `merge`.
 
@@ -119,10 +137,14 @@ Merged <link or branch> into <target> as <sha> (level merge, squash). Revert: gi
 Fast-forwarded <target> to <sha> (level merge, map). Revert: git revert <sha>
 Released <version> from <sha> (level release). Done when: <n> of <m> pass. Revert: <the revert command from the merge line>, then release again
 Merged and deployed <link or branch> into <target> as <sha> (level release, deploys on merge). Done when: <n> of <m> pass. Revert: <revert command>, then merge again
+Merged and released <version> as <sha> (level release, deploys on merge, then the release command). Done when: <n> of <m> pass. Way back: a higher version
+Merged and deployed <link or branch> as <sha>; no release step: version not higher than <last tag>
 ```
 
 At levels `merge` and `release`, the change request description carries the line
-"Autonomy: <level>. This change request may be merged automatically." (with no host: the last
+"Autonomy: <level>. This change request may be merged automatically.", and for a high-risk change
+merged on the user's diff go also "Merged on the user's diff go (orchestration.diffGoCovers) for
+<sha>." (with no host: the last
 commit message; with "Markers: local log": the local log, plus "Merged as: <sha>" after the
 merge, see learning.md). The weekly review uses it to find and check every automatic merge and
 release.

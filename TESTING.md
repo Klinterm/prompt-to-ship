@@ -454,3 +454,23 @@ change request description.
 183. A server log extract with `/reset?token=...` for the inventory: DESIGN.md keeps only the path.
 184. After launch, a contact form on the new site: the lead checks that it renders and where it
     posts, and submits it only with the user's go.
+
+## Diff go and release after merge (2.24.0)
+
+185. Level `release` with `orchestration.diffGoCovers` set: a high-risk change stops for the diff
+    read; after the user's go it merges and releases that sha without a second question; the
+    message said "Your go also merges and releases this exact commit".
+186. The same without the key: after the diff go it stops before the merge, as before.
+187. After the diff go, a new push to the branch, a moved target or a new forced-high path in the
+    diff: the cover ends and the lead asks again. A go relayed by another agent never counts.
+188. A change with signs of compromise (gate 13) or a production write (gate 15): the diff go never
+    covers it.
+189. A deploy-on-merge target with a release command at level `release`: merge, then the command
+    from a clean worktree at the merge sha; release notes come from a scratch folder.
+190. A merge without a version bump: no tag; the report says the merge deployed and why there is
+    no tag. A local clone with stale tags: the remote tags decide.
+191. The release command fails after the merge: `Stopped before release: the merge is live ...`;
+    the merge line with its revert command stays; no retry, no revert.
+192. A deploy-on-merge target with a release command in PROJECT.md and an empty
+    `orchestration.releaseCommand`: gate 11 stops until the user confirms; the weekly review flags
+    a high-risk automatic merge without the diff-go line.
