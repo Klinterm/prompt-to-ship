@@ -38,6 +38,8 @@ it is not shipped as part of the plugin root.
 
 ## Open items before the first public release
 
+The repository is private for now (decision 2026-11-05).
+
 1. Run `TESTING.md` in fresh sessions (both install paths, the hook, setup on two ecosystems,
    a change with and without a code host, the weekly review, the autonomy levels).
 2. Remove this "Open items" section once done.
