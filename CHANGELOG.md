@@ -5,15 +5,16 @@ All notable changes. Versions follow semver and match `.claude-plugin/plugin.jso
 ## 2.24.0
 
 Merge and release on your diff go, and a release step after a deploy-on-merge merge.
-- New opt-in key `orchestration.diffGoCovers` (only the user sets it, in chat). At level `merge`
+- New opt-in key `orchestration.diffGoCovers`, off by default; only the user sets it, in chat. At level `merge`
   or `release`, your own typed go on a high-risk diff then also covers the merge (and the release)
   of exactly that reviewed sha. Gate 1 only; never gate 13 or 15; every other gate still stops.
   The cover ends with a new push, a moved target, a new forced-high path, or the end of the task.
   Without the key nothing changes.
 - A target that deploys on merge may name a release command for the step after the merge (for
   example a tag). At level `release` it runs right after the merge from a clean worktree, only
-  when the version is higher than the latest remote tag; a failure stops without retry or revert.
-  Gate 10 is checked before the merge.
+  when the version is a plain number triple higher than the latest remote tag; a failure stops
+  without retry or revert. Gates 10 and 11 are checked before the merge, gate 10 again before the
+  tag. For such a target, the last release is the last merge into it.
 - Behaviour change: gate 11 no longer exempts a deploy-on-merge target. Such a target at level
   `release` with a release command in PROJECT.md and an empty `orchestration.releaseCommand` now
   stops at gate 11 until you confirm the command (run the skill with the argument `autonomy`).
@@ -21,7 +22,7 @@ Merge and release on your diff go, and a release step after a deploy-on-merge me
   diff go (orchestration.diffGoCovers) for <sha>.", and checks the sha.
 - This repository: `Autonomy limit: release`, `Deploys on merge: yes`, the tag after the merge,
   eval cost in the BRIEF with a cap of 10.
-- TESTING.md items 185 to 192. No eval run.
+- TESTING.md items 185 to 195. No eval run.
 
 ## 2.23.0
 

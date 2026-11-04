@@ -467,10 +467,19 @@ change request description.
     covers it.
 189. A deploy-on-merge target with a release command at level `release`: merge, then the command
     from a clean worktree at the merge sha; release notes come from a scratch folder.
-190. A merge without a version bump: no tag; the report says the merge deployed and why there is
-    no tag. A local clone with stale tags: the remote tags decide.
-191. The release command fails after the merge: `Stopped before release: the merge is live ...`;
-    the merge line with its revert command stays; no retry, no revert.
+190. A merge without a version bump: no tag; the report says the merge deployed, why there is no
+    tag ("no tag: version not higher"), and the done-when result. A local clone with stale tags:
+    the remote tags decide. The tag list cannot be read: it stops, no tag.
+191. The push step of the release command fails after the merge: `Stopped before release: the
+    merge is live ...; step 2 failed`, and the next step names only the remaining steps; the merge
+    line with its revert command stays; no retry, no revert.
 192. A deploy-on-merge target with a release command in PROJECT.md and an empty
-    `orchestration.releaseCommand`: gate 11 stops until the user confirms; the weekly review flags
+    `orchestration.releaseCommand`: gate 11 stops before the merge until the user confirms; the
+    weekly review flags
     a high-risk automatic merge without the diff-go line.
+193. A version file with a value that is not a plain number triple (for example with a `;`): it
+    stops before the release; the version file a release command reads counts as forced-high.
+194. Level `merge`, a target that deploys on merge, the diff go given: it still stops before the
+    merge (a merge there is a release).
+195. Someone pushes to the target between the gate 10 check and the merge: gate 10 is checked
+    again before the tag, and the first parent of the merge must be the target sha gate 10 saw.

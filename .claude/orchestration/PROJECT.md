@@ -126,8 +126,8 @@ maintainer's diff read)
 Storage: shared
 Markers: description
 Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/prompt-to-ship/upstream.md at stage 0)
-- Merge, push to `main` and tag only through the pipeline at the maintainer's stored level, and
-  never past a gate.
+- Merge only through the host and push only the release tag, through the pipeline at the
+  maintainer's stored level, and never past a gate.
 - Generic: no company, product, customer or stack names in shipped files. One recorded exception:
   the design gallery that setup suggests (decision 2026-10-29).
 - The plugin name, the folder name, the agent prefixes in `SKILL.md` and the README must match.
@@ -222,12 +222,14 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   built-in skill), and a URL the user types in the chat may be opened as a reference. Decision
   2026-11-03 is unchanged: the full workflow stays opt-in with `Design skill: built-in`.
 - Decision 2026-11-04 (maintainer): level release for this repository. The maintainer set
-  `orchestration.diffGoCovers` in chat ("Ja, voor die diff"): the go on a high-risk diff also
+  `orchestration.diffGoCovers` in chat ("Yes, for that diff", as a standing setting): the go on a high-risk diff also
   covers the merge and the release of exactly that sha. Every other gate still stops, and a
   high-risk diff still waits for the maintainer's diff read. A merge to main deploys (marketplace
   installs follow main); the tag runs right after it when the version is higher. A minor version
-  shows the eval cost (tokens and runs, cap `--max-cost-usd 10`) in the BRIEF, stops there for
-  the maintainer's own typed go, and puts the eval result in the CHANGELOG before the diff read.
+  shows the eval cost in the BRIEF (tokens and agent runs on a subscription; the dollar amount is
+  only the `--max-cost-usd 10` cap), stops there for the maintainer's own typed go, and puts the
+  eval result in the CHANGELOG before the diff read. A run that hits the cap stops; a failed or
+  noisy case is reported as it is, with no silent retry.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

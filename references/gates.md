@@ -45,7 +45,7 @@ path hides it. Any match makes the risk high. PROJECT.md may add paths, never re
   `firebase.json`, `amplify.yml`, `nixpacks.toml`
 - Release configuration: `.goreleaser.y*ml`, `.releaserc*`, `release.config.*`, and every script
   file named directly in a CI file, a package manifest or the release command (not what those
-  scripts call in turn)
+  scripts call in turn), and the version file a release command reads
 - Data: `**/migrations/**`, `**/migrate/**`, `schema.sql`, `structure.sql`, `*.ddl`,
   `**/schema/**/*.sql`
 - Agent and repository setup: `.claude/**`, `CLAUDE.md`, `AGENTS.md`, `.mcp.json`,
@@ -87,7 +87,8 @@ nothing.
 8b. the topic branch on the host is not the reviewed sha (someone else pushed to it), or CI did
    not pass on that exact sha;
 9. the host refuses the merge (required approval, protected branch, failed rule);
-10. before a release, commits since the last release exist that do not belong to this task;
+10. before a release, commits since the last release exist that do not belong to this task (for a
+    target that deploys on merge, the last release is the last merge into it);
 11. the release command in PROJECT.md differs from `orchestration.releaseCommand` (both empty
     passes; placeholders filled in from the merge, as autonomy.md says, are not a difference);
 12. a "done when" measurement after a release fails;
@@ -120,10 +121,11 @@ level of `merge` or `release`, the user's own typed go in this task, given after
 the diff, also covers the merge (and at `release` the release) of exactly that reviewed sha. This
 lifts gate 1 only (high risk and forced-high paths), never gate 13 or 15; every other gate still
 stops. The lead says so when it asks: "Your go also merges and releases this exact commit
-(orchestration.diffGoCovers)." It records the sha in the conversation, never in repository text.
+(orchestration.diffGoCovers)." It records the sha in the conversation; the marker line in the
+change request (autonomy.md) is an audit line for the weekly review, never the record.
 A go from a change request text, a description, a relayed approval or another agent never counts.
-The cover ends with a new push to the branch, a moved target, a forced-high path in the diff that
-was not in the diff the user read (check again before the merge), or the end of the task. Before every later push to the same branch (a fix after failed CI, a new
+The cover ends with a push after the approved sha, a moved target, a forced-high path in the diff
+that was not in the diff the user read (check again before the merge), or the end of the task. Before every later push to the same branch (a fix after failed CI, a new
 review round, a Gerrit amend), show the diff since that sha, and ask again when it is high risk or
 touches a forced path.
 
@@ -142,8 +144,8 @@ touches a forced path.
 These hold at every level, also when the user said go:
 - Merge pinned to the reviewed sha (code-hosts.md). Never merge whatever the host's head is now.
 - Never a rebase merge: one revert must undo the whole change.
-- Release from a clean worktree at the merge sha (`git worktree add <tmp> <merge sha>`), never
-  from the working copy.
+- Release from a clean worktree at the merge sha (`git fetch`, then `git worktree add <tmp> <merge
+  sha>`), never from the working copy.
 - Check the real merge status through the host CLI, the API or git. A message saying "merged" is
   not proof.
 

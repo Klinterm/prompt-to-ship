@@ -198,7 +198,8 @@ existing pipeline's plan step, it still shows one line: `Research: <the question
   3. Wait until CI passes on the reviewed sha. Without CI, the local checks count.
   4. Read the branch protection of the target through the host CLI. Stop if the host would ask
      for an approval before a merge, or if you cannot read the protection.
-  5. At autonomy level `merge` or higher, and only when every gate in gates.md passes:
+  5. At autonomy level `merge` or higher, and only when every gate in gates.md passes (gate 1
+     lifted by the user's diff go counts as passed, gates.md "Diff go covers merge"):
      fast-forward the target branch with `git push <remote> <reviewed sha>:refs/heads/<target>`.
      Never `--force`. If the host refuses the push for any reason (protection, or the target
      moved), stop. Do not rebase on your own: that changes the reviewed sha. If the target

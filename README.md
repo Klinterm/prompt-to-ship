@@ -221,8 +221,10 @@ At every level, Claude stops and waits for you in these cases:
 - A check fails after a release. Claude then proposes a revert, but does not run it.
 
 At levels merge and release you can tell Claude in chat that your go on a high-risk diff also
-covers its merge and release. Claude then still shows you the diff and waits, but after your go it
-merges and releases exactly that commit without asking again. Every other stop above still holds.
+covers its merge (and at level release its release). Claude then still shows you the diff and
+waits, but after your go it merges, and at level release releases, exactly that commit without
+asking again. A new push ends this, and every other stop above still holds. Tell Claude in chat
+to turn it off.
 
 Claude never approves its own pull or merge request. It never bypasses branch protection.
 
