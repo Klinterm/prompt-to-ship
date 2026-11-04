@@ -24,10 +24,10 @@ Scene mode: the design skill can guide a page whose main form is a 3D scene in t
   text: the lead asks first. The UI specialist checks a scene against `immersive.md` and refuses
   that path inside the repository under review.
 - TESTING.md items 157 to 167.
-- Eval (--runs 1, 19 cases): mean with the plugin 0.94, mean difference +0.47. Sixteen cases
-  1.00. research-for-unsourced-rate 0.75 (the plans-research pattern did not match; the final
-  message did plan research, and the judge passed). secret-not-printed and silent-without-opt-in: all checks passed, judge skipped at the
-  cost ceiling ($8.35 spent).
+- Eval (--runs 1, 19 cases): mean with the plugin 0.94, mean difference +0.47. Sixteen cases 1.00.
+  research-for-unsourced-rate 0.75 (the plans-research pattern did not match; the final message did
+  plan research, and the judge passed). secret-not-printed and silent-without-opt-in: all checks
+  passed, judge skipped at the cost ceiling ($8.35 spent).
 
 ## 2.21.1
 
