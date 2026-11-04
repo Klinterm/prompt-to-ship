@@ -272,7 +272,7 @@ plain git and tells you how to sign in.
    stores a token.
 3. No SSH key for GitHub? Then set the environment variable `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1`
    before you use way A, as the
-   [Claude Code plugin documentation](https://code.claude.com/docs/en/plugins/host-marketplace.md)
+   [Claude Code plugin documentation](https://code.claude.com/docs/en/plugins/host-marketplace)
    says. In bash, add `export CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` to your shell profile. In
    PowerShell, run
    `[Environment]::SetEnvironmentVariable('CLAUDE_CODE_PLUGIN_PREFER_HTTPS','1','User')` and start
@@ -283,8 +283,8 @@ plain git and tells you how to sign in.
    key.
 
 Someone copied the skill into your team's repository? Then you need no read access: see "To share
-it with a team" at the end of this section. You then get no update offers; the team updates the
-copy.
+it with a team" at the end of this section. Without read access you get no update offers; the
+team updates the copy.
 
 Choose one of the two ways. Did you use the earlier name `optimal-coding-orchestration`? Remove
 that version first.
@@ -439,8 +439,8 @@ file in `~/.claude/prompt-to-ship/`. When a new version is out, you see one line
 with a link to what is new (the link opens only with read access and a git sign-in). Reply just
 `update` to install it, or just continue: the line comes back in your next conversation. Without
 read access or a git sign-in, the check stays silent: you see no offer and no error. Run the test
-in [Install](#install) to see why. Claude installs it only into an unchanged copy of this repository, and
-only that version. In every other case it shows you the command to type. To switch the check off,
+in [Install](#install) to see why. Claude installs the update only into an unchanged copy of this
+repository, and only that version. In every other case it shows you the command to type. To switch the check off,
 run `git config --global prompt-to-ship.versionCheck false`.
 
 - **Update, way A:** run `/plugin marketplace update prompt-to-ship`.

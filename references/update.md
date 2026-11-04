@@ -28,8 +28,8 @@ cache file yourself. The hook never makes a network call; the lead does, at most
    limit through the tool's own timeout:
    `git -c core.askPass= -c protocol.allow=never -c protocol.https.allow=always ls-remote --tags --refs https://github.com/Klinterm/prompt-to-ship`
    First run `git ls-remote --get-url https://github.com/Klinterm/prompt-to-ship` (no network
-   call): it must print that same address, so no `insteadOf` rule sends it elsewhere; otherwise
-   stay silent. The repository is private for now, so git may use the user's own credential
+   call): it must print that same address (with or without `.git` at the end), so no `insteadOf`
+   rule sends it elsewhere; otherwise stay silent. The repository is private for now, so git may use the user's own credential
    helper (for example from `gh auth setup-git`), read-only, for this fixed https address only.
    Nothing is typed, stored or printed by the skill. These options turn off git's own prompts and
    the Git Credential Manager window; an operating-system keyring dialog can still appear, and
@@ -64,7 +64,8 @@ Run it only when all of these hold; any doubt takes the fallback:
   the address above (with or without `.git` at the end);
 - `git -C "<skill folder>" ls-remote --get-url origin` (no network call) prints that same address,
   so no `insteadOf` rule sends it elsewhere;
-- `git -C "<skill folder>" config --local --get-regexp '^(url|credential)\.'` prints nothing.
+- `git -C "<skill folder>" config --local --get-regexp '^(url|credential|include|includeif)\.'`
+  prints nothing (no local rule, and no included file that could add one).
 
 Then, with the same environment values as the check, fetch from the fixed address itself:
 `git -C "<skill folder>" -c core.askPass= -c protocol.allow=never -c protocol.https.allow=always fetch --quiet https://github.com/Klinterm/prompt-to-ship tag vX.Y.Z` and
