@@ -163,7 +163,7 @@ These hold at every level, also when the user said go:
 | `orchestration.deploysOnMerge` | true or false | the user's answer |
 | `orchestration.ciWaitMinutes` | CI wait limit (default 30) | the user |
 | `orchestration.agentModels` | the user's own agent models (pipeline.md, "Agent models") | the user, in chat |
-| `orchestration.diffGoCovers` | `yes`: a go on a high-risk diff also covers its merge and release ("Diff go covers merge") | the user, in chat |
+| `orchestration.diffGoCovers` | `yes`: a go on a high-risk diff also covers its merge and release ("Diff go covers merge"); the user can clear it in chat, which ends any cover | the user, in chat |
 | `orchestration.roleCoverDeclined` | the user said no to the role cover | the user's no |
 | `workspace.declined` | the user said no to workspace mode | the user's no |
 

@@ -83,8 +83,9 @@ it). The short rule is in gates.md. In full:
     into a scratch folder, never into the repository. The version must match
     `^[0-9]+\.[0-9]+\.[0-9]+$` and the sha must be 40 or 64 hex characters; otherwise stop before
     the release.
-  - Check gate 10 again on the commits from the latest tag to the merge sha, and that the first
-    parent of the merge is the target sha that gate 10 saw before the merge.
+  - Check gate 10 again on the commits from the target sha that gate 10 saw before the merge to
+    the merge sha. That target sha must be the first parent of a merge commit, or, for a
+    fast-forward, an ancestor of the merged sha (`git merge-base --is-ancestor`).
   - Run it only when that version is higher than the latest release tag on the remote
     (`git ls-remote --tags --refs <remote>`, only `vX.Y.Z` with digits, compared as numbers). No
     tag yet: run it. The tag list cannot be read: stop before the release, never tag blind.
@@ -152,9 +153,13 @@ Merged and deployed <link or branch> into <target> as <sha>; no tag: version not
 ```
 
 At levels `merge` and `release`, the change request description carries the line
-"Autonomy: <level>. This change request may be merged automatically.", and for a high-risk change
-merged on the user's diff go also "Merged on the user's diff go (orchestration.diffGoCovers) for
-<reviewed sha>." (with no host or in mode `map`, that line goes to the local log; otherwise: the last
+"Autonomy: <level>. This change request may be merged automatically." (with no host: the last
 commit message; with "Markers: local log": the local log, plus "Merged as: <sha>" after the
-merge, see learning.md). The weekly review uses it to find and check every automatic merge and
-release.
+merge, see learning.md).
+
+A high-risk change merged on the user's diff go also carries "Merged on the user's diff go
+(orchestration.diffGoCovers) for <reviewed sha>.": in the change request description with a host;
+in the local log with no host, in mode `map` or with "Markers: local log". Never in a commit
+message: that would change the reviewed sha.
+
+The weekly review uses these lines to find and check every automatic merge and release.

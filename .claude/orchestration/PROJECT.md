@@ -96,7 +96,8 @@ Pipeline mode: none
 `main` is the release branch. A release is a tag `vX.Y.Z` that matches `plugin.json`.
 - Release command: `git tag -a vX.Y.Z -m "prompt-to-ship X.Y.Z" <merge sha> && git push origin vX.Y.Z && gh release create vX.Y.Z --title "prompt-to-ship X.Y.Z" --notes-file <the CHANGELOG section of X.Y.Z>`
   (X.Y.Z is the version in `.claude-plugin/plugin.json`, the version file; it runs right after
-  the merge at level release, when that version is higher than the latest tag; autonomy.md)
+  the merge at level release, when that version is higher than the latest tag; autonomy.md. The
+  merge itself runs through the host; nothing is pushed to main directly.)
 - Deploys on merge: yes (a marketplace install follows main)
 
 ## Commands
@@ -222,7 +223,10 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   built-in skill), and a URL the user types in the chat may be opened as a reference. Decision
   2026-11-03 is unchanged: the full workflow stays opt-in with `Design skill: built-in`.
 - Decision 2026-11-04 (maintainer): level release for this repository. The maintainer set
-  `orchestration.diffGoCovers` in chat ("Yes, for that diff", as a standing setting): the go on a high-risk diff also
+  `orchestration.diffGoCovers` in chat (the maintainer's words, translated: "Yes, for that diff",
+  to the question whether a go on a high-risk diff should from now on also cover its merge and
+  release; the lead records it as a standing setting, and the maintainer confirms that at the diff
+  read): the go on a high-risk diff also
   covers the merge and the release of exactly that sha. Every other gate still stops, and a
   high-risk diff still waits for the maintainer's diff read. A merge to main deploys (marketplace
   installs follow main); the tag runs right after it when the version is higher. A minor version

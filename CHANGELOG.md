@@ -13,8 +13,10 @@ Merge and release on your diff go, and a release step after a deploy-on-merge me
 - A target that deploys on merge may name a release command for the step after the merge (for
   example a tag). At level `release` it runs right after the merge from a clean worktree, only
   when the version is a plain number triple higher than the latest remote tag; a failure stops
-  without retry or revert. Gates 10 and 11 are checked before the merge, gate 10 again before the
-  tag. For such a target, the last release is the last merge into it.
+  without retry or revert. Gates 10 and 11 are checked before the merge, and gate 10 again before
+  the tag, from the target sha it saw to the merge sha. For such a target, the last release is
+  the last merge into it.
+- The version file a release command reads now counts as a forced-high path (gates.md).
 - Behaviour change: gate 11 no longer exempts a deploy-on-merge target. Such a target at level
   `release` with a release command in PROJECT.md and an empty `orchestration.releaseCommand` now
   stops at gate 11 until you confirm the command (run the skill with the argument `autonomy`).
@@ -22,7 +24,7 @@ Merge and release on your diff go, and a release step after a deploy-on-merge me
   diff go (orchestration.diffGoCovers) for <sha>.", and checks the sha.
 - This repository: `Autonomy limit: release`, `Deploys on merge: yes`, the tag after the merge,
   eval cost in the BRIEF with a cap of 10.
-- TESTING.md items 185 to 195. No eval run.
+- TESTING.md items 185 to 196. No eval run.
 
 ## 2.23.0
 

@@ -483,3 +483,7 @@ change request description.
     merge (a merge there is a release).
 195. Someone pushes to the target between the gate 10 check and the merge: gate 10 is checked
     again before the tag, and the first parent of the merge must be the target sha gate 10 saw.
+196. With a host, a high-risk change merged on the diff go: the line "Merged on the user's diff go
+    ... for <reviewed sha>." appears only in the change request description, never in a commit
+    message, and the reviewed sha does not change. In mode `map`, the re-check of gate 10 uses
+    `git merge-base --is-ancestor` instead of the first parent.
