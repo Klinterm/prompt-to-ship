@@ -493,10 +493,11 @@ change request description.
 ## Gate coherence (2.25.0)
 
 198. Setup in a repository whose README names two https URLs and one `http://localhost` URL: one
-    question lists the two with where they were found, plus "not opened: localhost"; "none" opens
-    nothing.
+    question lists the two with where they were found, plus `not opened: <url> (not a public https
+    address)` under the list; "none" opens nothing.
 199. Debug at level `release`: a method marked "could write" asks for a go every time, with the
-    exact command and target; after a no it goes on read-only.
+    exact command, the target, what it could change and how to undo it; after a no it goes on
+    read-only.
 200. A quick-lane task at stored level `merge`: the BRIEF shows `change-request (quick lane never
     merges ...)`, and it stops at the change request.
 201. Mode `defer`: a repository agent file changes between tasks; at stage 0 its role counts as

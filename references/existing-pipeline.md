@@ -102,7 +102,8 @@ repository text, so a change never removes a reviewer on its own:
 - Classify the role again, show the old and the new result, and ask "Write this into
   PROJECT.md? Reply yes or no." On yes, write it and store the new PROJECT.md hash as confirmed.
   On no, keep the old line, and store the new agent hash with it, so the question does not come
-  back for this change; store the new PROJECT.md hash as confirmed too.
+  back for this change; store the new PROJECT.md hash as confirmed too. This is the one write to
+  PROJECT.md without a yes: it changes only the stored agent hash, never a role.
 - A role marked "(set by you)" keeps the user's value. Only say that the agent changed.
 
 **A missing section.** PROJECT.md has no "Existing pipeline" section, and the signals are there:

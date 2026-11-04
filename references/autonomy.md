@@ -136,9 +136,9 @@ Give the reason whenever the effective level is lower than the stored level.
 At levels `merge` and `release`, when no gate applies (gates.md, which also holds the rules for
 every merge):
 - Merge with the command for the host in code-hosts.md, with a merge method code-hosts.md allows.
-  A host or PROJECT.md that allows only a rebase merge: stop at `change-request`. No host and no
-  remote: `git merge --no-ff <reviewed sha>` into the target, locally, no push. No host but a remote, or a host without a merge command: stop at
-  `change-request`.
+  A host or PROJECT.md that allows only a rebase merge: stop at `change-request`.
+- No host and no remote: `git merge --no-ff <reviewed sha>` into the target, locally, no push.
+- No host but a remote, or a host without a merge command: stop at `change-request`.
 - No CI on the repository: the local checks from PROJECT.md count, and the report says so.
 - Release: run `orchestration.releaseCommand` exactly, then measure "done when" as in stage 7.
 

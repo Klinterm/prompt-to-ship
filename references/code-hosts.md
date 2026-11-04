@@ -62,7 +62,11 @@ Use a REST API only through a CLI or credential helper the user already signed i
 example `gh api`, `glab api`). Otherwise use **none** for that step. Write titles and descriptions
 to files in a scratch folder outside the repository, and pass them as shown, so the shell does not
 expand text from a ticket or the repository. For a host whose CLI takes no file, use its own file
-flag or standard input; check its `--help` first, as above.
+flag or standard input; otherwise pass `"$(cat "<file>")"` as the value. Check its `--help` first,
+as above. On Gerrit the title is the first line of the commit message, written with
+`git commit -F <file>`. Run every host command that reads such a file in a POSIX shell (bash, also
+Git Bash on Windows), never in Windows PowerShell: its argument passing can split a value at a
+quote and turn the rest into flags. Quote the file path too: `"$(cat "<title file>")"`.
 
 **none** (no remote, no CLI, or the host is unreachable):
 - Open: the work stays on its local topic branch. Exception: in pipeline mode `map` with a
