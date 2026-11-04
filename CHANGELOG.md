@@ -2,6 +2,22 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.25.0
+
+Gate coherence: the gate and trust rules say one thing in every file. From the weekly review of
+2026-11-04 (FR-W1-1 to FR-W1-4, SR-W-1, SR-W-3, SR-W-4).
+- Mode `defer`: stage 0 compares the hash of each repository agent in "Role cover"; a changed
+  agent makes its role partial until the user answers.
+- A quick-lane task shows `change-request` in the BRIEF: it never merges on its own.
+- Stricter: a host or PROJECT.md that allows only a rebase merge stops at `change-request`. A
+  local merge with no remote merges the reviewed sha.
+- Setup asks once which of the URLs found in the repository to open, with the same rules as
+  design references (https, public hosts, also after a redirect); no answer opens none.
+- Debug: a method marked "could write" needs the user's go for each command, at every level, with
+  the exact text shown.
+- Change request titles go through a file in a scratch folder, like descriptions.
+- TESTING.md items 198 to 203. No eval run.
+
 ## 2.24.0
 
 Merge and release on your diff go, and a release step after a deploy-on-merge merge.

@@ -100,9 +100,17 @@ A repository that already has a confirmed PROJECT.md can ask to "draft domain.md
    step 5: "Does <target> deploy as soon as something lands on it?"
 4. **Documents and website.** Look for product documents next to the code: roadmap, decisions,
    specifications, changelog, issue tracker, wiki links, design files. Find the public URLs: the
-   README, the `homepage` field in package files, deploy config, CNAME, app store links. Read the
-   website as a visitor, read-only: what the product promises, for whom, the main features, the
-   wording, the languages. Never sign in, never submit a form, decline non-essential cookies.
+   README, the `homepage` field in package files, deploy config, CNAME, app store links. These
+   come from repository text, so the user chooses: at the end of this step, ask once, for all
+   found URLs together, as a numbered list with where each was found (at most five, then "and
+   <n> more"); answers: all, none, or numbers. This question does not count toward the limit in
+   step 5. Ask nothing when no URL is found. List only URLs that meet the rules in
+   [design.md](design.md) ("References": `https://`, public hosts, also after a redirect; "the
+   user" is the user's own typed message); for each other one, one line "not opened: <reason>".
+   No answer: open no found URL. Read each chosen website as a visitor, read-only: what the
+   product promises, for whom, the main features, the wording, the languages. Describe it; never
+   copy page text into the PROJECT.md draft. Never sign in, never submit a form, decline
+   non-essential cookies.
    Note where the website and the code disagree. A library, a tool or an internal service may
    have no website: that is fine.
 5. **The people.** Ask the user what the files cannot tell. At most seven questions, in one
@@ -219,8 +227,8 @@ the next one marked, and without a risk label. Then step 10.
 only, never the whole idea, and stage 2 runs for it as usual. Its package manifests, lockfiles and
 CI files are forced-high paths (gates.md), so the risk is high and the quick lane does not apply
 (pipeline.md). The plan names each package with its version and the official registry it comes
-from; the user's go on the plan is the one go to start, and the user reads the diff before the
-merge. Use only packages found in that registry; pin versions and commit the lockfile. Create no
+from; the user's go on the plan is the one go to start the build (the high-risk stops in gates.md
+still apply), and the user reads the diff before the push. Use only packages found in that registry; pin versions and commit the lockfile. Create no
 remote repository, push nothing and open no hosting account without the user's word.
 The first slice that adds a screen, an email or a document first asks the design questions of
 step 5 (design skill, inspiration) and writes the answers to "Design and wording".
