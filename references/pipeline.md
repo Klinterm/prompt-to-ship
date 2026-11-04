@@ -56,9 +56,9 @@ Never the chat. Always:
 - the rules from `rules.md` whose stage and paths match (see "Rules");
 - the git history it needs (see "Git history for agents").
 The UI specialist and the product expert in 5d also get the screenshots, the texts in every
-language, and their own stage 2 verdict (for the UI specialist: with its design brief). The UI
-specialist always gets the absolute path of the design tiers file, and the design skill's path
-when it applies (design.md, "The built-in design skill"). The security reviewer
+language, and their own stage 2 verdict (for the UI specialist: with the design brief or its
+layout brief). The UI specialist always gets the absolute path of the design tiers file, and the
+other paths and items that design.md, "Who does what, per stage" names. The security reviewer
 also gets the matching specialist areas and the path
 `${CLAUDE_SKILL_DIR}/references/security-rules.md`.
 
@@ -173,8 +173,9 @@ in that step.
   expert check that line: a visible change with "nothing" is a BLOCKING point.
 - A new screen, email or document: before the reviewers start, open the sources from the
   "Design inspiration" line in the browser preview (design.md) and put 1 to 3 references
-  in the `Visible:` line, each with what to take from it. The UI specialist then gives a design
-  brief of at most 8 lines on top of its verdict.
+  in the `Visible:` line, each with what to take from it. With the built-in design skill, the
+  lead's design brief comes first and the UI specialist reviews it; without it, the UI specialist
+  gives a layout brief (design.md, "Who does what, per stage").
 - Show the plan in the PLAN block from SKILL.md, every time. After research, the confirmed fact
   table goes below the block. The reviewers get the block without the `Reviewers:` line, which
   you fill after their verdicts. They also check the `Research:` line: a change that needs an
@@ -208,7 +209,7 @@ in that step.
 
 - One topic branch per topic. If something else runs in parallel, use a separate worktree.
 - Write the failing test first when you can; commit; make it pass.
-- Visible changes follow the house style and the design brief (design.md). Build, take
+- Visible changes follow the house style and the design brief or layout brief (design.md). Build, take
   a screenshot (browser preview, simulator, emulator) at each width the product is used at, for
   example phone and desktop, compare with what was asked, iterate until it matches. For a command-line tool or a library, the
   "screenshot" is the real output of a run.

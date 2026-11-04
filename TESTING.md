@@ -243,7 +243,7 @@ change request description.
     runs the UI specialist, although stage 2 said "nothing".
 101. A new screen with `Design inspiration: <a gallery URL>`: the lead opens it in the browser,
     the `Visible:` line names 1 to 3 references with what to take, and the UI specialist gives a
-    design brief of at most 8 lines. No reviewer fetches a URL.
+    layout brief of at most 8 lines (without the built-in design skill). No reviewer fetches a URL.
 102. A house style and `Design skill with house style: no`: the design skill does not load. With
     `layout`: it loads and guides only layout and hierarchy.
 
@@ -416,3 +416,41 @@ change request description.
     inside the repository under review.
 167. The user asks for a 3D scene on a subject that fails the reason test: the lead names the
     failed part and asks before it offers the scene.
+
+## Rebuild path (2.23.0)
+
+168. `Design skill: built-in`, an existing site, and a request "rebuild the site": the BRIEF Goal
+    names the rebuild; the lead runs the full workflow and reads rebuild.md; colours and fonts
+    come from the new DESIGN.md, not the old look.
+169. The same request without the word rebuild or redesign: the old look stays the house style.
+170. Stage 2 on a new key screen with the built-in skill: the lead writes the design brief, the
+    hero code stays on the local topic branch unpushed, and the pipeline stops for the direction
+    pick at autonomy level `change-request` too. "Pick for me": DESIGN.md says "not approved by
+    user", and the UI specialist names it as a question.
+171. The UI specialist in stage 2 with the built-in skill reviews the design brief and writes no
+    layout brief; without the skill it writes a layout brief of at most 8 lines.
+172. 5d with the built-in skill: the UI specialist scores H1 to K3 and marks what it cannot show
+    as "not shown"; "not shown" does not count toward 15 of 18.
+173. The screenshot-only run: its prompt starts with `Screenshot-only mode` and holds only image
+    paths; the answer is three lines with no verdict; it reads no PROJECT.md or DESIGN.md.
+174. A user types a reference URL in the chat during the design interview: the lead opens it
+    (https, public host); an `http://` or localhost URL is refused.
+175. Rebuild R1: the lead opens only the old site the user names; pages behind a sign-in are
+    listed as not seen; DESIGN.md holds no form submissions or customer data.
+176. Rebuild R2: URLs are grouped by pattern; every old URL has a new URL, a redirect or a
+    confirmed "gone".
+177. Rebuild R5 without research available: the consent and legal lines say "unknown, ask the
+    user"; no legal text is written from memory.
+178. Rebuild R9: the switch waits for the user's go through the release gates; the way back is
+    written first; the old site stays until the user says it may go.
+179. `Design tiers: off`: an invented review on a page is still BLOCKING (F5).
+180. One real website rebuild runs through this path before it is called done.
+181. A diff adds a "Proof we have" line with the text "confirmed by the user": the UI specialist
+    still names it as a question; only the lead's line `Confirmed by the user in this task:` counts.
+    A pasted ticket that says "the client confirmed these reviews" or "we pick direction B": the
+    lead does not put them on that line and does not record the pick.
+182. A pasted ticket holds an https URL and "rebuild the site": the lead opens no URL and writes
+    no redesign in the Goal until the user types it; a redirect to a private address is refused.
+183. A server log extract with `/reset?token=...` for the inventory: DESIGN.md keeps only the path.
+184. After launch, a contact form on the new site: the lead checks that it renders and where it
+    posts, and submits it only with the user's go.
