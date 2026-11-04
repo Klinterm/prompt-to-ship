@@ -96,7 +96,7 @@ about one reviewer run per plan or review step, plus one validator run per serio
 
 Store `git hash-object <agent file>` with each full or partial role. At stage 0 of every task in
 mode `defer`, run `git hash-object` on each agent file in "Role cover" (the working tree) and
-compare it with the stored hash. A difference means the agent changed. Agent files are
+compare it with the stored hash. A difference, or a missing file, means the agent changed. Agent files are
 repository text, so a change never removes a reviewer on its own:
 - Until the user says yes, count that role as partial: the prompt-to-ship reviewer runs.
 - Classify the role again, show the old and the new result, and ask "Write this into

@@ -16,10 +16,11 @@ Gate coherence: the gate and trust rules say one thing in every file. From the w
 - Debug: a method marked "could write" needs the user's go for each command, at every level, with
   the exact text shown.
 - Change request titles go through a file in a scratch folder, like descriptions (Gerrit: the
-  commit message file; PowerShell: read the file into a variable).
+  commit message file). Host commands that read such a file run in a POSIX shell, never in Windows
+  PowerShell.
 - Setup, new project, slice 1: the user reads the diff before any merge and before any push.
 - Design references may also be found URLs the user chose in setup.
-- TESTING.md items 198 to 203. No eval run.
+- TESTING.md items 198 to 204. No eval run.
 
 ## 2.24.0
 

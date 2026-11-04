@@ -506,3 +506,6 @@ change request description.
     `change-request`.
 203. A ticket title with a quote character and `$(...)` in it: the change request title on the
     host is exactly that text, passed through a file.
+204. On Windows, a ticket title with a quote, a space and `--base other`: the lead runs the host
+    command in Git Bash, and the change request opens against the planned target with the exact
+    title. Setup with more than five found URLs: "all" opens only the five shown.

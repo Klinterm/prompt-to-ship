@@ -103,7 +103,8 @@ A repository that already has a confirmed PROJECT.md can ask to "draft domain.md
    README, the `homepage` field in package files, deploy config, CNAME, app store links. These
    come from repository text, so the user chooses which to open: at the end of this step, ask
    once, for all found URLs together, as a numbered list with where each was found (at most five,
-   then "and <n> more"; numbers refer to the full list, and the user can ask to see the rest). In
+   then "and <n> more"; numbers refer to the full list, the user can ask to see the rest, and "all"
+means only the URLs shown). In
    the user's language, for example: `Open these pages to learn about the product? 1. <url>
    (README) 2. <url> (package homepage). Reply all, none, or numbers.` This question does not count
    toward the limit in step 5. Ask nothing when no URL is found. List only URLs that meet the

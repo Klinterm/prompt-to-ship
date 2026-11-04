@@ -34,7 +34,7 @@ further or say so in the report.
 
 | Operation | github (`gh`) | gitlab (`glab`) |
 |---|---|---|
-| Open | `gh pr create --base <target> --head <branch> --title "$(cat <title file>)" --body-file <file>` | `glab mr create --target-branch <target> --source-branch <branch> --title "$(cat <title file>)" --description "$(cat <file>)"` |
+| Open | `gh pr create --base <target> --head <branch> --title "$(cat "<title file>")" --body-file <file>` | `glab mr create --target-branch <target> --source-branch <branch> --title "$(cat "<title file>")" --description "$(cat "<file>")"` |
 | Merged? | `gh pr view <n> --json state,mergedAt` | `glab mr view <n>` (state "merged") |
 | List last 7 days | `gh pr list --state all --limit 200 --search "updated:>=<YYYY-MM-DD>"` | `glab api --paginate "projects/:id/merge_requests?state=all&updated_after=<YYYY-MM-DD>T00:00:00Z&per_page=100"` |
 | CI status | `gh pr checks <n>` | `glab ci status --branch <branch>` |
