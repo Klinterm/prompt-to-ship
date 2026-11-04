@@ -527,3 +527,6 @@ change request description.
     line with "Update by hand:", no prompt.
 210. Path A: `/plugin marketplace add Klinterm/prompt-to-ship` with read access and a git sign-in
     installs; without access it fails with no password prompt.
+211. An `insteadOf` rule for the fixed address, or a second `remote.origin.url` line in the skills
+    clone: the check stays silent and "update" takes the fallback, with no network call to another
+    host; a failed update shows "The update did not finish." and no git error text.

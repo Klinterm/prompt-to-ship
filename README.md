@@ -269,20 +269,30 @@ plain git and tells you how to sign in.
    https://github.com/notifications).
 2. Set up a git sign-in on this computer, for example `gh auth login` and then
    `gh auth setup-git`. Git uses your existing sign-in. Claude never asks for a password and never
-   stores a token. No SSH key for GitHub? Set the environment variable
-   `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1`, as the Claude Code plugin documentation says.
-3. Test it: `git ls-remote https://github.com/Klinterm/prompt-to-ship` must list tags and ask for
-   no password. Does it ask, or fail? Ask the maintainer to check your invitation.
+   stores a token.
+3. No SSH key for GitHub? Then set the environment variable `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1`
+   before you use way A, as the
+   [Claude Code plugin documentation](https://code.claude.com/docs/en/plugins/host-marketplace.md)
+   says. In bash, add `export CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` to your shell profile. In
+   PowerShell, run
+   `[Environment]::SetEnvironmentVariable('CLAUDE_CODE_PLUGIN_PREFER_HTTPS','1','User')` and start
+   a new terminal.
+4. Test it: `git ls-remote https://github.com/Klinterm/prompt-to-ship` must list tags and ask for
+   no password. It asks for a password? Redo step 2. It says "not found"? Ask the maintainer to
+   check your invitation. This test covers https; way A also needs step 3 when you have no SSH
+   key.
 
-Someone copied the skill into your team's repository? Then you need no read access: see the end of
-this section.
+Someone copied the skill into your team's repository? Then you need no read access: see "To share
+it with a team" at the end of this section. You then get no update offers; the team updates the
+copy.
 
 Choose one of the two ways. Did you use the earlier name `optimal-coding-orchestration`? Remove
 that version first.
 
 **A. As a plugin**
 
-1. In Claude Code, run `/plugin marketplace add Klinterm/prompt-to-ship`.
+1. In Claude Code, run `/plugin marketplace add Klinterm/prompt-to-ship`. Without read access it
+   fails with an error and asks for no password.
 2. Run `/plugin install prompt-to-ship@prompt-to-ship`.
 3. Start a new session. The command is `/prompt-to-ship:prompt-to-ship`.
 
@@ -424,12 +434,12 @@ in [references/existing-pipeline.md](references/existing-pipeline.md).
 ## Update and remove
 
 When the skill runs, Claude looks for a new version, at most once a day, at
-https://github.com/Klinterm/prompt-to-ship, with your git sign-in. Without read access or a git
-sign-in, the check stays silent: you see no offer and no error. Run the test in
-[Install](#install) to see why. It keeps the answer in a small file in
-`~/.claude/prompt-to-ship/`. When a new version is out, you see one line before the brief, with a
-link to what is new (the link opens only when you are signed in to GitHub with read access). Reply just `update` to install it, or just continue: the line comes back in
-your next conversation. Claude installs it only into an unchanged copy of this repository, and
+https://github.com/Klinterm/prompt-to-ship, with your git sign-in. It keeps the answer in a small
+file in `~/.claude/prompt-to-ship/`. When a new version is out, you see one line before the brief,
+with a link to what is new (the link opens only with read access and a git sign-in). Reply just
+`update` to install it, or just continue: the line comes back in your next conversation. Without
+read access or a git sign-in, the check stays silent: you see no offer and no error. Run the test
+in [Install](#install) to see why. Claude installs it only into an unchanged copy of this repository, and
 only that version. In every other case it shows you the command to type. To switch the check off,
 run `git config --global prompt-to-ship.versionCheck false`.
 

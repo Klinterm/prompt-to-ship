@@ -14,7 +14,10 @@ sign-in.
 - Existing installs without read access stop getting updates, and the check then stays silent.
 - README: a "Before you install" block (read access, a git sign-in, a test with `git ls-remote`),
   and `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` for users without an SSH key for GitHub.
-- TESTING.md items 207 to 210. No eval run.
+- The check and the update first resolve the fixed address (`ls-remote --get-url`) and stop when an
+  `insteadOf` rule or the clone's own `url` or `credential` settings would send it elsewhere; the
+  update fetches from the fixed address itself. A failure shows a fixed line, never git's output.
+- TESTING.md items 207 to 211. No eval run.
 
 ## 2.25.0
 
