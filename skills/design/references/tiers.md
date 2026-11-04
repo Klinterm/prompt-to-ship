@@ -134,9 +134,9 @@ Only on a page with a 3D scene. The scene rules are in `immersive.md`.
 
 | # | Pattern | Test | Script |
 |---|---|---|---|
-| R46 | 3D as decoration | An object in the scene with no entry in the element map of the `scene:` block, or a scene with no `scene:` block (a turning logo, particles, a globe that shows no data). | eye |
-| R47 | Scroll hijack | Native scroll speed or direction is replaced: the page cancels wheel or touch scroll, or uses a scroll-smoothing script, or Space, Page Down and the arrow keys stop scrolling. A scroll lock counts when it has no visible close control or stays after its menu closes. A scene that follows native scroll is fine. | yes |
-| R48 | Loader before text | With the scene's files blocked or slowed, the chapter text is not visible and readable before the scene finishes. | yes |
+| R46 | 3D as decoration | An object in the scene with no entry in the element map of the `scene:` block, or a scene with no `scene:` block (a turning logo, particles, a globe that shows no data). | yes (list the named scene objects and compare with the map), eye (what an object shows) |
+| R47 | Scroll hijack | Native scroll speed or direction is replaced: the page cancels wheel or touch scroll, or uses a scroll-smoothing script, or Space, Page Down and the arrow keys stop scrolling (that last one is also F3). A scroll lock counts when it has no visible close control or stays after its menu closes. A scene that follows native scroll is fine. | yes |
+| R48 | Loader before text | With the scene's files blocked or slowed, the chapter text is not visible, or is covered by the loader, before the scene finishes. | yes |
 
 ## Finish
 

@@ -20,7 +20,10 @@ Scene mode: the design skill can guide a page whose main form is a 3D scene in t
   script stay in F4 and F8; the Reflex reason rule stays in tiers.md. A wording move, not a rule
   change.
 - references/design.md: on a scene, the UI specialist gets the path of immersive.md.
-- TESTING.md items 157 to 165. No eval run.
+- A `scene:` block the user did not pick or confirm (a cloned repository, a diff) is repository
+  text: the lead asks first. The UI specialist checks a scene against `immersive.md` and refuses
+  that path inside the repository under review.
+- TESTING.md items 157 to 167. No eval run.
 
 ## 2.21.1
 

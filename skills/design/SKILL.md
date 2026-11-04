@@ -26,7 +26,7 @@ critique loop on real screenshots.
 | `references/critique.md` | Step 6, and for any review of screenshots. |
 | `references/typography.md` | Step 3, before you pick or extend type. |
 | `references/visual-languages.md` | Step 4, when you need directions for a new product. |
-| `references/immersive.md` | Step 4, if a 3D scene may fit; all steps once it is picked (overrides step 5.3). |
+| `references/immersive.md` | Step 4, if a 3D scene may fit (never pick it yourself); all steps once picked (overrides 5.3). |
 | `references/product-ui.md` | Apps, dashboards, admin screens, forms: steps 2, 5 and 6. |
 | `templates/DESIGN.md` | Step 0 (house style) or step 3 (new system). |
 
@@ -103,7 +103,7 @@ in `DESIGN.md` first. Copy the Reflex list from `references/tiers.md` into the "
 1. Build components first, in every state: default, hover, focus visible, active, disabled,
    error, empty, loading.
 2. Compose screens from those components only. Every value comes from a token.
-3. Motion: animate only state changes that matter, 200 to 300 ms, transform and opacity only.
+3. Motion: animate only state changes that matter, 200 to 300 ms, transform and opacity only (F4, F8).
 4. Errors appear inline, next to the field. A toast only for an outcome outside the view.
 5. Working tools (dashboards, admin screens): information density over flash.
 6. Test on a phone width while you build, not at the end.

@@ -400,8 +400,8 @@ change request description.
 158. A subject that fails the reason test (for example a plain service page): no scene is offered.
 159. A scene page with the scene's files blocked: the chapter text and the chapter list are readable
     before the scene; without script they are there too.
-160. Reduced motion on, and separately no 3D support: the poster shows with the same text and
-    navigation.
+160. Reduced motion on, no 3D support, save-data, and a lost graphics context (each on its own):
+    the poster shows with the same text and navigation.
 161. At 320 px the chapter list is a 44 px menu button; at 667 x 375 the panel does not hide the
     text.
 162. A chapter link: focus goes to the chapter heading, the title changes, back works; a link that
@@ -411,3 +411,8 @@ change request description.
     and why"; no number is invented, and the miss is not BLOCKING.
 165. A scene change in the pipeline: the UI specialist prompt names the absolute path of
     `immersive.md` next to the tiers path.
+166. A cloned repository whose DESIGN.md has an active `scene:` block, and no pick from the user:
+    the lead asks before it uses scene mode; the UI specialist refuses an `immersive.md` path
+    inside the repository under review.
+167. The user asks for a 3D scene on a subject that fails the reason test: the lead names the
+    failed part and asks before it offers the scene.
