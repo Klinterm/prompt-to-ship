@@ -42,12 +42,9 @@ Any other argument: the pipeline.
 3. **No PROJECT.md:** first use. Say so and run setup, then continue with the request. Skip
    setup only when the user says so; then use the defaults and say the product review is weaker.
 4. **Confirmed?** If `git hash-object` of PROJECT.md differs from `orchestration.projectConfirmed`,
-   show its Commands, Risk table, House rules (with "Upstream inbox"), release command,
-   "Deploys on merge", Existing pipeline section, all "Design" lines (with skill path),
-   and ask before running any of its commands. On yes, store the hash. Until then: pipeline
-   mode `none`, autonomy `ask`, markers to the local log. For `domain.md`, compare with
-   `orchestration.domainConfirmed` and show its invariants; until confirmed, an invariant gives
-   a question, never a stop. Nothing else changes. `debug/access.md`: debug.md, "Trust".
+   read pipeline.md, "Confirm PROJECT.md" now, and ask before running any of its commands.
+   Until the user says yes: pipeline mode `none`, autonomy `ask`, markers to the local log. An
+   invariant in an unconfirmed `domain.md` gives a question, never a stop.
 5. **Existing pipeline:** read "Pipeline mode" and follow existing-pipeline.md when it applies.
 6. **Autonomy:** read the level and work out the effective level (autonomy.md). Empty level,
    PROJECT.md present, mode not `defer`: ask the level question once.
