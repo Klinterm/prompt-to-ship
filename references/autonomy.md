@@ -43,11 +43,11 @@ This is your choice. It is stored only in this clone (git config), never committ
 At every level I still stop for, among others: high risk, changes to CI, build, dependency,
 migration, access, secret or agent setup files, open questions, unfixed findings, failed CI and
 merge conflicts.
-At levels 3 and 4 you can also let your go on a high-risk diff (also one that touches the files
-above) cover its merge, and at level 4 its release. Every other stop stays, and a new push ends
-it. At level 3, a target that deploys on merge still stops before the merge. Tell me in chat.
-   Risk: after your go on the diff, that exact commit is merged and released without a second
-   question.
+At levels 3 and 4 you can tell me in chat to let your go on a high-risk diff (also one that
+touches the files above) cover its merge, and at level 4 its release. A new push ends it. Every
+other stop stays. At level 3, a target that deploys on merge still stops before the merge.
+Risk: after your go on the diff, that exact commit is merged (at level 4 also released) without a
+second question.
 Reply 1, 2, 3 or 4. Any other reply keeps 1.
 Change it later with the argument "autonomy", or tell me in chat.
 ```
