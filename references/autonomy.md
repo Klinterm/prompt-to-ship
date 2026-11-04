@@ -116,7 +116,8 @@ Take the lowest of:
    only (high risk and forced-high paths) stops only until the user's go on the diff (gates.md,
    "Diff go covers merge");
 6. `change-request` for the merge step, when the target deploys on merge and the effective level
-   after 1 to 5 is `merge`.
+   after 1 to 5 is `merge`;
+7. `change-request` for a quick-lane task: it never merges on its own (pipeline.md, "Quick lane").
 
 Show it in the BRIEF:
 
@@ -125,6 +126,7 @@ Autonomy:    merge (your level)
 Autonomy:    change-request (team cap; your level is release)
 Autonomy:    ask for this task (high risk: touches .github/workflows/ci.yml)
 Autonomy:    change-request (bitbucket has no automatic merge; your level is merge)
+Autonomy:    change-request (quick lane never merges; your level is merge)
 ```
 
 Give the reason whenever the effective level is lower than the stored level.
@@ -133,10 +135,10 @@ Give the reason whenever the effective level is lower than the stored level.
 
 At levels `merge` and `release`, when no gate applies (gates.md, which also holds the rules for
 every merge):
-- Merge with the command for the host in code-hosts.md, with the merge method the host or
-  PROJECT.md prescribes. No host and no remote: `git merge --no-ff <branch>` into the target,
-  locally, no push. No host but a remote, or a host without a merge command: stop at
-  `change-request`.
+- Merge with the command for the host in code-hosts.md, with a merge method code-hosts.md allows.
+  A host or PROJECT.md that allows only a rebase merge: stop at `change-request`.
+- No host and no remote: `git merge --no-ff <reviewed sha>` into the target, locally, no push.
+- No host but a remote, or a host without a merge command: stop at `change-request`.
 - No CI on the repository: the local checks from PROJECT.md count, and the report says so.
 - Release: run `orchestration.releaseCommand` exactly, then measure "done when" as in stage 7.
 

@@ -34,7 +34,7 @@ further or say so in the report.
 
 | Operation | github (`gh`) | gitlab (`glab`) |
 |---|---|---|
-| Open | `gh pr create --base <target> --head <branch> --title '<t>' --body-file <file>` | `glab mr create --target-branch <target> --source-branch <branch> --title '<t>' --description "$(cat <file>)"` |
+| Open | `gh pr create --base <target> --head <branch> --title "$(cat "<title file>")" --body-file "<file>"` | `glab mr create --target-branch <target> --source-branch <branch> --title "$(cat "<title file>")" --description "$(cat "<file>")"` |
 | Merged? | `gh pr view <n> --json state,mergedAt` | `glab mr view <n>` (state "merged") |
 | List last 7 days | `gh pr list --state all --limit 200 --search "updated:>=<YYYY-MM-DD>"` | `glab api --paginate "projects/:id/merge_requests?state=all&updated_after=<YYYY-MM-DD>T00:00:00Z&per_page=100"` |
 | CI status | `gh pr checks <n>` | `glab ci status --branch <branch>` |
@@ -59,8 +59,14 @@ gitea): right before the merge, `git ls-remote <remote> refs/heads/<branch>` mus
 reviewed sha; if not, stop. Run this check on GitHub and GitLab too.
 
 Use a REST API only through a CLI or credential helper the user already signed in to (for
-example `gh api`, `glab api`). Otherwise use **none** for that step. Put titles in single quotes,
-and descriptions in a file, so the shell does not expand text from the repository.
+example `gh api`, `glab api`). Otherwise use **none** for that step. Write titles and descriptions
+to files in a scratch folder outside the repository, and pass them as shown, so the shell does not
+expand text from a ticket or the repository. For a host whose CLI takes no file, use its own file
+flag or standard input; otherwise pass `"$(cat "<file>")"` as the value. Check its `--help` first,
+as above. On Gerrit the title is the first line of the commit message, written with
+`git commit -F "<file>"`. Run every host command that reads such a file in a POSIX shell (bash, also
+Git Bash on Windows), never in Windows PowerShell: its argument passing can split a value at a
+quote and turn the rest into flags. No POSIX shell: use **none** for that step. Quote the file path too: `"$(cat "<title file>")"`.
 
 **none** (no remote, no CLI, or the host is unreachable):
 - Open: the work stays on its local topic branch. Exception: in pipeline mode `map` with a

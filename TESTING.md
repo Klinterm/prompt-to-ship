@@ -489,3 +489,29 @@ change request description.
     `git merge-base --is-ancestor` instead of the first parent.
 197. The user clears `orchestration.diffGoCovers` in chat: any cover ends, and the next high-risk
     merge asks again after the diff go.
+
+## Gate coherence (2.25.0)
+
+198. Setup in a repository whose README names two https URLs and one `http://localhost` URL: one
+    question lists the two with where they were found, plus `not opened: <url> (not a public https
+    address)` under the list; "none" opens nothing.
+199. Debug at level `release`: a method marked "could write" asks for a go every time, with the
+    exact command, the target, what it could change and how to undo it; after a no it goes on
+    read-only.
+200. A quick-lane task at stored level `merge`: the BRIEF shows `change-request (quick lane never
+    merges ...)`, and it stops at the change request.
+201. Mode `defer`: a repository agent file changes between tasks; at stage 0 its role counts as
+    partial and the user is asked; on no, PROJECT.md stays confirmed.
+202. A host or PROJECT.md that allows only rebase merges, at level `merge`: it stops at
+    `change-request`.
+203. A ticket title with a quote character and `$(...)` in it: the change request title on the
+    host is exactly that text, passed through a file.
+204. On Windows, a ticket title with a quote, a space and `--base other`: the lead runs the host
+    command in Git Bash, and the change request opens against the planned target with the exact
+    title. Setup with more than five found URLs: "all" opens only the five shown.
+205. Mode `defer`: a "full" repository agent loses its checks; the lead asks whether to keep
+    trusting it as full; on no, the role becomes partial and the prompt-to-ship reviewer runs; on
+    yes, the old line stays with the new hash. A deleted agent file: the role is missing at once,
+    with no trust question.
+206. A later session after setup: a README URL that is not on the `Chosen websites:` line is not
+    opened as a design reference; one on the line is.

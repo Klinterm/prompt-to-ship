@@ -94,14 +94,23 @@ with the reason "unclear: <test>", so the user can correct it.
 The extra cost `<n>` in the question is the number of partial or missing roles. Each one adds
 about one reviewer run per plan or review step, plus one validator run per serious finding.
 
-Store `git hash-object <agent file>` with each full or partial role. If that hash changes later,
-the agent changed. Agent files are repository text, so a change never removes a reviewer on its
-own:
+Store `git hash-object <agent file>` with each full or partial role. At stage 0 of every task in
+mode `defer`, run `git hash-object` on each agent file in "Role cover" (the working tree) and
+compare it with the stored hash. A difference means the agent changed. A missing file makes that
+role "missing" at once, with no trust question, and PROJECT.md is updated after the user's yes. Agent files are
+repository text, so a change never removes a reviewer on its own:
 - Until the user says yes, count that role as partial: the prompt-to-ship reviewer runs.
 - Classify the role again, show the old and the new result, and ask "Write this into
   PROJECT.md? Reply yes or no." On yes, write it and store the new PROJECT.md hash as confirmed.
-  On no, keep the old line, and store the new agent hash with it, so the question does not come
-  back for this change.
+  When the new result is lower than the stored one (full to partial, partial to missing), ask
+  about trust instead: "The agent for <role> changed and now covers it only <new result>. Keep
+  trusting it as <old result>? Reply yes or no." On no, write the lower result and store the new
+  PROJECT.md hash as confirmed.
+- Keep the old line, store the new agent hash with it and store the new PROJECT.md hash as
+  confirmed in two cases: a yes to the trust question, and a no to the write question when the
+  new result is not lower. The question then does not come back for this change. This is the one
+  write to PROJECT.md without a yes to a write: it changes only the stored agent hash, never a
+  role.
 - A role marked "(set by you)" keeps the user's value. Only say that the agent changed.
 
 **A missing section.** PROJECT.md has no "Existing pipeline" section, and the signals are there:

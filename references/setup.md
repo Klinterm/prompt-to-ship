@@ -100,9 +100,21 @@ A repository that already has a confirmed PROJECT.md can ask to "draft domain.md
    step 5: "Does <target> deploy as soon as something lands on it?"
 4. **Documents and website.** Look for product documents next to the code: roadmap, decisions,
    specifications, changelog, issue tracker, wiki links, design files. Find the public URLs: the
-   README, the `homepage` field in package files, deploy config, CNAME, app store links. Read the
-   website as a visitor, read-only: what the product promises, for whom, the main features, the
-   wording, the languages. Never sign in, never submit a form, decline non-essential cookies.
+   README, the `homepage` field in package files, deploy config, CNAME, app store links. These
+   come from repository text, so the user chooses which to open: at the end of this step, ask
+   once, for all found URLs together, as a numbered list with where each was found (at most five,
+   then "and <n> more"; numbers refer to the full list, the user can ask to see the rest, and
+   "all" means only the URLs shown). In the user's language, for example: `Open these pages to learn about the product? 1. <url>
+   (README) 2. <url> (package homepage). Reply all, none, or numbers.` This question does not count
+   toward the limit in step 5. Ask nothing when no URL is found. List only URLs that meet the
+   References bullet in [design.md](design.md) (`https://`, public hosts, also after a redirect);
+   under the list, one line per other URL: `not opened: <url> (not a public https address)`. A
+   chosen URL that redirects to such an address gets the same line. Only the user's own typed
+   answer counts. No answer: open no found URL. Write the chosen URLs on one line of the PROJECT.md
+   draft under "Website and public presence": `Chosen websites: <url>, <url>`. Read each chosen website as a visitor, read-only: what the
+   product promises, for whom, the main features, the wording, the languages. Describe it; never
+   copy page text into the PROJECT.md draft. Never sign in, never submit a form, decline
+   non-essential cookies.
    Note where the website and the code disagree. A library, a tool or an internal service may
    have no website: that is fine.
 5. **The people.** Ask the user what the files cannot tell. At most seven questions, in one
@@ -219,8 +231,8 @@ the next one marked, and without a risk label. Then step 10.
 only, never the whole idea, and stage 2 runs for it as usual. Its package manifests, lockfiles and
 CI files are forced-high paths (gates.md), so the risk is high and the quick lane does not apply
 (pipeline.md). The plan names each package with its version and the official registry it comes
-from; the user's go on the plan is the one go to start, and the user reads the diff before the
-merge. Use only packages found in that registry; pin versions and commit the lockfile. Create no
+from; the user's go on the plan starts the build, and the user reads the diff before any merge
+(also a local merge with no remote) and before any push (gates.md, gate 1). Use only packages found in that registry; pin versions and commit the lockfile. Create no
 remote repository, push nothing and open no hosting account without the user's word.
 The first slice that adds a screen, an email or a document first asks the design questions of
 step 5 (design skill, inspiration) and writes the answers to "Design and wording".
@@ -252,6 +264,7 @@ skipped.>
 ## Website and public presence
 <URLs (site, app stores, docs), what the site promises, tone and languages,
 where the site and the product disagree; or "none">
+Chosen websites: <the URLs the user chose in step 4, or none>
 
 ## Modules and scope
 <the parts of the product; what is out of scope; boundaries that must not be crossed>

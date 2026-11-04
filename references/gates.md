@@ -154,7 +154,7 @@ These hold at every level, also when the user said go:
 | Key | Holds | Set by |
 |---|---|---|
 | `orchestration.autonomy` | the autonomy level | the user, in chat |
-| `orchestration.projectConfirmed` | the PROJECT.md hash the user confirmed | the user's yes |
+| `orchestration.projectConfirmed` | the PROJECT.md hash the user confirmed | the user's yes (or the agent-hash update after the user's answer, existing-pipeline.md) |
 | `orchestration.domainConfirmed` | the domain.md hash the user confirmed | the user's yes |
 | `orchestration.debugConfirmed` | the debug/access.md hash the user confirmed | the user's yes |
 | `orchestration.domainCoverDeclined` | the user said no to the product expert for domain.md in `defer` | the user's no |
@@ -176,6 +176,8 @@ never sets or raises them.
 Re-read `orchestration.autonomy`, `orchestration.releaseCommand`,
 `orchestration.deploysOnMerge`, `orchestration.projectConfirmed`, `orchestration.agentModels`,
 `orchestration.diffGoCovers` and `orchestration.rulesConfirmed` at stage 0, and again right before every merge and release.
+In mode `defer`, stage 0 also compares the hash of each agent in "Role cover" (existing-pipeline.md):
+a difference is not a state-key change; that role counts as partial and the user is asked.
 Right before every command against a production system, hash `debug/access.md` again and compare
 it with `orchestration.debugConfirmed` (debug.md, "Trust"). If one
 changed during the task (code the pipeline ran can write git config), stop and tell the user.
