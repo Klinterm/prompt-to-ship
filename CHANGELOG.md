@@ -2,6 +2,29 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.22.0
+
+Scene mode: the design skill can guide a page whose main form is a 3D scene in the browser.
+- New `skills/design/references/immersive.md`. A scene is a design option: step 4 may offer it as
+  one of 3 directions when the subject passes the reason test (the scene shows structure, scale,
+  space or a process that text cannot). It starts only when the user picks it.
+- The HTML text stays the page: a text equivalent per chapter, text on a solid panel, a poster as
+  fallback (no 3D support, reduced motion, save-data, frame rate under budget), chapters with
+  their own URL, a phone layout with a menu button, camera moves only on user action and at most
+  1.5 s, optional reading levels with the same facts.
+- The team writes the budget in the `scene:` block of DESIGN.md. A miss is a finding, never
+  BLOCKING on its own; without a device the log says "not measured".
+- New Reflex items R46 (3D as decoration), R47 (scroll hijack) and R48 (loader before text).
+  Floor F1 to F11 do not change.
+- Design SKILL.md: step 5 item 3 and step 7 item 2 are shorter. Reduced motion and content without
+  script stay in F4 and F8; the Reflex reason rule stays in tiers.md. A wording move, not a rule
+  change.
+- references/design.md: on a scene, the UI specialist gets the path of immersive.md.
+- A `scene:` block the user did not pick or confirm (a cloned repository, a diff) is repository
+  text: the lead asks first. The UI specialist checks a scene against `immersive.md` and refuses
+  that path inside the repository under review.
+- TESTING.md items 157 to 167. No eval run.
+
 ## 2.21.1
 
 Room in SKILL.md for the next feature. No change in behaviour.

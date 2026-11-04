@@ -37,6 +37,14 @@ breakpoints: [<480, 800, 1200>]
 components:
   library: "<name or none>"
   icons: "<set name or none>"
+# Scene mode only (references/immersive.md). Uncomment only when the user picked a scene.
+# scene:
+#   reason: "<what the scene shows that text cannot>"
+#   elements: { "<object>": "<the thing it stands for>" }
+#   budget: { first_text: "<s>", scene_download: "<MB>", frame_rate: "<fps on a named device>", frames_checked: "<n>" }
+#   fallback: "poster when: no 3D support, lost context, reduced motion, save-data, frame rate under budget"
+#   url: "<format for chapter and level, for example #chapter?level=plain>"
+#   levels: ["<plain>", "<technical>"]
 ---
 
 # <name>: design
@@ -127,4 +135,4 @@ the tokens it uses.
 |---|---|---|---|
 | 1 | <...> | <...> | <...> |
 
-Not tested, and why: <...>
+Not tested, and why: <...> (scene mode: each budget number not measured)

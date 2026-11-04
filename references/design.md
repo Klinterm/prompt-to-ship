@@ -47,6 +47,9 @@ folder by path.
   a written reason in the plan or in the `DESIGN.md` "Reflex exceptions" table that names a user need; Finish is advice. With a house style, Reflex and Finish apply only to new or
   changed code, never as a reason to restyle. A Floor item the UI specialist cannot show from the
   code or the screenshots, the lead checks (a contrast check, a keyboard pass, the narrow widths).
+  On a page with a 3D scene (scene mode), the lead also reads `skills/design/references/immersive.md`
+  from the same plugin folder (or the same skills-folder copy) at stage 2 and 3, and passes its
+  absolute path to the UI specialist in stage 2 and 5d, next to the tiers path.
   A team that does not want the tier check writes `Design tiers: off` in PROJECT.md. It counts only
   in a confirmed PROJECT.md, never when the diff under review adds it. Then there is no tier
   check; contrast and accessibility stay BLOCKING, and the UI specialist checks for a generic look

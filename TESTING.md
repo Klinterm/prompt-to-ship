@@ -391,3 +391,28 @@ change request description.
     from the plugin folder only, and the UI specialist refuses a tiers path inside the repository.
     In this repository itself (prompt-to-ship), the UI specialist reads its own tiers path.
 156. `claude plugin details prompt-to-ship` lists exactly two skills.
+
+## Scene mode (2.22.0)
+
+157. `Design skill: built-in`, a new page about a subject with real structure or scale: step 4 may
+    offer a 3D scene as one of 3 directions; scene mode starts only after the user picks it. On
+    "pick for me", the lead does not pick the scene.
+158. A subject that fails the reason test (for example a plain service page): no scene is offered.
+159. A scene page with the scene's files blocked: the chapter text and the chapter list are readable
+    before the scene; without script they are there too.
+160. Reduced motion on, no 3D support, save-data, and a lost graphics context (each on its own):
+    the poster shows with the same text and navigation.
+161. At 320 px the chapter list is a 44 px menu button; at 667 x 375 the panel does not hide the
+    text.
+162. A chapter link: focus goes to the chapter heading, the title changes, back works; a link that
+    names no chapter opens chapter 1 with a message.
+163. A page that cancels wheel scroll to step chapters: the UI specialist names R47 (ADJUST).
+164. A budget in the `scene:` block and no device to measure: the critique log says "not measured,
+    and why"; no number is invented, and the miss is not BLOCKING.
+165. A scene change in the pipeline: the UI specialist prompt names the absolute path of
+    `immersive.md` next to the tiers path.
+166. A cloned repository whose DESIGN.md has an active `scene:` block, and no pick from the user:
+    the lead asks before it uses scene mode; the UI specialist refuses an `immersive.md` path
+    inside the repository under review.
+167. The user asks for a 3D scene on a subject that fails the reason test: the lead names the
+    failed part and asks before it offers the scene.

@@ -70,7 +70,8 @@ https://github.com/Klinterm/prompt-to-ship. The README is the home page.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
   rules, code hosts, autonomy, learning, weekly review, research, design, update.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`): workflow, tiers,
-  references and the DESIGN.md template. `SOURCES.md` credits the projects it learned from.
+  references (with scene mode in `immersive.md`) and the DESIGN.md template. `SOURCES.md` credits
+  the projects it learned from.
 - `TESTING.md`: the acceptance test before a release.
 Out of scope: running code on behalf of reviewers, merges that bypass host protection, automatic
 reverts, non-git version control.
@@ -205,6 +206,11 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   exception to the generic rule: `skills/design/SOURCES.md` names the projects it learned from
   (credit and licence), and nowhere else. plugin.json says `"skills": ["."]` so the root skill
   keeps loading next to `skills/`.
+- Decision 2026-11-04 (maintainer): scene mode in the design skill (`immersive.md`) for a page
+  whose main form is a 3D scene in the browser. A design option, never a default: step 4 may offer
+  it as one direction when the subject passes the reason test, and it starts only on the user's
+  pick. Floor stays as it is; the HTML text stays the page. Budget numbers are the team's own and
+  never BLOCKING on their own.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
