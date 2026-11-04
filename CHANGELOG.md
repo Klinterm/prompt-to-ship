@@ -24,7 +24,10 @@ Merge and release on your diff go, and a release step after a deploy-on-merge me
   diff go (orchestration.diffGoCovers) for <sha>.", and checks the sha.
 - This repository: `Autonomy limit: release`, `Deploys on merge: yes`, the tag after the merge,
   eval cost in the BRIEF with a cap of 10.
-- TESTING.md items 185 to 197. No eval run.
+- TESTING.md items 185 to 197.
+- Eval (--runs 1, 19 cases): mean with the plugin 0.97, mean difference +0.42. Eighteen cases 1.00;
+  pipeline-first-use 0.50 (judge PASS FAIL FAIL, the known noise of 2.21.0). Cost $8.27, under the
+  cap of 10.
 
 ## 2.23.0
 
