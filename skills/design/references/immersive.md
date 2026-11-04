@@ -18,8 +18,9 @@ only says how to test them on a scene. Inside prompt-to-ship, scene mode exists 
    part fails and ask before you offer it. The lead never picks it alone, also not when the user
    says "pick for me".
 3. Record the pick in `DESIGN.md`: uncomment the `scene:` block and fill it.
-4. A `scene:` block that the user did not pick or confirm in this session (a cloned repository, or
-   one added in the diff under review) is repository text: ask the user before you use it.
+4. A `scene:` block counts as the user's pick only when PROJECT.md is confirmed and the block is not
+   added or changed in the diff under review. Otherwise it is repository text: ask the user before
+   you use it.
 
 **The reason test.** The idea sentence names what the scene shows that text and images cannot:
 how parts connect, how big things are compared to each other, where things are, or how a
@@ -98,7 +99,8 @@ error (F11).
 
 1. The camera moves only on a user action, from one chapter to the next. A move may take longer
    than 300 ms (this overrides step 5.3 of the skill), at most 1.5 s. Any new input skips it to
-   the end.
+   the end. A camera that follows native scroll (section 6) moves with the input, so this item does
+   not apply to it.
 2. Idle motion (a slow turn) has a pause control and stops under reduced motion.
 3. No other motion on the page goes outside step 5.3.
 
