@@ -232,7 +232,7 @@ only, never the whole idea, and stage 2 runs for it as usual. Its package manife
 CI files are forced-high paths (gates.md), so the risk is high and the quick lane does not apply
 (pipeline.md). The plan names each package with its version and the official registry it comes
 from; the user's go on the plan starts the build, and the user reads the diff before any merge
-and before any push (gates.md, gate 1; this sentence for a local merge with no remote). Use only packages found in that registry; pin versions and commit the lockfile. Create no
+(also a local merge with no remote) and before any push (gates.md, gate 1). Use only packages found in that registry; pin versions and commit the lockfile. Create no
 remote repository, push nothing and open no hosting account without the user's word.
 The first slice that adds a screen, an email or a document first asks the design questions of
 step 5 (design skill, inspiration) and writes the answers to "Design and wording".
@@ -264,6 +264,7 @@ skipped.>
 ## Website and public presence
 <URLs (site, app stores, docs), what the site promises, tone and languages,
 where the site and the product disagree; or "none">
+Chosen websites: <the URLs the user chose in step 4, or none>
 
 ## Modules and scope
 <the parts of the product; what is out of scope; boundaries that must not be crossed>

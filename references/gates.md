@@ -154,7 +154,7 @@ These hold at every level, also when the user said go:
 | Key | Holds | Set by |
 |---|---|---|
 | `orchestration.autonomy` | the autonomy level | the user, in chat |
-| `orchestration.projectConfirmed` | the PROJECT.md hash the user confirmed | the user's yes (or the agent-hash update after a no, existing-pipeline.md) |
+| `orchestration.projectConfirmed` | the PROJECT.md hash the user confirmed | the user's yes (or the agent-hash update after the user's answer, existing-pipeline.md) |
 | `orchestration.domainConfirmed` | the domain.md hash the user confirmed | the user's yes |
 | `orchestration.debugConfirmed` | the debug/access.md hash the user confirmed | the user's yes |
 | `orchestration.domainCoverDeclined` | the user said no to the product expert for domain.md in `defer` | the user's no |
