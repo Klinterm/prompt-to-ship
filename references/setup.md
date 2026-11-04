@@ -110,7 +110,8 @@ A repository that already has a confirmed PROJECT.md can ask to "draft domain.md
    References bullet in [design.md](design.md) (`https://`, public hosts, also after a redirect);
    under the list, one line per other URL: `not opened: <url> (not a public https address)`. A
    chosen URL that redirects to such an address gets the same line. Only the user's own typed
-   answer counts. No answer: open no found URL. Read each chosen website as a visitor, read-only: what the
+   answer counts. No answer: open no found URL. Write the chosen URLs on one line of the PROJECT.md
+   draft under "Website and public presence": `Chosen websites: <url>, <url>`. Read each chosen website as a visitor, read-only: what the
    product promises, for whom, the main features, the wording, the languages. Describe it; never
    copy page text into the PROJECT.md draft. Never sign in, never submit a form, decline
    non-essential cookies.
@@ -231,7 +232,7 @@ only, never the whole idea, and stage 2 runs for it as usual. Its package manife
 CI files are forced-high paths (gates.md), so the risk is high and the quick lane does not apply
 (pipeline.md). The plan names each package with its version and the official registry it comes
 from; the user's go on the plan starts the build, and the user reads the diff before any merge
-and before any push (gates.md, gate 1). Use only packages found in that registry; pin versions and commit the lockfile. Create no
+and before any push (gates.md, gate 1; this sentence for a local merge with no remote). Use only packages found in that registry; pin versions and commit the lockfile. Create no
 remote repository, push nothing and open no hosting account without the user's word.
 The first slice that adds a screen, an email or a document first asks the design questions of
 step 5 (design skill, inspiration) and writes the answers to "Design and wording".

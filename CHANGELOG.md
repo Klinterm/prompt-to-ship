@@ -6,8 +6,10 @@ All notable changes. Versions follow semver and match `.claude-plugin/plugin.jso
 
 Gate coherence: the gate and trust rules say one thing in every file. From the weekly review of
 2026-11-04 (FR-W1-1 to FR-W1-4, SR-W-1, SR-W-3, SR-W-4).
-- Mode `defer`: stage 0 compares the hash of each repository agent in "Role cover"; a changed
-  agent makes its role partial until the user answers.
+- Mode `defer`: stage 0 compares the hash of each repository agent in "Role cover"; a changed or
+  missing agent makes its role partial until the user answers. A lower result asks whether to keep
+  trusting the agent; a "no" to the write question without a lower result stores only the new
+  agent hash and re-confirms PROJECT.md (the one write without a yes).
 - A quick-lane task shows `change-request` in the BRIEF: it never merges on its own.
 - Stricter: a host or PROJECT.md that allows only a rebase merge stops at `change-request`. A
   local merge with no remote merges the reviewed sha.
@@ -19,8 +21,9 @@ Gate coherence: the gate and trust rules say one thing in every file. From the w
   commit message file). Host commands that read such a file run in a POSIX shell, never in Windows
   PowerShell.
 - Setup, new project, slice 1: the user reads the diff before any merge and before any push.
-- Design references may also be found URLs the user chose in setup.
-- TESTING.md items 198 to 204. No eval run.
+- Setup writes the chosen URLs on a `Chosen websites:` line; design references may open those
+  from a confirmed PROJECT.md. No POSIX shell for host commands with files: that step uses none.
+- TESTING.md items 198 to 206. No eval run.
 
 ## 2.24.0
 

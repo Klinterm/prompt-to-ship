@@ -509,3 +509,7 @@ change request description.
 204. On Windows, a ticket title with a quote, a space and `--base other`: the lead runs the host
     command in Git Bash, and the change request opens against the planned target with the exact
     title. Setup with more than five found URLs: "all" opens only the five shown.
+205. Mode `defer`: a "full" repository agent loses its checks; the lead asks whether to keep
+    trusting it as full; on no, the role becomes partial and the prompt-to-ship reviewer runs.
+206. A later session after setup: a README URL that is not on the `Chosen websites:` line is not
+    opened as a design reference; one on the line is.
