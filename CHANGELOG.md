@@ -23,7 +23,10 @@ Gate coherence: the gate and trust rules say one thing in every file. From the w
 - Setup, new project, slice 1: the user reads the diff before any merge and before any push.
 - Setup writes the chosen URLs on a `Chosen websites:` line; design references may open those
   from a confirmed PROJECT.md. No POSIX shell for host commands with files: that step uses none.
-- TESTING.md items 198 to 206. No eval run.
+- TESTING.md items 198 to 206.
+- Eval (--runs 1, 19 cases): mean with the plugin 0.96, mean difference +0.44. Seventeen cases
+  1.00; debug-case-first 0.75 and pipeline-first-use 0.50 (judge FAIL FAIL FAIL on both; both were
+  named as known judge noise in 2.21.0). Cost $8.38, under the cap of 10.
 
 ## 2.24.0
 
