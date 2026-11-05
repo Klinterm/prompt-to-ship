@@ -146,7 +146,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   `claude plugin eval . --runs 1 -j 4 --max-cost-usd 10 --no-publish --scaffold --allow-tools Edit Write`
   (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
   `--ablation none`, half the runs)
-  (20 cases; 19 cases with `--runs 1` used about $8.2 to $8.4 of plan usage on 2026-11-04; use `--max-cost-usd 10`). This repository
+  (21 cases; 19 cases with `--runs 1` used about $8.2 to $8.4 of plan usage on 2026-11-04; use `--max-cost-usd 10`). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
