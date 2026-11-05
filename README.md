@@ -171,7 +171,7 @@ Claude says so first. To wait at each stop, reply the number and "do this one ma
 Type `/prompt-to-ship ui <screen>`, or say "review the UI" in a repository that opted in. Give a URL
 or screenshots, or say yes to a command that Claude shows you. Claude scores the screen against the
 rules of the built-in design skill. You do not need to turn that skill on. The review changes no
-code, starts no agents and runs nothing without your yes. You get the top problems as numbered fixes,
+code, starts no agents and runs no command without your yes. You get the top problems as numbered fixes,
 each with a measured value:
 
 ```
@@ -189,7 +189,7 @@ Reply redesign to redesign this screen.
 The score only ranks: it is not a pass or a fail. Without screenshots, the first line says that the
 review comes from code only, and "not shown" does not mean fine.
 
-Before Claude opens a site that is not local, or goes on behind a sign-in, it says that the review
+Before Claude opens a site that is not local (localhost or a private address), or goes on behind a sign-in, it says that the review
 runs with your session in that browser, and it offers screenshots first.
 
 - **A number** starts the normal pipeline on that fix, with the brief first. Your house style stays.
