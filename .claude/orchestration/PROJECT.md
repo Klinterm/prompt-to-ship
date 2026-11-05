@@ -255,6 +255,8 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   tiers and the audit are read by path without the opt-in, the full workflow stays opt-in, a redesign
   runs at level `ask`, and a URL the user types may be the screen under review, also on localhost. The
   mode runs no command without the user's yes in chat; this is the first use of `Preview:` as a command.
+  It narrows decision 2026-11-04 for one case: a go on a high-risk diff does not cover the merge of a
+  redesign that this mode started.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

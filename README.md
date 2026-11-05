@@ -189,8 +189,8 @@ Reply redesign to redesign this screen.
 The score only ranks: it is not a pass or a fail. Without screenshots, the first line says that the
 review comes from code only, and "not shown" does not mean fine.
 
-Before Claude opens a site that is not local (localhost or a private address), or goes on behind a sign-in, it says that the review
-runs with your session in that browser, and it offers screenshots first.
+Before Claude opens any address other than localhost, or goes on behind a sign-in, it says that the
+review runs with your session in that browser, and it offers screenshots first.
 
 - **A number** starts the normal pipeline on that fix, with the brief first. Your house style stays.
   It runs at your autonomy level: at level `change-request` or higher it can go on without another
