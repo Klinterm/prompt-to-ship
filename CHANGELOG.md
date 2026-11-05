@@ -14,10 +14,15 @@ Debug reports say what changed, and two eval cases measure real behaviour.
   v1.4 with the bug, a caller that writes the log line and a neutral CHANGELOG. The rule now teaches
   what the judge checks, and the fixture fix should also raise the pass rate. The eval cannot
   separate these two effects.
-- Eval case `pipeline-first-use`: the judge now reads the final message (`focus: last_message`), as
-  the decision of 2026-10-27 says. The old judge read 100,000 characters of trace, mostly reference
-  text, and split on correct answers (FFF, PPF, PFF, PPP in the last 8 runs). The case has a new
-  `no-write` grader, because the judge no longer sees file changes.
+- Eval case `pipeline-first-use`: the llm judge is gone, and regex graders read the final message.
+  The default judge model failed correct messages: the same stored messages got FFF, FFF, FFF and
+  PFF, PFP, PPP, and PASS on 12 of 12 votes with `--judge-model sonnet`. Moving that judge from the
+  trace to the final message did not help (FFF, FPP, FFF). Why that model says FAIL is not known:
+  the result files store votes, not reasons.
+- The new graders check three things: the message says PROJECT.md is missing, it asks a question
+  about the project, its users or its commands, and it does not claim the change. A new `no-write`
+  grader joins `no-edit`. Limits: a regex checks words, not meaning, so this case has no judge of
+  meaning any more. The patterns were written on the same stored messages they were first tested on.
 - Correction to 2.28.0: the agent did not run out of turns, and the judge read the trace because
   the case asked for it. `max_turns` stays 12: all 8 runs ended on their own.
 

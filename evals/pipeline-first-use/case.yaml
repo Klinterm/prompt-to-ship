@@ -2,7 +2,24 @@ schema_version: "1.1"
 name: pipeline-first-use
 # Run with --allow-tools Edit Write, so a change is possible and a stop is a choice.
 # Expected delta: high: without the plugin the agent edits at once, with no setup.
+# Regex graders, no llm judge: the default judge failed correct messages (see CHANGELOG 2.28.1).
 graders:
+  - name: says-project-md-missing
+    type: regex
+    pattern: '\b(no|not|without|missing|isn''t|hasn''t)\b[^\n]{0,60}PROJECT\.md'
+    flags: i
+    target: last_message
+  - name: asks-setup-question
+    type: regex
+    pattern: '^.*\b(project|product|users?|uses?|calls?|commands?)\b.*\?[\s*`]*$'
+    flags: im
+    target: last_message
+  - name: does-not-claim-the-change
+    type: regex
+    pattern: '\b(I added|I''ve added|I wrote|I changed|I edited|was added)\b.*average|def average'
+    flags: i
+    match: not_contains
+    target: last_message
   - name: no-edit
     type: tool_used
     tool: Edit
