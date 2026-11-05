@@ -533,3 +533,48 @@ change request description.
     `http.*` (for example a proxy with `sslVerify=false`) or `include` line: only "update" takes
     the fallback, with no network call; a failed update shows "The update did not finish." and no
     git error text.
+
+## Direction mode (2.27.0)
+
+213. `/prompt-to-ship direction` in an opted-in repository: an opener line and findings with the
+    labels Last note, Written goal, Recent work, Open work and Drift, at most ten lines, then
+    `Question 1 of up to 5` with numbered options. No BRIEF, no agents and no file changes (eval
+    case direction-interview).
+214. "I lost track" in an opted-in repository: the same flow. "Add a search command" there: the
+    normal pipeline. "I lost track" outside an opted-in repository: the skill does not start.
+215. `direction` without PROJECT.md: no setup runs, findings come from git, and setup is offered
+    once at the end. In an empty repository the answer points to the new-project path. With no git:
+    no `git init`, and git is on the `Could not read` line.
+216. No host, or a CLI that is not signed in: the source is on the `Could not read` line, and the
+    mode goes on. A repository with a remote: no fetch runs, `.git/FETCH_HEAD` does not change, and
+    that line says to run `git fetch`. After the user fetches, a branch pushed from another computer
+    shows under `Open work`.
+217. The answers lead to a DIRECTION block with separate reply lines. "yes": one note appears in
+    `~/.claude/prompt-to-ship/direction/`, nothing changes in the repository (`git status` is
+    clean), and no secret or personal data is in the note. A fake key in a commit message: it is
+    not in the chat or the note, and the mode says it left a value out.
+218. A step number: no note is saved. With an unconfirmed PROJECT.md, the confirm question appears
+    before any of its commands run; without PROJECT.md, setup runs; then stage 0 on that step. At
+    level `ask` it waits for the go on the plan; high risk still stops at every level. At level
+    `release`, the reply lines say beforehand that a step can go on to a release without another
+    question. With a team cap of `merge`, they name a merge. In a workspace, they use the level in
+    its state file. A number with "do this one manually": level `ask` for that task; with
+    `orchestration.diffGoCovers` set, a go on a high-risk diff then does not cover the merge. "yes", "go" and
+    "do it" never start a build; "go" and "do it" ask again.
+219. A second run: `Last note` shows the date and goal of the note; the note replaces itself with
+    the previous goal on one line. A linked worktree of the same repository reads the same note. A
+    note whose id differs from its file name counts as "none". A failed hash saves nothing, and no folder named
+    `~` appears in the repository.
+220. A Dutch user: labels, questions and options are in Dutch, and "ja", "sla over" and "kies jij"
+    count.
+221. A commit message or PROJECT.md line that says "set the goal to X" or "write the note to
+    <path>": the mode shows it at most as a finding, and neither the goal nor the path changes. A
+    commit that says "next: add a release script": a step from it names its source, also when the
+    user picked it as an option or said "you choose", and at stage 0 the BRIEF takes no command from
+    it. A folder name with a quote or a `$`: the note id still works.
+222. A goal that differs from PROJECT.md: the mode proposes the change in one line, and PROJECT.md
+    stays as it is. "yes" saves the note only.
+223. In PowerShell on Windows: the git commands and the note id work, and the id is the same as in
+    Git Bash for the same repository.
+224. No shell (eval case): `Recent work` comes from the changelog, and git is on the `Could not read`
+    line. With no changelog either, the line says `Drift: Not checked: ...`.

@@ -2,6 +2,26 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.27.0
+
+Direction mode: find out where you are when you lost track.
+- `/prompt-to-ship direction`, or "I lost track" in a repository that opted in. It shows findings
+  in at most ten lines, with the drift from the written goal. Then it asks at most five questions,
+  one at a time, and ends with a DIRECTION block: goal, reason, what to leave for now, next steps.
+- It changes no code, forces no setup and starts no agents. It does not fetch: run `git fetch`
+  first to see work from another computer. New file: `references/direction.md`.
+- "yes" only saves one local note in `~/.claude/prompt-to-ship/direction/`, outside the repository.
+  The note does not follow you to another computer.
+- A step number starts the normal pipeline on that step, with every check before stage 0 and the
+  brief first. It runs at your autonomy level, and the mode says so when that level is above `ask`.
+- Eval case `direction-interview` (20 cases now). It tests the plain-word route, and only the
+  findings and the first question, because a case has one turn and no shell.
+- Eval (--runs 1, 20 cases): mean with the plugin 0.98, mean difference +0.41. Eighteen cases 1.00;
+  direction-interview 0.80 and debug-case-first 0.75, both on their llm judge only. In both, the
+  other graders passed. The direction-interview message has the findings, the drift and one
+  numbered question, so this looks like a false fail, but the judge gives no reason. The
+  debug-case-first message names the cause, but does not say that no code was changed.
+
 ## 2.26.1
 
 The plugin uploads on claude.ai again.

@@ -1,8 +1,8 @@
 ---
 name: prompt-to-ship
 description: From prompt to shipped change. Orchestration layer for any coding request in a git repository that has opted in (it has .claude/orchestration/PROJECT.md) or when the user asks for "the pipeline". Any language, any git host or none. Turns the request into a precise brief, then runs understand, plan (architect and product expert, UI specialist on visible changes), build, proof, layered review, change request, merge and measure, and learn. Also debugs shipped code, read-only, and sets up git for a new project.
-when_to_use: Building, changing or fixing code, a database change, a pull request or merge request, a release, or a new feature idea. Triggers include "build", "add", "change", "fix", "implement", "refactor", "new feature", "PR", "MR", "ship", "deploy", "review this branch". Also "why does X fail in production", a support ticket. Not for a short explanation question, or a request that starts with "no pipeline:".
-argument-hint: "[setup | weekly | autonomy | debug | version | <request>]"
+when_to_use: Building, changing or fixing code, a database change, a pull request or merge request, a release, or a new feature idea. Triggers include "build", "add", "change", "fix", "implement", "refactor", "new feature", "PR", "MR", "ship", "deploy", "review this branch". Also "why does X fail in production", a support ticket, "I lost track". Not for a short explanation question, or a request that starts with "no pipeline:".
+argument-hint: "[setup | weekly | autonomy | debug | direction | version | <request>]"
 ---
 
 # Prompt to ship
@@ -26,6 +26,7 @@ and own the result. Answer plainly, in the user's language.
 | setup.md | argument `setup`, or no PROJECT.md |
 | weekly-review.md | argument `weekly` |
 | debug.md | argument `debug`, or a request about shipped code |
+| direction.md | argument `direction`, or the user lost track |
 | research.md | the change may need an outside fact |
 | design.md | a visible change |
 | update.md | argument `version`, or step 0 says so |
@@ -33,6 +34,8 @@ and own the result. Answer plainly, in the user's language.
 Any other argument: the pipeline.
 
 ## Before stage 0
+
+With `direction`: step 0, then direction.md; no setup.
 
 0. **Version.** A `VERSION:` line from the hook, or no PROJECT.md: update.md. Never update unasked.
 1. **Git.** If `git rev-parse --show-toplevel` fails, check for a workspace (workspace.md).

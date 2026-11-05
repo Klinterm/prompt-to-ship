@@ -71,7 +71,7 @@ invited users.
   table, agent frontmatter, skills in `skills/` and the case count. Both run in CI.
 - `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
-  rules, code hosts, autonomy, learning, weekly review, research, design, update.
+  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`): workflow, tiers,
   references (with scene mode in `immersive.md` and the rebuild path in `rebuild.md`) and the
   DESIGN.md template. `SOURCES.md` credits
@@ -146,7 +146,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   `claude plugin eval . --runs 1 -j 4 --max-cost-usd 10 --no-publish --scaffold --allow-tools Edit Write`
   (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
   `--ablation none`, half the runs)
-  (19 cases; `--runs 1` used about $8.2 to $8.4 of plan usage on 2026-11-04; use `--max-cost-usd 10`). This repository
+  (20 cases; 19 cases with `--runs 1` used about $8.2 to $8.4 of plan usage on 2026-11-04; use `--max-cost-usd 10`). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -243,6 +243,11 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   decision 2026-11-01: the one read-only git network call a day may now use the user's credential
   helper, for the fixed https address only, never with a prompt; without access it stays silent,
   on purpose. Releases still run (`gh release create`) and are visible to invited users only.
+- Decision 2026-11-05 (maintainer): direction mode (2.27.0) for a user who lost track: findings, an
+  interview, a DIRECTION block and no agent runs. It keeps the result in a local note outside the
+  repository, not in a committed file; the accepted limit is that the note does not follow the
+  user to another environment. The mode does not fetch, so it stays read-only, except for the note and the version check. A step number starts
+  the normal pipeline at the user's own level; no reply in this mode is a go on a plan.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
