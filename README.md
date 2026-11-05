@@ -136,11 +136,12 @@ files" to start them. You confirm the access file before any command from it run
 
 ## Find your direction
 
-Sometimes you lost track of what you were doing. Type `/prompt-to-ship direction`, or say "I lost
+Sometimes you lose track of what you were doing. Type `/prompt-to-ship direction`, or say "I lost
 track" in a repository that opted in. Claude changes no code and starts no agents:
 
 1. **Findings.** It shows where you are in at most ten lines: the written goal, your recent work,
-   your open work, and where the recent work moved away from the goal.
+   your open work, and where the recent work moved away from the goal. It does not fetch: run
+   `git fetch` first to see work from another computer.
 2. **Interview.** It asks at most five questions, one at a time, with numbered options.
 3. **Direction.** It shows a block like this one, in your language:
 
@@ -157,9 +158,13 @@ Next:
    Done when: the test passes in under one second.
 ```
 
-Reply `yes` to save the block as a local note, or a step number to start that step in the normal
-pipeline. The note is in `~/.claude/prompt-to-ship/direction/`, outside your repository, so it does
-not follow you to another computer. Neither reply is a go on a plan.
+Reply `yes` to save the block as a local note. That only saves. The note is in
+`~/.claude/prompt-to-ship/direction/`, outside your repository, so it does not follow you to another
+computer.
+
+Reply a step number to start that step in the normal pipeline, with the brief first. It runs at
+your autonomy level, so above `ask` it can go on without another question. Claude says so when that
+applies.
 
 ## Business rules
 
@@ -350,7 +355,7 @@ Type these in the Claude Code chat. With install way B (skills folder) the comma
 | `/prompt-to-ship autonomy` | `/prompt-to-ship:prompt-to-ship autonomy` | Shows your autonomy level and lets you change it. |
 | `/prompt-to-ship weekly` | `/prompt-to-ship:prompt-to-ship weekly` | Reviews the pull or merge requests of the last 7 days. Changes nothing. |
 | `/prompt-to-ship debug <problem>` | `/prompt-to-ship:prompt-to-ship debug <problem>` | Finds the cause of a problem in shipped code. Read-only. |
-| `/prompt-to-ship direction` | `/prompt-to-ship:prompt-to-ship direction` | Finds out where you are and agrees the next goal with you. Changes no code. |
+| `/prompt-to-ship direction` | `/prompt-to-ship:prompt-to-ship direction` | Shows where you are and helps you choose the next goal. Changes no code. |
 | `/prompt-to-ship version` | `/prompt-to-ship:prompt-to-ship version` | Shows the installed version, the folder it runs from, and the newest version seen. Changes nothing. |
 | `/prompt-to-ship <your request>` | `/prompt-to-ship:prompt-to-ship <your request>` | Runs the pipeline on your request. |
 

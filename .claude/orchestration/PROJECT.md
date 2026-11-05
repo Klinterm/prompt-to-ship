@@ -246,8 +246,8 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Decision 2026-11-05 (maintainer): direction mode (2.27.0) for a user who lost track: findings, an
   interview, a DIRECTION block and no agent runs. It keeps the result in a local note outside the
   repository, not in a committed file; the accepted limit is that the note does not follow the
-  user to another environment. A step number starts the normal pipeline; no reply in this mode is
-  a go on a plan.
+  user to another environment. The mode does not fetch, so it stays read-only. A step number starts
+  the normal pipeline at the user's own level; no reply in this mode is a go on a plan.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

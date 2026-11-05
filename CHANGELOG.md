@@ -8,10 +8,12 @@ Direction mode: find out where you are when you lost track.
 - `/prompt-to-ship direction`, or "I lost track" in a repository that opted in. It shows findings
   in at most ten lines, with the drift from the written goal. Then it asks at most five questions,
   one at a time, and ends with a DIRECTION block: goal, reason, what to leave for now, next steps.
-- It changes no code, forces no setup and starts no agents. New file: `references/direction.md`.
-- "yes" saves one local note in `~/.claude/prompt-to-ship/direction/`, outside the repository. The
-  note does not follow you to another computer. A step number starts the normal pipeline on that
-  step. Neither reply is a go on a plan.
+- It changes no code, forces no setup and starts no agents. It does not fetch: run `git fetch`
+  first to see work from another computer. New file: `references/direction.md`.
+- "yes" only saves one local note in `~/.claude/prompt-to-ship/direction/`, outside the repository.
+  The note does not follow you to another computer.
+- A step number starts the normal pipeline on that step, with every check before stage 0 and the
+  brief first. It runs at your autonomy level, and the mode says so when that level is above `ask`.
 - Eval case `direction-interview` (20 cases now). It tests the plain-word route, and only the
   findings and the first question, because a case has one turn and no shell.
 
