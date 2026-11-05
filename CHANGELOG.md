@@ -12,8 +12,8 @@ Debug reports say what changed, and two eval cases measure real behaviour.
 - Eval case `debug-case-first`: the fixture contradicted itself. Its one commit was tagged v1.3 and
   already held the bug, while the log shows correct values before v1.4. It now has a correct v1.3, a
   v1.4 with the bug, a caller that writes the log line and a neutral CHANGELOG. The rule now teaches
-  what the judge checks, and the fixture fix also raises the pass rate. The eval cannot separate
-  these two effects.
+  what the judge checks, and the fixture fix should also raise the pass rate. The eval cannot
+  separate these two effects.
 - Eval case `pipeline-first-use`: the judge now reads the final message (`focus: last_message`), as
   the decision of 2026-10-27 says. The old judge read 100,000 characters of trace, mostly reference
   text, and split on correct answers (FFF, PPF, PFF, PPP in the last 8 runs). The case has a new
