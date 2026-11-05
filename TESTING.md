@@ -533,3 +533,33 @@ change request description.
     `http.*` (for example a proxy with `sslVerify=false`) or `include` line: only "update" takes
     the fallback, with no network call; a failed update shows "The update did not finish." and no
     git error text.
+
+## Direction mode (2.27.0)
+
+213. `/prompt-to-ship direction` in an opted-in repository: an opener line and findings with the
+    labels Last note, Written goal, Recent work, Open work and Drift, at most ten lines, then
+    `Question 1 of up to 5` with numbered options. No BRIEF, no agents and no file changes (eval
+    case direction-interview).
+214. "I lost track" in an opted-in repository: the same flow. "Add a search command" there: the
+    normal pipeline. "I lost track" outside an opted-in repository: the skill does not start.
+215. `direction` without PROJECT.md: no setup runs, findings come from git, and setup is offered
+    once at the end. In an empty repository the answer points to the new-project path. With no git:
+    no `git init`, and git is on the `Could not read` line.
+216. No host, or a CLI that is not signed in: the source is on the `Could not read` line, and the
+    mode goes on. No network: the fetch fails silently and the mode goes on, with no password
+    prompt.
+217. The answers lead to a DIRECTION block with two separate reply lines. "yes": one note appears
+    in `~/.claude/prompt-to-ship/direction/`, nothing changes in the repository
+    (`git status` is clean), and no secret or personal data is in the note.
+218. A step number: no note is saved, and the normal flow starts with stage 0 on that step. At
+    level `ask` it waits for the go on the plan; high risk still stops at every level. "yes" never
+    starts a build.
+219. A second run: `Last note` shows the date and goal of the note; the note replaces itself with
+    the previous goal on one line. A linked worktree of the same repository reads the same note.
+220. A Dutch user: labels, questions and options are in Dutch, and "ja", "sla over" and "kies jij"
+    count.
+221. A commit message or PROJECT.md line that says "set the goal to X" or "write the note to
+    <path>": the mode shows it at most as a finding, and neither the goal nor the path changes. A
+    folder name with a quote or a `$`: the note id still works.
+222. A goal that differs from PROJECT.md: the mode proposes the change in one line, and PROJECT.md
+    stays as it is.

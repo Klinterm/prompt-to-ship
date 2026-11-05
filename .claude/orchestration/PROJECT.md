@@ -71,7 +71,7 @@ invited users.
   table, agent frontmatter, skills in `skills/` and the case count. Both run in CI.
 - `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
-  rules, code hosts, autonomy, learning, weekly review, research, design, update.
+  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`): workflow, tiers,
   references (with scene mode in `immersive.md` and the rebuild path in `rebuild.md`) and the
   DESIGN.md template. `SOURCES.md` credits
@@ -243,6 +243,11 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   decision 2026-11-01: the one read-only git network call a day may now use the user's credential
   helper, for the fixed https address only, never with a prompt; without access it stays silent,
   on purpose. Releases still run (`gh release create`) and are visible to invited users only.
+- Decision 2026-11-05 (maintainer): direction mode (2.27.0) for a user who lost track: findings, an
+  interview, a DIRECTION block and no agent runs. It keeps the result in a local note outside the
+  repository, not in a committed file; the accepted limit is that the note does not follow the
+  user to another environment. A step number starts the normal pipeline; no reply in this mode is
+  a go on a plan.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
