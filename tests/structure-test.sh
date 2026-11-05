@@ -8,8 +8,9 @@
 # e. Every skill in skills/ has name and description, is at most 8,000 bytes, and its Read-when
 #    table and its references/ and templates/ files match. plugin.json lists "skills": ["."];
 #    no SKILL.md outside the root and skills/*/.
-# Without a root argument it first proves itself: a planted broken reference in a temp copy
-# must make it fail.
+# f. The plugin.json description is at most 500 characters, the upload limit on claude.ai.
+# Without a root argument it first proves itself: a planted broken reference, a planted broken
+# Read-when row and a planted 501-character description in a temp copy must make it fail.
 root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
 fail=0
 err() { echo "FAIL: $*"; fail=1; }
@@ -38,6 +39,13 @@ if [ -z "$1" ]; then
       err "self-check: a planted broken row in ${s#$tmp/} was not caught"
     fi
   done
+  mkdir -p "$tmp/.claude-plugin"
+  long=$(printf 'a%.0s' $(seq 1 501))
+  sed "s/^\( *\"description\": *\"\)[^\"]*\"/\1$long\"/" "$root/.claude-plugin/plugin.json" \
+    > "$tmp/.claude-plugin/plugin.json"
+  if ! bash "$0" "$tmp" 2>&1 | grep -Fq "plugin.json description is 501 characters"; then
+    err "self-check: a planted 501-character description was not caught"
+  fi
 fi
 
 # a. References to sections.
@@ -101,6 +109,19 @@ fi
 stray=$(cd "$root" && find . -name SKILL.md -not -path './SKILL.md' -not -path './skills/*/SKILL.md' \
   -not -path './.git/*' -not -path './node_modules/*' -not -path '*/results/*' 2>/dev/null)
 [ -z "$stray" ] || err "SKILL.md outside the root and skills/*/ would load as a skill: $stray"
+
+# f. The plugin.json description length. The sed reads a one-line description without escaped
+# quotes, as plugin.json has it; any other form gives an empty match and fails.
+pj="$root/.claude-plugin/plugin.json"
+if [ -f "$pj" ]; then
+  d=$(sed -n 's/^ *"description": *"\([^"]*\)",*[[:space:]]*$/\1/p' "$pj" | head -n 1)
+  n=$(printf '%s' "$d" | LC_ALL=C.UTF-8 wc -m | tr -d ' ')
+  if [ -z "$d" ]; then
+    err "plugin.json has no one-line description"
+  elif [ "$n" -gt 500 ]; then
+    err "plugin.json description is $n characters, more than 500"
+  fi
+fi
 
 [ "$fail" = 0 ] && echo "structure-test: all checks pass"
 exit "$fail"
