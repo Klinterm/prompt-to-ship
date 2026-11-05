@@ -163,8 +163,8 @@ Reply `yes` to save the block as a local note. That only saves. The note is in
 computer.
 
 Reply a step number to start that step in the normal pipeline, with the brief first. It runs at
-your autonomy level, so above `ask` it can go on without another question. Claude says so when that
-applies.
+your autonomy level. At level `change-request` or higher it can go on without another question, and
+Claude says so first. To wait at each stop, reply the number and "do this one manually".
 
 ## Business rules
 

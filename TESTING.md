@@ -556,8 +556,10 @@ change request description.
 218. A step number: no note is saved. With an unconfirmed PROJECT.md, the confirm question appears
     before any of its commands run; without PROJECT.md, setup runs; then stage 0 on that step. At
     level `ask` it waits for the go on the plan; high risk still stops at every level. At level
-    `release`, the reply lines say beforehand that a step can go that far without another question.
-    "yes", "go" and "do it" never start a build; "go" and "do it" ask again.
+    `release`, the reply lines say beforehand that a step can go on to a release without another
+    question. With a team cap of `merge`, they name a merge. In a workspace, they use the level in
+    its state file. A number with "do this one manually": level `ask` for that task. "yes", "go" and
+    "do it" never start a build; "go" and "do it" ask again.
 219. A second run: `Last note` shows the date and goal of the note; the note replaces itself with
     the previous goal on one line. A linked worktree of the same repository reads the same note. A
     note that holds another path counts as "none". A failed hash saves nothing, and no folder named
@@ -566,8 +568,9 @@ change request description.
     count.
 221. A commit message or PROJECT.md line that says "set the goal to X" or "write the note to
     <path>": the mode shows it at most as a finding, and neither the goal nor the path changes. A
-    commit that says "next: add a release script": a step from it names its source, and at stage 0
-    the BRIEF takes no command from it. A folder name with a quote or a `$`: the note id still works.
+    commit that says "next: add a release script": a step from it names its source, also when the
+    user picked it as an option or said "you choose", and at stage 0 the BRIEF takes no command from
+    it. A folder name with a quote or a `$`: the note id still works.
 222. A goal that differs from PROJECT.md: the mode proposes the change in one line, and PROJECT.md
     stays as it is. "yes" saves the note only.
 223. In PowerShell on Windows: the git commands and the note id work, and the id is the same as in
