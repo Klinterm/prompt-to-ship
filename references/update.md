@@ -70,7 +70,8 @@ Run it only when all of these hold; any doubt takes the fallback:
 Then, with the same environment values as the check, fetch from the fixed address itself:
 `git -C "<skill folder>" -c core.askPass= -c http.sslVerify=true -c protocol.allow=never -c protocol.https.allow=always fetch --quiet https://github.com/Klinterm/prompt-to-ship tag vX.Y.Z` and
 `git -C "<skill folder>" merge --ff-only vX.Y.Z`.
-The fetch may use the user's own credential helper, as the check does.
+The fetch may use the user's own credential helper, as the check does. With TLS checking off in
+the user's global git config, the fetch fails and the update shows the fallback.
 On success: "Run /reload-plugins, or start a new session, to load X.Y.Z." On failure: one fixed
 line, "The update did not finish.", never git's error output, then "Update by hand:" with the
 fallback command, and go on with the request on the installed version.

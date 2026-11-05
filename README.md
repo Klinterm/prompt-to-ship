@@ -440,8 +440,8 @@ with a link to what is new (the link opens only with read access and a git sign-
 `update` to install it, or just continue: the line comes back in your next conversation. Without
 read access or a git sign-in, the check stays silent: you see no offer and no error. Run the test
 in [Install](#install) to see why. Claude installs the update only into an unchanged copy of this
-repository, and only that version. In every other case it shows you the command to type. To switch the check off,
-run `git config --global prompt-to-ship.versionCheck false`.
+repository, and only that version. In every other case it shows you the command to type. To switch
+the check off, run `git config --global prompt-to-ship.versionCheck false`.
 
 - **Update, way A:** run `/plugin marketplace update prompt-to-ship`.
 - **Update, way B:** reply `update` to the offer, or run `git pull` in the skills folder.

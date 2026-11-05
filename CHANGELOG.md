@@ -15,9 +15,10 @@ sign-in.
 - README: a "Before you install" block (read access, a git sign-in, a test with `git ls-remote`),
   and `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` for users without an SSH key for GitHub.
 - The check and the update first resolve the fixed address (`ls-remote --get-url`) and stop when an
-  `insteadOf` rule or the clone's own `url` or `credential` settings would send it elsewhere; the
-  update fetches from the fixed address itself. A failure shows a fixed line, never git's output.
-- TESTING.md items 207 to 211. No eval run.
+  `insteadOf` rule or the clone's own `url`, `credential`, `http` or `include` settings would send
+  it elsewhere; the update fetches from the fixed address itself, with TLS checking on (a user
+  whose global git config turns it off updates by hand). A failure shows a fixed line, never git's output.
+- TESTING.md items 207 to 212. No eval run.
 
 ## 2.25.0
 
