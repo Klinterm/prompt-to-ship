@@ -101,7 +101,12 @@ Evidence:    <the checks that confirm it>
 Validator:   <CONFIRMED>
 Fix route:   <code | data | config | outside>
 Next:        <what the user decides or does>
+Changed:     <"nothing: no code and no system changed", or each change made and who approved it>
 ```
+
+On NEEDS MORE EVIDENCE, show no ROOT CAUSE block: name the cause as unconfirmed, show the open
+check, and end the report with the same `Changed:` line. A read-only check is not a change. Write
+the value in the user's language.
 
 **D5. Fix.**
 - Code: the normal pipeline from stage 0, with the CASE as context and the playbook check as a

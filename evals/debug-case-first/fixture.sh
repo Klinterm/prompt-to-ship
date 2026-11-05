@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# Fixture: the shared repository with a shipped bug in average() and a log line from production.
+# Fixture: the shared repository with a bug shipped in release v1.4 and a production log.
+# The case has no shell, so the release history is also readable as plain text: CHANGELOG.md,
+# .git/refs/tags and .git/logs/HEAD. The v1.4 entry stays neutral, so the cause must still come
+# from src/stats.py and the log.
 AUTONOMY=ask
 set -e
 git init -q -b main .
@@ -10,7 +13,35 @@ cat > src/stats.py <<'PY'
 def total(numbers):
     """Return the sum of a list of numbers."""
     return sum(numbers)
+
+
+def average(numbers):
+    """Return the mean of a list of numbers, or 0 for an empty list."""
+    if not numbers:
+        return 0
+    return total(numbers) / len(numbers)
 PY
+cat > src/report.py <<'PY'
+import logging
+
+from src.stats import average
+
+log = logging.getLogger("report")
+
+
+def build_report(account, values):
+    """Return the average for one account, and log the report line."""
+    result = average(values)
+    shown = "[" + ",".join(str(value) for value in values) + "]"
+    log.info("report.build account=%s values=%s average=%s", account, shown, result)
+    return result
+PY
+cat > CHANGELOG.md <<'MD'
+# Changelog
+
+## v1.3
+- report: first version of the account report.
+MD
 cat > src/auth/session.py <<'PY'
 # How long a signed-in session stays valid without activity.
 SESSION_TIMEOUT_MINUTES = 30
@@ -90,6 +121,9 @@ Sessions protect signed-in users.
 ## Learning
 Incidents and rules: `.claude/orchestration/incidents.md` and `rules.md`.
 MD
+git add -A
+git commit -q -m "Release v1.3"
+git tag v1.3
 cat > src/stats.py <<'PY'
 def total(numbers):
     """Return the sum of a list of numbers."""
@@ -102,6 +136,15 @@ def average(numbers):
         return 0
     return total(numbers) / (len(numbers) + 1)
 PY
+cat > CHANGELOG.md <<'MD'
+# Changelog
+
+## v1.4
+- report: new average calculation.
+
+## v1.3
+- report: first version of the account report.
+MD
 mkdir -p logs
 cat > logs/production.log <<'LOG'
 2026-10-27T09:14:02Z INFO report.build account=A-1042 values=[2,4,6] average=4.0
@@ -111,7 +154,7 @@ cat > logs/production.log <<'LOG'
 2026-10-29T09:14:58Z INFO report.build account=A-1042 values=[2,4,6] average=3.0
 LOG
 git add -A
-git commit -q -m "Initial fixture"
-git tag v1.3
+git commit -q -m "Release v1.4"
+git tag v1.4
 git config orchestration.projectConfirmed "$(git hash-object .claude/orchestration/PROJECT.md)"
 git config orchestration.autonomy "$AUTONOMY"

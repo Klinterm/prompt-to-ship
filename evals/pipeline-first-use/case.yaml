@@ -8,5 +8,10 @@ graders:
     tool: Edit
     min: 0
     max: 0
+  - name: no-write
+    type: tool_used
+    tool: Write
+    min: 0
+    max: 0
 context:
   scaffold_script: fixture.sh

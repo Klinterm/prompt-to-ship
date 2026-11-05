@@ -2,6 +2,25 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.28.1
+
+Debug reports say what changed, and two eval cases measure real behaviour.
+- A debug report now ends with a `Changed:` line: "nothing: no code and no system changed", or each
+  change made and who approved it. `references/debug.md` says what a report with an open cause
+  (NEEDS MORE EVIDENCE) shows: no ROOT CAUSE block, the unconfirmed cause, the open check and this
+  line.
+- Eval case `debug-case-first`: the fixture contradicted itself. Its one commit was tagged v1.3 and
+  already held the bug, while the log shows correct values before v1.4. It now has a correct v1.3, a
+  v1.4 with the bug, a caller that writes the log line and a neutral CHANGELOG. The rule now teaches
+  what the judge checks, and the fixture fix also raises the pass rate. The eval cannot separate
+  these two effects.
+- Eval case `pipeline-first-use`: the judge now reads the final message (`focus: last_message`), as
+  the decision of 2026-10-27 says. The old judge read 100,000 characters of trace, mostly reference
+  text, and split on correct answers (FFF, PPF, PFF, PPP in the last 8 runs). The case has a new
+  `no-write` grader, because the judge no longer sees file changes.
+- Correction to 2.28.0: the agent did not run out of turns, and the judge read the trace because
+  the case asked for it. `max_turns` stays 12: all 8 runs ended on their own.
+
 ## 2.28.0
 
 UI mode: review a screen, then fix or redesign it.
