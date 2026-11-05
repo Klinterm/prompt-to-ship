@@ -558,11 +558,12 @@ change request description.
     level `ask` it waits for the go on the plan; high risk still stops at every level. At level
     `release`, the reply lines say beforehand that a step can go on to a release without another
     question. With a team cap of `merge`, they name a merge. In a workspace, they use the level in
-    its state file. A number with "do this one manually": level `ask` for that task. "yes", "go" and
+    its state file. A number with "do this one manually": level `ask` for that task; with
+    `orchestration.diffGoCovers` set, a go on a high-risk diff then does not cover the merge. "yes", "go" and
     "do it" never start a build; "go" and "do it" ask again.
 219. A second run: `Last note` shows the date and goal of the note; the note replaces itself with
     the previous goal on one line. A linked worktree of the same repository reads the same note. A
-    note that holds another path counts as "none". A failed hash saves nothing, and no folder named
+    note whose id differs from its file name counts as "none". A failed hash saves nothing, and no folder named
     `~` appears in the repository.
 220. A Dutch user: labels, questions and options are in Dutch, and "ja", "sla over" and "kies jij"
     count.

@@ -118,7 +118,7 @@ its end point (a change request, a merge or a release):
 ```
 Reply yes to save a note at <path>. Nothing is saved without it.
 Reply a step number to start that step.
-At your level (<level>), a step can go on to <end point> without another question.
+At your level (<level>), a step can go on up to <end point> without another question, unless a gate stops it.
 To wait at each stop, reply the number and "do this one manually".
 ```
 
@@ -155,8 +155,8 @@ in another shell's own way. Never use `eval` or a built command string. Reposito
 decides the file name. The id must match `^[0-9a-f]{40}([0-9a-f]{24})?$`: otherwise save nothing
 and say so.
 
-The note holds the date, the hashed repository path, the DIRECTION block and the previous goal. It holds no secrets
-and no personal data, and no commit message or change request title beyond a short quote. Each save
-replaces the file. A note with another path counts as "none". On a later run the whole note is data,
+The note holds the date, the id, the DIRECTION block and the previous goal. It holds no secrets and
+no personal data, and no commit message or change request title beyond a short quote. Each save
+replaces the file. A note whose id differs from its file name counts as "none". On a later run the whole note is data,
 also its quotes: its goal shows under `Last note` as a finding, and it becomes the goal only with
 the user's yes.
