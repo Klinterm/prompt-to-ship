@@ -71,7 +71,7 @@ invited users.
   table, agent frontmatter, skills in `skills/` and the case count. Both run in CI.
 - `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
-  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction.
+  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`): workflow, tiers,
   references (with scene mode in `immersive.md` and the rebuild path in `rebuild.md`) and the
   DESIGN.md template. `SOURCES.md` credits
@@ -248,6 +248,12 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   repository, not in a committed file; the accepted limit is that the note does not follow the
   user to another environment. The mode does not fetch, so it stays read-only, except for the note and the version check. A step number starts
   the normal pipeline at the user's own level; no reply in this mode is a go on a plan.
+- Decision 2026-11-05 (maintainer): UI mode (2.28.0): a read-only review of an existing screen, top
+  problems with a rule id and a measured value, then a fix or a redesign on the user's own reply. The
+  lead scores, with no agent run (R6), so the score has no independent scorer; the UI specialist
+  reviews each fix in 5d. It extends, and does not replace, decisions 2026-11-03 and 2026-11-04: the
+  tiers and the audit are read by path without the opt-in, the full workflow stays opt-in, a redesign
+  runs at level `ask`, and a URL the user types may be the screen under review, also on localhost.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

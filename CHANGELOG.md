@@ -2,6 +2,22 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.28.0
+
+UI mode: review a screen, then fix or redesign it.
+- `/prompt-to-ship ui [screen]`, or "review the UI" in a repository that opted in. It takes
+  screenshots when it can and scores them against the tiers and the audit of the built-in design
+  skill, which need no opt-in here. It shows the top three problems, each with a rule id and a
+  measured value. The review changes no code and starts no agents. New file: `references/ui.md`.
+- A number starts the normal pipeline on that fix. A low contrast that comes from the house style is
+  a fix labelled "Changes a token: you decide". The house style stays otherwise.
+- "redesign" starts the normal pipeline on a new look, always at level `ask` for that task. The full
+  design workflow stays opt-in with `Design skill: built-in`.
+- The rules for starting a step moved to `references/direction.md`, "Starting a step", so both modes
+  share them. Direction mode behaves as before.
+- Eval case `ui-review-first` (21 cases now). It tests the plain-word route from code only, because a
+  case has one turn, no shell and no browser. Screenshots are tested by hand (`TESTING.md`).
+
 ## 2.27.0
 
 Direction mode: find out where you are when you lost track.

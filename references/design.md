@@ -73,7 +73,8 @@ template type in a rebuild.
 
 A new screen in an existing system: the skill's steps 0, 2, 3 (as a drift check and the Reflex
 list only), 5, 6 (one round) and 7. The quick lane and a small change: step 7 only, through the UI
-specialist in 5d.
+specialist in 5d. The `ui` mode reviews an existing screen: the lead takes the screenshots and
+scores them, with no agent, until a fix starts the pipeline (ui.md).
 
 Without the built-in skill, on a new screen, email or document, the UI specialist writes a
 **layout brief** of at most 8 lines in stage 2 instead.

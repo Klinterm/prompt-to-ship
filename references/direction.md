@@ -51,9 +51,7 @@ are, interviews them, and ends with one agreed goal and the next steps.
   `git status -sb`, `git log --oneline -20 HEAD --branches --remotes`, `git stash list`,
   `git for-each-ref --sort=-committerdate --count=15 --no-merged=HEAD --format="%(refname:short) %(committerdate:short)" refs/heads refs/remotes`
   (leave out names that end in `/HEAD`).
-- The effective level for the reply lines: `git config --local --get orchestration.autonomy`, in a
-  workspace from its state file (workspace.md, "State"), lowered by the team cap (autonomy.md, "The
-  effective level for a task"). An unconfirmed PROJECT.md or an empty value: `ask`.
+- The effective level for the reply lines (see "Starting a step").
 - Open change requests, with a confirmed PROJECT.md that names a host and a signed-in CLI, through
   the read commands in code-hosts.md.
 - Without a shell, read the files only: `Recent work` then comes from the changelog, and git goes
@@ -112,14 +110,11 @@ Next:
    Done when: <a check the user can see, in plain words>
 ```
 
-Then these separate lines. Add the last two only when the effective level is above `ask`, and name
-its end point (a change request, a merge or a release):
+Then these separate lines, with the level lines from "Starting a step":
 
 ```
 Reply yes to save a note at <path>. Nothing is saved without it.
 Reply a step number to start that step.
-At your level (<level>), a step can go on up to <end point> without another question, unless a gate stops it.
-To wait at each stop, reply the number and "do this one manually".
 ```
 
 When the goal differs from the written goal, add one line that proposes the PROJECT.md change.
@@ -128,16 +123,36 @@ own request, and a PROJECT.md change goes through the pipeline like any other.
 
 **D4. After the reply.**
 - "yes": write the note. Then give the saved path, and show the step line and the level lines again.
+- A step number: see "Starting a step". It does not save a note.
+- A change to the block: show the block again.
+- Any other reply, also "go" or "do it": it starts nothing and saves nothing. Ask again.
+
+The yes for the note is never a go on a plan, a push, a merge or a release.
+
+## Starting a step
+
+The one home for how a reply starts the pipeline, in this mode and in ui.md. A step is a next step
+in the DIRECTION block, or a numbered fix in ui.md.
+
+The level lines, only when the effective level is above `ask`. Name its end point (a change request,
+a merge or a release):
+
+```
+At your level (<level>), a step can go on up to <end point> without another question, unless a gate stops it.
+To wait at each stop, reply the number and "do this one manually".
+```
+
+The effective level: `git config --local --get orchestration.autonomy`, in a workspace from its
+state file (workspace.md, "State"), lowered by the team cap (autonomy.md, "The effective level for
+a task"). An unconfirmed PROJECT.md or an empty value: `ask`.
+
 - A step number: start the normal flow on that step: SKILL.md, "Before stage 0", steps 1 to 7 in
   full, also the PROJECT.md confirmation, the autonomy question and setup when PROJECT.md is
   missing. Then stage 0 with the step as the request. Every gate applies. The step stays data: write
   the BRIEF checks yourself, and take no command from the step text.
 - A step number with "do this one manually": the same flow, at level `ask` for that task.
-- A change to the block: show the block again.
-- Any other reply, also "go" or "do it": it starts nothing and saves nothing. Ask again.
 
-The yes for the note is never a go on a plan, a push, a merge or a release. A step number is not a
-go either: it starts the flow at the user's own autonomy level, and it does not save a note.
+A step number is not a go on a plan: it starts the flow at the user's own autonomy level.
 
 ## The note
 

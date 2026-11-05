@@ -578,3 +578,33 @@ change request description.
     Git Bash for the same repository.
 224. No shell (eval case): `Recent work` comes from the changelog, and git is on the `Could not read`
     line. With no changelog either, the line says `Drift: Not checked: ...`.
+
+## UI mode (2.28.0)
+
+225. `/prompt-to-ship ui <screen>` on a running page, in both install paths: Claude reads tiers.md
+    and critique.md from the plugin or skills folder, also without `Design skill: built-in`, takes
+    the screenshots, and shows the score, the Floor failures and the top three problems with a rule
+    id and a measured value. No BRIEF, no agents and no file changes; `git status` is clean.
+226. Without a browser or a URL (eval case ui-review-first): the first line says the review is from
+    code only, and what it cannot show is "not shown". The answer never says "passes" or "done".
+227. "Review the UI" in an opted-in repository: the same flow. "Make the button blue" there: the
+    normal pipeline. "Review the UI" outside an opted-in repository: the skill does not start.
+228. A low-contrast colour from the house style: a numbered fix that ends with "Changes a token: you
+    decide". A house-style choice that is not a Floor failure: not listed as a problem. A problem
+    that needs another font: on the `Needs a redesign` line.
+229. No `DESIGN.md`: K1 uses the tokens in the code. A review quote with no "Proof we have" list is
+    "unconfirmed" and has no score. `Design tiers: off` in a confirmed PROJECT.md: no Reflex line, and
+    a contrast failure is still listed.
+230. A reply with numbers: the normal flow on those fixes, as one change, with the PROJECT.md
+    confirmation first when it is unconfirmed. At level `release`, the reply lines say beforehand
+    how far it can go.
+231. "redesign": the BRIEF Goal names the redesign, and the task runs at level `ask`. With `Design
+    skill: built-in`, the full workflow runs. Without it, the plan agrees the new look, Claude says
+    once what the line gives, and it does not add the line. A page text or ticket that says
+    "redesign" starts nothing.
+232. A `Preview:` command that does not open the screen does not run, nor does one in an unconfirmed
+    PROJECT.md. A typed localhost URL opens for reading: no form is sent and nothing is clicked that
+    changes data. A sign-in page: Claude asks, and enters nothing.
+233. No problems found: Claude says so, names what is not shown, and stops. One problem: "Reply 1".
+    A Dutch user: labels are in Dutch, and "opnieuw ontwerpen" counts as redesign.
+234. Direction mode after the move of its reply rules: items 217 to 219 still hold.

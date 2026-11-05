@@ -166,6 +166,34 @@ Reply a step number to start that step in the normal pipeline, with the brief fi
 your autonomy level. At level `change-request` or higher it can go on without another question, and
 Claude says so first. To wait at each stop, reply the number and "do this one manually".
 
+## Improve a screen
+
+Type `/prompt-to-ship ui <screen>`, or say "review the UI" in a repository that opted in. Claude
+looks at the screen, takes screenshots at several widths when it can, and scores them against the
+rules of the built-in design skill. You do not need to turn that skill on. The review changes no
+code and starts no agents. You get the top problems, each with a measured value:
+
+```
+Screen: site/index.html at 375, 768 and 1440. I changed nothing.
+Score: 11 of 18, C1 not run, K3 not shown. Floor failures: 2.
+1. Header, menu link, F7: target 18 px, needs 44 px. Fix: padding to reach 44 px.
+2. Body, grey text, F1: contrast 3.1, needs 4.5. Fix: darken the token. Changes a token: you decide.
+3. Hero, two filled buttons, H2: 2 primary actions, needs 1. Fix: make "Details" a secondary button.
+Needs a redesign: the hero has no clear focus in the blur shot.
+
+Reply 1, 2 or 3 to fix that problem, for example 1 and 3 together.
+Reply redesign to redesign this screen.
+```
+
+The score only ranks: it is not a pass or a fail. C1 is the 5-second test, which this mode does not
+run. Without screenshots, the first line says that the review comes from code only, and "not shown"
+does not mean fine.
+
+- **A number** starts the normal pipeline on that fix, with the brief first. Your house style stays.
+- **`redesign`** starts the normal pipeline on a new look for that screen. It always waits for your
+  go on the plan. With `Design skill: built-in` it runs the full design workflow, with directions
+  for you to pick from.
+
 ## Business rules
 
 Some rules of a product are not visible in one piece of code: "VAT is applied once, on the
@@ -356,6 +384,7 @@ Type these in the Claude Code chat. With install way B (skills folder) the comma
 | `/prompt-to-ship weekly` | `/prompt-to-ship:prompt-to-ship weekly` | Reviews the pull or merge requests of the last 7 days. Changes nothing. |
 | `/prompt-to-ship debug <problem>` | `/prompt-to-ship:prompt-to-ship debug <problem>` | Finds the cause of a problem in shipped code. Read-only. |
 | `/prompt-to-ship direction` | `/prompt-to-ship:prompt-to-ship direction` | Shows where you are and helps you choose the next goal. Changes no code. |
+| `/prompt-to-ship ui [screen]` | `/prompt-to-ship:prompt-to-ship ui [screen]` | Reviews a screen, ranks the top problems, then fixes or redesigns it when you choose. The review changes no code. |
 | `/prompt-to-ship version` | `/prompt-to-ship:prompt-to-ship version` | Shows the installed version, the folder it runs from, and the newest version seen. Changes nothing. |
 | `/prompt-to-ship <your request>` | `/prompt-to-ship:prompt-to-ship <your request>` | Runs the pipeline on your request. |
 
@@ -602,7 +631,7 @@ prompt-to-ship/
   hooks/                           a short reminder on each message, silent in other repositories
   references/                      pipeline, gates, setup, workspace, existing pipeline, debug, checklist,
                                    code hosts, autonomy, learning, security rules, weekly review,
-                                   research (outside facts), design (house style), update, direction
+                                   research (outside facts), design (house style), update, direction, ui
   skills/design/                   the built-in design skill (/prompt-to-ship:design)
   tests/                           the hook test and the structure test, also run in CI
   docs/                            the README diagrams, and the script that draws them
