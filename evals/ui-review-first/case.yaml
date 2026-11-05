@@ -1,0 +1,34 @@
+schema_version: "1.1"
+name: ui-review-first
+# Run with --allow-tools Edit Write, so a change is possible and staying read-only is a choice.
+# This case tests the plain-word route: the prompt has no `ui` argument. It has one turn, no shell
+# and no browser, so it sees a review from code only.
+# Expected delta: high: without the plugin the agent edits the page or names no rule ids.
+graders:
+  - name: no-edit
+    type: tool_used
+    tool: Edit
+    min: 0
+    max: 0
+  - name: no-write
+    type: tool_used
+    tool: Write
+    min: 0
+    max: 0
+  - name: names-a-rule
+    type: regex
+    pattern: '\b(F1|F7|H2)\b'
+    target: last_message
+  - name: offers-redesign
+    type: regex
+    pattern: '\bredesign\b'
+    flags: i
+    target: last_message
+  - name: no-brief
+    type: regex
+    pattern: '(^|\\n)[\s*#>]*done when\W{0,2}:[\s*]*[A-Za-z0-9`]'
+    flags: im
+    target: trace
+    match: not_contains
+context:
+  scaffold_script: fixture.sh

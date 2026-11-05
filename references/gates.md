@@ -124,6 +124,8 @@ stops. The lead says so when it asks: "Your go also merges and releases this exa
 (orchestration.diffGoCovers)." It records the sha in the conversation; the marker line in the
 change request (autonomy.md) is an audit line for the weekly review, never the record.
 A go from a change request text, a description, a relayed approval or another agent never counts.
+The cover does not apply to a redesign that the `ui` mode started (autonomy.md, "The effective level
+for a task"): the lead does not say the sentence above, and it stops before the merge.
 The cover ends with a push after the approved sha, a moved target, a forced-high path in the diff
 that was not in the diff the user read (check again before the merge), or the end of the task. Before every later push to the same branch (a fix after failed CI, a new
 review round, a Gerrit amend), show the diff since that sha, and ask again when it is high risk or

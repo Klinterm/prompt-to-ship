@@ -71,7 +71,7 @@ invited users.
   table, agent frontmatter, skills in `skills/` and the case count. Both run in CI.
 - `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
-  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction.
+  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`): workflow, tiers,
   references (with scene mode in `immersive.md` and the rebuild path in `rebuild.md`) and the
   DESIGN.md template. `SOURCES.md` credits
@@ -146,7 +146,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   `claude plugin eval . --runs 1 -j 4 --max-cost-usd 10 --no-publish --scaffold --allow-tools Edit Write`
   (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
   `--ablation none`, half the runs)
-  (20 cases; 19 cases with `--runs 1` used about $8.2 to $8.4 of plan usage on 2026-11-04; use `--max-cost-usd 10`). This repository
+  (21 cases; 19 cases with `--runs 1` used about $8.2 to $8.4 of plan usage on 2026-11-04; use `--max-cost-usd 10`). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -248,6 +248,15 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   repository, not in a committed file; the accepted limit is that the note does not follow the
   user to another environment. The mode does not fetch, so it stays read-only, except for the note and the version check. A step number starts
   the normal pipeline at the user's own level; no reply in this mode is a go on a plan.
+- Decision 2026-11-05 (maintainer): UI mode (2.28.0): a read-only review of an existing screen, top
+  problems with a rule id and a measured value, then a fix or a redesign on the user's own reply. The
+  lead scores, with no agent run (R6), so the score has no independent scorer; the UI specialist
+  reviews each fix in 5d. It extends, and does not replace, decisions 2026-11-03 and 2026-11-04: the
+  tiers and the audit are read by path without the opt-in, the full workflow stays opt-in, a redesign
+  runs at level `ask`, and a URL the user types may be the screen under review, also on localhost. The
+  mode runs no command without the user's yes in chat; this is the first use of `Preview:` as a command.
+  It narrows decision 2026-11-04 for one case: a go on a high-risk diff does not cover the merge of a
+  redesign that this mode started.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
