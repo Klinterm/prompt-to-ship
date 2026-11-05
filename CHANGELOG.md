@@ -21,6 +21,11 @@ UI mode: review a screen, then fix or redesign it.
   share them. Direction mode behaves as before.
 - Eval case `ui-review-first` (21 cases now). It tests the plain-word route from code only, because a
   case has one turn, no shell and no browser. Screenshots are tested by hand (`TESTING.md`).
+- Eval (--runs 1, 21 cases): mean with the plugin 0.96, mean difference +0.40. Nineteen cases 1.00,
+  also ui-review-first and direction-interview; debug-case-first 0.75 and pipeline-first-use 0.50,
+  both on their llm judge only. The debug-case-first message again names the cause, but does not
+  say that no code was changed. In pipeline-first-use the agent changed no code, and the judge got
+  the start of the trace instead of a final message.
 
 ## 2.27.0
 
