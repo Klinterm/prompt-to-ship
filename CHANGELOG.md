@@ -19,12 +19,18 @@ Debug reports say what changed, and two eval cases measure real behaviour.
   PFF, PFP, PPP, and PASS on 12 of 12 votes with `--judge-model sonnet`. Moving that judge from the
   trace to the final message did not help (FFF, FPP, FFF). Why that model says FAIL is not known:
   the result files store votes, not reasons.
-- The new graders check three things: the message says PROJECT.md is missing, it asks a question
+- The new graders check three things: the message names PROJECT.md or setup, it asks a question
   about the project, its users or its commands, and it does not claim the change. A new `no-write`
   grader joins `no-edit`. Limits: a regex checks words, not meaning, so this case has no judge of
-  meaning any more. The patterns were written on the same stored messages they were first tested on.
+  meaning any more. A regex grader stores no message, so a miss cannot be read afterwards.
 - Correction to 2.28.0: the agent did not run out of turns, and the judge read the trace because
   the case asked for it. `max_turns` stays 12: all 8 runs ended on their own.
+- Eval (only these two cases, --runs 3): `debug-case-first` with the plugin 1.00 in 3 of 3 runs,
+  without it 0.58. `pipeline-first-use` with the plugin 0.93 (2 of 3 runs pass), without it 0.20. Its
+  one miss was on an earlier, stricter pattern that required the message to say PROJECT.md is
+  missing. The final pattern replaces it and was not run live: on the stored messages it matches 13
+  of 13 with the plugin and 0 of 11 without. These are small samples, not proof. The full suite
+  did not run.
 
 ## 2.28.0
 
