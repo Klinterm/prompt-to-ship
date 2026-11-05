@@ -2,6 +2,15 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.26.1
+
+The plugin uploads on claude.ai again.
+- The plugin.json description is shorter: 484 characters instead of 654. claude.ai refused the
+  upload with "Plugin description must be at most 500 characters." No behaviour changes.
+- `tests/structure-test.sh` check f: the description is at most 500 characters. Its self-check
+  plants a 501-character description in the temp copy and expects the failure.
+- No eval run (patch release, wording and a test only).
+
 ## 2.26.0
 
 The repository is private for now: the version check and the update work with your own git
