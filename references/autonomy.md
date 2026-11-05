@@ -117,7 +117,9 @@ Take the lowest of:
    "Diff go covers merge");
 6. `change-request` for the merge step, when the target deploys on merge and the effective level
    after 1 to 5 is `merge`;
-7. `change-request` for a quick-lane task: it never merges on its own (pipeline.md, "Quick lane").
+7. `change-request` for a quick-lane task: it never merges on its own (pipeline.md, "Quick lane");
+8. `ask` for a redesign that the `ui` mode started (ui.md). A go on a high-risk diff then does not
+   cover its merge or release, also with `orchestration.diffGoCovers`.
 
 Show it in the BRIEF:
 
@@ -127,6 +129,7 @@ Autonomy:    change-request (team cap; your level is release)
 Autonomy:    ask for this task (high risk: touches .github/workflows/ci.yml)
 Autonomy:    change-request (bitbucket has no automatic merge; your level is merge)
 Autonomy:    change-request (quick lane never merges; your level is merge)
+Autonomy:    ask for this task (a redesign from the ui mode; your level is release)
 ```
 
 Give the reason whenever the effective level is lower than the stored level.

@@ -1,7 +1,7 @@
 ---
 name: prompt-to-ship
 description: From prompt to shipped change. Orchestration layer for any coding request in a git repository that has opted in (it has .claude/orchestration/PROJECT.md) or when the user asks for "the pipeline". Any language, any git host or none. Turns the request into a precise brief, then runs understand, plan (architect and product expert, UI specialist on visible changes), build, proof, layered review, change request, merge and measure, and learn. Also debugs shipped code, read-only, and sets up git for a new project.
-when_to_use: Building, changing or fixing code, a database change, a pull request or merge request, a release, or a new feature idea. Triggers include "build", "add", "change", "fix", "implement", "refactor", "new feature", "PR", "MR", "ship", "deploy", "review this branch". Also "why does X fail in production", a support ticket, "I lost track". Not for a short explanation question, or a request that starts with "no pipeline:".
+when_to_use: Building, changing or fixing code, a database change, a pull request or merge request, a release, or a new feature idea. Triggers include "build", "add", "change", "fix", "implement", "refactor", "new feature", "PR", "MR", "ship", "deploy", "review this branch". Also "why does X fail in production", a support ticket, "I lost track", "review the UI". Not for a short explanation question, or a request that starts with "no pipeline:".
 argument-hint: "[setup | weekly | autonomy | debug | direction | ui | version | <request>]"
 ---
 

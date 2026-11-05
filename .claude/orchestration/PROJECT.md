@@ -253,7 +253,8 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   lead scores, with no agent run (R6), so the score has no independent scorer; the UI specialist
   reviews each fix in 5d. It extends, and does not replace, decisions 2026-11-03 and 2026-11-04: the
   tiers and the audit are read by path without the opt-in, the full workflow stays opt-in, a redesign
-  runs at level `ask`, and a URL the user types may be the screen under review, also on localhost.
+  runs at level `ask`, and a URL the user types may be the screen under review, also on localhost. The
+  mode runs no command without the user's yes in chat; this is the first use of `Preview:` as a command.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

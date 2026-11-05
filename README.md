@@ -168,31 +168,36 @@ Claude says so first. To wait at each stop, reply the number and "do this one ma
 
 ## Improve a screen
 
-Type `/prompt-to-ship ui <screen>`, or say "review the UI" in a repository that opted in. Claude
-looks at the screen, takes screenshots at several widths when it can, and scores them against the
+Type `/prompt-to-ship ui <screen>`, or say "review the UI" in a repository that opted in. Give a URL
+or screenshots, or say yes to a command that Claude shows you. Claude scores the screen against the
 rules of the built-in design skill. You do not need to turn that skill on. The review changes no
-code and starts no agents. You get the top problems, each with a measured value:
+code, starts no agents and runs nothing without your yes. You get the top problems as numbered fixes,
+each with a measured value:
 
 ```
-Screen: site/index.html at 375, 768 and 1440. I changed nothing.
-Score: 11 of 18, C1 not run, K3 not shown. Floor failures: 2.
+Screen: http://localhost:3000 at 375, 768 and 1440. I changed nothing.
+Score: 9 of 14; 5-second test not run; K3 not shown. Floor failures: 2.
 1. Header, menu link, F7: target 18 px, needs 44 px. Fix: padding to reach 44 px.
 2. Body, grey text, F1: contrast 3.1, needs 4.5. Fix: darken the token. Changes a token: you decide.
-3. Hero, two filled buttons, H2: 2 primary actions, needs 1. Fix: make "Details" a secondary button.
-Needs a redesign: the hero has no clear focus in the blur shot.
+3. Hero, two filled buttons, H2: 2 primary actions, needs 1. Fix: make the second a secondary button.
+Needs a redesign: the type needs a second font for the headings.
 
-Reply 1, 2 or 3 to fix that problem, for example 1 and 3 together.
+Reply 1, 2 or 3 to apply that fix, for example 1 and 3 together.
 Reply redesign to redesign this screen.
 ```
 
-The score only ranks: it is not a pass or a fail. C1 is the 5-second test, which this mode does not
-run. Without screenshots, the first line says that the review comes from code only, and "not shown"
-does not mean fine.
+The score only ranks: it is not a pass or a fail. Without screenshots, the first line says that the
+review comes from code only, and "not shown" does not mean fine.
+
+Before Claude opens a site that is not local, or goes on behind a sign-in, it says that the review
+runs with your session in that browser, and it offers screenshots first.
 
 - **A number** starts the normal pipeline on that fix, with the brief first. Your house style stays.
+  It runs at your autonomy level: at level `change-request` or higher it can go on without another
+  question, and Claude says so first.
 - **`redesign`** starts the normal pipeline on a new look for that screen. It always waits for your
-  go on the plan. With `Design skill: built-in` it runs the full design workflow, with directions
-  for you to pick from.
+  go on the plan and on the merge. With `Design skill: built-in` it runs the full design workflow,
+  with directions for you to pick from.
 
 ## Business rules
 
