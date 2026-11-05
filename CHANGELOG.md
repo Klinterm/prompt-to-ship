@@ -18,7 +18,9 @@ sign-in.
   `insteadOf` rule or the clone's own `url`, `credential`, `http` or `include` settings would send
   it elsewhere; the update fetches from the fixed address itself, with TLS checking on (a user
   whose global git config turns it off updates by hand). A failure shows a fixed line, never git's output.
-- TESTING.md items 207 to 212. No eval run.
+- TESTING.md items 207 to 212.
+- Eval (--runs 1, 19 cases): mean with the plugin 1.00, mean difference +0.45. All 19 cases 1.00.
+  Cost $8.12, under the cap of 10.
 
 ## 2.25.0
 
