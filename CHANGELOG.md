@@ -2,6 +2,26 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.26.0
+
+The repository is private for now: the version check and the update work with your own git
+sign-in.
+- The daily version check and the update fetch no longer switch off git credentials. They may use
+  your own credential helper (for example from `gh auth setup-git`), read-only, for the fixed
+  https address only. They never prompt (`GIT_ASKPASS` and `core.askPass` empty), and the skill
+  stores or prints no token.
+- Without read access or a git sign-in the check stays silent, on purpose.
+- Existing installs without read access stop getting updates, and the check then stays silent.
+- README: a "Before you install" block (read access, a git sign-in, a test with `git ls-remote`),
+  and `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` for users without an SSH key for GitHub.
+- The check and the update first resolve the fixed address (`ls-remote --get-url`) and stop when an
+  `insteadOf` rule or the clone's own `url`, `credential`, `http` or `include` settings would send
+  it elsewhere; the update fetches from the fixed address itself, with TLS checking on (a user
+  whose global git config turns it off updates by hand). A failure shows a fixed line, never git's output.
+- TESTING.md items 207 to 212.
+- Eval (--runs 1, 19 cases): mean with the plugin 1.00, mean difference +0.45. All 19 cases 1.00.
+  Cost $8.12, under the cap of 10.
+
 ## 2.25.0
 
 Gate coherence: the gate and trust rules say one thing in every file. From the weekly review of

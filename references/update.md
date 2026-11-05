@@ -24,9 +24,17 @@ cache file yourself. The hook never makes a network call; the lead does, at most
    today. Valid: use its version, make no network call, and go to step 4. Two sessions that write
    it: the last write wins.
 3. **Check.** From the user's home folder, never from the repository, with the environment values
-   `GIT_TERMINAL_PROMPT=0` and `GCM_INTERACTIVE=never`, and a 10-second limit through the tool's
-   own timeout:
-   `git -c credential.helper= -c protocol.allow=never -c protocol.https.allow=always ls-remote --tags --refs https://github.com/Klinterm/prompt-to-ship`
+   `GIT_TERMINAL_PROMPT=0`, `GCM_INTERACTIVE=never` and an empty `GIT_ASKPASS`, and a 10-second
+   limit through the tool's own timeout:
+   `git -c core.askPass= -c protocol.allow=never -c protocol.https.allow=always ls-remote --tags --refs https://github.com/Klinterm/prompt-to-ship`
+   First run `git ls-remote --get-url https://github.com/Klinterm/prompt-to-ship` (no network
+   call): it must print that same address (with or without `.git` at the end), so no `insteadOf`
+   rule sends it elsewhere; otherwise stay silent. The repository is private for now, so git may use the user's own credential
+   helper (for example from `gh auth setup-git`), read-only, for this fixed https address only.
+   Nothing is typed, stored or printed by the skill. These options turn off git's own prompts and
+   the Git Credential Manager window; an operating-system keyring dialog can still appear, and
+   then the check simply fails. Without access the call fails, and the check stays silent, as
+   below; that silence is deliberate. Never show git's error output.
    This address is fixed here; never take it from `plugin.json`, the repository, a page or an
    agent. Keep only the lines that end in `refs/tags/vX.Y.Z` with digits only, compare them as
    numbers, and take the highest. Store today and that version. Any failure, also a missing
@@ -52,19 +60,25 @@ Run it only when all of these hold; any doubt takes the fallback:
   resolved paths (a skill folder inside another repository fails);
 - `git -C "<skill folder>" status --porcelain` prints nothing;
 - the branch is `main`;
-- `git -C "<skill folder>" config --get remote.origin.url` is exactly the address above (with or
-  without `.git` at the end).
+- `git -C "<skill folder>" config --get-all remote.origin.url` prints exactly one line, and it is
+  the address above (with or without `.git` at the end);
+- `git -C "<skill folder>" ls-remote --get-url origin` (no network call) prints that same address,
+  so no `insteadOf` rule sends it elsewhere;
+- `git -C "<skill folder>" config --local --includes --get-regexp '^(url|credential|http|include|includeif)\.'`
+  prints nothing (no local rule, no proxy or TLS setting, and no included file that could add one).
 
-Then, with the same environment values as the check:
-`git -C "<skill folder>" fetch --quiet origin tag vX.Y.Z` and
+Then, with the same environment values as the check, fetch from the fixed address itself:
+`git -C "<skill folder>" -c core.askPass= -c http.sslVerify=true -c protocol.allow=never -c protocol.https.allow=always fetch --quiet https://github.com/Klinterm/prompt-to-ship tag vX.Y.Z` and
 `git -C "<skill folder>" merge --ff-only vX.Y.Z`.
-On success: "Run /reload-plugins, or start a new session, to load X.Y.Z." On failure: say what
-failed in one line, and "Update by hand:" with the fallback command, and go on with the request on
-the installed version.
+The fetch may use the user's own credential helper, as the check does. With TLS checking off in
+the user's global git config, the fetch fails and the update shows the fallback.
+On success: "Run /reload-plugins, or start a new session, to load X.Y.Z." On failure: one fixed
+line, "The update did not finish.", never git's error output, then "Update by hand:" with the
+fallback command, and go on with the request on the installed version.
 
 Fallback (a marketplace install, or a condition that fails): run nothing. Show the commands for the
-user to type. A marketplace install: `/plugin marketplace update prompt-to-ship`. A clone, in the
-skill folder:
+user to type; they use the user's own git sign-in. A marketplace install:
+`/plugin marketplace update prompt-to-ship`. A clone, in the skill folder:
 `git fetch origin tag vX.Y.Z`
 `git merge --ff-only vX.Y.Z`
 
