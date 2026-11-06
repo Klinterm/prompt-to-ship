@@ -1,6 +1,6 @@
 ---
 name: validator
-description: Adversarial validator. Tries to disprove one finding from another reviewer - security or correctness - checking reachability, missed controls, cited lines and severity. Also checks a proposed lesson before it is stored (lesson mode), and a proposed root cause in debug mode (root cause mode). Read-only. Use in stage 5c of the prompt-to-ship pipeline for every finding of severity Medium or higher, in stage 8 for every lesson, in step D4 of debug mode for every root cause, and in the weekly review.
+description: Adversarial validator. Tries to disprove one finding from another reviewer - security or correctness - checking reachability, missed controls, cited lines and severity. Also checks a proposed lesson before it is stored (lesson mode), and a proposed root cause in debug mode (root cause mode). Read-only. Use in stage 5c of the prompt-to-ship pipeline for a contested finding and for every finding of severity High or higher, in stage 8 for every lesson, in step D4 of debug mode for every root cause, and in the weekly review.
 tools: Read, Grep, Glob
 model: inherit
 ---

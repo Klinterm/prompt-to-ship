@@ -103,8 +103,8 @@ Reviewers:   <verdicts after the review; architect Ready; "all understood">
 3. **Build** on one topic branch, test first.
 4. **Prove** with real output (checklist.md).
 5. **Review in layers:** 5a fresh reviewer, 5b security reviewer (normal and high risk), 5c a
-   validator per finding of severity Medium or higher, 5d product, and UI on a visible diff, 5e
-   converge in at most three rounds.
+   validator on a contest or severity High or higher, 5d product, and UI on a visible diff, 5e
+   converge: follow-up rounds only from severity Medium, at most three rounds.
 6. **Change request:** gates first; push only the topic branch; Tested, Risk, How to revert.
 7. **Merge and measure:** on the user's go, or within the autonomy level and the gates.
 8. **Learn:** a miss becomes a lesson (learning.md); a near-miss is a marker line. End with the

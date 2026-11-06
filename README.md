@@ -55,15 +55,22 @@ go away. See [Autonomy](#autonomy).
    - The **fresh reviewer** sees only the change and the brief, and looks for bugs.
    - The **security reviewer** looks for real vulnerabilities, with evidence. It runs on normal
      and high risk.
-   - A **validator** tries to disprove each serious finding. False alarms drop out this way.
+   - A **validator** tries to disprove a finding of severity High or higher, and any finding that
+     Claude contests. False alarms drop out this way.
    - The **product expert**, and on a visible change the **UI specialist**, check the result
      against the plan.
 
    Every finding gets an ID and one answer. FIX: fixed. CONTEST: not fixed, with evidence, and
    the reviewer must accept that. ESCALATE: you decide. DECLINE: only for severity Low, with a
    reason. A required reviewer that fails twice shows as "not run" and stops the work; a missing review
-   never counts as "no findings". After three rounds with new findings, Claude stops and asks you
-   to rethink the approach. In the pull request it looks like this:
+   never counts as "no findings".
+
+   A follow-up round starts only for a fix or a contest at severity Medium or higher, or for an
+   adjust point from the product expert or the UI specialist. Only the reviewers with an open point
+   read again, plus the fresh reviewer as a final check of all fixes. A fix of a Low finding starts
+   no round. When no reviewer read such a fix, the pull request says so: "Fixed after the last
+   review (Low, not re-read)". After three rounds with a new finding of severity Medium or higher,
+   Claude stops and asks you to rethink the approach. In the pull request it looks like this:
 
    | ID | Severity | Answer | Summary |
    |---|---|---|---|
@@ -532,7 +539,8 @@ single chat answer. Agent runs per change, for one review round:
 | High | the same as normal, and you read the change yourself |
 
 Debug mode: 2 runs (the debugger and the validator), or 1 when the evidence points to one cause
-directly. Each serious finding adds one validator run. A change that needs outside facts adds two
+directly. A contested finding, or one of severity High or higher, adds one validator run. A finding
+of severity Medium or higher can add a follow-up round, usually with fewer agent runs than round 1. A change that needs outside facts adds two
 researcher runs: one to find them and one to check them. Most changes need none.
 
 A repository without a user interface can set "User interface: none" in its project file. This
@@ -579,9 +587,9 @@ this line. Keep it in the shared project file.
 - **Short instructions.** The main file stays small; the rest loads only when a step needs it.
 - **Fresh eyes.** A reviewer that did not see the chat finds what the author missed.
 - **A limit on rounds.** An author agent and a reviewer agent can go on forever. Three rounds is
-  the maximum.
+  the maximum. Then Claude stops and asks you.
 - **Evidence for security findings.** Each finding needs a path from the input to the risk, with
-  file and line. A validator tries to disprove it.
+  file and line. A validator tries to disprove it at severity High or higher, or when Claude contests it.
 - **Read-only agents.** The reviewer agents have no shell: they can only read files. Claude runs
   the git history commands itself and gives them the output. An agent that needs more asks for a
   plain git command, and Claude shows you anything else first. So text in your code cannot make a

@@ -41,13 +41,15 @@ The security reviewer defines the levels in security-rules.md; for correctness f
 - High: wrong results, a broken requirement or a regression on a main path;
 - Medium: a wrong result in an edge case, a missing check on a likely input;
 - Low: a minor issue with a small effect.
-"Medium or higher" decides the validator (5c), gate 4 and a near-miss (learning.md).
+"Medium or higher" decides a follow-up round (see "Follow-up rounds"), gate 4 and a near-miss
+(learning.md). "High or higher" decides the validator (5c).
 
 ## What each reviewer gets
 
 Never the chat. Always:
-- the brief, and in stage 2 the plan; in stage 5 the diff (from round two: only the new diff, and
-  the open CONTESTs on its own findings with their evidence);
+- the brief, and in stage 2 the plan; in stage 5 the diff (in a follow-up round: only the new diff,
+  and the open CONTESTs on its own findings with their evidence; the fresh reviewer gets the whole
+  diff since round 1);
   the fresh reviewer in 5a also gets the plan's `Files:` line, only to compare: a changed file
   that is not on it is a Low finding, unless the plan was updated;
 - the list of changed or planned files, exported from the target branch into a scratch folder
@@ -89,7 +91,7 @@ the section that owns the rule.
 | an outside fact | 1 | researcher, then researcher in check mode | research.md |
 | a diff | 5a | fresh reviewer | Stage 5 |
 | normal or high risk | 5b | security reviewer | Stage 5 |
-| a finding of severity Medium or higher | 5c | validator | Stage 5 |
+| a finding of severity High or higher, a contest at Medium or higher, or the lead's doubt | 5c | validator | Stage 5 |
 | a result | 5d | product expert | Stage 5 |
 | a large code base | 1, D1 | code search agent (the host's built-in read-only search agent) | Stage 1 |
 | a symptom in shipped code | D3, D4 | debugger, then validator in root cause mode | debug.md |
@@ -225,14 +227,37 @@ proof it is not done.
 - 5a `prompt-to-ship:fresh-reviewer`: always. After research, it also gets the confirmed fact
   table and checks that the diff uses those values, with their `source:` and `valid:` text.
 - 5b `prompt-to-ship:security-reviewer`: normal and high risk.
-- 5c `prompt-to-ship:validator`: one per finding of severity Medium or higher, without the reviewer's notes. A
-  Critical finding gets two independent validators. Only what survives counts. Keep rejected
-  findings with their reason, so they are not raised again.
+- 5c `prompt-to-ship:validator`, without the reviewer's notes: one per finding of severity High or
+  higher, one per finding at severity Medium that the lead contests, and one when the lead doubts a
+  finding. A Critical finding gets two independent validators. A finding at severity Medium that
+  the lead fixes needs none: the fresh reviewer's read in the follow-up round is its check. A
+  validator is an extra check on evidence: a contest still needs its reviewer's acceptance (see
+  "Answers"). Only what survives counts. Keep rejected findings with their reason, so they are not
+  raised again.
 - 5d product-expert on the result: always. ui-specialist on the result: when the diff is visible
   (see "Visible change"), also when stage 2 said "nothing"; never with "User interface: none".
-- 5e converge: every finding gets an ID and one answer (below). Three rounds with new findings
-  means the approach is wrong: stop and rethink with the user. From round two, review only the
-  new diff, and name the class of bug so the author fixes all instances at once.
+- 5e converge: every finding gets an ID and one answer (below). Round 1 is 5a to 5d on the whole
+  diff. After that, see "Follow-up rounds". Three rounds with a new finding of severity Medium or
+  higher means the approach is wrong: stop and rethink with the user. Name the class of bug, so the
+  author fixes all instances at once.
+
+### Follow-up rounds
+
+A follow-up round is round 2 or 3. It starts only for a FIX or a CONTEST at severity Medium or
+higher, or for an ADJUST from 5d. Round 3 starts only after a new finding of severity Medium or
+higher in round 2.
+
+Who reads in a follow-up round:
+- each reviewer with an open finding, contest or ADJUST, on the new diff;
+- the fresh reviewer, on the whole diff since round 1, as the final check of all fixes;
+- a reviewer with no open point, only when a fix changes a flow, a rule or an entry point in its
+  area, or touches code it flagged. For example, a fix adds a branch to a permission check: the
+  security reviewer reads. Add the marker line `Extra reviewer: <name>, because <reason>`.
+
+A finding of severity Low never starts a round. Fix it before you show the diff or ask for a go,
+and run the local checks again. A follow-up round that still runs reads it as part of the fixes. A
+Low fix that no reviewer read gets the marker line `Fixed after the last review (Low, not
+re-read): <IDs>`. A Low fix on a forced-high path (gates.md) gets one read by the fresh reviewer.
 
 ### Finding IDs
 
@@ -259,7 +284,8 @@ that comes back is reopened under its old ID. Churn is a fix whose next round br
 finding at the same place: name the class and fix all instances at once. A reviewer run that
 fails (an error, a timeout, an empty or cut-off answer) gets one retry; then it is
 `not run: <reason>`, never "no findings", and when the route requires that reviewer, it is gate
-16. The quick lane requires only its own reviewers.
+16. The quick lane requires only its own reviewers. A reviewer that "Follow-up rounds" leaves out
+is not `not run`.
 
 ## Stage 6. Change request
 
@@ -311,8 +337,7 @@ Use it only when all of these hold, at stage 0 and again on the diff:
 - no business rule from domain.md, no outside fact, no data or schema change, no dependency.
 
 The route: the BRIEF with `Risk: low, <reason> (quick lane)`; stage 1 (the matching rules from
-rules.md); no PLAN block and no plan reviewers; build; prove (checklist.md); 5a fresh reviewer; 5c validators for a finding of
-severity Medium or higher; 5d product expert on the result, and the UI specialist when the diff
+rules.md); no PLAN block and no plan reviewers; build; prove (checklist.md); 5a fresh reviewer; 5c validators as in stage 5; 5d product expert on the result, and the UI specialist when the diff
 is visible. Every gate in gates.md applies. A quick-lane change never merges on its own: it stops
 at the change request, at every autonomy level, and in mode `map` before any push to the target.
 Stage 8 runs as usual.
@@ -356,6 +381,8 @@ Rules matched: RULE-003, RULE-012
 Rules that caught something: RULE-012
 Rules overruled: RULE-007
 Near-miss: <one sentence>; should have been caught at stage <n>.
+Fixed after the last review (Low, not re-read): FR-2-1
+Extra reviewer: security reviewer, because a fix adds a branch to a permission check
 ```
 
 At levels `merge` and `release` also "Autonomy: <level>. This change request may be merged

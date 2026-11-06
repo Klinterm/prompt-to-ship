@@ -624,3 +624,19 @@ change request description.
     Claude asks again.
 238. A redesign at level `release` with `orchestration.diffGoCovers` set: the BRIEF shows `ask`, and a
     go on a high-risk diff does not cover the merge, and Claude does not say that it does.
+
+## Faster review (2.29.0)
+
+239. A diff with only Low findings in round 1: the lead fixes them, and no follow-up round runs. The
+    change request lists them under "Fixed after the last review (Low, not re-read)".
+240. A diff with a Medium finding that the lead fixes: no validator runs. Round 2 has the reviewer of
+    that finding on the new diff, and the fresh reviewer on the whole diff since round 1. The other
+    reviewers do not run, and gate 16 does not stop.
+241. A contest at severity Medium: a validator runs, and its reviewer must still accept the contest;
+    otherwise it becomes ESCALATE. A contest on a Low finding is a DECLINE, with no validator.
+242. A finding of severity High or Critical: one or two validators run, as before.
+243. A fix that adds a branch to a permission check: the security reviewer also reads, and the change
+    request says `Extra reviewer: security reviewer, because ...`.
+244. Round 2 with only a new Low finding: no round 3; the fix is unread and listed. On a forced-high
+    path, the fresh reviewer reads it once. Round 3 with a new Medium finding: gate 5 stops.
+245. A high-risk diff: the Low fixes land before the diff read, and the sha in the go includes them.

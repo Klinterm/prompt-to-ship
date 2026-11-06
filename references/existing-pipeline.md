@@ -92,7 +92,7 @@ agent is **missing**. When a test cannot be decided from the agent file, the rol
 with the reason "unclear: <test>", so the user can correct it.
 
 The extra cost `<n>` in the question is the number of partial or missing roles. Each one adds
-about one reviewer run per plan or review step, plus one validator run per serious finding.
+about one reviewer run per plan or review step, plus one validator run per contested finding or finding of severity High or higher.
 
 Store `git hash-object <agent file>` with each full or partial role. At stage 0 of every task in
 mode `defer`, run `git hash-object` on each agent file in "Role cover" (the working tree) and

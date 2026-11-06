@@ -23,7 +23,8 @@ again on the diff.
 ## Forced-high paths
 
 Run `git diff --name-only --no-renames <target>...<reviewed sha>` before every push and again
-before a merge. The reviewed sha is the commit that went through stages 4 and 5. `--no-renames`
+before a merge. The reviewed sha is the commit that went through stages 4 and 5, with the Low fixes
+that pipeline.md, "Follow-up rounds" allows, and the local checks ran on it. `--no-renames`
 lists both the old and the new path of a moved file; without it, moving a file out of a forced
 path hides it. Any match makes the risk high. PROJECT.md may add paths, never remove them.
 
@@ -78,8 +79,9 @@ nothing.
    "needs runtime validation", the product verdict in 5d is not APPROVE, or the UI verdict in 5d
    is not APPROVE or NO VISIBLE CHANGE (a UI specialist skipped for "User interface: none",
    or for a diff that is not visible (pipeline.md, "Visible change"), passes). After you fix
-   ADJUST points, run 5d again on the new diff; a new APPROVE passes;
-5. three review rounds still bring new findings;
+   ADJUST points, run 5d again on the new diff; a new APPROVE passes. A fixed finding of
+   severity Medium has no validator: its fix and the fresh reviewer's read settle it;
+5. three review rounds still bring a new finding of severity Medium or higher;
 6. a local check fails;
 7. CI fails, or the repository has CI (a CI file from the list above, or checks reported by the
    host) and CI does not start or does not finish within `ciWaitMinutes`;
