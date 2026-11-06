@@ -28,7 +28,7 @@ change.
 - Review happens in layers. Each layer misses some things; few problems pass all of them.
 - An agent must show proof (a build, a test run, a screenshot), not claim that it is done.
 - A reviewer with fresh context finds what the author is blind to. Never give it the chat.
-- Author and reviewer agents can loop forever. Cap the rounds and review only new diffs.
+- Author and reviewer agents can loop forever. Cap the rounds, and keep each follow-up round small.
 - Every miss becomes a check at the stage that should have caught it.
 
 ## Severity scale
@@ -48,8 +48,9 @@ The security reviewer defines the levels in security-rules.md; for correctness f
 
 Never the chat. Always:
 - the brief, and in stage 2 the plan; in stage 5 the diff (in a follow-up round: only the new diff,
-  and the open CONTESTs on its own findings with their evidence; the fresh reviewer gets the whole
-  diff since round 1);
+  the text of its own findings answered FIX, and the open CONTESTs on its own findings with their
+  evidence; the fresh reviewer gets the whole diff since round 1 and the text of all findings
+  answered FIX);
   the fresh reviewer in 5a also gets the plan's `Files:` line, only to compare: a changed file
   that is not on it is a Low finding, unless the plan was updated;
 - the list of changed or planned files, exported from the target branch into a scratch folder
@@ -230,34 +231,42 @@ proof it is not done.
 - 5c `prompt-to-ship:validator`, without the reviewer's notes: one per finding of severity High or
   higher, one per finding at severity Medium that the lead contests, and one when the lead doubts a
   finding. A Critical finding gets two independent validators. A finding at severity Medium that
-  the lead fixes needs none: the fresh reviewer's read in the follow-up round is its check. A
+  the lead fixes needs none: the follow-up round is its check. A
   validator is an extra check on evidence: a contest still needs its reviewer's acceptance (see
   "Answers"). Only what survives counts. Keep rejected findings with their reason, so they are not
   raised again.
 - 5d product-expert on the result: always. ui-specialist on the result: when the diff is visible
   (see "Visible change"), also when stage 2 said "nothing"; never with "User interface: none".
 - 5e converge: every finding gets an ID and one answer (below). Round 1 is 5a to 5d on the whole
-  diff. After that, see "Follow-up rounds". Three rounds with a new finding of severity Medium or
-  higher means the approach is wrong: stop and rethink with the user. Name the class of bug, so the
+  diff. After that, see "Follow-up rounds". Three rounds with a new or reopened finding of severity
+  Medium or higher means the approach is wrong: stop and rethink with the user. Name the class of bug, so the
   author fixes all instances at once.
 
 ### Follow-up rounds
 
 A follow-up round is round 2 or 3. It starts only for a FIX or a CONTEST at severity Medium or
-higher, or for an ADJUST from 5d. Round 3 starts only after a new finding of severity Medium or
-higher in round 2.
+higher, for a reopened finding, or for an ADJUST from 5d. Round 3 starts only after a new or reopened
+finding of severity Medium or higher in round 2.
+
+A **sensitive change** is a diff that touches an entry point, a permission or ownership check, a
+query, a file path, a secret, a model prompt or a dependency.
 
 Who reads in a follow-up round:
-- each reviewer with an open finding, contest or ADJUST, on the new diff;
+- each reviewer whose finding got a FIX or a CONTEST, or that gave an ADJUST, on the new diff;
 - the fresh reviewer, on the whole diff since round 1, as the final check of all fixes;
-- a reviewer with no open point, only when a fix changes a flow, a rule or an entry point in its
-  area, or touches code it flagged. For example, a fix adds a branch to a permission check: the
-  security reviewer reads. Add the marker line `Extra reviewer: <name>, because <reason>`.
+- on normal and high risk, the security reviewer, when the new diff is a sensitive change. When it
+  has no open finding and does not read, add the marker line
+  `Security reviewer not re-run: no sensitive change`;
+- another reviewer with no open point, when a fix changes a flow or a rule in its area. Add the
+  marker line `Extra reviewer: <name>, because <reason>`.
 
-A finding of severity Low never starts a round. Fix it before you show the diff or ask for a go,
-and run the local checks again. A follow-up round that still runs reads it as part of the fixes. A
-Low fix that no reviewer read gets the marker line `Fixed after the last review (Low, not
-re-read): <IDs>`. A Low fix on a forced-high path (gates.md) gets one read by the fresh reviewer.
+A finding of severity Low starts no round, unless its fix is a sensitive change or touches a
+forced-high path (gates.md): that fix counts as a FIX at severity Medium. Make every other Low fix
+before you show the diff or ask for a go, and run the local checks again. A follow-up round that
+still runs reads it as part of the fixes. A Low fix that no reviewer read gets the marker line
+`Fixed after the last review (Low, not re-read): <IDs>`.
+
+Only a reviewer or a validator sets a severity. The lead may contest it, not change it.
 
 ### Finding IDs
 
@@ -337,7 +346,8 @@ Use it only when all of these hold, at stage 0 and again on the diff:
 - no business rule from domain.md, no outside fact, no data or schema change, no dependency.
 
 The route: the BRIEF with `Risk: low, <reason> (quick lane)`; stage 1 (the matching rules from
-rules.md); no PLAN block and no plan reviewers; build; prove (checklist.md); 5a fresh reviewer; 5c validators as in stage 5; 5d product expert on the result, and the UI specialist when the diff
+rules.md); no PLAN block and no plan reviewers; build; prove (checklist.md); 5a fresh reviewer; 5c
+validators as in stage 5; 5d product expert on the result, and the UI specialist when the diff
 is visible. Every gate in gates.md applies. A quick-lane change never merges on its own: it stops
 at the change request, at every autonomy level, and in mode `map` before any push to the target.
 Stage 8 runs as usual.
@@ -382,7 +392,8 @@ Rules that caught something: RULE-012
 Rules overruled: RULE-007
 Near-miss: <one sentence>; should have been caught at stage <n>.
 Fixed after the last review (Low, not re-read): FR-2-1
-Extra reviewer: security reviewer, because a fix adds a branch to a permission check
+Extra reviewer: product expert, because a fix changes the order of two steps
+Security reviewer not re-run: no sensitive change
 ```
 
 At levels `merge` and `release` also "Autonomy: <level>. This change request may be merged

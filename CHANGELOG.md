@@ -6,17 +6,21 @@ All notable changes. Versions follow semver and match `.claude-plugin/plugin.jso
 
 Faster review: fewer agent runs in stage 5.
 - Round 1 is unchanged: every required reviewer reads the whole diff.
-- A follow-up round starts only for a fix or a contest at severity Medium or higher, or for an
-  ADJUST from 5d. Only the reviewers with an open point read again, plus the fresh reviewer on the
-  whole diff since round 1.
-- A Low finding never starts a round. New change request line: "Fixed after the last review (Low,
-  not re-read)". On a forced-high path the fresh reviewer still reads the fix once.
+- A follow-up round starts only for a FIX, a CONTEST or a reopened finding at severity Medium or
+  higher, or for an ADJUST from 5d. The reviewer of that point reads again, with the finding's text,
+  plus the fresh reviewer on the whole diff since round 1. The security reviewer also reads when a
+  fix is a sensitive change: an entry point, a permission check, a query, a file path, a secret, a
+  model prompt or a dependency.
+- A Low finding starts no round, unless its fix is a sensitive change or touches a forced-high path.
+  New change request lines: "Fixed after the last review (Low, not re-read)", "Extra reviewer" and
+  "Security reviewer not re-run".
+- Only a reviewer or a validator sets a severity. The lead may contest it.
 - A validator runs on a contest, on severity High or higher, and when the lead doubts a finding. A
   Medium finding that the lead fixes has no validator.
-- Gate 5 now stops on a new finding of severity Medium or higher. The quick lane route is unchanged,
+- Gate 5 now stops on a new or reopened finding of severity Medium or higher. The quick lane route is unchanged,
   and its validators follow the same rule.
-- What you give up: an independent check of a fixed Medium finding, and a read of the last Low
-  fixes. There is no automatic test of the new rounds, because a one-turn eval case cannot reach
+- What you give up: a validator on a fixed Medium finding, a read of Low fixes on no sensitive code,
+  and a security read of a fix that the lead judges not sensitive. There is no automatic test of the new rounds, because a one-turn eval case cannot reach
   stage 5. The last two changes are the baseline, and the next three are the measuring point. That
   is a weak sample.
 

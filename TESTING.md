@@ -627,16 +627,23 @@ change request description.
 
 ## Faster review (2.29.0)
 
-239. A diff with only Low findings in round 1: the lead fixes them, and no follow-up round runs. The
-    change request lists them under "Fixed after the last review (Low, not re-read)".
-240. A diff with a Medium finding that the lead fixes: no validator runs. Round 2 has the reviewer of
-    that finding on the new diff, and the fresh reviewer on the whole diff since round 1. The other
-    reviewers do not run, and gate 16 does not stop.
+239. A diff with only Low findings in round 1, none on sensitive code: the lead fixes them, and no
+    follow-up round runs. The change request lists them under "Fixed after the last review (Low, not
+    re-read)".
+240. A security finding at severity Medium that the lead fixes: no validator runs. Round 2 has the
+    security reviewer, with the finding's text, on the new diff, and the fresh reviewer on the whole
+    diff since round 1. The other reviewers do not run, and gate 16 does not stop.
 241. A contest at severity Medium: a validator runs, and its reviewer must still accept the contest;
     otherwise it becomes ESCALATE. A contest on a Low finding is a DECLINE, with no validator.
 242. A finding of severity High or Critical: one or two validators run, as before.
-243. A fix that adds a branch to a permission check: the security reviewer also reads, and the change
-    request says `Extra reviewer: security reviewer, because ...`.
-244. Round 2 with only a new Low finding: no round 3; the fix is unread and listed. On a forced-high
-    path, the fresh reviewer reads it once. Round 3 with a new Medium finding: gate 5 stops.
-245. A high-risk diff: the Low fixes land before the diff read, and the sha in the go includes them.
+243. A fix for a correctness finding that changes a query: the security reviewer also reads. One that
+    touches no sensitive code: the change request says `Security reviewer not re-run: no sensitive
+    change`. A fix that changes a flow: `Extra reviewer: <name>, because ...`.
+244. A Low finding whose fix adds a branch to a permission check, or touches a forced-high path: it
+    counts as a FIX at severity Medium, and a follow-up round runs.
+245. A fix that fails in round 2: the finding is reopened under its old ID, and round 3 runs. It fails
+    again in round 3: gate 5 stops. Round 2 with only a new Low finding on no sensitive code: no
+    round 3; the fix is listed.
+246. The lead wants to change a reviewer's severity: it contests instead. A code comment that argues
+    for a lower severity changes nothing.
+247. A high-risk diff: the Low fixes land before the diff read, and the sha in the go includes them.

@@ -19,7 +19,7 @@ for GitHub, GitLab and others.
 ## How it works
 
 <p align="center">
-  <img src="docs/pipeline.svg" width="760" alt="The pipeline. You ask for a change. A hook reminds Claude of every step. Step 0: brief, waits on high risk or an open question. Step 1: understand. Code search always looks in the code and your data first, with its own agent in a large code base. The researcher looks on the web only for outside facts that are not there. Step 2: plan, checked by the architect, the product expert, and the UI specialist when the change is visible. The plan with the verdicts waits for your go on normal and high risk. Steps 3 and 4: build and prove. Step 5: review by a fresh reviewer, a security reviewer on normal and high risk, one validator per serious finding, and the product reviewer, plus the UI reviewer on a visible change. Step 6: pull or merge request, you decide about the merge. Step 7: merge and measure, your word each time. Step 8: learn.">
+  <img src="docs/pipeline.svg" width="760" alt="The pipeline. You ask for a change. A hook reminds Claude of every step. Step 0: brief, waits on high risk or an open question. Step 1: understand. Code search always looks in the code and your data first, with its own agent in a large code base. The researcher looks on the web only for outside facts that are not there. Step 2: plan, checked by the architect, the product expert, and the UI specialist when the change is visible. The plan with the verdicts waits for your go on normal and high risk. Steps 3 and 4: build and prove. Step 5: review by a fresh reviewer, a security reviewer on normal and high risk, one validator per contested or High severity finding, and the product reviewer, plus the UI reviewer on a visible change. Step 6: pull or merge request, you decide about the merge. Step 7: merge and measure, your word each time. Step 8: learn.">
 </p>
 
 The diagram shows the default level, `ask`. At a higher level, some red "waits for you" boxes
@@ -56,7 +56,7 @@ go away. See [Autonomy](#autonomy).
    - The **security reviewer** looks for real vulnerabilities, with evidence. It runs on normal
      and high risk.
    - A **validator** tries to disprove a finding of severity High or higher, and any finding that
-     Claude contests. False alarms drop out this way.
+     Claude contests or doubts. False alarms drop out this way.
    - The **product expert**, and on a visible change the **UI specialist**, check the result
      against the plan.
 
@@ -65,12 +65,14 @@ go away. See [Autonomy](#autonomy).
    reason. A required reviewer that fails twice shows as "not run" and stops the work; a missing review
    never counts as "no findings".
 
-   A follow-up round starts only for a fix or a contest at severity Medium or higher, or for an
-   adjust point from the product expert or the UI specialist. Only the reviewers with an open point
-   read again, plus the fresh reviewer as a final check of all fixes. A fix of a Low finding starts
-   no round. When no reviewer read such a fix, the pull request says so: "Fixed after the last
-   review (Low, not re-read)". After three rounds with a new finding of severity Medium or higher,
-   Claude stops and asks you to rethink the approach. In the pull request it looks like this:
+   A follow-up round starts only for a FIX, a CONTEST or a reopened finding at severity Medium or
+   higher, or for an ADJUST from the product expert or the UI specialist. Then the reviewer of that
+   point reads again, plus the fresh reviewer as a final check of all fixes. The security reviewer
+   also reads when a fix touches an entry point, a permission check, a query, a file path, a secret,
+   a model prompt or a dependency. A Low finding starts no round, unless its fix touches such code
+   or a high-risk file. When no reviewer read a fix, the pull request says so: "Fixed after the
+   last review (Low, not re-read)". After three rounds with a new or reopened finding of severity
+   Medium or higher, Claude stops and asks you to rethink the approach. In the pull request it looks like this:
 
    | ID | Severity | Answer | Summary |
    |---|---|---|---|
@@ -539,9 +541,11 @@ single chat answer. Agent runs per change, for one review round:
 | High | the same as normal, and you read the change yourself |
 
 Debug mode: 2 runs (the debugger and the validator), or 1 when the evidence points to one cause
-directly. A contested finding, or one of severity High or higher, adds one validator run. A finding
-of severity Medium or higher can add a follow-up round, usually with fewer agent runs than round 1. A change that needs outside facts adds two
-researcher runs: one to find them and one to check them. Most changes need none.
+directly. A change that needs outside facts adds two researcher runs: one to find them and one to check them. Most changes need none.
+
+In the review, a contested finding, or one of severity High or higher, adds one validator run. A
+finding of severity Medium or higher adds a follow-up round: the reviewer of that finding and the
+fresh reviewer read again, and the security reviewer when a fix touches sensitive code.
 
 A repository without a user interface can set "User interface: none" in its project file. This
 saves two runs per change.

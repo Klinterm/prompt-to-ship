@@ -84,7 +84,7 @@ For each of the six roles, compare the repository's matching agent with
 | product-expert | fits the product flow and roles; earlier decisions; solves the real problem |
 | fresh-reviewer | sees only the change and the brief, not the chat; correctness bugs; regressions |
 | security-reviewer | authorization first; a path from input to risk, with file and line |
-| validator | works independently of the reviewer; tries to disprove each serious finding |
+| validator | works independently of the reviewer; tries to disprove a finding it gets |
 
 A role with an agent that fails a test is **partial**. Name what is missing in a few words, for
 example "can edit files", "runs only on high risk", "no check for regressions". A role with no
@@ -92,7 +92,8 @@ agent is **missing**. When a test cannot be decided from the agent file, the rol
 with the reason "unclear: <test>", so the user can correct it.
 
 The extra cost `<n>` in the question is the number of partial or missing roles. Each one adds
-about one reviewer run per plan or review step, plus one validator run per contested finding or finding of severity High or higher.
+about one reviewer run per plan or review step, plus one validator run per contested finding or
+finding of severity High or higher.
 
 Store `git hash-object <agent file>` with each full or partial role. At stage 0 of every task in
 mode `defer`, run `git hash-object` on each agent file in "Role cover" (the working tree) and
