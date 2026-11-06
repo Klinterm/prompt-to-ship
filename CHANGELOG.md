@@ -26,6 +26,10 @@ Faster review: fewer agent runs in stage 5.
   code, and a security read of a fix that the lead judges not sensitive. There is no automatic test of the new rounds, because a one-turn eval case cannot reach
   stage 5. The last two changes are the baseline, and the next three are the measuring point. That
   is a weak sample.
+- Eval (--runs 1, 21 cases): mean with the plugin 0.98, mean difference +0.43. Nineteen cases 1.00;
+  direction-interview 0.80 on its llm judge, and ui-review-first 0.83 on its names-a-rule grader
+  (its judge passed). This change touches neither mode. The eval does not reach the new rounds, so
+  this score is no proof of review quality.
 
 ## 2.28.1
 
