@@ -250,8 +250,8 @@ finding of severity Medium or higher in round 2, or a Low fix in round 2 that co
 severity Medium (below). Such a Low fix in round 3 stops at gate 5.
 
 A **sensitive change** is a diff that matches a row of
-security-rules.md, "Specialist areas: pick by what changed", or that touches a command or
-interpreter call, a secret or a dependency.
+security-rules.md, "Specialist areas: pick by what changed", or that touches a permission or
+ownership check, a model prompt, a command or interpreter call, a secret or a dependency.
 
 Who reads in a follow-up round:
 - each reviewer whose finding got a FIX or a CONTEST, or that gave an ADJUST, on the new diff;

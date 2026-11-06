@@ -19,6 +19,9 @@ Faster review: fewer agent runs in stage 5.
   Medium finding that the lead fixes has no validator.
 - Gate 5 now stops on a new or reopened finding of severity Medium or higher. The quick lane route is unchanged,
   and its validators follow the same rule.
+- The saving is modest. "Sensitive change" is broad on purpose, so on a fix in an endpoint or a
+  service the security reviewer usually reads again. The saving then comes from fewer validators and
+  from the other reviewers. No number is promised.
 - What you give up: a validator on a fixed Medium finding, a read of Low fixes on no sensitive
   code, and a security read of a fix that the lead judges not sensitive. There is no automatic test of the new rounds, because a one-turn eval case cannot reach
   stage 5. The last two changes are the baseline, and the next three are the measuring point. That
