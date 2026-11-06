@@ -71,7 +71,7 @@ rows = [
     ("spine", "main", "Steps 3 and 4: build and prove", "Own branch, real test output", None),
     ("spine", "main", "Step 5: review", "At most three rounds", None),
     ("fan", [("Fresh reviewer", "Sees only the change"), ("Security reviewer", "Normal and high risk"),
-             ("Validator", "One per serious finding"), ("Product, UI", "UI on a visible change")]),
+             ("Validator", "On a contest or High"), ("Product, UI", "UI on a visible change")]),
     ("spine", "main", "Step 6: pull or merge request", "Tested, risk, how to revert",
      ("wait", "You decide", "About the merge")),
     ("spine", "main", "Step 7: merge and measure", "Checks the goal after the release",

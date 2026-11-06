@@ -47,8 +47,8 @@ files and the log live in the workspace folder, and the state in the workspace s
 
 **Markers: description | local log.**
 - description (default): the marker lines ("Rules matched", "Rules that caught something",
-  "Rules overruled", "Near-miss", the "Autonomy:" line, the map "Reviewed by prompt-to-ship"
-  line) go in change request descriptions and commit messages.
+  "Rules overruled", "Near-miss", "Fixed after the last review", "Extra reviewer", "Security
+  reviewer not re-run", the "Autonomy:" line, the map "Reviewed by prompt-to-ship" line) go in change request descriptions and commit messages.
 - local log: a house rule forbids tool or AI mentions in commits or descriptions. Then:
   - Every marker line goes to `<git common dir>/prompt-to-ship/log.md` instead. Get the folder
     with `git rev-parse --path-format=absolute --git-common-dir` (git 2.31 or newer; with older

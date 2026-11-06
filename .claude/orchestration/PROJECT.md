@@ -257,6 +257,16 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   mode runs no command without the user's yes in chat; this is the first use of `Preview:` as a command.
   It narrows decision 2026-11-04 for one case: a go on a high-risk diff does not cover the merge of a
   redesign that this mode started.
+- Decision 2026-11-06 (maintainer): faster review (2.29.0), because the pipeline took too long. It
+  extends decision 2026-11-02. Round 1 stays full; a follow-up round starts only at severity Medium
+  or higher, on a reopened finding or on a 5d ADJUST; a validator runs on a contest, on High or
+  higher, or on doubt; the security reviewer reads a sensitive change in a follow-up round. The
+  quick lane is not widened. Evidence: the last two changes had about 24 agent runs each, 14 of them
+  in the part that changed, and every Medium finding that survived came from round 1. A thin baseline.
+  Measuring point: the next three change requests in this repository record agent runs, findings of
+  Medium or higher per round, and each `Extra reviewer` and `Security reviewer not re-run` line. A problem of severity Medium or higher
+  found after stage 5 (diff read, CI, after the merge), in an area where a run was dropped, is an
+  incident (learning.md); then reconsider this decision.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
