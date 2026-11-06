@@ -636,11 +636,13 @@ change request description.
 241. A contest at severity Medium: a validator runs, and its reviewer must still accept the contest;
     otherwise it becomes ESCALATE. A contest on a Low finding is a DECLINE, with no validator.
 242. A finding of severity High or Critical: one or two validators run, as before.
-243. A fix for a correctness finding that changes a query: the security reviewer also reads. One that
+243. A fix for a correctness finding that changes a query or renders a value in a template: the
+    security reviewer also reads. One that
     touches no sensitive code: the change request says `Security reviewer not re-run: no sensitive
     change`. A fix that changes a flow: `Extra reviewer: <name>, because ...`.
 244. A Low finding whose fix adds a branch to a permission check, or touches a forced-high path: it
-    counts as a FIX at severity Medium, and a follow-up round runs.
+    counts as a FIX at severity Medium, and a follow-up round runs. In round 2 it starts round 3. In
+    round 3 gate 5 stops.
 245. A fix that fails in round 2: the finding is reopened under its old ID, and round 3 runs. It fails
     again in round 3: gate 5 stops. Round 2 with only a new Low finding on no sensitive code: no
     round 3; the fix is listed.

@@ -81,7 +81,8 @@ nothing.
    or for a diff that is not visible (pipeline.md, "Visible change"), passes). After you fix
    ADJUST points, run 5d again on the new diff; a new APPROVE passes. A fixed finding of
    severity Medium has no validator: its follow-up round settles it (pipeline.md, "Follow-up rounds");
-5. three review rounds still bring a new or reopened finding of severity Medium or higher;
+5. three review rounds still bring a new or reopened finding of severity Medium or higher, or a Low
+   fix that counts as a FIX at severity Medium (pipeline.md, "Follow-up rounds");
 6. a local check fails;
 7. CI fails, or the repository has CI (a CI file from the list above, or checks reported by the
    host) and CI does not start or does not finish within `ciWaitMinutes`;

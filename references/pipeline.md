@@ -246,10 +246,11 @@ proof it is not done.
 
 A follow-up round is round 2 or 3. It starts only for a FIX or a CONTEST at severity Medium or
 higher, for a reopened finding, or for an ADJUST from 5d. Round 3 starts only after a new or reopened
-finding of severity Medium or higher in round 2.
+finding of severity Medium or higher in round 2, or a Low fix in round 2 that counts as a FIX at
+severity Medium (below). Such a Low fix in round 3 stops at gate 5.
 
-A **sensitive change** is a diff that touches an entry point, a permission or ownership check, a
-query, a file path, a secret, a model prompt or a dependency.
+A **sensitive change** is a diff that matches a row of security-rules.md, "Specialist areas", or
+that touches a command or interpreter call, a secret or a dependency.
 
 Who reads in a follow-up round:
 - each reviewer whose finding got a FIX or a CONTEST, or that gave an ADJUST, on the new diff;

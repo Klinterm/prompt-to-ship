@@ -68,9 +68,9 @@ go away. See [Autonomy](#autonomy).
    A follow-up round starts only for a FIX, a CONTEST or a reopened finding at severity Medium or
    higher, or for an ADJUST from the product expert or the UI specialist. Then the reviewer of that
    point reads again, plus the fresh reviewer as a final check of all fixes. The security reviewer
-   also reads when a fix touches an entry point, a permission check, a query, a file path, a secret,
-   a model prompt or a dependency. A Low finding starts no round, unless its fix touches such code
-   or a high-risk file. When no reviewer read a fix, the pull request says so: "Fixed after the
+   also reads when a fix touches sensitive code, for example a permission check, a query or HTML
+   output. A Low finding starts no round, unless its fix touches sensitive code or a forced-high
+   path. When no reviewer read a fix, the pull request says so: "Fixed after the
    last review (Low, not re-read)". After three rounds with a new or reopened finding of severity
    Medium or higher, Claude stops and asks you to rethink the approach. In the pull request it looks like this:
 
