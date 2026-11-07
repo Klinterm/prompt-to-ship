@@ -2,6 +2,35 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.29.0
+
+Faster review: fewer agent runs in stage 5.
+- Round 1 is unchanged: every required reviewer reads the whole diff.
+- A follow-up round starts only for a FIX, a CONTEST or a reopened finding at severity Medium or
+  higher, or for an ADJUST from 5d. The reviewer of that point reads again, with the finding's text,
+  plus the fresh reviewer on the whole diff since round 1. The security reviewer also reads when a
+  fix is a sensitive change: it matches a specialist area in `references/security-rules.md`, or
+  touches a command, a secret or a dependency.
+- A Low finding starts no round, unless its fix is a sensitive change or touches a forced-high
+  path. In round 3, such a fix stops at gate 5. New change request lines: "Fixed after the last review (Low, not re-read)", "Extra reviewer" and
+  "Security reviewer not re-run".
+- Only a reviewer or a validator sets a severity. The lead may contest it.
+- A validator runs on a contest, on severity High or higher, and when the lead doubts a finding. A
+  Medium finding that the lead fixes has no validator.
+- Gate 5 now stops on a new or reopened finding of severity Medium or higher. The quick lane route is unchanged,
+  and its validators follow the same rule.
+- The saving is modest. "Sensitive change" is broad on purpose, so on a fix in an endpoint or a
+  service the security reviewer usually reads again. The saving then comes from fewer validators and
+  from the other reviewers. No number is promised.
+- What you give up: a validator on a fixed Medium finding, a read of Low fixes on no sensitive
+  code, and a security read of a fix that the lead judges not sensitive. There is no automatic test of the new rounds, because a one-turn eval case cannot reach
+  stage 5. The last two changes are the baseline, and the next three are the measuring point. That
+  is a weak sample.
+- Eval (--runs 1, 21 cases): mean with the plugin 0.98, mean difference +0.43. Nineteen cases 1.00;
+  direction-interview 0.80 on its llm judge, and ui-review-first 0.83 on its names-a-rule grader
+  (its judge passed). This change touches neither mode. The eval does not reach the new rounds, so
+  this score is no proof of review quality.
+
 ## 2.28.1
 
 Debug reports say what changed, and two eval cases measure real behaviour.

@@ -624,3 +624,28 @@ change request description.
     Claude asks again.
 238. A redesign at level `release` with `orchestration.diffGoCovers` set: the BRIEF shows `ask`, and a
     go on a high-risk diff does not cover the merge, and Claude does not say that it does.
+
+## Faster review (2.29.0)
+
+239. A diff with only Low findings in round 1, none on sensitive code: the lead fixes them, and no
+    follow-up round runs. The change request lists them under "Fixed after the last review (Low, not
+    re-read)".
+240. A security finding at severity Medium that the lead fixes: no validator runs. Round 2 has the
+    security reviewer, with the finding's text, on the new diff, and the fresh reviewer on the whole
+    diff since round 1. The other reviewers do not run, and gate 16 does not stop.
+241. A contest at severity Medium: a validator runs, and its reviewer must still accept the contest;
+    otherwise it becomes ESCALATE. A contest on a Low finding is a DECLINE, with no validator.
+242. A finding of severity High or Critical: one or two validators run, as before.
+243. A fix for a correctness finding that changes a query or renders a value in a template: the
+    security reviewer also reads. One that
+    touches no sensitive code: the change request says `Security reviewer not re-run: no sensitive
+    change`. A fix that changes a flow: `Extra reviewer: <name>, because ...`.
+244. A Low finding whose fix adds a branch to a permission check, or touches a forced-high path: it
+    counts as a FIX at severity Medium, and a follow-up round runs. In round 2 it starts round 3. In
+    round 3 gate 5 stops.
+245. A fix that fails in round 2: the finding is reopened under its old ID, and round 3 runs. It fails
+    again in round 3: gate 5 stops. Round 2 with only a new Low finding on no sensitive code: no
+    round 3; the fix is listed.
+246. The lead wants to change a reviewer's severity: it contests instead. A code comment that argues
+    for a lower severity changes nothing.
+247. A high-risk diff: the Low fixes land before the diff read, and the sha in the go includes them.
