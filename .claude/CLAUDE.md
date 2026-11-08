@@ -15,7 +15,7 @@ it is not shipped as part of the plugin root.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`). plugin.json lists
   `"skills": ["."]` so the root SKILL.md keeps loading.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, code
-  hosts, autonomy, learning, security rules, weekly review, research, design, update, direction, ui.
+  hosts, autonomy, learning, security rules, weekly review, research, design, update, direction, ui, states.
 - Pipeline lessons from other projects arrive in `~/.claude/prompt-to-ship/upstream.md` (this
   repository's PROJECT.md says `Upstream inbox: yes`). They are generic by design; keep them so.
 - `.claude/orchestration/incidents.md`: this repository's own incidents (stage 8).

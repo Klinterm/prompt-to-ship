@@ -71,7 +71,7 @@ invited users.
   table, agent frontmatter, skills in `skills/` and the case count. Both run in CI.
 - `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
-  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui.
+  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui, states.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`): workflow, tiers,
   references (with scene mode in `immersive.md` and the rebuild path in `rebuild.md`) and the
   DESIGN.md template. `SOURCES.md` credits
@@ -146,7 +146,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   `claude plugin eval . --runs 1 -j 4 --max-cost-usd 12 --judge-model sonnet --no-publish --scaffold --allow-tools Edit Write`
   (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
   `--ablation none`, half the runs)
-  (21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
+  (22 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -272,11 +272,23 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   Evidence on 2.29.0, one suite run per judge, on 2026-11-06 and 2026-11-08: `direction-interview`
   went from FFF to PPP; all 60 votes without the plugin stayed the same and the same 14 cases fail;
   the judge cost went from $0.31 to $0.93, the run from $9.13 to $9.81. Limits: each judge read its
-  own agent messages, and sonnet split once (`quick-lane-small-fix`, FPP, which passes). Scores from
-  before this date come from the default judge: name the judge when you compare with them. The
-  placeholder commands in `README.md` and `TESTING.md` have no judge flag, so they use the default
-  judge. The `--runs 3` figure is older and not measured with this judge. `evals-models/` is not
-  part of this.
+  own agent messages, sonnet split once (`quick-lane-small-fix`, FPP, which passes), and the case
+  `states-report-first` from 2.30.0 was not in the comparison. Scores up to 2.30.0 come from the
+  default judge: name the judge when you compare with them. The placeholder commands in `README.md`
+  and `TESTING.md` have no judge flag, so they use the default judge. The `--runs 3` figure is older
+  and not measured with this judge. `evals-models/` is not part of this.
+- Decision 2026-11-08 (maintainer): find hidden states (2.30.0): a read-only mode that finds hidden
+  states in code and written rules, and ends with numbered actions. The lead reads, with no agent run
+  (R6), as in direction and UI mode (2026-11-05), so nothing checks the findings until an action
+  starts the pipeline. It saves no review runs. Only the argument starts it, and it runs no command, so
+  a folder's own git config starts no program and cannot forge a confirmation. The accepted limit: it
+  cannot list links, so every report says so. A link check with `find` was tried and dropped: three
+  review rounds each found a new problem in it. No text in the repository silences a finding; a recorded decision only adds a note, and a deliberate choice with a
+  failing scenario comes back on each run (the known cost). It is not a weekly step, because
+  a full scan each week repeats itself. Evidence: one audit with a pasted prompt on this
+  repository, which found a rule contradiction that the weekly review and drift mode cannot find. A
+  thin baseline. Measuring point: the next three uses record how many actions the user started and how
+  many findings proved false or were deliberate choices; then reconsider this decision.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

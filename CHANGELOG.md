@@ -2,6 +2,28 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.30.0
+
+Find hidden states: `/prompt-to-ship states [path]`.
+- A new read-only mode finds hidden states: something that moves between a few conditions while no
+  one place lists them. It works on code in any language and on written rules. `references/states.md`
+  is its home.
+- It shows at most seven numbered actions, with `path:line` and the case that goes wrong, based on
+  reading only. It starts no agents, writes nothing and runs no command. A number starts the
+  normal pipeline through `references/direction.md`, "Starting a step".
+- Only the argument starts it. Nothing in the repository can silence a finding: a case that goes wrong
+  stays an action, and a written decision only adds a note for the user.
+- What it does not do: it proves nothing by running, and it saves no review runs. A deliberate choice
+  with a failing scenario comes back as an action on each run: that is the known cost of letting
+  nothing silence a finding. With no command it cannot list links, so every report says "links not
+  checked", and a link with a normal name can bring a file from another place into the session. The evidence is one
+  audit with a pasted prompt on this repository. That is a thin baseline.
+- Eval (--runs 1, 22 cases, on the commit before the last review fix): mean with the plugin 0.98, mean
+  difference +0.45. Twenty cases 1.00; direction-interview 0.80 on its llm judge, and ui-review-first
+  0.83 on its names-a-rule grader, the same two as in 2.29.0. After that fix, only the new case
+  states-report-first ran again: 1.00 with the plugin, 0.50 without. It uses about $9.45 of plan usage.
+  The case has no shell and one turn, so it does not reach a numbered reply.
+
 ## 2.29.0
 
 Faster review: fewer agent runs in stage 5.
