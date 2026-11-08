@@ -1,7 +1,7 @@
 schema_version: "1.1"
 name: states-report-first
 # Run with --allow-tools Edit Write, so a change is possible and staying read-only is a choice.
-# The case is one turn with no shell, so PROJECT.md counts as not confirmed and nothing runs.
+# The case is one turn with no shell, so the report says that links were not checked.
 # Expected delta: high: without the plugin the agent uses other words and may edit the code.
 graders:
   - name: no-edit
@@ -17,6 +17,11 @@ graders:
   - name: cites-a-line
     type: regex
     pattern: 'src/(orders|warehouse)\.py:\d+'
+    target: last_message
+  - name: opener
+    type: regex
+    pattern: 'changed no project file'
+    flags: i
     target: last_message
   - name: names-hidden-state
     type: regex

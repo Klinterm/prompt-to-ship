@@ -267,13 +267,16 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   Medium or higher per round, and each `Extra reviewer` and `Security reviewer not re-run` line. A problem of severity Medium or higher
   found after stage 5 (diff read, CI, after the merge), in an area where a run was dropped, is an
   incident (learning.md); then reconsider this decision.
-- Decision 2026-11-08 (maintainer): hidden state review (2.30.0): a read-only mode that finds hidden
+- Decision 2026-11-08 (maintainer): find hidden states (2.30.0): a read-only mode that finds hidden
   states in code and written rules, and ends with numbered actions. The lead reads, with no agent run
   (R6), as in direction and UI mode (2026-11-05), so nothing checks the findings until an action
-  starts the pipeline. It saves no review runs. Only the argument starts it. It is not a weekly step,
-  because a full scan each week repeats itself. Evidence: one audit with a pasted prompt on this
+  starts the pipeline. It saves no review runs. Only the argument starts it, and it runs no git command,
+  so a folder's own git config starts no program and cannot forge a confirmation. So no text in the
+  repository silences a finding; a recorded decision only adds a note. It is not a weekly step, because
+  a full scan each week repeats itself. Evidence: one audit with a pasted prompt on this
   repository, which found a rule contradiction that the weekly review and drift mode cannot find. A
-  thin baseline.
+  thin baseline. Measuring point: the next three uses record how many actions the user started and how
+  many findings proved false; then reconsider this decision.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

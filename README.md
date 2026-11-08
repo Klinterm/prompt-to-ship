@@ -208,13 +208,14 @@ review runs with your session in that browser, and it offers screenshots first.
   go on the plan and on the merge. With `Design skill: built-in` it runs the full design workflow,
   with directions for you to pick from.
 
-## Find hidden state
+## Find hidden states
 
-Some things move through steps, such as an order that goes from paid to shipped, and nobody wrote
-the steps down. Each place then decides for itself, and sooner or later two places disagree. Type
+Some things move between a few conditions, such as an order that goes from paid to shipped, and
+nobody wrote those conditions down. Each place then decides for itself, and sooner or later two
+places disagree. Type
 `/prompt-to-ship states [path]` to find these places, in code in any language and in written rules.
-The review changes no code, starts no agents and runs no project code. You get numbered actions, each
-with the lines and the case that goes wrong:
+The review changes no code, starts no agents and runs no project code or git command. You get numbered
+actions, each with the lines and the case that goes wrong:
 
 ```
 States: src. I changed no project file and ran no project code.
@@ -223,23 +224,25 @@ Found: 3 hidden states: 1 leave as-is, 1 tidy up, 1 write the states down. Not r
 1. Order status, src/orders.py:14, src/warehouse.py:2
    States: paid, shipped and cancelled are three flags; each function sets its own.
    Problem: a cancelled order still ships when pay and ship run after it. Based on reading only.
-   Decision: write the states down in one place. Why: customers get no cancelled order, and
-   developers see all moves at once.
+   Decision: write the states down in one place. Why: customers do not get a cancelled order
+   shipped, and developers see all moves at once.
    Change: one status value and one function for the moves. Behaviour changes: a cancelled order no longer ships.
    Change risk: normal (the BRIEF sets the real risk). Test: a test for each move that is not allowed.
 2. Release approval, docs/release.md:12, docs/hotfix.md:30
    States: draft, approved, released, described in two documents.
-   Problem: the first needs one approval for a hotfix, the second needs two. Based on reading only.
+   Problem: release.md needs one approval for a hotfix, hotfix.md needs two. Based on reading only.
    Decision: tidy up. Why: developers find one answer.
    Change: one table in docs/release.md, and a link from the other. Behaviour unchanged.
    Change risk: low (the BRIEF sets the real risk). Test: read both documents.
 Leave as-is: job retry, src/jobs.py:40, one flag with one reader.
 
 Reply 1 or 2 to start that action, for example 1 and 2 together.
+A number starts the normal flow, with the brief first. At your autonomy level it may go on without another question, unless a gate stops it. To wait at each stop, add "do this one manually".
 ```
 
 Only the word `states` starts this review. It is based on reading, so test a case before you rely
-on it. A number starts the normal pipeline at your autonomy level, with the brief first.
+on it. A case that goes wrong always stays an action, also when a comment or a written decision says
+it is fine: you decide.
 
 ## Business rules
 
@@ -432,7 +435,7 @@ Type these in the Claude Code chat. With install way B (skills folder) the comma
 | `/prompt-to-ship debug <problem>` | `/prompt-to-ship:prompt-to-ship debug <problem>` | Finds the cause of a problem in shipped code. Read-only. |
 | `/prompt-to-ship direction` | `/prompt-to-ship:prompt-to-ship direction` | Shows where you are and helps you choose the next goal. Changes no code. |
 | `/prompt-to-ship ui [screen]` | `/prompt-to-ship:prompt-to-ship ui [screen]` | Reviews a screen, ranks the top problems, then fixes or redesigns it when you choose. The review changes no code. |
-| `/prompt-to-ship states [path]` | `/prompt-to-ship:prompt-to-ship states [path]` | Finds things that move through steps with no written list of those steps, and proposes numbered actions. The review changes no code. |
+| `/prompt-to-ship states [path]` | `/prompt-to-ship:prompt-to-ship states [path]` | Finds hidden states: things that move between conditions with no written list of them. Proposes numbered actions. The review changes no code. |
 | `/prompt-to-ship version` | `/prompt-to-ship:prompt-to-ship version` | Shows the installed version, the folder it runs from, and the newest version seen. Changes nothing. |
 | `/prompt-to-ship <your request>` | `/prompt-to-ship:prompt-to-ship <your request>` | Runs the pipeline on your request. |
 
