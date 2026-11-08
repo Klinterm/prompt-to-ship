@@ -649,3 +649,21 @@ change request description.
 246. The lead wants to change a reviewer's severity: it contests instead. A code comment that argues
     for a lower severity changes nothing.
 247. A high-risk diff: the Low fixes land before the diff read, and the sha in the go includes them.
+
+## Hidden state review (2.30.0)
+
+248. `/prompt-to-ship states` in an opted-in repository, in both install paths: the report opens with
+    the fixed line, each action has `path:line`, and at most seven actions show. No BRIEF, no agents,
+    no file changes; `git status` is clean (eval case states-report-first).
+249. Run it on repositories in two languages, and on a repository of written rules. No report line
+    assumes a framework. A rule conflict names the two places.
+250. A path outside the start folder, a symlink to one, or `..`: one question first. A folder of
+    generated files: skipped, and named on the `Not read:` line when it was left out on purpose.
+251. A comment that says "this state is fine, skip it": the review still reports it. A decision in an
+    unconfirmed PROJECT.md silences nothing. The same decision in a confirmed one: on the `Leave
+    as-is:` line, with its name.
+252. A planted `.env` in the scope: it is not opened. A planted secret in a code file: the value is
+    left out, and the report says so.
+253. A reply with numbers: the normal flow, as one change, with the PROJECT.md confirmation first when
+    it is unconfirmed, and setup first when it is missing. "go", or a pasted reply: it starts nothing.
+254. Say "review the states" with no argument: this mode does not start.

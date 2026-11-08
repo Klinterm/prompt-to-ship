@@ -2,6 +2,21 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.30.0
+
+Hidden state review: `/prompt-to-ship states [path]`.
+- A new read-only mode finds hidden states: something that moves between a few conditions while no
+  one place lists them. It works on code in any language and on written rules. `references/states.md`
+  is its home.
+- It shows at most seven numbered actions, with `path:line` and the case that goes wrong, based on
+  reading only. It starts no agents, writes nothing and runs no project code. A number starts the
+  normal pipeline through `references/direction.md`, "Starting a step".
+- Only the argument starts it. Only a decision in a confirmed PROJECT.md can make a finding "leave
+  as-is".
+- What it does not do: it proves nothing by running, and it saves no review runs. The evidence is one
+  audit with a pasted prompt on this repository. That is a thin baseline.
+- Eval: EVAL_RESULT
+
 ## 2.29.0
 
 Faster review: fewer agent runs in stage 5.
