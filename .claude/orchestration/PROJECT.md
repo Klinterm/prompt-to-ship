@@ -270,9 +270,10 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Decision 2026-11-08 (maintainer): find hidden states (2.30.0): a read-only mode that finds hidden
   states in code and written rules, and ends with numbered actions. The lead reads, with no agent run
   (R6), as in direction and UI mode (2026-11-05), so nothing checks the findings until an action
-  starts the pipeline. It saves no review runs. Only the argument starts it, and it runs no git command,
-  so a folder's own git config starts no program and cannot forge a confirmation. So no text in the
-  repository silences a finding; a recorded decision only adds a note, and a deliberate choice with a
+  starts the pipeline. It saves no review runs. Only the argument starts it, and it runs no command, so
+  a folder's own git config starts no program and cannot forge a confirmation. The accepted limit: it
+  cannot list links, so every report says so. A link check with `find` was tried and dropped: three
+  review rounds each found a new problem in it. No text in the repository silences a finding; a recorded decision only adds a note, and a deliberate choice with a
   failing scenario comes back on each run (the known cost). It is not a weekly step, because
   a full scan each week repeats itself. Evidence: one audit with a pasted prompt on this
   repository, which found a rule contradiction that the weekly review and drift mode cannot find. A

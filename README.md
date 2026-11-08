@@ -214,12 +214,12 @@ Some things move between a few conditions, such as an order that goes from paid 
 nobody wrote those conditions down. Each place then decides for itself, and sooner or later two
 places disagree. Type `/prompt-to-ship states [path]` to find these places, in code in any language
 and in written rules.
-The review changes no code, starts no agents and runs no project code or git command. You get numbered
+The review changes no code, starts no agents and runs no command. You get numbered
 actions, each with the lines and the case that goes wrong:
 
 ```
 States: src. I changed no project file and ran no project code.
-Found: 3 hidden states: 1 leave as-is, 1 tidy up, 1 write the states down. Not read: nothing.
+Found: 3 hidden states: 1 leave as-is, 1 tidy up, 1 write the states down. Not read: nothing; links not checked.
 
 1. Order status, src/orders.py:14, src/warehouse.py:2
    States: paid, shipped and cancelled are three flags; each function sets its own.

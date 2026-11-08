@@ -9,13 +9,14 @@ Find hidden states: `/prompt-to-ship states [path]`.
   one place lists them. It works on code in any language and on written rules. `references/states.md`
   is its home.
 - It shows at most seven numbered actions, with `path:line` and the case that goes wrong, based on
-  reading only. It starts no agents, writes nothing and runs no project code or git command. A number starts the
+  reading only. It starts no agents, writes nothing and runs no command. A number starts the
   normal pipeline through `references/direction.md`, "Starting a step".
 - Only the argument starts it. Nothing in the repository can silence a finding: a case that goes wrong
   stays an action, and a written decision only adds a note for the user.
 - What it does not do: it proves nothing by running, and it saves no review runs. A deliberate choice
   with a failing scenario comes back as an action on each run: that is the known cost of letting
-  nothing silence a finding. The evidence is one
+  nothing silence a finding. With no command it cannot list links, so every report says "links not
+  checked", and a link with a normal name can bring a file from another place into the session. The evidence is one
   audit with a pasted prompt on this repository. That is a thin baseline.
 - Eval: EVAL_RESULT
 
