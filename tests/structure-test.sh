@@ -9,8 +9,13 @@
 #    table and its references/ and templates/ files match. plugin.json lists "skills": ["."];
 #    no SKILL.md outside the root and skills/*/.
 # f. The plugin.json description is at most 500 characters, the upload limit on claude.ai.
+# g. No rule hashes a file by path with git hash-object: that form runs a filter from the folder's
+#    own git config. One line at a time, so a command split over two lines is still seen.
+# h. Without a root argument: the command in gates.md, "File hash", runs against a hostile folder.
+#    It starts no program, prints nothing for a missing file, and matches the filtered hash.
 # Without a root argument it first proves itself: a planted broken reference, a planted broken
-# Read-when row and a planted 501-character description in a temp copy must make it fail.
+# Read-when row, a planted 501-character description and a planted hash by path in a temp copy
+# must make it fail.
 root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
 fail=0
 err() { echo "FAIL: $*"; fail=1; }
@@ -45,6 +50,10 @@ if [ -z "$1" ]; then
     > "$tmp/.claude-plugin/plugin.json"
   if ! bash "$0" "$tmp" 2>&1 | grep -Fq "plugin.json description is 501 characters"; then
     err "self-check: a planted 501-character description was not caught"
+  fi
+  printf 'Store `git hash-object planted.md`.\n' >> "$tmp/references/debug.md"
+  if ! bash "$0" "$tmp" 2>&1 | grep -Fq 'hashes by path: references/debug.md'; then
+    err "self-check: a planted hash by path was not caught"
   fi
 fi
 
@@ -120,6 +129,55 @@ if [ -f "$pj" ]; then
     err "plugin.json has no one-line description"
   elif [ "$n" -gt 500 ]; then
     err "plugin.json description is $n characters, more than 500"
+  fi
+fi
+
+# g. Hash by path.
+for f in "$root/SKILL.md" "$root"/references/*.md "$root"/skills/*/references/*.md; do
+  [ -f "$f" ] || continue
+  while IFS= read -r hit; do
+    [ -n "$hit" ] && err "hashes by path: ${f#$root/}:$hit"
+  done <<< "$(sed 's/git hash-object --stdin//g' "$f" | grep -n 'git hash-object')"
+done
+
+# h. The file hash against a hostile folder. Run only on the real root: it needs git and a temp folder.
+if [ -z "$1" ]; then
+  cmd=$(grep -F '[ -f "$f" ] && tr ' "$root/references/gates.md" | head -n 1)
+  if [ -z "$cmd" ]; then
+    err 'gates.md, "File hash", has no hash command'
+  else
+    h="$tmp/hostile"
+    mkdir -p "$h"
+    (
+      cd "$h" || exit 1
+      export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
+      git init -q .
+      printf 'one\ntwo\n' > lf.md
+      printf 'one\r\ntwo\r\n' > crlf.md
+      echo '*.md filter=probe' > .gitattributes
+      git config filter.probe.clean "sh -c 'echo x > \"$h/filter.mark\"; cat'"
+      git config core.fsmonitor "sh -c 'echo x > \"$h/monitor.mark\"; exit 1'"
+      git hash-object lf.md >/dev/null 2>&1
+      [ -e filter.mark ] || echo "the hostile filter did not run, so this check proves nothing"
+      rm -f filter.mark monitor.mark
+      f=lf.md bash -c "$cmd" >/dev/null 2>&1
+      [ -e filter.mark ] && echo "the file hash started the filter"
+      [ -e monitor.mark ] && echo "the file hash started core.fsmonitor"
+      out=$(f=missing.md bash -c "$cmd" 2>/dev/null)
+      [ -z "$out" ] || echo "a missing file gave a hash: $out"
+      rm -f .gitattributes
+      git config --unset filter.probe.clean
+      git config --unset core.fsmonitor
+      git config core.autocrlf true
+      for n in lf.md crlf.md; do
+        a=$(git hash-object "$n" 2>/dev/null)
+        b=$(f="$n" bash -c "$cmd" 2>/dev/null)
+        [ "$a" = "$b" ] || echo "$n: file hash $b differs from filtered hash $a"
+      done
+    ) > "$tmp/hostile.out" 2>&1
+    while IFS= read -r line; do
+      [ -n "$line" ] && err "file hash: $line"
+    done < "$tmp/hostile.out"
   fi
 fi
 
