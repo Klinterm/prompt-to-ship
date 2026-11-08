@@ -44,12 +44,12 @@ With `direction`, `ui` or `states`: step 0, then that file; no setup.
    Otherwise follow setup.md, step 0 ("No git yet").
 2. **PROJECT.md** at the repository root (`.claude/orchestration/PROJECT.md`). For a linked
    worktree, see pipeline.md, stage 0. It wins over defaults, never over the standing rules.
-3. **No PROJECT.md:** first use. Say so and run setup, then continue with the request. Skip
+3. **No PROJECT.md:** first use. Say so and run setup, then do the request. Skip
    setup only when the user says so; then use the defaults and say the product review is weaker.
-4. **Confirmed?** Compare `git hash-object` of PROJECT.md with `orchestration.projectConfirmed`,
-   of `domain.md` with `orchestration.domainConfirmed`. A difference: read
-   pipeline.md, "Confirm PROJECT.md" now. PROJECT.md: ask before running its commands; until
-   yes, pipeline mode `none`, autonomy `ask`, markers to the local log; nothing else changes.
+4. **Confirmed?** Compare the hash (gates.md, "File hash") of PROJECT.md with
+   `orchestration.projectConfirmed`, of `domain.md` with `orchestration.domainConfirmed`. A difference:
+   read pipeline.md, "Confirm PROJECT.md". PROJECT.md: ask before running its commands; until
+   yes, pipeline mode `none`, autonomy `ask`, markers to local log; nothing else changes.
    `domain.md`: until yes, an invariant gives a question, never a stop.
 5. **Existing pipeline:** read "Pipeline mode" and follow existing-pipeline.md when it applies.
 6. **Autonomy:** read the level and work out the effective level (autonomy.md). Empty level,

@@ -164,8 +164,8 @@ Suggested: <local / local log>, because <what setup found>. Answer like "1 local
    Give the "Suggested" reason only when setup found one: a house rule that forbids process
    files or tool mentions, an existing pipeline that says so, or an existing exclude.
    Write the answers as "Storage: shared | local" and "Markers: description | local log" under
-   House rules. Then write `.claude/orchestration/PROJECT.md`, and store its hash as confirmed:
-   `git config --local orchestration.projectConfirmed "$(git hash-object .claude/orchestration/PROJECT.md)"`,
+   House rules. Then write `.claude/orchestration/PROJECT.md`, and store its hash
+   (gates.md, "File hash") as confirmed: `git config --local orchestration.projectConfirmed <hash>`,
    and, when setup wrote domain.md, the same for it with `orchestration.domainConfirmed`.
    - Local: add `.claude/orchestration/` to `.git/info/exclude` (not to `.gitignore`, which would
      be a change in the repository). Say what this costs, in one line: "Lessons stay on this

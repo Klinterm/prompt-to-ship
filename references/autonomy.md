@@ -110,7 +110,7 @@ Take the lowest of:
    user counts as `change-request`; one that says releases need the user counts as `merge`;
 3. what the user asks for this task ("do this one manually" lowers it; a request can never raise
    it: say "Your level is <x>. Change it with the argument autonomy.");
-4. `ask`, while `git hash-object .claude/orchestration/PROJECT.md` differs from
+4. `ask`, while the hash of `.claude/orchestration/PROJECT.md` (gates.md, "File hash") differs from
    `orchestration.projectConfirmed`, or PROJECT.md does not exist;
 5. `ask` for this task, when a gate applies (gates.md); with `orchestration.diffGoCovers`, gate 1
    only (high risk and forced-high paths) stops only until the user's go on the diff (gates.md,

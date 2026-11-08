@@ -95,9 +95,9 @@ The extra cost `<n>` in the question is the number of partial or missing roles. 
 about one reviewer run per plan or review step, plus one validator run per contested finding or
 finding of severity High or higher.
 
-Store `git hash-object <agent file>` with each full or partial role. At stage 0 of every task in
-mode `defer`, run `git hash-object` on each agent file in "Role cover" (the working tree) and
-compare it with the stored hash. A difference means the agent changed. A missing file makes that
+Store the hash of the agent file (gates.md, "File hash") with each full or partial role. At stage 0
+of every task in mode `defer`, hash each agent file in "Role cover" (the working tree) the same way
+and compare it with the stored hash. A difference means the agent changed. A missing file makes that
 role "missing" at once, with no trust question, and PROJECT.md is updated after the user's yes. Agent files are
 repository text, so a change never removes a reviewer on its own:
 - Until the user says yes, count that role as partial: the prompt-to-ship reviewer runs.

@@ -2,6 +2,22 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.30.1
+
+The confirmation check no longer starts a program from a folder's own git config.
+- Every stored file hash now comes from one command in `references/gates.md`, "File hash":
+  `[ -f "$f" ] && tr -d '\r' < "$f" | git hash-object --stdin`. The old form, with a path, applied a
+  clean filter that a folder's git config can make a program. This was tested in a throwaway folder.
+- Existing hashes keep their value in nearly all cases. A CRLF file with `core.autocrlf=false`, or a
+  file with another filter such as `ident`, gives one new confirm question. A change of only carriage
+  returns is no longer a difference in any setup.
+- A recorded limit, in `references/gates.md`, "A folder with its own git config", and the README. A
+  folder delivered with its own `.git` can still start a program at `git status`, `git diff HEAD` or
+  `git blame`, and it can hold a false confirmation. Claude does not detect this. Clone such a folder
+  first. When the user says a folder arrived this way, Claude says so once.
+- `tests/structure-test.sh` rejects a hash by path in the rules, and runs the command against a
+  hostile folder. No eval run: this is a patch, and the eval fixtures keep LF files with the same hash.
+
 ## 2.30.0
 
 Find hidden states: `/prompt-to-ship states [path]`.

@@ -39,8 +39,8 @@ files and the log live in the workspace folder, and the state in the workspace s
   `git worktree list --porcelain`). The reminder hook checks only the folder where the session
   started, so it stays silent in a linked worktree; the skill still works when it loads.
 - Local files have no history in git, so a change outside the pipeline is invisible. After each
-  write to rules.md, store `git config --local orchestration.rulesConfirmed "$(git hash-object
-  .claude/orchestration/rules.md)"`. At stage 0 (with the other state keys, gates.md), if the hash differs, show the difference and
+  write to rules.md, store its hash (gates.md, "File hash") with `git config --local
+  orchestration.rulesConfirmed <hash>`. At stage 0 (with the other state keys, gates.md), if the hash differs, show the difference and
   ask before you use the rules.
 - Local needs an untracked PROJECT.md. If PROJECT.md is already tracked, local is not possible
   without a team decision: keep shared, and offer "Markers: local log" instead.
