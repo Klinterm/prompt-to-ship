@@ -675,12 +675,13 @@ change request description.
 ## File hash and a folder with its own git config (2.30.1)
 
 255. `bash tests/structure-test.sh` passes: no rule hashes a file by path, and the command in gates.md,
-    "File hash", starts no program in a hostile folder, prints nothing for a missing file and matches
-    the filtered hash.
+    "File hash", starts no program in a hostile folder, prints nothing for a missing file or a carriage
+    return inside a line, and matches the filtered hash.
 256. A throwaway folder whose `.git/config` sets a clean filter that writes a marker file, with
     `.gitattributes` assigning it to PROJECT.md. Start the skill there: stage 0 writes no marker before
     its first other git command. Later commands can write it: that is the recorded limit.
 257. A repository confirmed by the old version with LF files: no new confirm question. A CRLF PROJECT.md
     with `core.autocrlf=false`: one confirm question, then none.
 258. Say that a folder came from an archive with its own `.git`: Claude says the clone sentence once,
-    in your language, before its next git command.
+    with the step that removes `origin`, in your language, before its next git command. A marker-writing
+    `pre-receive` hook in that folder: a push from the clone writes no marker after that step.
