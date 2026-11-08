@@ -143,10 +143,10 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Decision 2026-10-27 (maintainer): evals are unparked. A `claude plugin eval` suite runs before
   each minor release, with a cost estimate first; never as a blocking check on every commit.
   The suite is in `evals/`. Run it with
-  `claude plugin eval . --runs 1 -j 4 --max-cost-usd 10 --no-publish --scaffold --allow-tools Edit Write`
+  `claude plugin eval . --runs 1 -j 4 --max-cost-usd 12 --judge-model sonnet --no-publish --scaffold --allow-tools Edit Write`
   (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
   `--ablation none`, half the runs)
-  (22 cases; 19 cases with `--runs 1` used about $8.2 to $8.4 of plan usage on 2026-11-04; use `--max-cost-usd 10`). This repository
+  (22 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -235,7 +235,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   high-risk diff still waits for the maintainer's diff read. A merge to main deploys (marketplace
   installs follow main); the tag runs right after it when the version is higher. A minor version
   shows the eval cost in the BRIEF (tokens and agent runs on a subscription; the dollar amount is
-  only the `--max-cost-usd 10` cap), stops there for the maintainer's own typed go, and puts the
+  only the `--max-cost-usd 12` cap), stops there for the maintainer's own typed go, and puts the
   eval result in the CHANGELOG before the diff read. A run that hits the cap stops; a failed or
   noisy case is reported as it is, with no silent retry.
 - Decision 2026-11-05 (maintainer): keep the repository private for now ("Ja, privé houden"); the
@@ -267,6 +267,16 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   Medium or higher per round, and each `Extra reviewer` and `Security reviewer not re-run` line. A problem of severity Medium or higher
   found after stage 5 (diff read, CI, after the merge), in an area where a run was dropped, is an
   incident (learning.md); then reconsider this decision.
+- Decision 2026-11-08 (maintainer): the eval command uses `--judge-model sonnet` and
+  `--max-cost-usd 12`. It extends decision 2026-10-27. The default judge failed correct messages.
+  Evidence on 2.29.0, one suite run per judge, on 2026-11-06 and 2026-11-08: `direction-interview`
+  went from FFF to PPP; all 60 votes without the plugin stayed the same and the same 14 cases fail;
+  the judge cost went from $0.31 to $0.93, the run from $9.13 to $9.81. Limits: each judge read its
+  own agent messages, sonnet split once (`quick-lane-small-fix`, FPP, which passes), and the case
+  `states-report-first` from 2.30.0 was not in the comparison. Scores up to 2.30.0 come from the
+  default judge: name the judge when you compare with them. The placeholder commands in `README.md`
+  and `TESTING.md` have no judge flag, so they use the default judge. The `--runs 3` figure is older
+  and not measured with this judge. `evals-models/` is not part of this.
 - Decision 2026-11-08 (maintainer): find hidden states (2.30.0): a read-only mode that finds hidden
   states in code and written rules, and ends with numbered actions. The lead reads, with no agent run
   (R6), as in direction and UI mode (2026-11-05), so nothing checks the findings until an action
