@@ -272,11 +272,12 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   (R6), as in direction and UI mode (2026-11-05), so nothing checks the findings until an action
   starts the pipeline. It saves no review runs. Only the argument starts it, and it runs no git command,
   so a folder's own git config starts no program and cannot forge a confirmation. So no text in the
-  repository silences a finding; a recorded decision only adds a note. It is not a weekly step, because
+  repository silences a finding; a recorded decision only adds a note, and a deliberate choice with a
+  failing scenario comes back on each run (the known cost). It is not a weekly step, because
   a full scan each week repeats itself. Evidence: one audit with a pasted prompt on this
   repository, which found a rule contradiction that the weekly review and drift mode cannot find. A
   thin baseline. Measuring point: the next three uses record how many actions the user started and how
-  many findings proved false; then reconsider this decision.
+  many findings proved false or were deliberate choices; then reconsider this decision.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

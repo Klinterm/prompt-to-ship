@@ -212,8 +212,8 @@ review runs with your session in that browser, and it offers screenshots first.
 
 Some things move between a few conditions, such as an order that goes from paid to shipped, and
 nobody wrote those conditions down. Each place then decides for itself, and sooner or later two
-places disagree. Type
-`/prompt-to-ship states [path]` to find these places, in code in any language and in written rules.
+places disagree. Type `/prompt-to-ship states [path]` to find these places, in code in any language
+and in written rules.
 The review changes no code, starts no agents and runs no project code or git command. You get numbered
 actions, each with the lines and the case that goes wrong:
 
@@ -237,7 +237,7 @@ Found: 3 hidden states: 1 leave as-is, 1 tidy up, 1 write the states down. Not r
 Leave as-is: job retry, src/jobs.py:40, one flag with one reader.
 
 Reply 1 or 2 to start that action, for example 1 and 2 together.
-A number starts the normal flow, with the brief first. At your autonomy level it may go on without another question, unless a gate stops it. To wait at each stop, add "do this one manually".
+A number starts the normal flow, with the brief first. If your autonomy level is above ask, it may go on without another question, unless a gate stops it. To wait at each stop, add "do this one manually".
 ```
 
 Only the word `states` starts this review. It is based on reading, so test a case before you rely

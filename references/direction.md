@@ -134,7 +134,8 @@ The yes for the note is never a go on a plan, a push, a merge or a release.
 The one home for how a reply starts the pipeline, in this mode, in ui.md and in states.md. A step is
 a next step in the DIRECTION block, a numbered fix in ui.md, or a numbered action in states.md.
 
-The level lines, only when the effective level is above `ask`. Name its end point (a change request,
+The level lines (states.md does not read the level and has its own fixed line), only when the
+effective level is above `ask`. Name its end point (a change request,
 a merge or a release):
 
 ```

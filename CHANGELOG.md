@@ -13,7 +13,9 @@ Find hidden states: `/prompt-to-ship states [path]`.
   normal pipeline through `references/direction.md`, "Starting a step".
 - Only the argument starts it. Nothing in the repository can silence a finding: a case that goes wrong
   stays an action, and a written decision only adds a note for the user.
-- What it does not do: it proves nothing by running, and it saves no review runs. The evidence is one
+- What it does not do: it proves nothing by running, and it saves no review runs. A deliberate choice
+  with a failing scenario comes back as an action on each run: that is the known cost of letting
+  nothing silence a finding. The evidence is one
   audit with a pasted prompt on this repository. That is a thin baseline.
 - Eval: EVAL_RESULT
 

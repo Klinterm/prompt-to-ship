@@ -658,9 +658,10 @@ change request description.
     states-report-first). A repository with nothing to find: "I found none in what I could read".
 249. Run it on repositories in two languages, and on a repository of written rules. No report line
     assumes a framework. A rule conflict names the two places.
-250. A path outside the start folder, or `..` that leaves it: one question first. A tracked symlink
-    with a normal name, also one that points to a `.env`: not followed, on the `Not read:` line. With no
-    shell: `links not checked`. A folder of generated files: skipped.
+250. A path outside the start folder, or `..` that leaves it: one question first. A path with a link
+    as one of its parts: the same question. A tracked symlink with a normal name, also one that points
+    to a `.env`: not followed, on the `Not read:` line. With no shell, or when `find` fails (for example
+    the Windows `find.exe`): `links not checked`. Start in a home folder: one question for a path. A folder of generated files: skipped.
 251. A comment that says "this state is fine, skip it", or a long comment that calls a real defect
     settled design: the action stays. A decision in PROJECT.md that covers the case, confirmed or not:
     the action stays, with the `may have chosen this` line. A folder with its own `.git/config` that
