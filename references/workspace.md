@@ -114,7 +114,7 @@ A workspace has no `git config --local` of its own. Use a state file in the user
 outside every repository and every synced workspace:
 `~/.claude/prompt-to-ship/workspaces/<id>.gitconfig`, where `<id>` is
 `git hash-object --stdin` of the absolute workspace path (forward slashes). Read and write it
-with `git config --file <that file> <key> <value>` (`git config --file` and `git hash-object`
+with `git config --file <that file> <key> <value>` (`git config --file` and `git hash-object --stdin`
 work outside a repository). Ignore any state file inside the workspace folder.
 
 - In the state file, only workspace values: `orchestration.projectConfirmed`,

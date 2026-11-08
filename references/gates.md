@@ -196,3 +196,55 @@ workspace folder path, and its state file holds the keys). At stage 0, compare. 
 missing file: store it silently (a new clone asks nothing). A difference: show the changed keys
 and ask before using them. This detects a change between tasks; it is not a boundary, because
 anything that runs as the user can write both places.
+
+## File hash
+
+Every stored hash of a file comes from this one command, in bash (Git Bash on Windows), with `f` set
+to the path:
+
+```bash
+[ -f "$f" ] && ! LC_ALL=C grep -q $'\r.' < "$f" && tr -d '\r' < "$f" | git hash-object --stdin
+```
+
+It holds for `orchestration.projectConfirmed`, `orchestration.domainConfirmed`,
+`orchestration.debugConfirmed`, `orchestration.rulesConfirmed` and each agent hash in "Role cover"
+(existing-pipeline.md).
+- Never give `hash-object` a path. With a path it applies the clean filter that `.gitattributes`
+  names, and a folder's own git config can make that filter a program. Standard input runs no filter.
+- Set `f` as a quoted value. A path from repository text with a quote, a `$`, a backtick, a line
+  break or a carriage return gets no hash.
+- `tr` removes carriage returns, so a CRLF checkout keeps the value that git stores for the file. A
+  change of only the carriage returns at line ends is not a difference. This is intended. A carriage
+  return inside a line can split that line for some readers, so such a file gets no hash.
+- No output counts as a difference: a missing file, a blocked path, a carriage return inside a line,
+  or no bash. So does the empty hash `e69de29bb2d1d6434b8b29ae775ad8c2e48c5391`, which a failed read
+  gives: never store it. The user is then asked each time, which is the safe fallback. A rule with
+  its own meaning for a missing file keeps it.
+- A hash stored by an older version differs once for a CRLF file with `core.autocrlf=false`, or for a
+  file with another filter such as `ident`. That gives the normal question.
+
+## A folder with its own git config
+
+A folder that arrives with its own `.git` (an archive, a shared drive, a copied folder, not a clone)
+is not a boundary. This is an accepted limit:
+- Its config can make git start a program. Measured for `git status`, `git diff HEAD` and `git blame`,
+  with only two config keys. Other commands, keys and its hooks can do the same, so this is no list of
+  safe commands. The `git` manual, section SECURITY, says the same.
+- Its config can hold every state key, also a matching confirmation and an autonomy level. In such a
+  folder, the confirmation is no boundary.
+- The pipeline does not detect this. A list of dangerous config keys is never complete, so there is
+  none. "File hash" removes only the confirmation check itself as a program starter.
+- `safe.directory` does not help for a folder that you own, such as an extracted archive (the same
+  manual section).
+- Unknown: whether the host's own git command at session start runs the program.
+
+When the user says a folder arrived this way, say this once, in the user's language, before your
+next git command: "This folder has its own git settings. Git can start programs from them, and the
+confirmations in it cannot be trusted. Run `git clone --no-local <folder> <new folder>`, then
+`git -C <new folder> remote remove origin`, and work in the new folder."
+- A clone takes no config and no hooks from that folder. The clone step itself still reads that
+  repository, and the same manual section says this carries some risk. Its `origin` still points
+  there, and a push to it runs that folder's hooks (measured), so remove `origin` first.
+- A clone can still hold tracked files that form a bare repository in a subfolder. Started inside that
+  subfolder, git reads their config as the repository config (measured for a state key). Start from
+  the repository root.

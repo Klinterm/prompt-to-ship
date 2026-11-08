@@ -635,6 +635,11 @@ this line. Keep it in the shared project file.
   the git history commands itself and gives them the output. An agent that needs more asks for a
   plain git command, and Claude shows you anything else first. So text in your code cannot make a
   reviewer run a command.
+- **A folder with its own git settings is not protected.** A folder that reaches you with its own
+  `.git` folder (an archive, a shared drive, a copied folder) can make git start a program, and it
+  can hold a false confirmation. Claude does not detect this. Clone such a folder first:
+  `git clone --no-local <folder> <new folder>`, then `git -C <new folder> remote remove origin`. Then
+  work in the new folder.
 - **Learning.** A mistake that gets through gives a lesson. A lesson that passes the test and your
   yes becomes a check at the step that should have caught it. Checks that stop paying off are retired.
 

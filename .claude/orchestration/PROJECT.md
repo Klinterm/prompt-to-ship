@@ -289,6 +289,15 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   repository, which found a rule contradiction that the weekly review and drift mode cannot find. A
   thin baseline. Measuring point: the next three uses record how many actions the user started and how
   many findings proved false or were deliberate choices; then reconsider this decision.
+- Decision 2026-11-08 (maintainer's words: "Fix hash, record limit", "Accept, build it"): every stored
+  file hash comes from one command with no filter (2.30.1; gates.md, "File hash"). A folder delivered
+  with its own `.git` stays an accepted limit, with no detection: its config can start a program at
+  git commands such as `git status`, `git diff HEAD` or `git blame`, and it can hold a false
+  confirmation and level. The way out is a clone without `origin`. Evidence: a measured matrix with two
+  config keys on one machine (git 2.53, Windows), and the `git` manual, section SECURITY. `git check-attr`
+  first was rejected, because it starts `core.fsmonitor`. Added after the maintainer's words, as facts
+  from the review: a file with a carriage return inside a line gets no hash, and a clone can hold a
+  tracked bare repository in a subfolder. Unknown: the host's own git command at session start.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
