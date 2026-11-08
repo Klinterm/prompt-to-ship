@@ -18,7 +18,11 @@ Find hidden states: `/prompt-to-ship states [path]`.
   nothing silence a finding. With no command it cannot list links, so every report says "links not
   checked", and a link with a normal name can bring a file from another place into the session. The evidence is one
   audit with a pasted prompt on this repository. That is a thin baseline.
-- Eval: EVAL_RESULT
+- Eval (--runs 1, 22 cases, on the commit before the last review fix): mean with the plugin 0.98, mean
+  difference +0.45. Twenty cases 1.00; direction-interview 0.80 on its llm judge, and ui-review-first
+  0.83 on its names-a-rule grader, the same two as in 2.29.0. After that fix, only the new case
+  states-report-first ran again: 1.00 with the plugin, 0.50 without. It uses about $9.45 of plan usage.
+  The case has no shell and one turn, so it does not reach a numbered reply.
 
 ## 2.29.0
 
