@@ -295,8 +295,9 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   git commands such as `git status`, `git diff HEAD` or `git blame`, and it can hold a false
   confirmation and level. The way out is a clone without `origin`. Evidence: a measured matrix with two
   config keys on one machine (git 2.53, Windows), and the `git` manual, section SECURITY. `git check-attr`
-  first was rejected, because it starts `core.fsmonitor`. Unknown: `safe.directory` on an extracted
-  archive, and the host's own git command at session start.
+  first was rejected, because it starts `core.fsmonitor`. Added after the maintainer's words, as facts
+  from the review: a file with a carriage return inside a line gets no hash, and a clone can hold a
+  tracked bare repository in a subfolder. Unknown: the host's own git command at session start.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

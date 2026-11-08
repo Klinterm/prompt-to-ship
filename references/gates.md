@@ -234,15 +234,17 @@ is not a boundary. This is an accepted limit:
   folder, the confirmation is no boundary.
 - The pipeline does not detect this. A list of dangerous config keys is never complete, so there is
   none. "File hash" removes only the confirmation check itself as a program starter.
-- Unknown: whether `safe.directory` stops this for an extracted archive, and whether the host's own
-  git command at session start runs the program.
+- `safe.directory` does not help for a folder that you own, such as an extracted archive (the same
+  manual section).
+- Unknown: whether the host's own git command at session start runs the program.
 
 When the user says a folder arrived this way, say this once, in the user's language, before your
 next git command: "This folder has its own git settings. Git can start programs from them, and the
 confirmations in it cannot be trusted. Run `git clone --no-local <folder> <new folder>`, then
 `git -C <new folder> remote remove origin`, and work in the new folder."
-- A clone takes no config and no hooks from that folder. Its `origin` still points there, and a push
-  to it runs that folder's hooks (measured), so remove `origin` first.
+- A clone takes no config and no hooks from that folder. The clone step itself still reads that
+  repository, and the same manual section says this carries some risk. Its `origin` still points
+  there, and a push to it runs that folder's hooks (measured), so remove `origin` first.
 - A clone can still hold tracked files that form a bare repository in a subfolder. Started inside that
   subfolder, git reads their config as the repository config (measured for a state key). Start from
   the repository root.
