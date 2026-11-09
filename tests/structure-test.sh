@@ -14,12 +14,72 @@
 # h. Without a root argument: the command in gates.md, "File hash", runs against a hostile folder.
 #    It starts no program, prints nothing for a missing file or a carriage return inside a line,
 #    and matches the filtered hash. gates.md names the empty hash that a failed read gives.
+# i. Without a root argument: the check in h changes no other repository, with inherited GIT_*
+#    variables and with a failed git init inside a repository. This covers the git calls of this
+#    test only, not the gates.md command in real use.
 # Without a root argument it first proves itself: a planted broken reference, a planted broken
 # Read-when row, a planted 501-character description and a planted hash by path in a temp copy
 # must make it fail.
 root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
 fail=0
 err() { echo "FAIL: $*"; fail=1; }
+
+# Call only in a subshell. A git hook sets GIT_DIR, and that variable sends git config to the real
+# repository. GIT_TRACE can append to any file. So this unsets every GIT_* name, with no git call.
+isolate_git() {
+  for v in $(compgen -e); do
+    case "$v" in GIT_*) unset "$v" ;; esac
+  done
+  export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
+}
+
+new_repo() {
+  ( isolate_git; git init -q "$1" ) >/dev/null 2>&1
+  [ -f "$1/.git/config" ] || err "test setup: git init made no repository at $1"
+}
+
+repo_state() { cat "$1/.git/config"; ls -A "$1/.git"; }
+
+# The check of section h. It prints a line for each problem, and nothing when all is well.
+hash_check() {
+  (
+    h="$1"
+    mkdir -p "$h"
+    cd "$h" || exit 1
+    isolate_git
+    git init -q . || { echo "git init failed. The check stopped before it wrote any config."; exit 1; }
+    [ "$(git rev-parse --git-dir)" = .git ] \
+      || { echo "git uses another repository. The check stopped before it wrote any config."; exit 1; }
+    printf 'one\ntwo\n' > lf.md
+    printf 'one\r\ntwo\r\n' > crlf.md
+    echo '*.md filter=probe' > .gitattributes
+    git config filter.probe.clean "sh -c 'echo x > \"$h/filter.mark\"; cat'"
+    git config core.fsmonitor "sh -c 'echo x > \"$h/monitor.mark\"; exit 1'"
+    git hash-object lf.md >/dev/null 2>&1
+    [ -e filter.mark ] || echo "the hostile filter did not run, so this check proves nothing"
+    git status --short >/dev/null 2>&1
+    [ -e monitor.mark ] || echo "the hostile core.fsmonitor did not run, so this check proves nothing"
+    rm -f filter.mark monitor.mark
+    f=lf.md bash -c "$cmd" >/dev/null 2>&1
+    [ -e filter.mark ] && echo "the file hash started the filter"
+    [ -e monitor.mark ] && echo "the file hash started core.fsmonitor"
+    out=$(f=missing.md bash -c "$cmd" 2>/dev/null)
+    [ -z "$out" ] || echo "a missing file gave a hash: $out"
+    printf 'a\rb\n' > lone.md
+    out=$(f=lone.md bash -c "$cmd" 2>/dev/null)
+    [ -z "$out" ] || echo "a carriage return inside a line gave a hash: $out"
+    rm -f lone.md
+    rm -f .gitattributes
+    git config --unset filter.probe.clean
+    git config --unset core.fsmonitor
+    git config core.autocrlf true
+    for n in lf.md crlf.md; do
+      a=$(git hash-object "$n" 2>/dev/null)
+      b=$(f="$n" bash -c "$cmd" 2>/dev/null)
+      [ "$a" = "$b" ] || echo "$n: file hash $b differs from filtered hash $a"
+    done
+  )
+}
 
 if [ -z "$1" ]; then
   tmp=$(mktemp -d) && [ -d "$tmp" ] || { echo "FAIL: no temp folder"; exit 1; }
@@ -154,44 +214,38 @@ if [ -z "$1" ]; then
   if [ -z "$cmd" ]; then
     err 'gates.md, "File hash", has no hash command'
   else
-    h="$tmp/hostile"
-    mkdir -p "$h"
-    (
-      cd "$h" || exit 1
-      export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
-      git init -q .
-      printf 'one\ntwo\n' > lf.md
-      printf 'one\r\ntwo\r\n' > crlf.md
-      echo '*.md filter=probe' > .gitattributes
-      git config filter.probe.clean "sh -c 'echo x > \"$h/filter.mark\"; cat'"
-      git config core.fsmonitor "sh -c 'echo x > \"$h/monitor.mark\"; exit 1'"
-      git hash-object lf.md >/dev/null 2>&1
-      [ -e filter.mark ] || echo "the hostile filter did not run, so this check proves nothing"
-      git status --short >/dev/null 2>&1
-      [ -e monitor.mark ] || echo "the hostile core.fsmonitor did not run, so this check proves nothing"
-      rm -f filter.mark monitor.mark
-      f=lf.md bash -c "$cmd" >/dev/null 2>&1
-      [ -e filter.mark ] && echo "the file hash started the filter"
-      [ -e monitor.mark ] && echo "the file hash started core.fsmonitor"
-      out=$(f=missing.md bash -c "$cmd" 2>/dev/null)
-      [ -z "$out" ] || echo "a missing file gave a hash: $out"
-      printf 'a\rb\n' > lone.md
-      out=$(f=lone.md bash -c "$cmd" 2>/dev/null)
-      [ -z "$out" ] || echo "a carriage return inside a line gave a hash: $out"
-      rm -f lone.md
-      rm -f .gitattributes
-      git config --unset filter.probe.clean
-      git config --unset core.fsmonitor
-      git config core.autocrlf true
-      for n in lf.md crlf.md; do
-        a=$(git hash-object "$n" 2>/dev/null)
-        b=$(f="$n" bash -c "$cmd" 2>/dev/null)
-        [ "$a" = "$b" ] || echo "$n: file hash $b differs from filtered hash $a"
-      done
-    ) > "$tmp/hostile.out" 2>&1
+    hash_check "$tmp/hostile" > "$tmp/hostile.out" 2>&1
     while IFS= read -r line; do
       [ -n "$line" ] && err "file hash: $line"
     done < "$tmp/hostile.out"
+
+    # i. Inherited GIT_* variables. Each path is absolute, because the check changes folder. Export
+    # them, as a git hook does: with VAR=x before a function name, unset brings back the older value.
+    t="$tmp/target"
+    new_repo "$t"
+    before=$(repo_state "$t")
+    (
+      export GIT_DIR="$t/.git" GIT_WORK_TREE="$t" GIT_INDEX_FILE="$t/.git/planted-index"
+      export GIT_CONFIG_PARAMETERS="'core.autocrlf=false'" GIT_CONFIG_COUNT=1
+      export GIT_CONFIG_KEY_0=core.autocrlf GIT_CONFIG_VALUE_0=false GIT_TRACE="$t/.git/config"
+      hash_check "$tmp/env-check"
+    ) > "$tmp/env.out" 2>&1
+    while IFS= read -r line; do
+      [ -n "$line" ] && err "git environment: the check printed: $line"
+    done < "$tmp/env.out"
+    [ "$before" = "$(repo_state "$t")" ] || err "git environment: the target repository changed"
+
+    # i. A failed git init inside a repository. A plain file named refs makes git init fail and
+    # leaves no valid .git, so git would use the outer repository.
+    o="$tmp/outer"
+    new_repo "$o"
+    mkdir -p "$o/inner/.git"
+    : > "$o/inner/.git/refs"
+    before=$(repo_state "$o")
+    hash_check "$o/inner" > "$tmp/init.out" 2>&1
+    grep -Fq 'git init failed.' "$tmp/init.out" \
+      || err "failed git init: git init did not fail. This check proves nothing."
+    [ "$before" = "$(repo_state "$o")" ] || err "failed git init: the outer repository changed"
   fi
 fi
 
