@@ -298,6 +298,13 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   first was rejected, because it starts `core.fsmonitor`. Added after the maintainer's words, as facts
   from the review: a file with a carriage return inside a line gets no hash, and a clone can hold a
   tracked bare repository in a subfolder. Unknown: the host's own git command at session start.
+- Decision 2026-11-09 (maintainer's words: "Record as accepted limit"): the Checks line runs two
+  tracked scripts, and this stays an accepted limit. The confirmed PROJECT.md hash covers the command
+  text, not what the scripts do. A changed `tests/` script, or a changed file hash command in
+  `references/gates.md` that `tests/structure-test.sh` runs, runs as the local user with no new
+  question, also before the review. Any test command in any project has the same property. Rejected:
+  `tests/` and `references/gates.md` in the high risk row, because it adds a stop to every test
+  change. Evidence: the security review in PR 16 (finding CMD-001), from reading only, not run.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
