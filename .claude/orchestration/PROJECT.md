@@ -135,6 +135,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Generic: no company, product, customer or stack names in shipped files. One recorded exception:
   the design gallery that setup suggests (decision 2026-10-29).
 - The plugin name, the folder name, the agent prefixes in `SKILL.md` and the README must match.
+- Extra forced-high paths (gates.md): `references/gates.md`, `hooks/**`.
 
 ## Documents, decisions and parked items
 - `.claude/CLAUDE.md`: rules for working on this repository and the open items before release.
@@ -298,19 +299,21 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   first was rejected, because it starts `core.fsmonitor`. Added after the maintainer's words, as facts
   from the review: a file with a carriage return inside a line gets no hash, and a clone can hold a
   tracked bare repository in a subfolder. Unknown: the host's own git command at session start.
-- Decision 2026-11-09 (maintainer's words: "Record as accepted limit", "Make gates.md high risk"):
-  the Checks line runs two tracked scripts, and the timing of that run stays an accepted limit. The
-  confirmed PROJECT.md hash covers the command text, not what runs. These changed files run as the
-  local user with no new question, at stage 4, before the review: `tests/reminder-test.sh`, the
-  `hooks/reminder.sh` that it runs, `tests/structure-test.sh`, and the file hash command in
-  `references/gates.md` that it runs. CI names both scripts, so gates.md makes them forced high. The
-  risk table makes the hook and `references/gates.md` high risk; before this decision a change to the
-  hash command alone was Normal, with no diff read by the user. For all four files the diff read comes
-  at stage 6, after the local run, so it does not close the limit. Any test command in any project has
-  the same property. Rejected: all of `tests/` in the high risk row, because the two scripts that run
-  are already forced high. Added after the first words, as facts from the review: the forced-high
-  paths, the hook and this reason for the rejection. Evidence: the security reviews of this line and
-  in PR 16 (finding CMD-001), from reading only, not run.
+- Decision 2026-11-09 (maintainer's words: "Record as accepted limit", "Make gates.md high risk",
+  "Yes, do it here" to forced-high paths for both files): the Checks line runs two tracked scripts,
+  and the timing of that run stays an accepted limit. The confirmed PROJECT.md hash covers the command
+  text, not what runs. These changed files run as the local user with no new question, at stage 4,
+  before the review: `tests/reminder-test.sh`, the `hooks/reminder.sh` that it runs,
+  `tests/structure-test.sh`, and the file hash command in `references/gates.md` that it runs. The CI
+  rule in `references/gates.md` makes both scripts forced high. House rules add `references/gates.md`
+  and `hooks/**` as forced-high paths, because a row in the risk table has no check on the diff. Before
+  2026-11-09 a change to the hash command alone was Normal, with no diff read by the user. For all four
+  files the diff read comes at stage 6, after the local run, so it does not close the limit.
+  `.claude-plugin/plugin.json` needs no new line: it is already forced high as the version file. Any
+  test command in any project has the same property. Rejected: all of `tests/` in the high risk row,
+  because the two scripts that run are already forced high. Added after the first words, as facts from
+  the review: the CI rule, the hook, the version file and this reason for the rejection. Evidence: the
+  security reviews of this line and in PRs 16 and 17, from reading only, not run.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
