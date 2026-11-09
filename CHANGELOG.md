@@ -14,11 +14,12 @@ The repository is public: no invitation and no git sign-in.
 - "update" takes the fallback when TLS checking is off for this address, with any false value, or
   when `GIT_SSL_NO_VERIFY` is set, and it says so. The old text said such a fetch fails; it could
   succeed.
-- The weekly review does not read the title, description, diff or run names of an outside change
-  request itself: one from a fork, or from an author with no write access. Its list shows fixed
-  fields only, and only the security reviewer, which has no shell, reads that diff. This is older
-  than the public repository, and going public made it reachable by anyone. This rests on rules for
-  the lead, and no run has tested it. `direction` still reads open titles, under its data rule.
+- The weekly review reads only a change request that is merged or comes from a branch in the
+  repository itself. Any other shows as a number and a login, and only the security reviewer, which
+  has no shell, reads an open one's diff. Lists show fixed fields, and CI covers the target branch.
+  This gap is older than the public repository; going public made it reachable by anyone. This rests
+  on rules for the lead, and no run with a real fork has tested it. The author of a merged fork
+  request can still edit its text, and the review reads that text.
 - No eval run: a patch, and the eval does not reach the update fetch.
 
 ## 2.30.1

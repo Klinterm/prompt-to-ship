@@ -79,8 +79,8 @@ line, "The update did not finish.", never git's error output, then "Update by ha
 fallback command, and go on with the request on the installed version.
 
 Fallback (a marketplace install, or a condition that fails): run nothing. Show the commands for the
-user to type. When the TLS condition above failed, first say this fixed line: "TLS checking is off
-for this address on this computer, so the commands below do not check the server." A marketplace
+user to type. When the TLS condition above failed, first say this fixed line: "TLS checking may be
+off for this address on this computer, so the commands below may not check the server." A marketplace
 install:
 `/plugin marketplace update prompt-to-ship`. A clone, in the skill folder:
 `git fetch origin tag vX.Y.Z`

@@ -36,10 +36,15 @@ further or say so in the report.
 |---|---|---|
 | Open | `gh pr create --base <target> --head <branch> --title "$(cat "<title file>")" --body-file "<file>"` | `glab mr create --target-branch <target> --source-branch <branch> --title "$(cat "<title file>")" --description "$(cat "<file>")"` |
 | Merged? | `gh pr view <n> --json state,mergedAt` | `glab mr view <n>` (state "merged") |
-| List last 7 days | `gh pr list --state all --limit 200 --search "updated:>=<YYYY-MM-DD>" --json number,author,state,updatedAt,isCrossRepository` | `glab api --paginate "projects/:id/merge_requests?state=all&updated_after=<YYYY-MM-DD>T00:00:00Z&per_page=100"` |
+| List last 7 days | `gh pr list --state all --limit 200 --search "updated:>=<YYYY-MM-DD>" --json number,author,state,updatedAt,isCrossRepository --jq '.[] \| [.number, .author.login, .state, .updatedAt, .isCrossRepository] \| @tsv'` | `glab api --paginate "projects/:id/merge_requests?state=all&updated_after=<YYYY-MM-DD>T00:00:00Z&per_page=100"` |
+| Runs on the target | `gh run list --branch <target> --event push --json databaseId,conclusion,workflowName,createdAt --jq '.[] \| [.databaseId, .conclusion, .workflowName, .createdAt] \| @tsv'` | `glab ci status --branch <target>` |
 | CI status | `gh pr checks <n>` | `glab ci status --branch <branch>` |
 | Wait for CI | `gh pr checks <n> --watch` (stop it after `ciWaitMinutes`) | `glab ci status --branch <branch>` again every minute, up to `ciWaitMinutes` |
 | Merge (levels `merge`, `release`; only `release` when the target deploys on merge) | `gh pr merge <n> --merge` or `--squash`, as the repository allows (not `--rebase`: one revert must undo it), always with `--match-head-commit <reviewed sha>` | `glab mr merge <n> --yes --sha <reviewed sha>`, with the "merge when pipeline succeeds" or auto-merge option off (check `glab mr merge --help`): the merge must happen now |
+
+The GitLab list returns whole objects with their text. Print only `iid`, `author.username`, `state`,
+`updated_at`, and whether `source_project_id` equals `target_project_id`; without a filter for that,
+use **none**.
 
 Other hosts: use the tool below. Check its `--help` before the first use in a task, and ask the
 user when a flag is unclear. Never guess a command that writes to the host.
