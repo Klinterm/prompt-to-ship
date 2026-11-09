@@ -13,8 +13,8 @@ Goal: an orchestration layer that anyone can use in any repository, whatever the
 stack or the code host.
 
 Success, as checks:
-1. A user installs it in under five minutes from the README, on macOS, Linux or Windows (for
-   invited users once read access is granted, while the repository is private).
+1. A user installs it in under five minutes from the README, on macOS, Linux or Windows, with no
+   invitation and no git sign-in.
 2. Setup produces a correct PROJECT.md for a repository in any language without manual edits to
    the skill.
 3. The pipeline works with GitHub, GitLab, Bitbucket, Azure DevOps, Gitea or Forgejo, Gerrit, and
@@ -23,8 +23,8 @@ Success, as checks:
    the user calls it or the repository opted in (its daily version check runs only then).
 5. No file in the shipped skill names a company, product, customer or stack of a user.
 
-Stage: working prototype, before the first public release; the repository is private for now (by
-invitation).
+Stage: working prototype. The repository is public; the acceptance test (TESTING.md) is not complete
+yet.
 
 ## Requirements
 - R1 Host neutral. Every host action (open a change request, read its status, list change requests, read CI)
@@ -44,7 +44,7 @@ invitation).
   repository. A team may cap it in PROJECT.md. Fixed gates stop every level.
 - R6 Cheap where possible. Low-risk changes keep the review light. Costly runs get an estimate first.
 - R7 Two install paths: copy or clone into a skills folder, or add the repository as a plugin
-  marketplace. While the repository is private, both need read access and a git sign-in.
+  marketplace. Neither needs an invitation or a git sign-in.
 - R8 Every behaviour change bumps the version in `plugin.json` and gets a CHANGELOG line.
 
 ## Users and roles
@@ -59,8 +59,7 @@ What the user reads in the chat: the BRIEF, the plan verdicts, the setup questio
 request description, the weekly report. Also the README.
 
 ## Website and public presence
-https://github.com/Klinterm/prompt-to-ship, private for now. The README is the home page for
-invited users.
+https://github.com/Klinterm/prompt-to-ship, public. The README is the home page.
 
 ## Modules and scope
 - `SKILL.md`: the orchestrator. Short.
@@ -298,14 +297,18 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   first was rejected, because it starts `core.fsmonitor`. Added after the maintainer's words, as facts
   from the review: a file with a carriage return inside a line gets no hash, and a clone can hold a
   tracked bare repository in a subfolder. Unknown: the host's own git command at session start.
+- Decision 2026-11-09 (maintainer): the repository is public, and someone will promote it. This
+  replaces decision 2026-11-05 ("Yes, fix it" to making all text say public). The daily check and the
+  update fetch send no credentials again, as in decision 2026-11-01, because a public repository
+  needs none. The README stays "working prototype" until TESTING.md has run.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
 The hook runs a fixed bash script on every prompt for every user. It must stay read-only and
 offline: it prints fixed text and, from the local version cache, one line with checked numbers
 only. It starts no program but grep, cat and at most one date. The reviewer agents have no shell. Reviewers must never execute project code.
-The daily version check (references/update.md) may use the user's own git credential helper,
-read-only, for the fixed https address only; it never prompts and stores or prints no token.
+The daily version check and the update fetch (references/update.md) send no credentials, to the
+fixed https address only; they never prompt and store or print no token.
 
 ## Learning
 Incidents and rules: `.claude/orchestration/incidents.md` and `rules.md` (rules.md appears at the

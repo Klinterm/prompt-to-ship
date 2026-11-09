@@ -36,9 +36,10 @@ it is not shipped as part of the plugin root.
 - The plugin name, the folder name, the agent prefixes in `SKILL.md` and the README must match.
 - Check with `claude plugin validate .` before a release.
 
-## Open items before the first public release
+## Open items before wider promotion
 
-The repository is private for now (decision 2026-11-05).
+The repository is public (decision 2026-11-09). The README status stays "working prototype" until
+item 1 is done.
 
 1. Run `TESTING.md` in fresh sessions (both install paths, the hook, setup on two ecosystems,
    a change with and without a code host, the weekly review, the autonomy levels).

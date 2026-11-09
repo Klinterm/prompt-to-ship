@@ -2,6 +2,15 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.30.2
+
+The repository is public: no invitation and no git sign-in.
+- The README install steps need no read access any more. Only the note for way A with no SSH key
+  stays. The acceptance test is still not complete, so the README status stays "working prototype".
+- The daily version check and the update fetch send no credentials. Existing installs now update
+  without a sign-in. This replaces the credential helper of 2.26.0.
+- No eval run: a patch, and the eval does not reach the update fetch.
+
 ## 2.30.1
 
 The confirmation check no longer starts a program from a folder's own git config.

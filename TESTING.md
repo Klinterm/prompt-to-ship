@@ -349,9 +349,9 @@ change request description.
 
 ## Version check (2.19.0)
 
-137. No cache file: at the start the lead runs one `git ls-remote` (fixed address, 10 seconds,
-    the user's own credential helper, no prompt) and writes today's date and the latest version.
-    Offline or no access: silent, today's date stored.
+137. No cache file: at the start the lead runs one `git ls-remote` (fixed address, 10 seconds, no
+    credentials, no prompt) and writes today's date and the latest version. Offline: silent, today's
+    date stored.
 138. A cache file from today with a newer version: one line before the BRIEF with the release link;
     no network call. A cache with the same version: nothing is shown and update.md is not read.
 139. Reply "yes" to the BRIEF, or "do not update": no update. The offer shows once per conversation. Reply "update" in a clean clone on main with the exact
@@ -517,16 +517,16 @@ change request description.
 206. A later session after setup: a README URL that is not on the `Chosen websites:` line is not
     opened as a design reference; one on the line is.
 
-## Private repository (2.26.0)
+## Public repository (2.30.2)
 
-207. Signed in with read access (for example `gh auth setup-git`): the check reads the latest tag,
-    and no window opens.
-208. No credential helper or no access: the check stores the installed version and says nothing;
-    no window and no prompt.
-209. "update" in a clean skills-folder clone, signed in: fast-forward to the tag. Signed out: one
-    line with "Update by hand:", no prompt.
-210. Path A: `/plugin marketplace add Klinterm/prompt-to-ship` with read access and a git sign-in
-    installs; without access it fails with no password prompt.
+207. On a computer with no git sign-in: the check reads the latest tag, and no window opens. With a
+    credential helper set: the helper does not run.
+208. Offline: the check stores the installed version and says nothing; no window and no prompt.
+209. "update" in a clean skills-folder clone, also with no git sign-in: fast-forward to the tag. A
+    failed fetch: one line with "Update by hand:", no prompt.
+210. A stranger with no invitation follows the README on a clean computer: way A with
+    `/plugin marketplace add Klinterm/prompt-to-ship`, and way B, each in under five minutes. Way A
+    with no SSH key: the README note on `CLAUDE_CODE_PLUGIN_PREFER_HTTPS` is enough.
 211. A global `insteadOf` rule for the fixed address: the check stays silent and "update" takes
     the fallback.
 212. In the skills clone, a second `remote.origin.url` line, or a local `url.*`, `credential.*`,
