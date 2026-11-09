@@ -24,15 +24,18 @@ root="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
 fail=0
 err() { echo "FAIL: $*"; fail=1; }
 
-# Call only in a subshell. A git hook sets GIT_DIR, and that variable sends git config to the real repository.
+# Call only in a subshell. A git hook sets GIT_DIR, and that variable sends git config to the real
+# repository. GIT_TRACE can append to any file. So this unsets every GIT_* name, with no git call.
 isolate_git() {
-  unset GIT_TEMPLATE_DIR $(git rev-parse --local-env-vars)
+  for v in $(compgen -e); do
+    case "$v" in GIT_*) unset "$v" ;; esac
+  done
   export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
 }
 
 new_repo() {
   ( isolate_git; git init -q "$1" ) >/dev/null 2>&1
-  [ -f "$1/.git/config" ] || err "git init made no repository at $1"
+  [ -f "$1/.git/config" ] || err "test setup: git init made no repository at $1"
 }
 
 repo_state() { cat "$1/.git/config"; ls -A "$1/.git"; }
@@ -224,7 +227,7 @@ if [ -z "$1" ]; then
     (
       export GIT_DIR="$t/.git" GIT_WORK_TREE="$t" GIT_INDEX_FILE="$t/.git/planted-index"
       export GIT_CONFIG_PARAMETERS="'core.autocrlf=false'" GIT_CONFIG_COUNT=1
-      export GIT_CONFIG_KEY_0=core.autocrlf GIT_CONFIG_VALUE_0=false
+      export GIT_CONFIG_KEY_0=core.autocrlf GIT_CONFIG_VALUE_0=false GIT_TRACE="$t/.git/config"
       hash_check "$tmp/env-check"
     ) > "$tmp/env.out" 2>&1
     while IFS= read -r line; do
