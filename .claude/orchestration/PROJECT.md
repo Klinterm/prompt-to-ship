@@ -122,7 +122,7 @@ their own language.
 |---|---|
 | Low | wording in references and README that changes no behaviour (a change to a rule in references is Normal) |
 | Normal | a new stage rule, a new reference file, agent instructions |
-| High | the hook, the standing rules, the plugin manifest, anything about merges or secrets |
+| High | the hook, `references/gates.md`, the standing rules, the plugin manifest, anything about merges or secrets |
 
 ## House rules
 Autonomy limit: release (the maintainer's word on 2026-11-04; a high-risk diff still waits for the
@@ -298,6 +298,19 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   first was rejected, because it starts `core.fsmonitor`. Added after the maintainer's words, as facts
   from the review: a file with a carriage return inside a line gets no hash, and a clone can hold a
   tracked bare repository in a subfolder. Unknown: the host's own git command at session start.
+- Decision 2026-11-09 (maintainer's words: "Record as accepted limit", "Make gates.md high risk"):
+  the Checks line runs two tracked scripts, and the timing of that run stays an accepted limit. The
+  confirmed PROJECT.md hash covers the command text, not what runs. These changed files run as the
+  local user with no new question, at stage 4, before the review: `tests/reminder-test.sh`, the
+  `hooks/reminder.sh` that it runs, `tests/structure-test.sh`, and the file hash command in
+  `references/gates.md` that it runs. CI names both scripts, so gates.md makes them forced high. The
+  risk table makes the hook and `references/gates.md` high risk; before this decision a change to the
+  hash command alone was Normal, with no diff read by the user. For all four files the diff read comes
+  at stage 6, after the local run, so it does not close the limit. Any test command in any project has
+  the same property. Rejected: all of `tests/` in the high risk row, because the two scripts that run
+  are already forced high. Added after the first words, as facts from the review: the forced-high
+  paths, the hook and this reason for the rejection. Evidence: the security reviews of this line and
+  in PR 16 (finding CMD-001), from reading only, not run.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
