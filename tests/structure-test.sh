@@ -43,8 +43,10 @@ hash_check() {
     h="$1"
     mkdir -p "$h"
     cd "$h" || exit 1
-    export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
-    git init -q .
+    isolate_git
+    git init -q . || { echo "git init failed. The check stopped before it wrote any config."; exit 1; }
+    [ "$(git rev-parse --git-dir)" = .git ] \
+      || { echo "git uses another repository. The check stopped before it wrote any config."; exit 1; }
     printf 'one\ntwo\n' > lf.md
     printf 'one\r\ntwo\r\n' > crlf.md
     echo '*.md filter=probe' > .gitattributes
@@ -214,14 +216,17 @@ if [ -z "$1" ]; then
       [ -n "$line" ] && err "file hash: $line"
     done < "$tmp/hostile.out"
 
-    # i. Inherited GIT_* variables. Each path is absolute, because the check changes folder.
+    # i. Inherited GIT_* variables. Each path is absolute, because the check changes folder. Export
+    # them, as a git hook does: with VAR=x before a function name, unset brings back the older value.
     t="$tmp/target"
     new_repo "$t"
     before=$(repo_state "$t")
-    GIT_DIR="$t/.git" GIT_WORK_TREE="$t" GIT_INDEX_FILE="$t/.git/planted-index" \
-      GIT_CONFIG_PARAMETERS="'core.autocrlf=false'" GIT_CONFIG_COUNT=1 \
-      GIT_CONFIG_KEY_0=core.autocrlf GIT_CONFIG_VALUE_0=false \
-      hash_check "$tmp/env-check" > "$tmp/env.out" 2>&1
+    (
+      export GIT_DIR="$t/.git" GIT_WORK_TREE="$t" GIT_INDEX_FILE="$t/.git/planted-index"
+      export GIT_CONFIG_PARAMETERS="'core.autocrlf=false'" GIT_CONFIG_COUNT=1
+      export GIT_CONFIG_KEY_0=core.autocrlf GIT_CONFIG_VALUE_0=false
+      hash_check "$tmp/env-check"
+    ) > "$tmp/env.out" 2>&1
     while IFS= read -r line; do
       [ -n "$line" ] && err "git environment: the check printed: $line"
     done < "$tmp/env.out"

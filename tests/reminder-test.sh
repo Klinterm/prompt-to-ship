@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Checks hooks/reminder.sh with a fake home folder and a fake project. Run: bash tests/reminder-test.sh
 root="$(cd "$(dirname "$0")/.." && pwd)"
-tmp=$(mktemp -d)
+tmp=$(mktemp -d) && [ -d "$tmp" ] || { echo "FAIL: no temp folder"; exit 1; }
+trap 'rm -rf "$tmp"' EXIT
 fail=0
 n=0
 export CLAUDE_PLUGIN_ROOT="$root"
@@ -61,6 +62,5 @@ rm -f "$HOME/.gitconfig"
 echo "Pipeline mode: defer" > "$tmp/proj/.claude/orchestration/PROJECT.md"
 check "defer mode: its own reminder" "$tmp/proj" "99.0.0 is out"
 
-rm -rf "$tmp"
 [ "$fail" = 0 ] && echo "reminder-test: all $n cases pass"
 exit "$fail"
