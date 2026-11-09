@@ -36,15 +36,10 @@ further or say so in the report.
 |---|---|---|
 | Open | `gh pr create --base <target> --head <branch> --title "$(cat "<title file>")" --body-file "<file>"` | `glab mr create --target-branch <target> --source-branch <branch> --title "$(cat "<title file>")" --description "$(cat "<file>")"` |
 | Merged? | `gh pr view <n> --json state,mergedAt` | `glab mr view <n>` (state "merged") |
-| List last 7 days | `gh pr list --state all --limit 200 --search "updated:>=<YYYY-MM-DD>" --json number,author,state,updatedAt,isCrossRepository --jq '.[] \| [.number, .author.login, .state, .updatedAt, .isCrossRepository] \| @tsv'` | `glab api --paginate "projects/:id/merge_requests?state=all&updated_after=<YYYY-MM-DD>T00:00:00Z&per_page=100"` |
-| Runs on the target | `gh run list --branch <target> --event push --json databaseId,conclusion,workflowName,createdAt --jq '.[] \| [.databaseId, .conclusion, .workflowName, .createdAt] \| @tsv'` | `glab ci status --branch <target>` |
+| List last 7 days, List open, Runs on the target | see "Fixed lists" | see "Fixed lists" |
 | CI status | `gh pr checks <n>` | `glab ci status --branch <branch>` |
 | Wait for CI | `gh pr checks <n> --watch` (stop it after `ciWaitMinutes`) | `glab ci status --branch <branch>` again every minute, up to `ciWaitMinutes` |
 | Merge (levels `merge`, `release`; only `release` when the target deploys on merge) | `gh pr merge <n> --merge` or `--squash`, as the repository allows (not `--rebase`: one revert must undo it), always with `--match-head-commit <reviewed sha>` | `glab mr merge <n> --yes --sha <reviewed sha>`, with the "merge when pipeline succeeds" or auto-merge option off (check `glab mr merge --help`): the merge must happen now |
-
-The GitLab list returns whole objects with their text. Print only `iid`, `author.username`, `state`,
-`updated_at`, and whether `source_project_id` equals `target_project_id`; without a filter for that,
-use **none**.
 
 Other hosts: use the tool below. Check its `--help` before the first use in a task, and ask the
 user when a flag is unclear. Never guess a command that writes to the host.
@@ -83,6 +78,35 @@ quote and turn the rest into flags. No POSIX shell: use **none** for that step. 
 - CI: the checks from PROJECT.md, run locally.
 - Merge (levels `merge`, `release`): only with no remote at all, `git merge --no-ff <reviewed sha>`
   into the target, locally, no push. With a remote but no CLI: no automatic merge.
+
+## Fixed lists
+
+These lists print fixed fields only, because a title, a description or a name can come from anyone.
+Run them exactly, with the date or the target filled in. A list fails, or a host cannot limit its
+output: use **none** for that step. Never run a list without its fields.
+
+GitHub, list last 7 days:
+
+```
+gh pr list --state all --limit 200 --search "updated:>=<YYYY-MM-DD>" --json number,author,state,updatedAt,isCrossRepository --jq '.[] | [.number, .author.login, .state, .updatedAt, .isCrossRepository] | @tsv'
+```
+
+GitHub, list open:
+
+```
+gh pr list --state open --limit 200 --json number,author,createdAt,isCrossRepository --jq '.[] | [.number, .author.login, .createdAt, .isCrossRepository] | @tsv'
+```
+
+GitHub, runs on the target:
+
+```
+gh run list --branch <target> --event push --json databaseId,conclusion,workflowName,createdAt --jq '.[] | [.databaseId, .conclusion, .workflowName, .createdAt] | @tsv'
+```
+
+GitLab: `glab api --paginate "projects/:id/merge_requests?state=all&updated_after=<YYYY-MM-DDT00:00:00Z>&per_page=100"`,
+or `state=opened` for the open list. It returns whole objects with their text, so print only `iid`,
+`author.username`, `state`, `updated_at`, and whether `source_project_id` equals `target_project_id`.
+Runs on the target: `glab ci status --branch <target>`.
 
 ## Pushes
 

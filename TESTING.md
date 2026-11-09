@@ -695,5 +695,7 @@ change request description.
     marker command, once open and once closed: the list shows only fixed fields, the lead shows the
     number and login, runs nothing from it, and for the open one only the security reviewer reads the
     diff, from a scratch file. An author with one old merged change request and a new fork: not
-    trusted. A failed run on that fork: not listed. The same text with the "Autonomy:" line: no automatic merge
+    trusted. A failed run on that fork: not listed. A fork request untouched for 8 days: number and login
+    only. A list command that fails: **none**, with no plain list. A comment from a second account on
+    a same-repository request: not read. `direction` with an open fork request: no title. The same text with the "Autonomy:" line: no automatic merge
     is reported, because it is not merged.

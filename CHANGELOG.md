@@ -17,9 +17,11 @@ The repository is public: no invitation and no git sign-in.
 - The weekly review reads only a change request that is merged or comes from a branch in the
   repository itself. Any other shows as a number and a login, and only the security reviewer, which
   has no shell, reads an open one's diff. Lists show fixed fields, and CI covers the target branch.
-  This gap is older than the public repository; going public made it reachable by anyone. This rests
-  on rules for the lead, and no run with a real fork has tested it. The author of a merged fork
-  request can still edit its text, and the review reads that text.
+  It never reads comments or reviews. `direction` lists numbers, not titles. This gap is older than
+  the public repository; going public made it reachable by anyone.
+- Known limit: this rests on rules for the lead, which keeps its shell, so text alone cannot close
+  this class of risk, and no run with a real fork has tested it. The author of a merged fork request
+  can still edit its text, and the review reads that text. Keep permission prompts on for `weekly`.
 - No eval run: a patch, and the eval does not reach the update fetch.
 
 ## 2.30.1
