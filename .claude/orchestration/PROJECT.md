@@ -302,7 +302,8 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   2026-11-05 to keep it private, and its credential helper. The daily check and the update fetch run
   no credential helper again, as in decision 2026-11-01, because a public repository needs none. The
   README stays "working prototype" until TESTING.md has run. The weekly review no longer reads text
-  from an outside author itself.
+  from an outside change request itself; a fork counts as outside. A known limit: `direction` still
+  reads open change request titles, under its data rule, because the user starts and watches it.
 - Decision 2026-11-09 (maintainer's words: "Record as accepted limit", "Make gates.md high risk"):
   the Checks line runs two tracked scripts, and the timing of that run stays an accepted limit. The
   confirmed PROJECT.md hash covers the command text, not what runs. These changed files run as the

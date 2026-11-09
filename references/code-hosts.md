@@ -36,7 +36,7 @@ further or say so in the report.
 |---|---|---|
 | Open | `gh pr create --base <target> --head <branch> --title "$(cat "<title file>")" --body-file "<file>"` | `glab mr create --target-branch <target> --source-branch <branch> --title "$(cat "<title file>")" --description "$(cat "<file>")"` |
 | Merged? | `gh pr view <n> --json state,mergedAt` | `glab mr view <n>` (state "merged") |
-| List last 7 days | `gh pr list --state all --limit 200 --search "updated:>=<YYYY-MM-DD>"` | `glab api --paginate "projects/:id/merge_requests?state=all&updated_after=<YYYY-MM-DD>T00:00:00Z&per_page=100"` |
+| List last 7 days | `gh pr list --state all --limit 200 --search "updated:>=<YYYY-MM-DD>" --json number,author,state,updatedAt,isCrossRepository` | `glab api --paginate "projects/:id/merge_requests?state=all&updated_after=<YYYY-MM-DD>T00:00:00Z&per_page=100"` |
 | CI status | `gh pr checks <n>` | `glab ci status --branch <branch>` |
 | Wait for CI | `gh pr checks <n> --watch` (stop it after `ciWaitMinutes`) | `glab ci status --branch <branch>` again every minute, up to `ciWaitMinutes` |
 | Merge (levels `merge`, `release`; only `release` when the target deploys on merge) | `gh pr merge <n> --merge` or `--squash`, as the repository allows (not `--rebase`: one revert must undo it), always with `--match-head-commit <reviewed sha>` | `glab mr merge <n> --yes --sha <reviewed sha>`, with the "merge when pipeline succeeds" or auto-merge option off (check `glab mr merge --help`): the merge must happen now |

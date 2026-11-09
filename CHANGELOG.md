@@ -11,11 +11,14 @@ The repository is public: no invitation and no git sign-in.
   credentials. Installs from 2.26.0 to 2.30.1 keep working, because a public repository needs no
   sign-in. This replaces the credential helper of 2.26.0. Tested with a planted helper, in both the
   plain and the URL form, against an address that asks for a sign-in: neither ran.
-- "update" takes the fallback when TLS checking is off for this address, or when `GIT_SSL_NO_VERIFY`
-  is set. The old text said such a fetch fails; it could succeed.
-- The weekly review does not read the title, description or diff of an open change request from an
-  outside author itself. Only the security reviewer, which has no shell, reads that diff. This is
-  older than the public repository, and going public made it reachable by anyone.
+- "update" takes the fallback when TLS checking is off for this address, with any false value, or
+  when `GIT_SSL_NO_VERIFY` is set, and it says so. The old text said such a fetch fails; it could
+  succeed.
+- The weekly review does not read the title, description, diff or run names of an outside change
+  request itself: one from a fork, or from an author with no write access. Its list shows fixed
+  fields only, and only the security reviewer, which has no shell, reads that diff. This is older
+  than the public repository, and going public made it reachable by anyone. This rests on rules for
+  the lead, and no run has tested it. `direction` still reads open titles, under its data rule.
 - No eval run: a patch, and the eval does not reach the update fetch.
 
 ## 2.30.1

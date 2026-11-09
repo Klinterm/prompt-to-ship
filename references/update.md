@@ -66,9 +66,9 @@ Run it only when all of these hold; any doubt takes the fallback:
   so no `insteadOf` rule sends it elsewhere;
 - `git -C "<skill folder>" config --local --includes --get-regexp '^(url|credential|http|include|includeif)\.'`
   prints nothing (no local rule, no proxy or TLS setting, and no included file that could add one);
-- `git -C "<skill folder>" config --get-urlmatch http.sslVerify https://github.com/Klinterm/prompt-to-ship`
-  does not print `false`, and the environment value `GIT_SSL_NO_VERIFY` is not set, because a setting
-  for this address, or that value, wins over the option in the fetch.
+- `git -C "<skill folder>" config --type=bool --get-urlmatch http.sslVerify https://github.com/Klinterm/prompt-to-ship`
+  prints `true` or nothing, with no error, and the environment value `GIT_SSL_NO_VERIFY` is not set,
+  because a setting for this address, or that value, wins over the option in the fetch.
 
 Then, with the same environment values as the check, fetch from the fixed address itself:
 `git -C "<skill folder>" -c core.askPass= -c credential.helper= -c http.sslVerify=true -c protocol.allow=never -c protocol.https.allow=always fetch --quiet https://github.com/Klinterm/prompt-to-ship tag vX.Y.Z` and
@@ -79,7 +79,9 @@ line, "The update did not finish.", never git's error output, then "Update by ha
 fallback command, and go on with the request on the installed version.
 
 Fallback (a marketplace install, or a condition that fails): run nothing. Show the commands for the
-user to type. A marketplace install:
+user to type. When the TLS condition above failed, first say this fixed line: "TLS checking is off
+for this address on this computer, so the commands below do not check the server." A marketplace
+install:
 `/plugin marketplace update prompt-to-ship`. A clone, in the skill folder:
 `git fetch origin tag vX.Y.Z`
 `git merge --ff-only vX.Y.Z`
