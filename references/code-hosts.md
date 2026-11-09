@@ -82,29 +82,31 @@ quote and turn the rest into flags. No POSIX shell: use **none** for that step. 
 ## Fixed lists
 
 These lists print fixed fields only, because a title, a description or a name can come from anyone.
-Run them exactly, with the date or the target filled in. A list fails, or a host cannot limit its
-output: use **none** for that step. Never run a list without its fields.
+Run them exactly, with the date or the target filled in. Never run a list without its fields. A list
+fails, or a host cannot limit its output: the list of the last 7 days falls back to the commits on
+the target branch, and any other list goes under "Not checked" in the report. Run nothing else
+instead.
 
 GitHub, list last 7 days:
 
 ```
-gh pr list --state all --limit 200 --search "updated:>=<YYYY-MM-DD>" --json number,author,state,updatedAt,isCrossRepository --jq '.[] | [.number, .author.login, .state, .updatedAt, .isCrossRepository] | @tsv'
+gh pr list --state all --limit 200 --search "updated:>=<YYYY-MM-DD>" --json number,author,state,updatedAt,isCrossRepository --jq '.[] | [.number, .author.login, .author.is_bot, .state, .updatedAt, .isCrossRepository] | @tsv'
 ```
 
 GitHub, list open:
 
 ```
-gh pr list --state open --limit 200 --json number,author,createdAt,isCrossRepository --jq '.[] | [.number, .author.login, .createdAt, .isCrossRepository] | @tsv'
+gh pr list --state open --limit 200 --json number,author,createdAt,isCrossRepository --jq '.[] | [.number, .author.login, .author.is_bot, .createdAt, .isCrossRepository] | @tsv'
 ```
 
 GitHub, runs on the target:
 
 ```
-gh run list --branch <target> --event push --json databaseId,conclusion,workflowName,createdAt --jq '.[] | [.databaseId, .conclusion, .workflowName, .createdAt] | @tsv'
+gh run list --branch <target> --event push --limit 200 --json databaseId,conclusion,workflowName,createdAt --jq '.[] | [.databaseId, .conclusion, .workflowName, .createdAt] | @tsv'
 ```
 
-GitLab: `glab api --paginate "projects/:id/merge_requests?state=all&updated_after=<YYYY-MM-DDT00:00:00Z>&per_page=100"`,
-or `state=opened` for the open list. It returns whole objects with their text, so print only `iid`,
+GitLab, last 7 days: `glab api --paginate "projects/:id/merge_requests?state=all&updated_after=<YYYY-MM-DDT00:00:00Z>&per_page=100"`.
+GitLab, open: `glab api --paginate "projects/:id/merge_requests?state=opened&per_page=100"`. Both return whole objects with their text, so print only `iid`,
 `author.username`, `state`, `updated_at`, and whether `source_project_id` equals `target_project_id`.
 Runs on the target: `glab ci status --branch <target>`.
 

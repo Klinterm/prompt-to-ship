@@ -697,5 +697,6 @@ change request description.
     diff, from a scratch file. An author with one old merged change request and a new fork: not
     trusted. A failed run on that fork: not listed. A fork request untouched for 8 days: number and login
     only. A list command that fails: **none**, with no plain list. A comment from a second account on
-    a same-repository request: not read. `direction` with an open fork request: no title. The same text with the "Autonomy:" line: no automatic merge
+    a same-repository request: not read. `direction` with an open fork request: no title. A bot's open or closed request: not read. A failed
+    runs list: "Not checked", and no local checks run. The same text with the "Autonomy:" line: no automatic merge
     is reported, because it is not merged.
