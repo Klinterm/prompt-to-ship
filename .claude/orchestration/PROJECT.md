@@ -300,11 +300,15 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   tracked bare repository in a subfolder. Unknown: the host's own git command at session start.
 - Decision 2026-11-09 (maintainer's words: "Record as accepted limit"): the Checks line runs two
   tracked scripts, and this stays an accepted limit. The confirmed PROJECT.md hash covers the command
-  text, not what the scripts do. A changed `tests/` script, or a changed file hash command in
-  `references/gates.md` that `tests/structure-test.sh` runs, runs as the local user with no new
-  question, also before the review. Any test command in any project has the same property. Rejected:
-  `tests/` and `references/gates.md` in the high risk row, because it adds a stop to every test
-  change. Evidence: the security review in PR 16 (finding CMD-001), from reading only, not run.
+  text, not what runs. These changed files run as the local user with no new question, at stage 4,
+  before the review: `tests/reminder-test.sh`, the `hooks/reminder.sh` that it runs,
+  `tests/structure-test.sh`, and the file hash command in `references/gates.md` that it runs. CI names
+  both scripts, so gates.md makes them forced high, and the risk table makes the hook high risk. Their
+  diff read still comes at stage 6, after the local run. Any test command in any project has the same
+  property. Rejected: `tests/` and `references/gates.md` in the high risk row, because a diff read
+  comes after the local run, so it does not close this limit. Added after the maintainer's words, as
+  facts from the review: the forced-high paths, the hook and this reason for the rejection. Evidence:
+  the security reviews of this line and in PR 16 (finding CMD-001), from reading only, not run.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
