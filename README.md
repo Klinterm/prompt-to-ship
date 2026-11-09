@@ -364,8 +364,6 @@ plain git and tells you how to sign in.
 - [Claude Code](https://code.claude.com).
 - Git, the free program that keeps every version of your files (https://git-scm.com/downloads).
   You do not need a repository yet: Claude asks and sets it up in your project folder.
-- Read access to this private repository, and a git sign-in on this computer (see
-  [Install](#install)).
 - Optional: the command-line tool of your host, signed in. See [Code hosts](#code-hosts).
 - Windows: Git for Windows. Claude Code runs hooks in Git Bash. A hook is a small command that
   Claude Code runs on each message. Without Git Bash the hook stays silent, and the skill still
@@ -373,36 +371,19 @@ plain git and tells you how to sign in.
 
 ## Install
 
-**Before you install.** The repository is private for now.
-
-1. Ask the maintainer for read access, and accept the GitHub invitation (in your email, or at
-   https://github.com/notifications).
-2. Set up a git sign-in on this computer, for example `gh auth login` and then
-   `gh auth setup-git`. Git uses your existing sign-in. Claude never asks for a password and never
-   stores a token.
-3. No SSH key for GitHub? Then set the environment variable `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1`
-   before you use way A, as the
-   [Claude Code plugin documentation](https://code.claude.com/docs/en/plugins/host-marketplace)
-   says. In bash, add `export CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` to your shell profile. In
-   PowerShell, run
-   `[Environment]::SetEnvironmentVariable('CLAUDE_CODE_PLUGIN_PREFER_HTTPS','1','User')` and start
-   a new terminal.
-4. Test it: `git ls-remote https://github.com/Klinterm/prompt-to-ship` must list tags and ask for
-   no password. It asks for a password? Redo step 2. It says "not found"? Ask the maintainer to
-   check your invitation. This test covers https; way A also needs step 3 when you have no SSH
-   key.
-
-Someone copied the skill into your team's repository? Then you need no read access: see "To share
-it with a team" at the end of this section. Without read access you get no update offers; the
-team updates the copy.
-
 Choose one of the two ways. Did you use the earlier name `optimal-coding-orchestration`? Remove
 that version first.
 
 **A. As a plugin**
 
-1. In Claude Code, run `/plugin marketplace add Klinterm/prompt-to-ship`. Without read access it
-   fails with an error and asks for no password.
+1. In Claude Code, run `/plugin marketplace add Klinterm/prompt-to-ship`. No SSH key for GitHub?
+   Then this step can fail. First set the environment variable `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1`,
+   as the
+   [Claude Code plugin documentation](https://code.claude.com/docs/en/plugins/host-marketplace)
+   says. In bash, add `export CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` to your shell profile. In
+   PowerShell, run
+   `[Environment]::SetEnvironmentVariable('CLAUDE_CODE_PLUGIN_PREFER_HTTPS','1','User')` and start
+   a new terminal.
 2. Run `/plugin install prompt-to-ship@prompt-to-ship`.
 3. Start a new session. The command is `/prompt-to-ship:prompt-to-ship`.
 
@@ -420,7 +401,7 @@ that version first.
 
 To share it with a team, copy the folder into the repository's `.claude/skills/` folder and
 commit it. Do not copy the `.git` folder inside it. Each teammate accepts the workspace trust
-prompt once.
+prompt once. A copied folder gets no update through Claude: the team updates the copy.
 
 ## Commands
 
@@ -547,13 +528,12 @@ in [references/existing-pipeline.md](references/existing-pipeline.md).
 ## Update and remove
 
 When the skill runs, Claude looks for a new version, at most once a day, at
-https://github.com/Klinterm/prompt-to-ship, with your git sign-in. It keeps the answer in a small
+https://github.com/Klinterm/prompt-to-ship. It uses no git sign-in. It keeps the answer in a small
 file in `~/.claude/prompt-to-ship/`. When a new version is out, you see one line before the brief,
-with a link to what is new (the link opens only with read access and a git sign-in). Reply just
-`update` to install it, or just continue: the line comes back in your next conversation. Without
-read access or a git sign-in, the check stays silent: you see no offer and no error. Run the test
-in [Install](#install) to see why. Claude installs the update only into an unchanged copy of this
-repository, and only that version. In every other case it shows you the command to type. To switch
+with a link to what is new. Reply just `update` to install it, or just continue: the line comes back
+in your next conversation. When the check fails, for example offline, it stays silent: you see no
+offer and no error. Claude installs the update only into an unchanged copy of this repository, and
+only that version. In every other case it shows you the command to type. To switch
 the check off, run `git config --global prompt-to-ship.versionCheck false`.
 
 - **Update, way A:** run `/plugin marketplace update prompt-to-ship`.
@@ -675,7 +655,9 @@ change, 1 caught (RULE-012)." The full rules are in
 
 ## Problems and ideas
 
-Open an issue at https://github.com/Klinterm/prompt-to-ship/issues (you need read access).
+Open an issue at https://github.com/Klinterm/prompt-to-ship/issues (you need a GitHub account).
+Issues are public: leave out private details of your project, and any security details of a problem
+in this skill.
 
 ## Contents
 

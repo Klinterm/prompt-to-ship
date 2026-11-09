@@ -2,6 +2,28 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.30.2
+
+The repository is public: no invitation and no git sign-in.
+- The README install steps need no read access any more. Only the note for way A with no SSH key
+  stays. The acceptance test is still not complete, so the README status stays "working prototype".
+- The daily version check and the update fetch run no credential helper, and the skill adds no
+  credentials. Installs from 2.26.0 to 2.30.1 keep working, because a public repository needs no
+  sign-in. This replaces the credential helper of 2.26.0. Tested with a planted helper, in both the
+  plain and the URL form, against an address that asks for a sign-in: neither ran.
+- "update" takes the fallback when TLS checking is off for this address, with any false value, or
+  when `GIT_SSL_NO_VERIFY` is set, and it says so. The old text said such a fetch fails; it could
+  succeed.
+- The weekly review reads only a change request that is merged or comes from a branch in the
+  repository itself. Any other shows as a number and a login, and only the security reviewer, which
+  has no shell, reads an open one's diff. Lists show fixed fields, and CI covers the target branch.
+  It never reads comments or reviews. `direction` lists numbers, not titles. This gap is older than
+  the public repository; going public made it reachable by anyone.
+- Known limit: this rests on rules for the lead, which keeps its shell, so text alone cannot close
+  this class of risk, and no run with a real fork has tested it. The author of a merged fork request
+  can still edit its text, and the review reads that text. Keep permission prompts on for `weekly`.
+- No eval run: a patch, and the eval does not reach the update fetch.
+
 ## 2.30.1
 
 The confirmation check no longer starts a program from a folder's own git config.
