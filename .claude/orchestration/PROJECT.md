@@ -121,7 +121,7 @@ their own language.
 |---|---|
 | Low | wording in references and README that changes no behaviour (a change to a rule in references is Normal) |
 | Normal | a new stage rule, a new reference file, agent instructions |
-| High | the hook, the standing rules, the plugin manifest, anything about merges or secrets |
+| High | the hook, `references/gates.md`, the standing rules, the plugin manifest, anything about merges or secrets |
 
 ## House rules
 Autonomy limit: release (the maintainer's word on 2026-11-04; a high-risk diff still waits for the
@@ -237,7 +237,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   only the `--max-cost-usd 12` cap), stops there for the maintainer's own typed go, and puts the
   eval result in the CHANGELOG before the diff read. A run that hits the cap stops; a failed or
   noisy case is reported as it is, with no silent retry.
-- Decision 2026-11-05 (maintainer): keep the repository private for now ("Ja, privé houden"); the
+- Decision 2026-11-05 (maintainer; replaced by the decision of 2026-11-09 on the public repository): keep the repository private for now ("Ja, privé houden"); the
   goal text stays ("anyone"). Installs and updates use the user's own git sign-in. It extends
   decision 2026-11-01: the one read-only git network call a day may now use the user's credential
   helper, for the fixed https address only, never with a prompt; without access it stays silent,
@@ -297,18 +297,33 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   first was rejected, because it starts `core.fsmonitor`. Added after the maintainer's words, as facts
   from the review: a file with a carriage return inside a line gets no hash, and a clone can hold a
   tracked bare repository in a subfolder. Unknown: the host's own git command at session start.
-- Decision 2026-11-09 (maintainer): the repository is public, and someone will promote it. This
-  replaces decision 2026-11-05 ("Yes, fix it" to making all text say public). The daily check and the
-  update fetch send no credentials again, as in decision 2026-11-01, because a public repository
-  needs none. The README stays "working prototype" until TESTING.md has run.
+- Decision 2026-11-09 (maintainer's words: "Yes, fix it", to making all text say public, because
+  someone will promote the repository): the repository is public. This replaces the decision of
+  2026-11-05 to keep it private, and its credential helper. The daily check and the update fetch run
+  no credential helper again, as in decision 2026-11-01, because a public repository needs none. The
+  README stays "working prototype" until TESTING.md has run. The weekly review no longer reads text
+  from an outside author itself.
+- Decision 2026-11-09 (maintainer's words: "Record as accepted limit", "Make gates.md high risk"):
+  the Checks line runs two tracked scripts, and the timing of that run stays an accepted limit. The
+  confirmed PROJECT.md hash covers the command text, not what runs. These changed files run as the
+  local user with no new question, at stage 4, before the review: `tests/reminder-test.sh`, the
+  `hooks/reminder.sh` that it runs, `tests/structure-test.sh`, and the file hash command in
+  `references/gates.md` that it runs. CI names both scripts, so gates.md makes them forced high. The
+  risk table makes the hook and `references/gates.md` high risk; before this decision a change to the
+  hash command alone was Normal, with no diff read by the user. For all four files the diff read comes
+  at stage 6, after the local run, so it does not close the limit. Any test command in any project has
+  the same property. Rejected: all of `tests/` in the high risk row, because the two scripts that run
+  are already forced high. Added after the first words, as facts from the review: the forced-high
+  paths, the hook and this reason for the rejection. Evidence: the security reviews of this line and
+  in PR 16 (finding CMD-001), from reading only, not run.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
 The hook runs a fixed bash script on every prompt for every user. It must stay read-only and
 offline: it prints fixed text and, from the local version cache, one line with checked numbers
 only. It starts no program but grep, cat and at most one date. The reviewer agents have no shell. Reviewers must never execute project code.
-The daily version check and the update fetch (references/update.md) send no credentials, to the
-fixed https address only; they never prompt and store or print no token.
+The daily version check and the update fetch (references/update.md) run no credential helper and
+add no credentials, to the fixed https address only; they never prompt and store or print no token.
 
 ## Learning
 Incidents and rules: `.claude/orchestration/incidents.md` and `rules.md` (rules.md appears at the

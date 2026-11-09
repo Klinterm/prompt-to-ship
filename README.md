@@ -528,12 +528,12 @@ in [references/existing-pipeline.md](references/existing-pipeline.md).
 ## Update and remove
 
 When the skill runs, Claude looks for a new version, at most once a day, at
-https://github.com/Klinterm/prompt-to-ship. It sends no credentials. It keeps the answer in a small
+https://github.com/Klinterm/prompt-to-ship. It uses no git sign-in. It keeps the answer in a small
 file in `~/.claude/prompt-to-ship/`. When a new version is out, you see one line before the brief,
-with a link to what is new. Reply just
-`update` to install it, or just continue: the line comes back in your next conversation. When
-the check fails, for example offline, it stays silent: you see no offer and no error. Claude installs the update only into an unchanged copy of this
-repository, and only that version. In every other case it shows you the command to type. To switch
+with a link to what is new. Reply just `update` to install it, or just continue: the line comes back
+in your next conversation. When the check fails, for example offline, it stays silent: you see no
+offer and no error. Claude installs the update only into an unchanged copy of this repository, and
+only that version. In every other case it shows you the command to type. To switch
 the check off, run `git config --global prompt-to-ship.versionCheck false`.
 
 - **Update, way A:** run `/plugin marketplace update prompt-to-ship`.
@@ -656,6 +656,8 @@ change, 1 caught (RULE-012)." The full rules are in
 ## Problems and ideas
 
 Open an issue at https://github.com/Klinterm/prompt-to-ship/issues (you need a GitHub account).
+Issues are public: leave out private details of your project, and any security details of a problem
+in this skill.
 
 ## Contents
 

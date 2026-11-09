@@ -7,8 +7,15 @@ All notable changes. Versions follow semver and match `.claude-plugin/plugin.jso
 The repository is public: no invitation and no git sign-in.
 - The README install steps need no read access any more. Only the note for way A with no SSH key
   stays. The acceptance test is still not complete, so the README status stays "working prototype".
-- The daily version check and the update fetch send no credentials. Existing installs now update
-  without a sign-in. This replaces the credential helper of 2.26.0.
+- The daily version check and the update fetch run no credential helper, and the skill adds no
+  credentials. Installs from 2.26.0 to 2.30.1 keep working, because a public repository needs no
+  sign-in. This replaces the credential helper of 2.26.0. Tested with a planted helper, in both the
+  plain and the URL form, against an address that asks for a sign-in: neither ran.
+- "update" takes the fallback when TLS checking is off for this address, or when `GIT_SSL_NO_VERIFY`
+  is set. The old text said such a fetch fails; it could succeed.
+- The weekly review does not read the title, description or diff of an open change request from an
+  outside author itself. Only the security reviewer, which has no shell, reads that diff. This is
+  older than the public repository, and going public made it reachable by anyone.
 - No eval run: a patch, and the eval does not reach the update fetch.
 
 ## 2.30.1
