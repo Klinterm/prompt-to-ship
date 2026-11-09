@@ -105,7 +105,7 @@ Pipeline mode: none
 
 ## Commands
 - Build: none.
-- Checks: `claude plugin validate .`
+- Checks: `claude plugin validate .`, `bash tests/reminder-test.sh`, `bash tests/structure-test.sh`
 - Style check: no em dashes, en dashes or curly quotes in any file
   (`rg -n "[\x{2013}\x{2014}\x{2018}\x{2019}\x{201C}\x{201D}]" .` must print nothing).
 - Release test: `TESTING.md`.
