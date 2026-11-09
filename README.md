@@ -371,9 +371,6 @@ plain git and tells you how to sign in.
 
 ## Install
 
-Choose one of the two ways. Did you use the earlier name `optimal-coding-orchestration`? Remove
-that version first.
-
 **A. As a plugin**
 
 1. In Claude Code, run `/plugin marketplace add Klinterm/prompt-to-ship`. No SSH key for GitHub?
