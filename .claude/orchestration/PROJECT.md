@@ -331,7 +331,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   + refresh", "Yes, full suite", then "Widen to user docs"): a project map mode (2.31.0) from a handoff
   that was used for weeks on a real project. The argument `project-map` (or `project-map refresh`)
   builds a living map in a Figma file through the official Figma MCP connector; the name avoids a
-  second meaning next to pipeline mode `map`. A third exception to the generic rule: Figma may be named only in `references/project-map.md`, its README section and command row, its TESTING.md section, the CHANGELOG, and the decision and rule lines in PROJECT.md and `.claude/CLAUDE.md`. SKILL.md, agents, hooks, `skills/` and the eval case stay free of the name.
+  second meaning next to pipeline mode `map`. A third exception to the generic rule: Figma may be named only in `references/project-map.md`, its README section and command row, its TESTING.md section, the CHANGELOG, and the decision, rule, integration and parked lines in PROJECT.md and `.claude/CLAUDE.md`. SKILL.md, agents, hooks, `skills/` and the eval case stay free of the name.
   The connector is optional: without it the mode stops with one line, and no other mode changes. As
   in direction, ui and states mode (R6), no reviewer agent runs; the one optional agent is the host's
   read-only search agent for large documents. The mode runs a fixed list of read-only git commands,

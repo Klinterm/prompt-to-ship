@@ -256,7 +256,7 @@ repository and shows a write list:
 Project map: Product map. Audience: the owner. I changed no project file.
 This goes to Figma. Everyone with access to that file can see it.
 1. Start / Where we are: change card "PDF export": "Builds the report as a PDF". Status Built to Test, evidence branch in test, CI passed, 2026-11-10.
-2. Direction and risks / Risks: add card "Photo limit": "Reports keep at most 40 photos (src/report.py:1)". Status new: Risk, evidence src/report.py, 2026-11-10.
+2. Direction and risks / Risks: add card "Photo limit": "Reports keep at most 40 photos (src/report.py:1)". Status none to Risk, evidence src/report.py, 2026-11-10.
 Risks and endpoints in this list: 2.
 Left out: one API token in docs/setup.md.
 Reply yes to write this list and save the manifest at ~/.claude/prompt-to-ship/project-map/<id>.json. Nothing is written without it.

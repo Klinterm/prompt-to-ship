@@ -30,7 +30,8 @@ it is not shipped as part of the plugin root.
   that setup suggests (PROJECT.md, decision 2026-10-29), the credits in
   `skills/design/SOURCES.md` (decision 2026-11-03), and Figma for the project map mode (decision
   2026-11-12): only in `references/project-map.md`, its README section and command row, its
-  TESTING.md section, the CHANGELOG and these decision and rule lines.
+  TESTING.md section, the CHANGELOG, and the decision, rule, integration and parked lines in
+  PROJECT.md and this file.
 - No em dashes, en dashes or curly quotes.
 - Host neutral: every code host action goes through `references/code-hosts.md`. Language
   neutral: no check may assume a database, a frontend or a framework.

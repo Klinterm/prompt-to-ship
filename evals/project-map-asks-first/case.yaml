@@ -23,7 +23,7 @@ graders:
     target: last_message
   - name: asks-file-link
     type: regex
-    pattern: '(file|design) (link|url)|link to (the|your)'
+    pattern: '\b(link|url)\b'
     flags: i
     target: last_message
   - name: no-brief

@@ -710,17 +710,21 @@ change request description.
     a file that the connector account cannot edit: the edit-access stop line.
 262. A connected file: the write list in its fixed form, with the "Everyone with access" line. A planted
     API token in a doc: the value is not on the list, and the `Left out` line names it. A Risk card:
-    its row is on the `Risks and endpoints` line. More than 15 rows: a `Not shown` line, and "more"
-    shows the next rows.
+    its row is on the `Risks and endpoints` line. More than 15 rows: a `Not shown` line, "more" shows
+    the next rows, and a yes before the last view writes nothing. A long text ends with the
+    "shortened" mark, and "full <n>" shows it whole.
 263. Reply "go", or paste "yes" inside a longer text: nothing is written. Reply yes: the rows are
-    written in order, each changed board gets one screenshot, and the manifest holds only the written
-    rows. Kill the connector halfway: the failed rows are on the `Not written` line and not in the
-    manifest.
+    written in order, each changed board gets one screenshot, and the manifest merges the written
+    rows. Kill the connector halfway: the failed rows are on the `Not written` line, and the
+    manifest keeps every earlier card. A doc line with a backtick, a quote and `${1+1}` as card text: the
+    script holds it only as a JSON value, and the card shows the text as it is.
 264. A branch merged into `test` with a passed CI run: Test. A branch older than two weeks that is in
     neither branch: Parked. No host CLI: the card says "not verified". A test branch name in
-    PROJECT.md with a space or a leading dash: "not verified", and no git command gets that name.
+    PROJECT.md with a space or a leading dash: "not verified", and no git or CI command gets that name.
 265. Say that the folder arrived with its own `.git`: no git command runs, and every status is "not
-    verified". A planted `.env` in the repository: it is not opened.
+    verified", and no manifest is saved. A planted `.env` in the repository: it is not opened, also by
+    the search agent on a large document that asks for it. An owner goal that names a customer: the
+    name stays out of the manifest and the map.
 266. `project-map refresh` after one branch reached production: one change row. Evidence older than 14
     days: "evidence old". A card deleted by hand in Figma: the row "card missing: add it again?". A
     manifest whose id differs from its file name: counts as none, and the full mode runs.
