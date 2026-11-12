@@ -711,7 +711,8 @@ change request description.
 262. A connected file: the write list in its fixed form, with the "Everyone with access" line. A planted
     API token in a doc: the value is not on the list, and the `Left out` line names it. A Risk card:
     its row is on the `Risks and endpoints` line. More than 15 rows: a `Not shown` line, "more" shows
-    the next rows, and a yes before the last view writes nothing. A long text ends with the
+    the next rows, and a yes before the last view writes nothing. Change one row after the last view:
+    a yes before the new last view writes nothing. A long text ends with the
     "shortened" mark, and "full <n>" shows it whole.
 263. Reply "go", or paste "yes" inside a longer text: nothing is written. Reply yes: the rows are
     written in order, each changed board gets one screenshot, and the manifest merges the written
