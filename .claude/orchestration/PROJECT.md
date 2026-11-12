@@ -21,7 +21,8 @@ Success, as checks:
    with plain git without a code host.
 4. Outside opted-in repositories the hook adds no text and no cost; the skill itself runs only when
    the user calls it or the repository opted in (its daily version check runs only then).
-5. No file in the shipped skill names a company, product, customer or stack of a user.
+5. No file in the shipped skill names a company, product, customer or stack of a user. The recorded
+   exceptions are in House rules.
 
 Stage: working prototype. The repository is public; the acceptance test (TESTING.md) is not complete
 yet.
@@ -70,7 +71,7 @@ https://github.com/Klinterm/prompt-to-ship, public. The README is the home page.
   table, agent frontmatter, skills in `skills/` and the case count. Both run in CI.
 - `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
-  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui, states.
+  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui, states, project map.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`): workflow, tiers,
   references (with scene mode in `immersive.md` and the rebuild path in `rebuild.md`) and the
   DESIGN.md template. `SOURCES.md` credits
@@ -81,7 +82,8 @@ reverts, non-git version control.
 
 ## Customers, partners and integrations
 Claude Code (skills, plugins, subagents, hooks). Code host CLIs: `gh`, `glab`, `az`, `tea`,
-REST APIs. No paid service.
+REST APIs. No paid service. Optional: the Figma MCP connector, only for `project-map` (edit access
+to a file may need a paid Figma seat).
 
 ## Architecture and stack
 Markdown and JSON, plus one bash script for the hook (hooks/reminder.sh). No build step.
@@ -131,8 +133,10 @@ Markers: description
 Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/prompt-to-ship/upstream.md at stage 0)
 - Merge only through the host and push only the release tag, through the pipeline at the
   maintainer's stored level, and never past a gate.
-- Generic: no company, product, customer or stack names in shipped files. One recorded exception:
-  the design gallery that setup suggests (decision 2026-10-29).
+- Generic: no company, product, customer or stack names in shipped files. Three recorded exceptions:
+  the design gallery that setup suggests (decision 2026-10-29), the credits in
+  `skills/design/SOURCES.md` (decision 2026-11-03), and Figma for the project map mode (decision
+  2026-11-12).
 - The plugin name, the folder name, the agent prefixes in `SKILL.md` and the README must match.
 - Extra forced-high paths (gates.md): `references/gates.md`, `hooks/**`.
 
@@ -140,13 +144,16 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - `.claude/CLAUDE.md`: rules for working on this repository and the open items before release.
 - `CHANGELOG.md`: what changed per version.
 - Parked: agent teams as the default for stage 2 (cost).
+- Parked (project map, decision 2026-11-12): status colours as Figma variables, an owner style step
+  from a reference design, a one-page export of the Start page, and links from cards to their doc and
+  change request.
 - Decision 2026-10-27 (maintainer): evals are unparked. A `claude plugin eval` suite runs before
   each minor release, with a cost estimate first; never as a blocking check on every commit.
   The suite is in `evals/`. Run it with
   `claude plugin eval . --runs 1 -j 4 --max-cost-usd 12 --judge-model sonnet --no-publish --scaffold --allow-tools Edit Write`
   (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
   `--ablation none`, half the runs)
-  (22 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
+  (23 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -320,6 +327,23 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   because the two scripts that run are already forced high. Added after the first words, as facts from
   the review: the CI rule, the hook, the version file and this reason for the rejection. Evidence: the
   security reviews of this line and in PRs 16 and 17, from reading only, not run.
+- Decision 2026-11-12 (maintainer's answers in chat: "Third exception", "project-map", "Core + manifest
+  + refresh", "Yes, full suite", then "Widen to user docs"): a project map mode (2.31.0) from a handoff
+  that was used for weeks on a real project. The argument `project-map` (or `project-map refresh`)
+  builds a living map in a Figma file through the official Figma MCP connector; the name avoids a
+  second meaning next to pipeline mode `map`. A third exception to the generic rule: Figma may be named only in `references/project-map.md`, its README section and command row, its TESTING.md section, the CHANGELOG, and the decision and rule lines in PROJECT.md and `.claude/CLAUDE.md`. SKILL.md, agents, hooks, `skills/` and the eval case stay free of the name.
+  The connector is optional: without it the mode stops with one line, and no other mode changes. As
+  in direction, ui and states mode (R6), no reviewer agent runs; the one optional agent is the host's
+  read-only search agent for large documents. The mode runs a fixed list of read-only git commands,
+  each value checked and quoted, so the accepted limit of 2026-11-08 (a folder with its own git
+  config) applies to them; a folder the user says arrived with its own `.git` runs no git command.
+  Every write waits for the owner's own typed yes on a write list that shows the content, the risks
+  and what was left out, at every autonomy level. It is its own stop, not gate 15, because a Figma
+  file is no running system. The manifest lives outside the repository, as the direction note does:
+  a map update then touches no forced-high path; the accepted limit is that it does not follow the
+  user to another computer. A thin baseline: the eval case reaches only "asks first, writes nothing,
+  no BRIEF", not the connector path. Measuring point: the next three uses record how many write
+  lists the owner accepted and how many statuses proved wrong; then reconsider this decision.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

@@ -2,6 +2,25 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.31.0
+
+A project map mode: `/prompt-to-ship project-map` builds and keeps a living project map in a Figma
+file, through the official Figma MCP connector.
+- It asks first who reads the map and for the link to the file. It reads the repository docs, code,
+  git and CI, and shows a write list with the content, the risks and what it left out. Nothing goes to
+  Figma without your yes, at every autonomy level. The yes starts no change, push or merge.
+- A status comes from evidence: git, CI and, with a confirmed `debug/access.md`, the live endpoint.
+  Without evidence a card says "not verified". Work older than two weeks that never deployed is Parked.
+- `project-map refresh` checks every status again and shows the changes as a new write list.
+- The manifest with the card ids stays outside the repository, in `~/.claude/prompt-to-ship/project-map/`.
+  It does not follow you to another computer.
+- The mode runs only a fixed list of read-only git commands, with each value checked. A folder with
+  its own git config can still start a program at a git command (the limit of 2.30.1). Say that a
+  folder arrived that way, and the mode runs no git command.
+- Figma is the third recorded exception to the rule against product names. SKILL.md, the agents, the
+  hook, `skills/` and the eval case do not name it.
+- Eval: EVAL_RESULT
+
 ## 2.30.2
 
 The repository is public: no invitation and no git sign-in.
