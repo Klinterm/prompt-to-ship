@@ -19,7 +19,11 @@ file, through the official Figma MCP connector.
   folder arrived that way, and the mode runs no git command.
 - Figma is the third recorded exception to the rule against product names. SKILL.md, the agents, the
   hook, `skills/` and the eval case do not name it.
-- Eval: EVAL_RESULT
+- Eval (--runs 1, 23 cases, judge sonnet, on 0264e01): mean with the plugin 0.99, mean difference
+  +0.46. Twenty-two cases 1.00. pipeline-first-use 0.80 on its asks-setup-question grader: the setup
+  question was not in the final message. This case is not touched by this change and passed 2 of 3
+  runs before. The new case project-map-asks-first: 1.00 with the plugin, 0.60 without. It uses
+  about $10.77 of plan usage. The case has no connector and one turn, so it does not reach a write.
 
 ## 2.30.2
 
