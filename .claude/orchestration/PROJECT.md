@@ -375,7 +375,9 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   first task that opened a change request or merged a change, as the last line of the final message
   (references/pipeline.md, "Stage 8. Learn"), and remembers it in the empty file
   `~/.claude/prompt-to-ship/star-asked`. It never blocks, never checks, calls no network, and stays
-  silent in this repository (`Upstream inbox: yes`). The line names only the plugin and its own
+  silent in this repository (`Upstream inbox: yes`); a fork without that line may show it once, an
+  accepted limit. The line goes only into the chat, never into a commit, a change request or a file
+  of the user. The line names only the plugin and its own
   address, so it is no new exception to the generic rule; users on any code host see it. No eval case
   reaches a change request, so the eval does not test it. Measuring point: the number of stars before
   2.34.0 and two releases later; a weak baseline, because stars have many causes.

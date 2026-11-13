@@ -6,15 +6,21 @@ All notable changes. Versions follow semver and match `.claude-plugin/plugin.jso
 
 The star line: once per user, after the first task that opens a change request or merges a change,
 Claude ends its final message with one line that asks for a GitHub star.
-- It is the last line of the final message, after the rules line. It is never shown at a gate, a
-  diff read or a question, never in a mode without a change, and never after `no pipeline:`.
+- It is the last line of the final message, after the rules line, and it is only in the chat: never
+  in a commit, a change request or a file. The message with the change request link is the one wait
+  that carries it; no other gate, diff read or question does. It never comes in a mode without a
+  change, or after `no pipeline:`.
 - Claude remembers it in the empty file `~/.claude/prompt-to-ship/star-asked`. When that file
   exists, the line never comes back. Delete the file to see it once more, or create it to never
   see it.
 - It never blocks anything, never checks whether you starred, and calls no network.
 - The README has the same line under the status.
 - No eval case reaches a change request, so the eval does not test the star line.
-- Eval: EVAL_RESULT
+- Eval (--runs 1, 25 cases, judge sonnet, on 80f9bc4): mean with the plugin 0.98, mean difference
+  +0.40. Twenty-two cases 1.00. direction-interview 0.80 and ui-review-first 0.83, as in earlier
+  releases. no-git-folder 0.75 (its judge failed the git explanation); a rerun of the same commit
+  scored 1.00 with three passes. No case showed the star line. The review fixes after 80f9bc4 had no
+  eval run. About $12.38 of plan usage.
 
 Does prompt-to-ship help you? A star on GitHub helps others find it.
 

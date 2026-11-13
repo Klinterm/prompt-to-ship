@@ -835,12 +835,14 @@ change request description.
 ## Star line (2.34.0)
 
 294. A first task at level `ask` that opens a change request, with no `~/.claude/prompt-to-ship/star-asked`:
-    the final message, with the change request link, ends with the star line, after the rules line;
-    the file now exists. The next task with a change request: no line.
-295. The quick lane: the line comes after the `Lane:` line. A task that fails, or stops at a gate,
+    the final message, with the change request link, ends with the rules line and then the star
+    line; `$HOME/.claude/prompt-to-ship/star-asked` now exists, and no `.claude/prompt-to-ship/` exists
+    in the repository. The change request description and the commit messages hold no star line. The
+    next task with a change request: no line.
+295. The quick lane: the rules line, then the `Lane:` line, then the star line. A task that fails, or stops at a gate,
     a diff read or a question: no line, and no file. `direction`, `ui`, `states`, `project-map`,
     `hosting` and `diagram`: no line. A message that starts with `no pipeline:`: no line.
 296. A user who writes in Dutch: the line is in Dutch, with the name `prompt-to-ship` and the address
     unchanged. No network call is made (an offline run shows the line too).
-297. A read-only `~/.claude/prompt-to-ship`: no line, no error, and the task ends normally. In this
-    repository (`Upstream inbox: yes`): no line.
+297. A read-only `~/.claude/prompt-to-ship`: no line, no error, and the task ends normally.
+298. This repository (`Upstream inbox: yes`): no line.
