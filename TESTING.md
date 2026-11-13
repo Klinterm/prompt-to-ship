@@ -787,7 +787,7 @@ change request description.
     with `-` or holds a space: not used.
 282. The overview: every box and arrow has `path:line` or "not confirmed"; the lifecycle runs to the
     end state; every store reader and writer has an arrow; the legend names every kind and mark; the
-    header has the refs and dates; at most 8 phases and 8 lanes.
+    header has the refs and dates; at most 7 phases and 8 lanes.
 283. A zoom panel per service: a zoom frame with its "zoom" tag (never read as a double border), a
     beam behind the boxes at 10 percent or less, steps with who decides, chips with tags, and the
     note.

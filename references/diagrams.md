@@ -108,7 +108,7 @@ request does not touch, such as scheduled jobs, sending, signing and archiving.
 **D5. Zoom panels.** One per service:
 - A zoom frame around the service box: a thin line in the beam colour, set well apart from the box,
   with the tag "zoom" on its corner, so it never reads as the "proposed" double border. A translucent
-  beam runs from that frame to the panel.
+  beam with thin edge lines runs from that frame to the panel.
   The beam sits behind the boxes, at an opacity of at most 10 percent, so text under it stays
   readable. The overview and its zoom panels are one file, so the beam can reach the panel.
 - The steps run top to bottom, with arrows between them. Each step has a number, a name, a tag for who
