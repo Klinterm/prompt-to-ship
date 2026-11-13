@@ -313,6 +313,25 @@ Answer these in words and I adjust the list, for example: free yes, EU no, money
   or your autonomy level, and a live site gets the production gate for each upload and deploy.
 - Plain words such as "put it online" run the normal pipeline, with the platform choice in the plan.
 
+## Draw a verified diagram
+
+Type `/prompt-to-ship diagram the order flow`. Claude first asks which areas belong on it, with the
+number of search agent runs each choice costs. Then it reads the code of each area, at the git refs,
+and draws only what the code shows:
+
+- An overview in swimlanes: a numbered column per phase of the main object, a lane per actor or
+  system, a store with an arrow to every reader and from every writer, and a legend.
+- A zoom panel per service: its steps, who decides each one (AI, code or database), and the stores it
+  reads and writes.
+- Every box has a source line in the code, or the mark "not confirmed". A changed flow from a plan is
+  drawn as "proposed", never as verified.
+- Surprises found on the way (a probable bug, a cost that is not logged) are listed with their file
+  and line. They start nothing.
+
+Without a `Diagram tool:` line in PROJECT.md you get an SVG file in the session's scratch folder, and
+the chat shows its path. More than five findings go into a text file next to it. With a design file,
+nothing is written without your yes. When a plan changes a flow, Claude offers a diagram once.
+
 ## Business rules
 
 Some rules of a product are not visible in one piece of code: "VAT is applied once, on the
@@ -485,6 +504,7 @@ Type these in the Claude Code chat. With install way B (skills folder) the comma
 | `/prompt-to-ship states [path]` | `/prompt-to-ship:prompt-to-ship states [path]` | Finds hidden states: things that move between conditions with no written list of them. Proposes numbered actions. The review changes no code. |
 | `/prompt-to-ship project-map [refresh]` | `/prompt-to-ship:prompt-to-ship project-map [refresh]` | Builds or refreshes a project map in a Figma file. Writes only after your yes on a write list. Changes no code. |
 | `/prompt-to-ship hosting` | `/prompt-to-ship:prompt-to-ship hosting` | Offers hosting platforms that fit your project, then guides the setup when you pick one. The offer changes no code. |
+| `/prompt-to-ship diagram [subject]` | `/prompt-to-ship:prompt-to-ship diagram [subject]` | Draws a process diagram that is verified in the code, after one scope question. Changes no code. |
 | `/prompt-to-ship version` | `/prompt-to-ship:prompt-to-ship version` | Shows the installed version, the folder it runs from, and the newest version seen. Changes nothing. |
 | `/prompt-to-ship <your request>` | `/prompt-to-ship:prompt-to-ship <your request>` | Runs the pipeline on your request. |
 
@@ -741,7 +761,7 @@ prompt-to-ship/
   references/                      pipeline, gates, setup, workspace, existing pipeline, debug, checklist,
                                    code hosts, autonomy, learning, security rules, weekly review,
                                    research (outside facts), design (house style), update, direction, ui,
-                                   states, project map, hosting
+                                   states, project map, hosting, diagrams
   skills/design/                   the built-in design skill (/prompt-to-ship:design)
   tests/                           the hook test and the structure test, also run in CI
   docs/                            the README diagrams, and the script that draws them

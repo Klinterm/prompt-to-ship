@@ -115,7 +115,7 @@ out.
 2. Today, how it works: the system map (columns: what users touch, the core, own services, third
    parties, own tools), the chain from input to output (lanes by stage; own work and existing building
    blocks in two colours), one technique card per technique, the technology per layer (research or
-   commodity).
+   commodity). For a system map or a chain board, verify the flow first (diagrams.md).
 3. Today, paths and inventory: end-to-end flows as lanes of steps, products and functions,
    environments, code and releases, and a full inventory of the area that changes fastest.
 4. Direction and risks: the roadmap in horizons (now, next, a funded project when there is one, the
@@ -219,7 +219,7 @@ missing: add it again?". Show the changes as a write list in the M6 form, and wr
 yes. A refresh never edits a repository doc. Without a manifest, say so and run the full
 mode.
 
-## Figma connector notes
+## Design file connector notes
 
 The mechanics that hold for the official Figma MCP connector:
 - Call `create_session` with the file key before any file tool. Reuse its session id on every call.
@@ -249,6 +249,21 @@ The mechanics that hold for the official Figma MCP connector:
   calls.
 - Every write returns the ids of the cards it made or changed. Keep them in the manifest.
 - Give one short status line while a long build runs.
+
+For a verified diagram (diagrams.md) in a design file:
+- Boxes are auto-layout frames with an icon and a text column, a fixed size of about 220 x 72, and a
+  small shadow.
+- The diagram itself is a plain frame with absolute positions, so arrows can be placed exactly: a
+  column grid (for example x = 170 + i x 245 for up to 7 phases, within 1920 px) and fixed lane
+  heights.
+- Arrows come from `figma.createNodeFromSvg`: a path plus a filled triangle head, with the bounding
+  box computed from the points. Never use rotated lines; they break.
+- The zoom beam is one SVG polygon with fill opacity, plus two dashed edge lines.
+- Icons are inline SVG paths of 18 to 22 px, all from one open line-icon set.
+- Use Inter when the product font is not in the file. Load every font before any text edit.
+- Split a big build into retry-safe calls: the overview first, the panels second.
+- One screenshot after each build and after each fix: look for arrows that cross boxes, labels on
+  lines and titles that wrap badly.
 
 ## The manifest
 

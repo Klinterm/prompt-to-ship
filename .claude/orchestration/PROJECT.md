@@ -71,7 +71,7 @@ https://github.com/Klinterm/prompt-to-ship, public. The README is the home page.
   table, agent frontmatter, skills in `skills/` and the case count. Both run in CI.
 - `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
-  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui, states, project map, hosting.
+  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui, states, project map, hosting, diagrams.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`): workflow, tiers,
   references (with scene mode in `immersive.md` and the rebuild path in `rebuild.md`) and the
   DESIGN.md template. `SOURCES.md` credits
@@ -82,7 +82,7 @@ reverts, non-git version control.
 
 ## Customers, partners and integrations
 Claude Code (skills, plugins, subagents, hooks). Code host CLIs: `gh`, `glab`, `az`, `tea`,
-REST APIs. No paid service. Optional: the Figma MCP connector, only for `project-map` (edit access
+REST APIs. No paid service. Optional: the Figma MCP connector, for `project-map` and for diagrams in a design file (edit access
 to a file may need a paid Figma seat). Optional: a hosting platform the user picks in `hosting`
 (Cloudflare has written steps); its account, plan and payment are the user's own.
 
@@ -154,7 +154,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   `claude plugin eval . --runs 1 -j 4 --max-cost-usd 12 --judge-model sonnet --no-publish --scaffold --allow-tools Edit Write`
   (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
   `--ablation none`, half the runs)
-  (24 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
+  (25 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -364,6 +364,20 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   eval case reaches only the offer, not a sign-in or a deploy. Measuring point: the next three uses
   record which platform the user picked, whether a step needed a command outside this file, and any
   stop at a gate; then reconsider this decision and the steps for a second platform.
+- Decision 2026-11-13 (maintainer, second; words: "Rename the heading", "Argument diagram", "SVG
+  file", "Trim wording"): verified diagrams (2.33.0), from a handoff after one session that needed
+  five rounds to get a correct diagram. references/diagrams.md holds the method: a scope question
+  first, then the lead exports the files of each area from the git refs and the host's read-only
+  search agent reads that copy (at most 6 per diagram; not a reviewer, so a narrow step beyond R6, as
+  project-map's optional agent), a swimlane overview, a zoom panel per service, a check list of five
+  rules, and findings that start nothing. The argument `diagram` skips the BRIEF; plain words get a
+  short BRIEF. Stage 2 offers a diagram once per plan when a flow changes, at normal or high risk
+  only. The tool and the colours are each project's own PROJECT.md lines; without a tool, SVG files.
+  The heading "Figma connector notes" in project-map.md became "Design file connector notes", so
+  diagrams.md cites it without the product name and the exception of 2026-11-12 stays as it is. A thin
+  baseline: the eval case reaches only the scope question; the dry run used a sample repository and
+  SVG, not a design file. Measuring point: the next three diagrams record the rounds needed, the
+  number of "not confirmed" boxes, and each finding that proved real; then reconsider this decision.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context
