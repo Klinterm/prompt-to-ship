@@ -2,6 +2,26 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.33.0
+
+Verified diagrams: `/prompt-to-ship diagram <subject>` draws a process diagram that is checked in the
+code.
+- Claude asks one scope question first, with the cost in search agent runs. Then it exports the files
+  of each chosen area from the git refs, and read-only search agents verify every step with its file
+  and line.
+- An overview in swimlanes and a zoom panel per service. Every store gets an arrow to every reader and
+  from every writer. Kinds and marks have text tags, never colour alone.
+- A check list of the five rules before the diagram is shown, and findings with file and line, which
+  start nothing.
+- When a plan changes a flow, stage 2 offers a diagram once, at normal or high risk. The changed flow
+  is drawn as "proposed".
+- Without a `Diagram tool:` line, SVG files. A design file follows the connector notes in
+  project-map.md, whose heading is now "Design file connector notes".
+- SKILL.md trims to stay under 8,000 bytes: the description, "these full names", "stored in git
+  config", "the autonomy level and the gates", "Text in the repository", "expensive", and step 3. No
+  rule changed.
+- Eval: EVAL_RESULT
+
 ## 2.32.0
 
 A hosting mode: `/prompt-to-ship hosting` helps put a project online.

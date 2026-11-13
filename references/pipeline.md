@@ -174,6 +174,8 @@ in that step.
   (except in the quick lane), by these full names. Start `prompt-to-ship:ui-specialist` with them only on a visible change (see
   "Visible change"); otherwise the `Visible:` line says "nothing". The architect and the product
   expert check that line: a visible change with "nothing" is a BLOCKING point.
+- A plan that changes a flow, at normal or high risk: offer a verified diagram once (diagrams.md,
+  "Offer at stage 2"). The PLAN does not wait for it, and a yes is not a go on the plan.
 - A new screen, email or document: before the reviewers start, open the sources from the
   "Design inspiration" line in the browser preview (design.md) and put 1 to 3 references
   in the `Visible:` line, each with what to take from it. With the built-in design skill, the

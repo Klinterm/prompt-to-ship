@@ -316,6 +316,9 @@ Design skill with house style: <no | layout> (layout: the skill guides layout an
 new screens, never colours, fonts or components; default no)
 Design inspiration: <galleries or sites the lead opens for new screens, emails or documents; or
 none>
+Diagram tool: <only when the user names one: a design file through its connector, or none (an SVG
+file)>
+Diagram colours: <only when the user gives them: a colour per kind for verified diagrams>
 <supported languages, words to use and to avoid>
 
 ## Risk table
