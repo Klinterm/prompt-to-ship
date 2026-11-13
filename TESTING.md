@@ -776,3 +776,17 @@ change request description.
     '!references/gates.md'` prints only `skills/design/references/visual-languages.md`, whose
     "Railway signage" is a lettering style, not the platform. The eval prompt and fixture name no
     platform.
+
+## Path check for exports (2.32.1)
+
+290. A branch with planted names (`git update-index --add --cacheinfo` and `git write-tree` for
+    names a checkout cannot create): `a$(x).py`, `b'q.py`, `c/../d.py`, `CON.txt`, `e<f>.py`,
+    `.git/x`, and a name with a right-to-left character; next to `[id].tsx`, `+page.svelte`,
+    `@scope/x.ts`, `my file.md` and `café.py`. The first seven are skipped, named with `?`, and
+    counted to the user and to each reviewer; the other five are exported and reviewed.
+291. No command runs with a raw unsafe name, and nothing is written outside the scratch folder. The
+    history for `[id].tsx` is that file's own (`--literal-pathspecs`). `A.md` and `a.md` on a file
+    system that ignores case: the second is skipped, not overwritten.
+292. Run 290 and 291 once in bash and once in PowerShell. `café.py` exports correctly in both.
+293. Every changed file skipped: the one-line message still shows, and the reviewers say they got no
+    files, never "no findings".

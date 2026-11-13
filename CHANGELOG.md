@@ -2,6 +2,22 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.32.1
+
+Every file path the lead puts into a git command or a scratch export now passes one rule
+(`references/pipeline.md`, "Git history for agents", "Paths in git commands").
+- Paths come only from git output with `-z`, split on NUL. A path with a quote, `$`, a backtick, a
+  backslash, a Windows-forbidden character, a control or Unicode format character, a `.`, `..` or
+  `.git` part, a Windows reserved name or a leading `-` or `/` is skipped. Framework names such as
+  `[id].tsx`, `+page.svelte` and `@scope/x` pass and are reviewed.
+- `git show`, `git log` and `git blame` run with `--no-textconv`; `git log` and `git blame` with
+  `--literal-pathspecs`. An export stays in its own scratch folder and never overwrites a file.
+- A skipped path is named to the user (unsafe characters shown as `?`) and counted to each
+  reviewer, so a missing file is never read as "no findings".
+- Found by the security review of the verified-diagrams change. Follow-up: once both are on main,
+  `references/diagrams.md`, step D2 cites this rule instead of its own stricter set.
+- No eval run: a patch.
+
 ## 2.32.0
 
 A hosting mode: `/prompt-to-ship hosting` helps put a project online.
