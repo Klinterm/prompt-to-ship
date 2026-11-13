@@ -55,20 +55,21 @@ runs." Draw nothing before the answer.
 **D2. Verify.** For each chosen area:
 1. The lead runs git, never the agents. Fixed read-only commands only:
    `git for-each-ref --format="%(refname:short) %(committerdate:short)" refs/remotes refs/heads`,
-   `git ls-tree -r -z --name-only <ref>` and `git show --no-textconv <ref>:<path>`.
+   `git ls-tree -r -z --full-name --name-only <ref>` and
+   `git --literal-pathspecs show --no-textconv --no-ext-diff <ref>:<path>`.
    - A ref name uses only letters, digits and `. / _ - : = @ ^ ~ , + %`, and starts with no `-`,
-     `~` or `/`.
-   - A path comes from `git ls-tree` output only. It is used only when it matches
-     `^[A-Za-z0-9._/-]+$`, has no `..` part and starts with no `-` or `/`. Skip any other path, and
-     name it on the D6 list.
-   - Pass each value in single quotes (bash), or as a literal string in another shell. Never use
-     `eval` or a built command string.
+     `~` or `/`. Pass it as one single-quoted value. Never use `eval` or a built command string.
+   - Every path follows the path parts of pipeline.md, "Git history for agents" (the bullet "Paths
+     in git commands"): where a path comes from, how it stays out of the command text, the skip
+     list, and how an export is written. Its message to the user, its reviewer sentence and its
+     high-risk stop do not apply here: a skipped path, a name clash or a failed export goes on the
+     D6 list instead.
+   - Without bash, export nothing, draw nothing as verified, and say so in the user's language.
 2. Use the remote refs as last fetched. A direct `diagram` request does not fetch; say once: "I do not
    fetch. Run `git fetch` first to see newer work." At the stage 2 offer, stage 1 already fetched when
    there is a remote.
 3. Export the area's files into the session's scratch folder. Skip every path on the deny list
-   (What runs). Check that each target file stays inside the scratch folder. The search agents read
-   only that copy, never the working tree.
+   (What runs). The search agents read only that copy, never the working tree.
 4. Each agent returns numbered steps, each with: actor and component; endpoint or class with
    `path:line`; what it reads and writes; the external services it calls. Each item it could not
    confirm is marked "not confirmed".
