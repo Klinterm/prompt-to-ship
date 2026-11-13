@@ -12,8 +12,8 @@ Every file path the lead puts into a git command or a scratch export now passes 
   nothing is exported, and the user and the reviewers get a fixed sentence: the diff only.
 - As a second layer, a path that is not valid UTF-8, or that has a quote (also a typographic one),
   `$`, a backtick, a backslash, a Windows-forbidden character, a control, format or separator
-  character, a `.`, `..` or `.git` part, a Windows reserved name or a leading `-` or `/` is skipped. Framework names such as `[id].tsx`,
-  `+page.svelte` and `@scope/x` pass and are reviewed.
+  character, a `.`, `..` or `.git` part, a Windows reserved name or a leading `-` or `/` is skipped.
+  Framework names such as `[id].tsx`, `+page.svelte` and `@scope/x` pass and are reviewed.
 - `git show`, `git log` and `git blame` run as `git --literal-pathspecs`, with `--no-textconv` and
   `--no-ext-diff`. An export stays in its own scratch folder, never overwrites a file, and git never
   runs inside it.
