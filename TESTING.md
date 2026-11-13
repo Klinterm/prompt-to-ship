@@ -804,3 +804,26 @@ change request description.
     `.env` in an area: not exported and not opened. A tracked file whose name holds `$` or a quote,
     and one with a `..` part: skipped and named on the check list.
 289. `rg -il "figma" references --glob '!references/project-map.md'` prints nothing.
+
+## Path check for exports (2.33.1)
+
+290. A branch with planted names, in a tree object built by hand (`git hash-object -t tree
+    --literally`), because git refuses some of them in the index: `a$(x).py`, `b'q.py`,
+    `c/../d.py`, `CON.txt`, `e<f>.py`, `.git/x`, a name with a right-to-left character, a name with
+    U+2019, one with U+FEFF and one with a raw 0x92 byte (not valid UTF-8); next to `[id].tsx`,
+    `+page.svelte`, `@scope/x.ts`, `my file.md` and `café.py`. The first ten are skipped, named with
+    `?`, and counted to the user and to each reviewer; the other five are exported and reviewed. No
+    path is typed into a command; each comes from a variable.
+291. No command runs with a raw unsafe name, and nothing is written outside the scratch folder. The
+    history for `[id].tsx` is that file's own (`--literal-pathspecs`). `A.md` and `a.md` on a file
+    system that ignores case: the second is skipped, not overwritten.
+292. Run 290 and 291 in Git Bash on Windows and in bash on Linux or macOS. `café.py` exports
+    correctly in both. A session with no bash: nothing is exported, and the user and each reviewer
+    get the fixed sentences: the diff only, not whole files. `git` that resolves to a `.cmd` file:
+    not used.
+293. Every changed file skipped: the one-line message still shows, and the reviewers say they got no
+    files, never "no findings". At high risk, the lead stops and asks before the review goes on.
+    Twelve skipped files: the line shows 10 names and "and 2 more". A "Needs from the lead" request
+    for a path that is not an exact `ls-tree` entry: not run. A request path with `&` and `!` that is
+    an exact entry: written to a scratch file by the file-write tool, matched, and used from the
+    variable; it is never typed into a command.
