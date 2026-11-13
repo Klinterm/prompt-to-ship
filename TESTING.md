@@ -788,8 +788,9 @@ change request description.
 282. The overview: every box and arrow has `path:line` or "not confirmed"; the lifecycle runs to the
     end state; every store reader and writer has an arrow; the legend names every kind and mark; the
     header has the refs and dates; at most 8 phases and 8 lanes.
-283. A zoom panel per service: frame, beam, steps with who decides, store chips, and the note. No
-    text under the beam.
+283. A zoom panel per service: a zoom frame with its "zoom" tag (never read as a double border), a
+    beam behind the boxes at 10 percent or less, steps with who decides, chips with tags, and the
+    note.
 284. The D6 check is in the chat, gaps first, after a line with the gap count. A planted arrow through
     a box in a test render: the check names it. Text of at least 14 px at the frame's own size, no
     clipped tag, colour pairs at 4.5 to 1, all text escaped in the SVG.

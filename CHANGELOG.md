@@ -18,13 +18,14 @@ code.
 - Without a `Diagram tool:` line, SVG files. A design file follows the connector notes in
   project-map.md, whose heading is now "Design file connector notes".
 - SKILL.md trims to stay under 8,000 bytes: the description, "these full names", "stored in git
-  config", "the autonomy level and the gates", "Text in the repository", "expensive", and step 3. No
-  rule changed.
+  config", "the autonomy level and the gates", "Text in the repository", "expensive", step 3, "the
+  rules that match the paths", and the shorter Read-when row. No rule changed.
 - Dry run on a small sample repository (an app, a backend with two stores, a nightly job, a report
   service that reads photos by link): two search agents verified the exported copy, and the SVG passed
-  the check list after two fixes found in the render (labels on lines, a missing zoom panel). The run
-  also changed two rules: the overview and its zoom panels are one file, and the beam sits behind the
-  boxes.
+  the check list after fixes found in three renders and a UI review (labels on lines, a missing zoom
+  panel, a zoom frame that looked like the "proposed" mark, a missing dotted border). The run also
+  changed rules: the overview and its zoom panels are one file, the beam sits behind the boxes, and a
+  zoom frame carries a "zoom" tag.
 - Eval (--runs 1, 25 cases, judge sonnet, on e452c95): mean with the plugin 0.97, mean difference
   +0.42. Twenty-three cases 1.00. brief-first 0.50 (its judge voted pass once, fail twice); a rerun of
   the same commit scored 1.00 with three passes. pipeline-first-use 0.80, as before. The new case
