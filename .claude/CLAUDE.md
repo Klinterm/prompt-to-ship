@@ -15,7 +15,7 @@ it is not shipped as part of the plugin root.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`). plugin.json lists
   `"skills": ["."]` so the root SKILL.md keeps loading.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, code
-  hosts, autonomy, learning, security rules, weekly review, research, design, update, direction, ui, states.
+  hosts, autonomy, learning, security rules, weekly review, research, design, update, direction, ui, states, project map.
 - Pipeline lessons from other projects arrive in `~/.claude/prompt-to-ship/upstream.md` (this
   repository's PROJECT.md says `Upstream inbox: yes`). They are generic by design; keep them so.
 - `.claude/orchestration/incidents.md`: this repository's own incidents (stage 8).
@@ -26,9 +26,12 @@ it is not shipped as part of the plugin root.
 
 - Everything in English. The skill answers users in their own language.
 - Generic: no company, product, customer or stack names. Product knowledge belongs in each user
-  repository's `.claude/orchestration/PROJECT.md`. Two recorded exceptions: the design gallery
-  that setup suggests (PROJECT.md, decision 2026-10-29), and the credits in
-  `skills/design/SOURCES.md` (decision 2026-11-03).
+  repository's `.claude/orchestration/PROJECT.md`. Three recorded exceptions: the design gallery
+  that setup suggests (PROJECT.md, decision 2026-10-29), the credits in
+  `skills/design/SOURCES.md` (decision 2026-11-03), and Figma for the project map mode (decision
+  2026-11-12): only in `references/project-map.md`, its README section and command row, its
+  TESTING.md section, the CHANGELOG, and the decision, rule, integration and parked lines in
+  PROJECT.md and this file.
 - No em dashes, en dashes or curly quotes.
 - Host neutral: every code host action goes through `references/code-hosts.md`. Language
   neutral: no check may assume a database, a frontend or a framework.

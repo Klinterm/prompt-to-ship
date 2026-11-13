@@ -2,7 +2,7 @@
 name: prompt-to-ship
 description: From prompt to shipped change. Orchestration layer for any coding request in a git repository that has opted in (it has .claude/orchestration/PROJECT.md) or when the user asks for "the pipeline". Any language, any git host or none. Turns the request into a precise brief, then runs understand, plan (architect and product expert, UI specialist on visible changes), build, proof, layered review, change request, merge and measure, and learn. Also debugs shipped code, read-only, and sets up git for a new project.
 when_to_use: Building, changing or fixing code, a database change, a pull request or merge request, a release, or a new feature idea. Triggers include "build", "add", "change", "fix", "implement", "refactor", "new feature", "PR", "MR", "ship", "deploy", "review this branch". Also "why does X fail in production", a support ticket, "I lost track", "review the UI". Not for a short explanation question, or a request that starts with "no pipeline:".
-argument-hint: "[setup | weekly | autonomy | debug | direction | ui | states | version | <request>]"
+argument-hint: "[setup | weekly | autonomy | debug | direction | ui | states | project-map | version | <request>]"
 ---
 
 # Prompt to ship
@@ -16,7 +16,7 @@ and own the result. Answer plainly, in the user's language.
 |---|---|
 | pipeline.md | always, once per task |
 | gates.md | always, at stage 0; again before every push, merge and release |
-| autonomy.md | first load, argument `autonomy`, or autonomy level above `ask` |
+| autonomy.md | first load, argument `autonomy`, or a level above `ask` |
 | existing-pipeline.md | pipeline mode is not `none`, the section is missing, or setup finds signals |
 | workspace.md | `git rev-parse --show-toplevel` fails in the start folder |
 | learning.md | stage 8, `weekly`, local storage, a local log, an unconfirmed PROJECT.md, or `Upstream inbox: yes` |
@@ -29,6 +29,7 @@ and own the result. Answer plainly, in the user's language.
 | direction.md | argument `direction`, or the user lost track |
 | ui.md | argument `ui`, or a request to review or improve a UI |
 | states.md | argument `states` |
+| project-map.md | argument `project-map` |
 | research.md | the change may need an outside fact |
 | design.md | a visible change |
 | update.md | argument `version`, or step 0 says so |
@@ -37,7 +38,7 @@ Any other argument: the pipeline.
 
 ## Before stage 0
 
-With `direction`, `ui` or `states`: step 0, then that file; no setup.
+With `direction`, `ui`, `states` or `project-map`: step 0, then that file; no setup.
 
 0. **Version.** A `VERSION:` line from the hook, or no PROJECT.md: update.md. Never update unasked.
 1. **Git.** If `git rev-parse --show-toplevel` fails, check for a workspace (workspace.md).
@@ -52,13 +53,13 @@ With `direction`, `ui` or `states`: step 0, then that file; no setup.
    yes, pipeline mode `none`, autonomy `ask`, markers to local log; nothing else changes.
    `domain.md`: until yes, an invariant gives a question, never a stop.
 5. **Existing pipeline:** read "Pipeline mode" and follow existing-pipeline.md when it applies.
-6. **Autonomy:** read the level and work out the effective level (autonomy.md). Empty level,
+6. **Autonomy:** work out the effective level (autonomy.md). Empty level,
    PROJECT.md present, mode not `defer`: ask the level question once.
 7. **Upstream inbox:** with `Upstream inbox: yes`, list its open lessons in one line (learning.md).
 
 ## Stage 0. Brief (always first)
 
-Never run the request literally. Look up the context first, then show at most ten lines:
+Never run the request literally. Look up the context, then show at most ten lines:
 
 ```
 BRIEF
@@ -76,13 +77,13 @@ Autonomy:    <effective level, and the reason when it is lower than the stored l
 High risk or an open question: stop and wait for the user's go. A short question without
 changes gets a plain answer.
 
-## Stages 1 to 8 (details in pipeline.md)
+## Stages 1 to 8 (pipeline.md)
 
 The reviewer agents are `prompt-to-ship:architect`, `prompt-to-ship:ui-specialist`,
 `prompt-to-ship:product-expert`, `prompt-to-ship:fresh-reviewer`,
 `prompt-to-ship:security-reviewer` and `prompt-to-ship:validator`. The researcher
 is `prompt-to-ship:researcher`, the debugger `prompt-to-ship:debugger`. Start them by these full
-names, with the signals and models in pipeline.md.
+names (signals and models: pipeline.md).
 
 1. **Understand** the code and its history. Find the rules that match the paths. Decide if the
    change needs an outside fact (research.md).
@@ -114,9 +115,9 @@ Reviewers:   <verdicts after the review; architect Ready; "all understood">
 Never skip 5d, except in `defer`; never skip stage 2, except in `defer` or the quick lane.
 Say which agents ran and what they found.
 
-## Gates (details in gates.md)
+## Gates (gates.md)
 
-At every autonomy level, stop and wait for the user on every gate, among them: high
+At every autonomy level, stop for the user on every gate, among them: high
 risk or a forced-high path; an open question; a BLOCKING point; an unfixed finding of severity
 Medium or higher; a failed check or CI; signs of compromise; any write to a production system.
 A merge into a target that deploys on merge needs level `release`.

@@ -244,6 +244,34 @@ Only the word `states` starts this review. It is based on reading, so test a cas
 on it. A case that goes wrong always stays an action, also when a comment or a written decision says
 it is fine: you decide.
 
+## Make a project map
+
+A project map is one Figma file where an owner, the team and outside experts see what exists, how
+it works, where it runs, the status of each part, the next steps, the risks and the open choices.
+Type `/prompt-to-ship project-map`. It needs the official Figma MCP connector, with edit access to
+the file. Claude first asks who reads the map and for the link to the file. Then it reads the
+repository and shows a write list:
+
+```
+Project map: Product map. Audience: the owner. I changed no project file.
+This goes to Figma. Everyone with access to that file can see it.
+1. Start / Where we are: change card "PDF export": "Builds the report as a PDF". Status Built to Test, evidence branch in test, CI passed, 2026-11-10.
+2. Direction and risks / Risks: add card "Photo limit": "Reports keep at most 40 photos (src/report.py:1)". Status none to Risk, evidence src/report.py, 2026-11-10.
+Risks and endpoints in this list: 2.
+Left out: one API token in docs/setup.md.
+Reply yes to write this list and save the manifest at ~/.claude/prompt-to-ship/project-map/<id>.json. Nothing is written without it.
+```
+
+- A status comes from evidence: git, CI and, with a confirmed `debug/access.md`, the live endpoint.
+  Without evidence the card says "not verified". Work older than two weeks that never deployed is
+  Parked.
+- Nothing is written without your yes, at every autonomy level. The yes starts no change, push or
+  merge. The mode changes no project file: when a fact is wrong, fix the doc first, then the map.
+- `/prompt-to-ship project-map refresh` checks every status again and shows the changes as a new
+  write list.
+- The manifest stays on your computer, outside the repository. Access to the map and deleting its
+  content are up to you, in Figma.
+
 ## Business rules
 
 Some rules of a product are not visible in one piece of code: "VAT is applied once, on the
@@ -414,6 +442,7 @@ Type these in the Claude Code chat. With install way B (skills folder) the comma
 | `/prompt-to-ship direction` | `/prompt-to-ship:prompt-to-ship direction` | Shows where you are and helps you choose the next goal. Changes no code. |
 | `/prompt-to-ship ui [screen]` | `/prompt-to-ship:prompt-to-ship ui [screen]` | Reviews a screen, ranks the top problems, then fixes or redesigns it when you choose. The review changes no code. |
 | `/prompt-to-ship states [path]` | `/prompt-to-ship:prompt-to-ship states [path]` | Finds hidden states: things that move between conditions with no written list of them. Proposes numbered actions. The review changes no code. |
+| `/prompt-to-ship project-map [refresh]` | `/prompt-to-ship:prompt-to-ship project-map [refresh]` | Builds or refreshes a project map in a Figma file. Writes only after your yes on a write list. Changes no code. |
 | `/prompt-to-ship version` | `/prompt-to-ship:prompt-to-ship version` | Shows the installed version, the folder it runs from, and the newest version seen. Changes nothing. |
 | `/prompt-to-ship <your request>` | `/prompt-to-ship:prompt-to-ship <your request>` | Runs the pipeline on your request. |
 
@@ -670,7 +699,7 @@ prompt-to-ship/
   references/                      pipeline, gates, setup, workspace, existing pipeline, debug, checklist,
                                    code hosts, autonomy, learning, security rules, weekly review,
                                    research (outside facts), design (house style), update, direction, ui,
-                                   states
+                                   states, project map
   skills/design/                   the built-in design skill (/prompt-to-ship:design)
   tests/                           the hook test and the structure test, also run in CI
   docs/                            the README diagrams, and the script that draws them
