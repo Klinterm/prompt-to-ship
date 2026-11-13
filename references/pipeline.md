@@ -130,6 +130,14 @@ The agents have no shell, so the lead runs git for them. This holds for every ag
     The `?` form is only for a name shown because it was not given. A file such as `café.py` is
     exported and reviewed under its own name.
 
+## Secret files
+
+The one list of secret files, for every mode and every stage. No mode keeps its own copy.
+- Never open or search: `.git/`, `.ssh/`, `.env*`, `*.env`, `.dev.vars*`, `*.pem`, `*.key`, `*.p12`,
+  `*.pfx`, `id_rsa*`, `.netrc`, `.npmrc`, `.git-credentials` and `credentials*`.
+- Match each pattern against every part of a path, ignoring case.
+- Never show a discovered secret or personal data: leave the value out, and say that you left it out.
+
 ## Which agent when
 
 Start an agent only on its signal, and say which agents you start and why. Each row points to
