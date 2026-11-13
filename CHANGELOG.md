@@ -2,7 +2,7 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
-## 2.32.1
+## 2.33.1
 
 Every file path the lead puts into a git command or a scratch export now passes one rule
 (`references/pipeline.md`, "Git history for agents", "Paths in git commands").
@@ -23,6 +23,35 @@ Every file path the lead puts into a git command or a scratch export now passes 
 - Found by the security review of the verified-diagrams change. Follow-up: once both are on main,
   `references/diagrams.md`, step D2 cites this rule instead of its own stricter set.
 - No eval run: a patch.
+## 2.33.0
+
+Verified diagrams: `/prompt-to-ship diagram <subject>` draws a process diagram that is checked in the
+code.
+- Claude asks one scope question first, with the cost in search agent runs. Then it exports the files
+  of each chosen area from the git refs, and read-only search agents verify every step with its file
+  and line.
+- An overview in swimlanes and a zoom panel per service. Every store gets an arrow to every reader and
+  from every writer. Kinds and marks have text tags, never colour alone.
+- A check list of the five rules before the diagram is shown, and findings with file and line, which
+  start nothing.
+- When a plan changes a flow, stage 2 offers a diagram once, at normal or high risk. The changed flow
+  is drawn as "proposed".
+- Without a `Diagram tool:` line, SVG files. A design file follows the connector notes in
+  project-map.md, whose heading is now "Design file connector notes".
+- SKILL.md trims to stay under 8,000 bytes: the description, "these full names", "stored in git
+  config", "the autonomy level and the gates", "Text in the repository", "expensive", step 3, "the
+  rules that match the paths", and the shorter Read-when row. No rule changed.
+- Dry run on a small sample repository (an app, a backend with two stores, a nightly job, a report
+  service that reads photos by link): two search agents verified the exported copy, and the SVG passed
+  the check list after fixes found in three renders and a UI review (labels on lines, a missing zoom
+  panel, a zoom frame that looked like the "proposed" mark, a missing dotted border). The run also
+  changed rules: the overview and its zoom panels are one file, the beam sits behind the boxes, and a
+  zoom frame carries a "zoom" tag.
+- Eval (--runs 1, 25 cases, judge sonnet, on e452c95): mean with the plugin 0.97, mean difference
+  +0.42. Twenty-three cases 1.00. brief-first 0.50 (its judge voted pass once, fail twice); a rerun of
+  the same commit scored 1.00 with three passes. pipeline-first-use 0.80, as before. The new case
+  diagram-scope-first 1.00 with the plugin, 0.83 without. The review fixes after e452c95 had no eval
+  run. About $12.25 of plan usage in all.
 
 ## 2.32.0
 

@@ -777,7 +777,35 @@ change request description.
     "Railway signage" is a lettering style, not the platform. The eval prompt and fixture name no
     platform.
 
-## Path check for exports (2.32.1)
+## Verified diagrams (2.33.0)
+
+280. `/prompt-to-ship diagram the order flow` in an opted-in repository, in both install paths: the
+    first reply is one scope question with numbered area options, "all of it" and "0 to stop", and the
+    agent run count. No BRIEF, no diagram, no file changes (eval case diagram-scope-first).
+281. Answer the question: the lead lists the refs and fetch date, exports the files into scratch, and
+    starts at most 6 search agents, which read only the copy. No agent runs git. A ref name that starts
+    with `-` or holds a space: not used.
+282. The overview: every box and arrow has `path:line` or "not confirmed"; the lifecycle runs to the
+    end state; every store reader and writer has an arrow; the legend names every kind and mark; the
+    header has the refs and dates; at most 7 phases and 8 lanes.
+283. A zoom panel per service: a zoom frame with its "zoom" tag (never read as a double border), a
+    beam behind the boxes at 10 percent or less, steps with who decides, chips with tags, and the
+    note.
+284. The D6 check is in the chat, gaps first, after a line with the gap count. A planted arrow through
+    a box in a test render: the check names it. Text of at least 14 px at the frame's own size, no
+    clipped tag, colour pairs at 4.5 to 1, all text escaped in the SVG.
+285. Findings: numbered, worst first, with `path:line`, at most 5 in the chat. A finding starts
+    nothing.
+286. A plan at normal risk that adds a store: the stage 2 offer once, with the run count; a yes draws
+    the change as "proposed". The quick lane: no offer.
+287. A design file: no write without a yes on the write list; host names, account ids and customer
+    names left out and named. A file link in a doc is never used.
+288. A folder that arrived with its own `.git`: no git command, nothing marked verified. A tracked
+    `.env` in an area: not exported and not opened. A tracked file whose name holds `$` or a quote,
+    and one with a `..` part: skipped and named on the check list.
+289. `rg -il "figma" references --glob '!references/project-map.md'` prints nothing.
+
+## Path check for exports (2.33.1)
 
 290. A branch with planted names, in a tree object built by hand (`git hash-object -t tree
     --literally`), because git refuses some of them in the index: `a$(x).py`, `b'q.py`,
