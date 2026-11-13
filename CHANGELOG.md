@@ -2,6 +2,22 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.34.0
+
+The star line: once per user, after the first task that opens a change request or merges a change,
+Claude ends its final message with one line that asks for a GitHub star.
+- It is the last line of the final message, after the rules line. It is never shown at a gate, a
+  diff read or a question, never in a mode without a change, and never after `no pipeline:`.
+- Claude remembers it in the empty file `~/.claude/prompt-to-ship/star-asked`. When that file
+  exists, the line never comes back. Delete the file to see it once more, or create it to never
+  see it.
+- It never blocks anything, never checks whether you starred, and calls no network.
+- The README has the same line under the status.
+- No eval case reaches a change request, so the eval does not test the star line.
+- Eval: EVAL_RESULT
+
+Does prompt-to-ship help you? A star on GitHub helps others find it.
+
 ## 2.33.2
 
 Verified diagrams use the one path rule.
