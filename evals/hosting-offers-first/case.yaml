@@ -22,7 +22,7 @@ graders:
     target: last_message
   - name: names-another-platform
     type: regex
-    pattern: 'vercel|netlify|render|railway|fly\.io|github pages'
+    pattern: 'vercel|netlify|\brender\b(?!ed|s)|railway|fly\.io|github pages'
     flags: i
     target: last_message
   - name: counted-reply

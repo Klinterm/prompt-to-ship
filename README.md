@@ -282,14 +282,14 @@ best fit first. It writes nothing and runs no command:
 For a static website, these fit best:
 
 1. Cloudflare
-   Runs static sites and JavaScript apps worldwide.
+   Runs static sites and JavaScript apps.
    Your site is plain files, which it serves directly.
    Code that uses its own data services needs changes to move elsewhere.
    Official page: https://developers.cloudflare.com/workers/platform/pricing/
 2. Netlify
    Hosts static and framework sites, with Functions.
    Also fits a plain static site.
-   Not checked in this skill: read its page for limits.
+   Downside: not checked by me. Read its page.
    Official page: https://docs.netlify.com/build/functions/overview/
 
 Prices and a payment method are your own choice. Facts read on 2026-11-13.
@@ -297,14 +297,15 @@ Reply 1 or 2 to set it up with me, or 0 to stop.
 ```
 
 - No platform is the default. Cloudflare comes first only for static sites, single-page apps and
-  JavaScript apps. A server in another language or a Docker image gets other platforms first.
+  JavaScript apps. A server in another language or a Docker image gets Cloudflare with its
+  Containers downside, or not at all.
 - Only Cloudflare has written steps so far. For another platform, Claude follows its official docs
   and shows each step before it runs.
 - You create the account, accept the terms, sign in (`npx wrangler login --use-keyring`, in your
   own terminal) and type each secret yourself. Claude never sees a token.
-- A preview link comes first. Then you choose: every merge goes live by itself, or you say go each
-  time. Every deploy to the live site waits for your go or your autonomy level, and a site that is
-  already live gets the production gate.
+- A preview link comes first. Then you choose: every merge goes live by itself (only when previews
+  cannot touch live data), or you say go each time. Every deploy to the live site waits for your go
+  or your autonomy level, and a live site gets the production gate for each upload and deploy.
 - Plain words such as "put it online" run the normal pipeline, with the platform choice in the plan.
 
 ## Business rules

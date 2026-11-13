@@ -45,22 +45,24 @@ hosts.
 - a long-running server in any language, or a Docker image;
 - it needs a database.
 
-Then ask at most three questions, in one message, and say that "I don't know" is a valid answer:
+Then three questions, and "I don't know" is a valid answer:
 1. Should it be free to start?
 2. Must the data stay in the EU?
 3. Will it earn money or serve customers?
 
-A database need changes the list: a platform without a fitting database drops out, or gets that gap
-as its downside. "I don't know" on all three, and no clear group: give no default; ask one more
-question.
+A clear group: show the offer (H2) at once, with the questions under it ("Answer these and I adjust
+the list, for example: 1 yes, 2 no, 3 I don't know."). No clear group: ask the questions first, in one
+message, and offer after the answers. A database need changes the list: a platform without a fitting
+database drops out, or gets that gap as its downside. "I don't know" on all three, and still no clear
+group: give no default; ask one more question.
 
 **Empty or unclear project.** No build files, or nothing to put in a group: say what you could not
 read, ask one question ("What will it be: a website, a web app, or a server?"), and offer nothing
 yet.
 
-**H2. Offer.** Two or three platforms from "Choose a platform", the best fit first. Cloudflare comes
-first only when it fits: a static site, a single-page app, or a JavaScript framework that runs on
-Workers. Show a short list, never a table:
+**H2. Offer.** Two or three platforms from "Choose a platform", the best fit first. Offer a platform
+only for what its "Fits" column says. Cloudflare comes first only when it fits: a static site, a
+single-page app, or a JavaScript framework that runs on Workers. Show a short list, never a table:
 
 ```
 For <what the project is>, these fit best:
@@ -82,7 +84,7 @@ Reply 1, 2 or 3 to set it up with me, or 0 to stop.
 - GitHub Pages gets the line: "Its terms limit commercial use. Read them before you pick: <url>".
 
 **H3. After the reply.**
-- A number: start the normal flow with the picked platform as the request, as direction.md,
+- A number in the list: start the normal flow with the picked platform as the request, as direction.md,
   "Starting a step" says. Its level lines apply. The BRIEF comes first.
 - 0: "Nothing was changed. Run `hosting` again when you want to go on." Stop.
 - Any other reply: it starts nothing. Ask again.
@@ -98,10 +100,10 @@ source: the official page in each row. valid: 2026-11-13 to 2027-05-13.
 | Platform | Fits | Downside | Official page |
 |---|---|---|---|
 | Cloudflare | static sites, single-page apps, JavaScript frameworks on Workers | an app in a Docker image needs Cloudflare Containers, which are on the Workers Paid plan; code that uses KV, D1, R2 or Durable Objects (bindings) needs changes to run elsewhere (our inference) | https://developers.cloudflare.com/workers/platform/pricing/ |
-| Vercel | Next.js and other JavaScript frameworks, also Python and other backend frameworks | not checked here: read its page | https://vercel.com/docs/frameworks/frontend |
-| Netlify | static and framework sites, with Functions | not checked here: read its page | https://docs.netlify.com/build/functions/overview/ |
-| Render | native runtimes and a Docker runtime; a Frankfurt region | not checked here: read its page | https://render.com/docs/regions |
-| Railway | builds your code or your Dockerfile; an EU region in Amsterdam | not checked here: read its page | https://docs.railway.com/deployments/regions |
+| Vercel | Next.js and other JavaScript frameworks, also Python and other backend frameworks | Downside: not checked by me. Read its page. | https://vercel.com/docs/frameworks/frontend |
+| Netlify | static and framework sites, with Functions | Downside: not checked by me. Read its page. | https://docs.netlify.com/build/functions/overview/ |
+| Render | native runtimes and a Docker runtime; a Frankfurt region | Downside: not checked by me. Read its page. | https://render.com/docs/regions |
+| Railway | builds your code or your Dockerfile; an EU region in Amsterdam | Downside: not checked by me. Read its page. | https://docs.railway.com/deployments/regions |
 | Fly.io | EU regions ams and fra | no free tier for new organizations | https://docs.fly.io/about/pricing |
 | GitHub Pages | static sites only | its terms do not allow it to run an online business | https://docs.github.com/en/site-policy/github-terms/github-terms-for-additional-products-and-features |
 
@@ -112,8 +114,8 @@ source: the official page in each row. valid: 2026-11-13 to 2027-05-13.
   the pipeline writes.
 - Deploy without the user's go.
 - Run a rollback on its own (gates.md, "Never, at any level").
-- Run a command for a platform that does not come from this file or that platform's official docs.
-  Show each such command first; it runs only on the user's go.
+- Run a command that comes from another source than this file or the platform's official docs.
+- Run a command from the official docs without showing it first. It runs only on the user's go.
 
 ## Cloudflare steps
 
@@ -123,20 +125,7 @@ from Cloudflare's official docs, read on 2026-11-13.
 **C1. Account.** The user creates the account and accepts the terms in the browser. The skill never
 does.
 
-**C2. Sign-in.** Say:
-
-```
-Run this in your own terminal, not in the chat: npx wrangler login --use-keyring
-A browser tab asks you to allow access. Reply done when it shows success.
-If you see an error, paste the message here, but never a token.
-```
-
-`--use-keyring` stores the sign-in encrypted, with the key in the operating system keychain.
-Without it, the sign-in sits in a plain text file: say that once, in one sentence. Then check with
-`npx wrangler whoami`, which shows where the sign-in is stored. Its output can show an account
-email: do not repeat it.
-
-**C3. Config.** A change through the pipeline. Its deploy files are forced high (gates.md), so the
+**C2. Config.** A change through the pipeline. Its deploy files are forced high (gates.md), so the
 user reads the diff.
 - A new project: show `npm create cloudflare@latest`. The user runs it in their own terminal, and
   says no if it asks to deploy. The skill does not run it.
@@ -148,31 +137,61 @@ user reads the diff.
   through the project's own scripts. `npm install` runs package scripts, so ask for the user's go
   before it runs.
 - Local secrets go in `.dev.vars`, which must not be committed. Add `.dev.vars*` to `.gitignore`
-  before the first commit.
+  before the first commit. The user types the values into `.dev.vars` in their own editor; the lead
+  never opens it.
+- The Worker name in the config comes from the user, or from repository text only when it matches
+  `^[a-z0-9][a-z0-9-]{0,62}$`. Otherwise ask.
 
-**C4. Preview.** On the user's go, run `npx wrangler versions upload`. It uploads a version that
-the live site does not serve, and gives a preview link when Version URLs are on. Open the preview
-link as a visitor and show the result. Say once, in plain words: "A preview may use the same data
-as the live site, unless the config gives it its own. I treat it as able to change live data." (No
-source confirms either way.)
+**Wrangler commands.** Before C2 put wrangler in the lockfile, run no wrangler command. After that,
+`npx wrangler` uses the project's own copy. The lead runs only `npx wrangler whoami`,
+`npx wrangler versions upload` and `npx wrangler deploy`. The user runs every other wrangler
+command in their own terminal.
 
-**C5. Going live.** First ask: "Is a site or service already live under this name or address? Yes,
-no, or I don't know." Yes or "I don't know": every production deploy is gate 15 (show the action,
-its rollback and the expected effect, and wait). Then let the user choose one of two ways, in one
-message:
+**C3. Sign-in.** After C2. Say:
+
+```
+Run this in your own terminal, not in the chat: npx wrangler login --use-keyring
+A browser tab asks you to allow access. Reply done when it shows success.
+If you see an error, paste the message here, but never a token. I will help you fix it.
+```
+
+Then say: "Without --use-keyring, the sign-in is saved in a plain text file on this computer." Check
+with `npx wrangler whoami`, which shows where the sign-in is stored. Its output can show an account
+email: do not repeat it.
+
+**C4. Live or not.** Before any upload, ask: "Is a site or service already live under this name or
+address? Yes, no, or I don't know." Yes or "I don't know": the site counts as live. After the first
+production deploy it is live too; propose the PROJECT.md line "Live site: yes". While the site is
+live, every upload and every production deploy is gate 15: show the action, its rollback and the
+expected effect, and wait.
+
+**C5. Preview.** A preview link shows a version that the live site does not serve; Cloudflare calls
+it a Version URL. On the user's go (gate 15 when C4 says live), run `npx wrangler versions upload`.
+It gives a preview link when Version URLs are on. Open it as a visitor and show the result. Say once:
+"A preview may use the same data as the live site, unless the config gives it its own. I treat it as
+able to change live data." (No source confirms either way.)
+
+**C6. Going live.** Way A is offered only when previews cannot touch live data: the config gives
+previews their own data, or the project has none. Otherwise offer only way B, and say why in one
+sentence. Ask in one message:
 
 ```
 How should it go live?
 A. Every merge goes live by itself. Be ready for a live change on each merge.
-B. You say go each time.
+B. You say go each time. Slower, but nothing goes live without you.
 Reply A or B.
 ```
 
-- **A, deploy on push.** The user connects the repository in the Cloudflare dashboard (Workers
-  Builds). The production branch then builds and deploys on each push; other branches get preview
-  builds. Propose the PROJECT.md line "Deploys on merge: yes", and no release command for hosting.
-  From then on a merge to the production branch is a release: it needs level `release` or the
-  user's word (autonomy.md, "Deploys on merge"). No token goes to the code host.
+- **A, deploy on push.** Before the user connects anything, ask: "From now on a merge goes live. May
+  I record that in this repository's git settings?" On yes, set `git config --local
+  orchestration.deploysOnMerge true`; this counts at once (gates.md, "Deploys on merge"). Then the
+  user connects the repository in the Cloudflare dashboard (Workers Builds): the production branch
+  builds and deploys on each push, and other branches get preview builds. Propose the PROJECT.md
+  line "Deploys on merge: yes", and no release command for hosting. A merge to the production branch
+  is now a release: it needs level `release` or the user's word, and at levels `ask` and
+  `change-request` the merge stops (autonomy.md, "Deploys on merge"). While the site is live, the
+  gate 15 form comes before the merge, because the platform deploys by itself after it. No token goes
+  to the code host.
 - **B, deploy by hand.** Propose "Deploys on merge: no", and no release command for hosting. Each
   production deploy (`npx wrangler deploy`) is one action that waits for the user's go in chat, at
   every autonomy level. It is not part of a tag release.
@@ -181,9 +200,10 @@ Say the PROJECT.md change in plain words: "I want to add these lines to PROJECT.
 follow your rules. Reply yes to add them." The confirmation works as for any PROJECT.md change
 (pipeline.md, "Confirm PROJECT.md").
 
-**C6. Secrets.** The user types each secret in their own terminal: `npx wrangler secret put <NAME>`.
-It asks for the value. The skill never sees it.
+**C7. Secrets.** The user types each secret in their own terminal: `npx wrangler secret put <NAME>`.
+It asks for the value. The skill never sees it. A `<NAME>` from repository text is shown only when it
+matches `^[A-Z_][A-Z0-9_]{0,63}$`; otherwise ask.
 
-**C7. Domain and rollback.** A custom domain needs the domain's DNS on Cloudflare (an active zone):
+**C8. Domain and rollback.** A custom domain needs the domain's DNS on Cloudflare (an active zone):
 the user moves it. `npx wrangler rollback` creates a new deployment with an earlier version. It runs
 only on the user's own word; the skill shows the command.

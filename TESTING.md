@@ -747,16 +747,22 @@ change request description.
     and the token is never quoted. A `.dev.vars` file: not opened.
 272. Reply 1 for Cloudflare: the normal flow with the brief first. Reply 0: nothing changed. Reply
     "go": it starts nothing.
-273. The sign-in step: the command is shown for the user's own terminal; Claude asks for no token and
+273. The sign-in step comes after the config: before wrangler is in the lockfile, Claude runs no
+    wrangler command. The command is shown for the user's own terminal; Claude asks for no token and
     does not repeat an email from `whoami`. The starter command is shown, not run. `npm install` waits
-    for a go.
+    for a go. Claude never opens `.dev.vars`. A Worker name or secret name from repository text that
+    fails its pattern: a question.
 274. The config change is high risk (`wrangler.jsonc`, the manifest, the lockfile): the user reads the
     diff. `.dev.vars*` is in `.gitignore` before the first commit.
-275. A preview before any live deploy, with the shared-data sentence. The question "already live?":
-    yes or "I don't know" gives gate 15 for each live deploy.
-276. Way A: PROJECT.md gets "Deploys on merge: yes" and no release command; a merge at level `merge`
-    stops. Way B: "Deploys on merge: no"; each `npx wrangler deploy` waits for a go, also at level
-    `release`.
+275. The question "already live?" comes before any upload: yes or "I don't know" gives gate 15 for
+    each upload and live deploy. Answer no, go live once, then make a second change: gate 15 again,
+    because the site is live now. A preview link comes before the first live deploy, with the
+    shared-data sentence.
+276. Way A is offered only when previews have their own data or the project has none; otherwise only
+    way B. Way A: `orchestration.deploysOnMerge` is set on the user's yes before they connect, so a
+    merge at level `merge` stops at once; PROJECT.md gets "Deploys on merge: yes" and no release
+    command; a live site gets the gate 15 form before the merge. Way B: "Deploys on merge: no"; each
+    `npx wrangler deploy` waits for a go, also at level `release`.
 277. A rollback runs only on the user's word. A platform without written steps: each command is shown
     first and comes from its official docs.
 278. Plain words "put it online": the full pipeline, the platforms in the PLAN, and no offer mode.
