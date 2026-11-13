@@ -134,10 +134,10 @@ Write the check as a list, the gaps first and the passed items in one line:
 7. Each kind and mark has a text tag, and every colour pair passes 4.5 to 1.
 8. Text is at least 14 px at the frame's own size.
 9. Every text is escaped: no script, no event attribute and no outside link in the output. Every
-   skipped, clashing or failed path is named, in the `?` form.
+   skipped, clashing or failed path is named in the `?` form, or counted after the first 10.
 
 Render or screenshot the diagram after each build and after each fix, and check items 6 to 8 on the
-render. Check item 9 in the file itself.
+render. Check item 9 in the file itself and in the chat text.
 
 **D7. Findings.** Everything surprising found while verifying goes into the chat, numbered, worst
 first, each with `path:line`. For example: a probable bug, a cost that is not logged, production on an
