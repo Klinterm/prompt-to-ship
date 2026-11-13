@@ -298,6 +298,7 @@ Pipeline mode: <none | defer | map | replace>
 - Release command: `<the exact command or "none">` (used only at autonomy level `release`)
 - Deploys on merge: <yes (how: a hosting platform watches the branch, or a CI deploy job) | no>
   (a merge into a target that deploys on merge is a release)
+- Live site: <yes | no | unknown> (yes or unknown: each deploy is gate 15, gates.md)
 
 ## Commands
 - Build: `<command>`

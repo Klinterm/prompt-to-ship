@@ -15,6 +15,10 @@ A hosting mode: `/prompt-to-ship hosting` helps put a project online.
   token. A site that may already be live gets the production gate for each deploy.
 - `wrangler.jsonc` and `wrangler.json` are forced-high deploy files, and `.dev.vars*` is a secrets
   file (gates.md).
+- Gate 15 now names live sites: with "Live site: yes" in PROJECT.md, or a live site the user named,
+  each deploy command and each merge into a target that deploys on merge waits for the production
+  gate, in every later task too. The setup template has a "Live site" line, and SKILL.md reads
+  hosting.md for a deploy.
 - Facts come from official pages read on 2026-11-13, with no prices. Whether a preview shares live
   data is not confirmed, so Claude treats a preview as able to change live data.
 - Hosting platforms are the fourth recorded exception to the rule against product names.

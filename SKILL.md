@@ -30,7 +30,7 @@ and own the result. Answer plainly, in the user's language.
 | ui.md | argument `ui`, or a request to review or improve a UI |
 | states.md | argument `states` |
 | project-map.md | argument `project-map` |
-| hosting.md | argument `hosting` |
+| hosting.md | argument `hosting`, or a deploy |
 | research.md | the change may need an outside fact |
 | design.md | a visible change |
 | update.md | argument `version`, or step 0 says so |

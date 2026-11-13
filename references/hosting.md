@@ -45,14 +45,14 @@ hosts.
 - a long-running server in any language, or a Docker image;
 - it needs a database.
 
-Then three questions, and "I don't know" is a valid answer:
-1. Should it be free to start?
-2. Must the data stay in the EU?
-3. Will it earn money or serve customers?
+Then three questions, each with a word label and no number, and "I don't know" is a valid answer:
+- Free: should it be free to start?
+- EU: must the data stay in the EU?
+- Money: will it earn money or serve customers?
 
-A clear group: show the offer (H2) at once, with the questions under it ("Answer these and I adjust
-the list, for example: 1 yes, 2 no, 3 I don't know."). No clear group: ask the questions first, in one
-message, and offer after the answers. A database need changes the list: a platform without a fitting
+A clear group: show the offer (H2) at once, with the questions under it ("Answer these in words and I
+adjust the list, for example: free yes, EU no, money I don't know."). No clear group: ask the
+questions first, in one message, and offer after the answers. A database need changes the list: a platform without a fitting
 database drops out, or gets that gap as its downside. "I don't know" on all three, and still no clear
 group: give no default; ask one more question.
 
@@ -84,8 +84,10 @@ Reply 1, 2 or 3 to set it up with me, or 0 to stop.
 - GitHub Pages gets the line: "Its terms limit commercial use. Read them before you pick: <url>".
 
 **H3. After the reply.**
-- A number in the list: start the normal flow with the picked platform as the request, as direction.md,
-  "Starting a step" says. Its level lines apply. The BRIEF comes first.
+- A reply that is only one number from the list: start the normal flow with the picked platform as
+  the request, as direction.md, "Starting a step" says. Its level lines apply. The BRIEF comes first.
+- A reply with answers to the questions, also one that holds a number: adjust the list, show it
+  again, and start nothing.
 - 0: "Nothing was changed. Run `hosting` again when you want to go on." Stop.
 - Any other reply: it starts nothing. Ask again.
 
@@ -142,8 +144,9 @@ user reads the diff.
 - The Worker name in the config comes from the user, or from repository text only when it matches
   `^[a-z0-9][a-z0-9-]{0,62}$`. Otherwise ask.
 
-**Wrangler commands.** Before C2 put wrangler in the lockfile, run no wrangler command. After that,
-`npx wrangler` uses the project's own copy. The lead runs only `npx wrangler whoami`,
+**Wrangler commands.** Until C2 has put wrangler in the lockfile and installed it (the file
+`node_modules/.bin/wrangler` exists), run no wrangler command. After that, `npx wrangler` uses the
+project's own copy. In a fresh clone or worktree, install first, on the user's go. The lead runs only `npx wrangler whoami`,
 `npx wrangler versions upload` and `npx wrangler deploy`. The user runs every other wrangler
 command in their own terminal.
 
@@ -161,9 +164,10 @@ email: do not repeat it.
 
 **C4. Live or not.** Before any upload, ask: "Is a site or service already live under this name or
 address? Yes, no, or I don't know." Yes or "I don't know": the site counts as live. After the first
-production deploy it is live too; propose the PROJECT.md line "Live site: yes". While the site is
-live, every upload and every production deploy is gate 15: show the action, its rollback and the
-expected effect, and wait.
+production deploy it is live too. Propose the line "Live site: yes" under "Branches and environments"
+in PROJECT.md at once, for each of these cases. The site stays live until the user says it is not,
+also when they decline the line. While the site is live, every upload and every production deploy is
+gate 15 (gates.md): show the action, its rollback and the expected effect, and wait.
 
 **C5. Preview.** A preview link shows a version that the live site does not serve; Cloudflare calls
 it a Version URL. On the user's go (gate 15 when C4 says live), run `npx wrangler versions upload`.
@@ -172,8 +176,8 @@ It gives a preview link when Version URLs are on. Open it as a visitor and show 
 able to change live data." (No source confirms either way.)
 
 **C6. Going live.** Way A is offered only when previews cannot touch live data: the config gives
-previews their own data, or the project has none. Otherwise offer only way B, and say why in one
-sentence. Ask in one message:
+previews their own data, or the project has none. Otherwise offer only way B, with this sentence: "I
+offer only way B: a preview may change live data, so a deploy on each merge is not safe here." Ask in one message:
 
 ```
 How should it go live?
@@ -182,14 +186,17 @@ B. You say go each time. Slower, but nothing goes live without you.
 Reply A or B.
 ```
 
-- **A, deploy on push.** Before the user connects anything, ask: "From now on a merge goes live. May
-  I record that in this repository's git settings?" On yes, set `git config --local
+- **A, deploy on push.** Before the user connects anything, ask: "From now on a merge goes live. I
+  save this in your local git settings, not in the repository. At your level, a merge will then stop
+  and ask you, unless your level is release. Reply yes to save it." No: way A stops, offer way B. On
+  yes, set `git config --local
   orchestration.deploysOnMerge true`; this counts at once (gates.md, "Deploys on merge"). Then the
   user connects the repository in the Cloudflare dashboard (Workers Builds): the production branch
   builds and deploys on each push, and other branches get preview builds. Propose the PROJECT.md
   line "Deploys on merge: yes", and no release command for hosting. A merge to the production branch
-  is now a release: it needs level `release` or the user's word, and at levels `ask` and
-  `change-request` the merge stops (autonomy.md, "Deploys on merge"). While the site is live, the
+  is now a release: it needs level `release` or the user's word, and below level `release` the merge
+  stops (autonomy.md, "Deploys on merge"). A later change that gives a deploy file data that previews
+  can reach (a new binding) goes to the user first: way A may no longer fit. While the site is live, the
   gate 15 form comes before the merge, because the platform deploys by itself after it. No token goes
   to the code host.
 - **B, deploy by hand.** Propose "Deploys on merge: no", and no release command for hosting. Each

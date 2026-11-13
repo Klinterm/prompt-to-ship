@@ -104,7 +104,8 @@ nothing.
     reason, and offers: give the value with a source, accept this source, or change the scope;
 15. any write to a production system, in every mode (debug.md, "Terms"): show the action, its
     rollback and the expected effect, test it on a copy when one exists, and wait for the user's
-    go for that one action.
+    go for that one action. With "Live site: yes" in PROJECT.md, or a live site the user named, each
+    deploy command and each merge into a target that deploys on merge is such a write (hosting.md).
 16. a reviewer that the route requires did not run, also after one retry (pipeline.md, "Loop
     rules"). A missing review is never "no findings".
 

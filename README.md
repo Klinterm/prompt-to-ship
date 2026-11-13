@@ -294,6 +294,11 @@ For a static website, these fit best:
 
 Prices and a payment method are your own choice. Facts read on 2026-11-13.
 Reply 1 or 2 to set it up with me, or 0 to stop.
+
+Answer these in words and I adjust the list, for example: free yes, EU no, money I don't know.
+- Free: should it be free to start?
+- EU: must the data stay in the EU?
+- Money: will it earn money or serve customers?
 ```
 
 - No platform is the default. Cloudflare comes first only for static sites, single-page apps and
