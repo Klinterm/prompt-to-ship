@@ -23,6 +23,7 @@ Every file path the lead puts into a git command or a scratch export now passes 
 - Found by the security review of the verified-diagrams change. Follow-up: once both are on main,
   `references/diagrams.md`, step D2 cites this rule instead of its own stricter set.
 - No eval run: a patch.
+
 ## 2.33.0
 
 Verified diagrams: `/prompt-to-ship diagram <subject>` draws a process diagram that is checked in the
