@@ -132,11 +132,14 @@ The agents have no shell, so the lead runs git for them. This holds for every ag
 
 ## Secret files
 
-The one list of secret files, for every mode and every stage. No mode keeps its own copy.
+The one list of secret files for the read-only modes (states, project-map, hosting, diagram,
+direction, ui) and their search agents. No mode keeps its own copy.
 - Never open or search: `.git/`, `.ssh/`, `.env*`, `*.env`, `.dev.vars*`, `*.pem`, `*.key`, `*.p12`,
   `*.pfx`, `id_rsa*`, `.netrc`, `.npmrc`, `.git-credentials` and `credentials*`.
 - Match each pattern against every part of a path, ignoring case.
 - Never show a discovered secret or personal data: leave the value out, and say that you left it out.
+- A file that a change itself touches is not skipped: the build and the review read it as usual, and
+  never show its secret values.
 
 ## Which agent when
 

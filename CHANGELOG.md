@@ -8,7 +8,8 @@ A tidy-up release: no new feature.
 - The list of secret files has one home: `references/pipeline.md`, "Secret files". The six modes
   (states, project-map, hosting, diagram, direction, ui) read that section first and keep no copy.
   The list is the strictest of the old copies: every mode now also skips `.dev.vars*`, and every
-  pattern matches any part of a path, ignoring case.
+  pattern matches any part of a path, ignoring case. A file that a change itself touches is not
+  skipped: the build and the review read it as usual.
 - The README intro lists the seven modes with links, and "Cost" has a table of agent runs per mode.
 - The plugin and marketplace descriptions name the modes.
 - No eval run: a patch.
