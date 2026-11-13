@@ -251,10 +251,10 @@ The mechanics that hold for the official Figma MCP connector:
 - Give one short status line while a long build runs.
 
 For a verified diagram (diagrams.md) in a design file:
-- Boxes are auto-layout frames with an icon and a text column, a fixed size of about 186 x 72, and a
+- Boxes are auto-layout frames with an icon and a text column, a fixed size of about 220 x 72, and a
   small shadow.
 - The diagram itself is a plain frame with absolute positions, so arrows can be placed exactly: a
-  column grid (for example x = 190 + i x 215) and fixed lane heights.
+  column grid (for example x = 190 + i x 230 for up to 8 phases) and fixed lane heights.
 - Arrows come from `figma.createNodeFromSvg`: a path plus a filled triangle head, with the bounding
   box computed from the points. Never use rotated lines; they break.
 - The zoom beam is one SVG polygon with fill opacity, plus two dashed edge lines.

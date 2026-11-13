@@ -328,8 +328,9 @@ and draws only what the code shows:
 - Surprises found on the way (a probable bug, a cost that is not logged) are listed with their file
   and line. They start nothing.
 
-Without a `Diagram tool:` line in PROJECT.md you get SVG files. With a design file, nothing is written
-without your yes. When a plan changes a flow, Claude offers a diagram once.
+Without a `Diagram tool:` line in PROJECT.md you get an SVG file in the session's scratch folder, and
+the chat shows its path. More than five findings go into a text file next to it. With a design file,
+nothing is written without your yes. When a plan changes a flow, Claude offers a diagram once.
 
 ## Business rules
 

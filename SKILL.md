@@ -31,7 +31,7 @@ and own the result. Answer plainly, in the user's language.
 | states.md | argument `states` |
 | project-map.md | argument `project-map` |
 | hosting.md | argument `hosting`, or a deploy |
-| diagrams.md | argument `diagram`, or a plan that changes a flow |
+| diagrams.md | `diagram`, a diagram request, or a plan that changes a flow |
 | research.md | the change may need an outside fact |
 | design.md | a visible change |
 | update.md | argument `version`, or step 0 says so |
@@ -87,7 +87,7 @@ The reviewer agents are `prompt-to-ship:architect`, `prompt-to-ship:ui-specialis
 is `prompt-to-ship:researcher`, the debugger `prompt-to-ship:debugger`. Start them by full
 name (signals and models: pipeline.md).
 
-1. **Understand** the code and its history. Find the rules that match the paths. Decide if the
+1. **Understand** the code and its history. Find the rules for the paths. Decide if the
    change needs an outside fact (research.md).
 2. **Plan** in this block; the architect and product expert review it, always (quick lane:
    pipeline.md); the UI specialist on a visible change:
