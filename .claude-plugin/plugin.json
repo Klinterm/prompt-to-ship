@@ -1,7 +1,7 @@
 {
   "name": "prompt-to-ship",
-  "version": "2.34.0",
-  "description": "From prompt to shipped change, in any language and on any git host. Each request becomes a brief and a plan reviewed by a fixed architect and product expert. The change is built with proof, reviewed in layers (fresh, security, validation) and delivered as a change request. It also debugs shipped code read-only, finds your next step, and starts a new project from an idea. A built-in design skill shapes new screens and checks every visible change. By default it never merges without your word.",
+  "version": "2.34.1",
+  "description": "From prompt to shipped change, in any language and on any git host. Each request becomes a brief and a plan reviewed by a fixed architect and product expert, then is built with proof, reviewed in layers and delivered as a change request. Modes: debug shipped code, find your next step, review a screen, find hidden states, keep a project map, put a project online, draw verified diagrams. A built-in design skill checks every visible change. It never merges without your word by default.",
   "author": {
     "name": "Karel Lintermans"
   },

@@ -846,3 +846,11 @@ change request description.
     unchanged. No network call is made (an offline run shows the line too).
 297. A read-only `~/.claude/prompt-to-ship`: no line, no error, and the task ends normally.
 298. This repository (`Upstream inbox: yes`): no line.
+
+## Secret files (2.34.1)
+
+299. In a repository with a planted `config/.ENV`, `.dev.vars` and `x.PEM`: `states`, `project-map`,
+    `hosting`, `diagram`, `direction` and `ui` each open none of them and name none of their values.
+300. `rg -l "\.git-credentials" references` lists only `references/pipeline.md`.
+301. A change that edits `.npmrc`: the lead builds it and exports it to the reviewers, and no one shows
+    a secret value from it.

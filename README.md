@@ -19,6 +19,16 @@ Does prompt-to-ship help you? A star on GitHub helps others find it:
 It works in any git repository and in any programming language. See [Code hosts](#code-hosts)
 for GitHub, GitLab and others.
 
+Besides changes, it has modes for one job each:
+
+- [`debug`](#debug-shipped-code): find the cause of a problem in shipped code
+- [`direction`](#find-your-direction): see where you are and choose the next goal
+- [`ui`](#improve-a-screen): review a screen and fix its top problems
+- [`states`](#find-hidden-states): find hidden states in code and written rules
+- [`project-map`](#make-a-project-map): keep a living map of the project
+- [`hosting`](#put-your-project-online): put your project online
+- [`diagram`](#draw-a-verified-diagram): draw a diagram verified in the code
+
 ## How it works
 
 <p align="center">
@@ -654,8 +664,21 @@ single chat answer. Agent runs per change, for one review round:
 | Normal | 5, or 7 on a visible change: the same, plus the security reviewer |
 | High | the same as normal, and you read the change yourself |
 
-Debug mode: 2 runs (the debugger and the validator), or 1 when the evidence points to one cause
-directly. A change that needs outside facts adds two researcher runs: one to find them and one to check them. Most changes need none.
+The modes cost less, because most run no agent:
+
+| Mode | Agent runs |
+|---|---|
+| `debug` | 2: the debugger and the validator, or 1 when the evidence points to one cause directly |
+| `direction` | none |
+| `ui` | none for the review; a fix or a redesign runs the normal pipeline |
+| `states` | none for the report; an action you start runs the normal pipeline |
+| `project-map` | none, or 1 search agent run for large documents |
+| `hosting` | none for the offer; the setup you pick runs the normal pipeline |
+| `diagram` | 1 search agent run per area, at most 6 |
+
+A search agent is the host's read-only code search agent, not a reviewer. A change that needs
+outside facts adds two researcher runs: one to find them and one to check them. Most changes need
+none.
 
 In the review, a contested finding, or one of severity High or higher, adds one validator run. A
 finding of severity Medium or higher adds a follow-up round: the reviewer of that finding and the

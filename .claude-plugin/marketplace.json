@@ -3,12 +3,12 @@
   "owner": {
     "name": "Karel Lintermans"
   },
-  "description": "From prompt to shipped change for Claude Code: brief, reviewed plan, proof, layered review, change request.",
+  "description": "From prompt to shipped change for Claude Code: brief, reviewed plan, proof, layered review, change request, and modes for debugging, direction, screens, hidden states, project maps, hosting and verified diagrams.",
   "plugins": [
     {
       "name": "prompt-to-ship",
       "source": "./",
-      "description": "Brief, plan with fixed reviewers, build with proof, layered review, change request. A built-in design skill. For any language and any git host."
+      "description": "Brief, plan with fixed reviewers, build with proof, layered review, change request. Modes for debugging, direction, screens, hidden states, project maps, hosting and verified diagrams. A built-in design skill. For any language and any git host."
     }
   ]
 }

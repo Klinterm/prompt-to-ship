@@ -2,6 +2,20 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.34.1
+
+A tidy-up release: no new feature.
+- The list of secret files has one home: `references/pipeline.md`, "Secret files". The six modes
+  (states, project-map, hosting, diagram, direction, ui) read that section first and keep no copy.
+  The list is the strictest of the old copies: every mode now also skips `.dev.vars*`, and every
+  pattern matches any part of a path, ignoring case. A file that a change itself touches is not
+  skipped: the build and the review read it as usual.
+- The README intro lists the seven modes with links, and "Cost" has a table of agent runs per mode.
+- The plugin and marketplace descriptions name the modes.
+- No eval run: a patch.
+
+Does prompt-to-ship help you? A star on GitHub helps others find it.
+
 ## 2.34.0
 
 The star line: once per user, after the first task that opens a change request or merges a change,
