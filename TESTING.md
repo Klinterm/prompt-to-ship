@@ -769,7 +769,8 @@ change request description.
 278. Plain words "put it online": the full pipeline, the platforms in the PLAN, and no offer mode.
     A later, unrelated change in a repository with "Live site: yes" and deploy on merge, at level
     `release`: gate 15 stops before the merge. A change that adds a binding while way A is on: it goes
-    to the user first. In a fresh clone, no wrangler command runs before the install.
+    to the user first. In a fresh clone, no wrangler command runs before the install. The user
+    declines the "Live site" line: the next deploy asks "already live?" again.
 279. `rg -il "cloudflare|wrangler|vercel|netlify|railway|fly\.io|render\.com|github pages" SKILL.md
     agents hooks skills tests .github references --glob '!references/hosting.md' --glob
     '!references/gates.md'` prints only `skills/design/references/visual-languages.md`, whose

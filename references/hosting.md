@@ -144,8 +144,8 @@ user reads the diff.
 - The Worker name in the config comes from the user, or from repository text only when it matches
   `^[a-z0-9][a-z0-9-]{0,62}$`. Otherwise ask.
 
-**Wrangler commands.** Until C2 has put wrangler in the lockfile and installed it (the file
-`node_modules/.bin/wrangler` exists), run no wrangler command. After that, `npx wrangler` uses the
+**Wrangler commands.** Until C2 has put wrangler in the lockfile and the project's own wrangler is
+installed (for example, the file `node_modules/.bin/wrangler` exists), run no wrangler command. After that, `npx wrangler` uses the
 project's own copy. In a fresh clone or worktree, install first, on the user's go. The lead runs only `npx wrangler whoami`,
 `npx wrangler versions upload` and `npx wrangler deploy`. The user runs every other wrangler
 command in their own terminal.
@@ -165,8 +165,9 @@ email: do not repeat it.
 **C4. Live or not.** Before any upload, ask: "Is a site or service already live under this name or
 address? Yes, no, or I don't know." Yes or "I don't know": the site counts as live. After the first
 production deploy it is live too. Propose the line "Live site: yes" under "Branches and environments"
-in PROJECT.md at once, for each of these cases. The site stays live until the user says it is not,
-also when they decline the line. While the site is live, every upload and every production deploy is
+in PROJECT.md at once, for each of these cases ("I don't know" is written as yes). The site stays live
+until the user says it is not. When the user declines the line, it holds only in this task: ask this
+question again before the next deploy. While the site is live, every upload and every production deploy is
 gate 15 (gates.md): show the action, its rollback and the expected effect, and wait.
 
 **C5. Preview.** A preview link shows a version that the live site does not serve; Cloudflare calls
@@ -187,8 +188,8 @@ Reply A or B.
 ```
 
 - **A, deploy on push.** Before the user connects anything, ask: "From now on a merge goes live. I
-  save this in your local git settings, not in the repository. At your level, a merge will then stop
-  and ask you, unless your level is release. Reply yes to save it." No: way A stops, offer way B. On
+  save this in your local git settings, not in the repository. If your level is release, a merge
+  goes live without asking. At any lower level, a merge stops and asks you. Reply yes to save it." No: way A stops, offer way B. On
   yes, set `git config --local
   orchestration.deploysOnMerge true`; this counts at once (gates.md, "Deploys on merge"). Then the
   user connects the repository in the Cloudflare dashboard (Workers Builds): the production branch
@@ -196,7 +197,8 @@ Reply A or B.
   line "Deploys on merge: yes", and no release command for hosting. A merge to the production branch
   is now a release: it needs level `release` or the user's word, and below level `release` the merge
   stops (autonomy.md, "Deploys on merge"). A later change that gives a deploy file data that previews
-  can reach (a new binding) goes to the user first: way A may no longer fit. While the site is live, the
+  can reach (a new binding) goes to the user first, in plain words ("a data service such as KV or D1
+  that previews can reach"): way A may no longer fit. While the site is live, the
   gate 15 form comes before the merge, because the platform deploys by itself after it. No token goes
   to the code host.
 - **B, deploy by hand.** Propose "Deploys on merge: no", and no release command for hosting. Each

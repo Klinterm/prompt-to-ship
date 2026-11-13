@@ -24,7 +24,13 @@ A hosting mode: `/prompt-to-ship hosting` helps put a project online.
 - Hosting platforms are the fourth recorded exception to the rule against product names.
 - SKILL.md trims to stay under 8,000 bytes: the description tagline, "precise", "yourself",
   "targeted", and the "Never skip" line in one sentence. No rule changed.
-- Eval: EVAL_RESULT
+- Eval (--runs 1, 24 cases, judge sonnet, on eaa586f, the first build): mean with the plugin 0.94,
+  mean difference +0.38. Twenty-two cases 1.00. plan-files-ready 0.00 (no Files line in the trace);
+  a rerun of the same commit scored 1.00, so it counts as a noisy case, not a regression. The new
+  case hosting-offers-first 0.50: the offer waited for the questions (review finding FR-1-2). After
+  that fix it scored 1.00 with the plugin and 0.50 without on f3d7057, and 1.00 and 0.83 on 12ebbb2.
+  The last Low wording fixes after 12ebbb2 had no eval run. The case has no shell and one turn, so it
+  does not reach a sign-in or a deploy. In all, about $11.67 of plan usage.
 
 ## 2.31.0
 
