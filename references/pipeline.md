@@ -84,16 +84,22 @@ The agents have no shell, so the lead runs git for them. This holds for every ag
   scratch export, also in stage 1. The word set above is for refs and words; this rule is for paths.
   - Shell: bash (Git Bash on Windows). Use `git` only when `type -a git` shows an executable file,
     not a `.cmd` or `.bat` file. Without bash, export nothing and run no history command with a path:
-    the reviewers get the diff only, and the user and each reviewer are told so.
+    the reviewers get the diff only. Tell the user, in their language: "No bash found: the reviewers
+    get the diff only, not whole files." Give each reviewer: "You got the diff only, not whole files
+    or their history."
   - A path comes only from git output with `-z`, run from the repository root:
     `git diff --name-only -z <target>...<branch>` for changed files, and
-    `git ls-tree -r -z --full-name --name-only <ref>` for planned files that exist. A path in a
-    "Needs from the lead" request is used only when it is an exact entry of that `ls-tree` output. A
-    planned file that does not exist yet is not exported.
+    `git ls-tree -r -z --full-name --name-only <ref>` for planned files that exist. A planned file
+    that does not exist yet is not exported.
+  - A path in a "Needs from the lead" request: the lead writes it with its file-write tool into a file
+    in the scratch folder. The script reads that file with `IFS= read -r` and uses the path only when
+    it equals one `ls-tree` entry byte for byte; then it uses that entry. Never type a requested path
+    into a command.
   - Never type a path into the command text. Read the output in one bash script, split on NUL only
     (`while IFS= read -r -d '' p`), and use the path as the quoted variable `"$p"`, so the shell never
     parses the name.
   - Skip a path that has any of these, as a second layer:
+    - bytes that are not valid UTF-8;
     - a `'`, `"`, backtick, `$` or `\`, or any of `< > : | ? *`;
     - a typographic quote (U+2018 to U+201F);
     - a control, format or separator character (Unicode categories Cc, Cf, Zl and Zp; this covers
@@ -115,7 +121,8 @@ The agents have no shell, so the lead runs git for them. This holds for every ag
     (`A.md` and `a.md` on a file system that ignores case), and a path whose export failed. Then:
     - tell the user, in their language, in one line with the names, each unsafe or non-ASCII
       character shown as `?`: "Not reviewed: <n> files (unsafe name, name clash or failed export):
-      <names>. Rename them, or read them yourself." Say it also when no file is left;
+      <names>. Rename them, or read them yourself." Show at most 10 names, then "and <n> more". Say
+      it also when no file is left;
     - give each reviewer this sentence: "<n> changed files were not given to you, and <n> paths got
       no history. Do not count them as clean.";
     - at high risk, stop and ask the user before the review goes on.

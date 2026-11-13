@@ -7,11 +7,12 @@ All notable changes. Versions follow semver and match `.claude-plugin/plugin.jso
 Every file path the lead puts into a git command or a scratch export now passes one rule
 (`references/pipeline.md`, "Git history for agents", "Paths in git commands").
 - Paths come only from git output with `-z`, split on NUL, inside one bash script (Git Bash on
-  Windows). A path is never typed into a command; it stays in a quoted variable. Without bash,
-  nothing is exported and the reviewers get the diff only.
-- As a second layer, a path with a quote (also a typographic one), `$`, a backtick, a backslash, a
-  Windows-forbidden character, a control, format or separator character, a `.`, `..` or `.git` part,
-  a Windows reserved name or a leading `-` or `/` is skipped. Framework names such as `[id].tsx`,
+  Windows). A path is never typed into a command; it stays in a quoted variable. A path an agent
+  asks for goes through a scratch file and must match a git entry byte for byte. Without bash,
+  nothing is exported, and the user and the reviewers get a fixed sentence: the diff only.
+- As a second layer, a path that is not valid UTF-8, or that has a quote (also a typographic one),
+  `$`, a backtick, a backslash, a Windows-forbidden character, a control, format or separator
+  character, a `.`, `..` or `.git` part, a Windows reserved name or a leading `-` or `/` is skipped. Framework names such as `[id].tsx`,
   `+page.svelte` and `@scope/x` pass and are reviewed.
 - `git show`, `git log` and `git blame` run as `git --literal-pathspecs`, with `--no-textconv` and
   `--no-ext-diff`. An export stays in its own scratch folder, never overwrites a file, and git never
