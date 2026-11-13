@@ -2,6 +2,26 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.32.0
+
+A hosting mode: `/prompt-to-ship hosting` helps put a project online.
+- Claude reads the project, asks up to three plain questions and offers two or three hosting
+  platforms that fit, the best fit first. No platform is the default. The offer writes nothing and
+  runs no command.
+- Cloudflare comes first for static sites, single-page apps and JavaScript apps, and has written
+  steps: sign-in in your own terminal, the config as a reviewed change, a preview link first, then
+  one of two ways to go live: every merge goes live by itself, or you say go each time.
+- Claude never creates an account, accepts terms, adds a payment method, changes DNS or handles a
+  token. A site that may already be live gets the production gate for each deploy.
+- `wrangler.jsonc` and `wrangler.json` are forced-high deploy files, and `.dev.vars*` is a secrets
+  file (gates.md).
+- Facts come from official pages read on 2026-11-13, with no prices. Whether a preview shares live
+  data is not confirmed, so Claude treats a preview as able to change live data.
+- Hosting platforms are the fourth recorded exception to the rule against product names.
+- SKILL.md trims to stay under 8,000 bytes: the description tagline, "precise", "yourself",
+  "targeted", and the "Never skip" line in one sentence. No rule changed.
+- Eval: EVAL_RESULT
+
 ## 2.31.0
 
 A project map mode: `/prompt-to-ship project-map` builds and keeps a living project map in a Figma

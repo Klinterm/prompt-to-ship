@@ -42,7 +42,7 @@ path hides it. Any match makes the risk high. PROJECT.md may add paths, never re
 - Package sources and wrappers: `.npmrc`, `.yarnrc*`, `pnpm-workspace.yaml`, `.cargo/config*`,
   `nuget.config`, `gradlew`, `gradle/wrapper/**`, `mvnw`, `.mvn/**`
 - Hosting and deploy files: `vercel.json`, `netlify.toml`, `fly.toml`, `render.yaml`, `app.yaml`,
-  `app.json`, `Procfile`, `railway.json`, `railway.toml`, `wrangler.toml`, `serverless.yml`,
+  `app.json`, `Procfile`, `railway.json`, `railway.toml`, `wrangler.toml`, `wrangler.jsonc`, `wrangler.json`, `serverless.yml`,
   `firebase.json`, `amplify.yml`, `nixpacks.toml`
 - Release configuration: `.goreleaser.y*ml`, `.releaserc*`, `release.config.*`, and every script
   file named directly in a CI file, a package manifest or the release command (not what those
@@ -55,7 +55,8 @@ path hides it. Any match makes the risk high. PROJECT.md may add paths, never re
 - Access and secrets: a folder or file name with a whole name part `auth`, `login`, `session`,
   `permission`, `permissions`, `role`, `roles`, `security`, `crypto`, `secret`, `secrets` or
   `token`, case-insensitive. Split names on `/ - _ .` and camelCase first: `src/auth/x.ts` and
-  `userSession.go` match, `AuthorCard.tsx` and `tokens.css` do not. Also `.env*`, `*.pem`, `*.key`.
+  `userSession.go` match, `AuthorCard.tsx` and `tokens.css` do not. Also `.env*`, `.dev.vars*`, `*.pem`,
+  `*.key`.
 
 ## Deploys on merge
 

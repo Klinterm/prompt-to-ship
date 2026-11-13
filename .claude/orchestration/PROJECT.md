@@ -71,7 +71,7 @@ https://github.com/Klinterm/prompt-to-ship, public. The README is the home page.
   table, agent frontmatter, skills in `skills/` and the case count. Both run in CI.
 - `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
-  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui, states, project map.
+  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui, states, project map, hosting.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`): workflow, tiers,
   references (with scene mode in `immersive.md` and the rebuild path in `rebuild.md`) and the
   DESIGN.md template. `SOURCES.md` credits
@@ -83,7 +83,8 @@ reverts, non-git version control.
 ## Customers, partners and integrations
 Claude Code (skills, plugins, subagents, hooks). Code host CLIs: `gh`, `glab`, `az`, `tea`,
 REST APIs. No paid service. Optional: the Figma MCP connector, only for `project-map` (edit access
-to a file may need a paid Figma seat).
+to a file may need a paid Figma seat). Optional: a hosting platform the user picks in `hosting`
+(Cloudflare has written steps); its account, plan and payment are the user's own.
 
 ## Architecture and stack
 Markdown and JSON, plus one bash script for the hook (hooks/reminder.sh). No build step.
@@ -133,10 +134,10 @@ Markers: description
 Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/prompt-to-ship/upstream.md at stage 0)
 - Merge only through the host and push only the release tag, through the pipeline at the
   maintainer's stored level, and never past a gate.
-- Generic: no company, product, customer or stack names in shipped files. Three recorded exceptions:
+- Generic: no company, product, customer or stack names in shipped files. Four recorded exceptions:
   the design gallery that setup suggests (decision 2026-10-29), the credits in
-  `skills/design/SOURCES.md` (decision 2026-11-03), and Figma for the project map mode (decision
-  2026-11-12).
+  `skills/design/SOURCES.md` (decision 2026-11-03), Figma for the project map mode (decision
+  2026-11-12), and hosting platforms for the hosting mode (decision 2026-11-13).
 - The plugin name, the folder name, the agent prefixes in `SKILL.md` and the README must match.
 - Extra forced-high paths (gates.md): `references/gates.md`, `hooks/**`.
 
@@ -153,7 +154,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   `claude plugin eval . --runs 1 -j 4 --max-cost-usd 12 --judge-model sonnet --no-publish --scaffold --allow-tools Edit Write`
   (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
   `--ablation none`, half the runs)
-  (23 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
+  (24 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -344,6 +345,25 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   user to another computer. A thin baseline: the eval case reaches only "asks first, writes nothing,
   no BRIEF", not the connector path. Measuring point: the next three uses record how many write
   lists the owner accepted and how many statuses proved wrong; then reconsider this decision.
+- Decision 2026-11-13 (maintainer's words: "A: neutral, Cloudflare first", after research on Cloudflare
+  and seven alternatives): a hosting mode (2.32.0). The argument `hosting` gives a read-only offer of
+  two or three hosting platforms that fit the project, the best fit first, and never a default; this
+  keeps decision 2026-10-30. Cloudflare is first only for static sites, single-page apps and
+  JavaScript apps, and it is the only platform with written steps for now. Plain words run the
+  normal pipeline, never the offer. The research (two runs and a check-mode run, all read on
+  2026-11-13) found no single best platform: Cloudflare is strong for static and JavaScript apps,
+  and an app in a Docker image needs its Containers on the paid plan. A fourth exception to the
+  generic rule: Cloudflare, Vercel, Netlify, Render, Railway, Fly.io and GitHub Pages may be named in `references/hosting.md`, `references/gates.md` (its deploy-file list), the graders in `evals/hosting-offers-first/case.yaml`, the README section and command row, the TESTING.md section, the CHANGELOG, and the decision, rule, integration and parked lines in PROJECT.md and `.claude/CLAUDE.md`. setup.md, SKILL.md, agents, hooks, `skills/`, `tests/` and the
+  eval prompt and fixture stay free of the names. No prices in shipped files; each claim names its
+  official page and the read date, with `source:` and `valid:` (to 2027-05-13). The skill never
+  creates an account, accepts terms, adds a payment method, changes DNS, or handles a token; the user
+  signs in in their own terminal. Two exclusive ways to go live: deploy on push (Deploys on merge:
+  yes, so a merge is a release and needs level `release`) or by hand (each deploy waits for the
+  user's go). A site that may be live gets gate 15 per deploy. Not confirmed by a source: whether a
+  preview shares live data, so the text treats it as able to change live data. A thin baseline: the
+  eval case reaches only the offer, not a sign-in or a deploy. Measuring point: the next three uses
+  record which platform the user picked, whether a step needed a command outside this file, and any
+  stop at a gate; then reconsider this decision and the steps for a second platform.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
 
 ## Security context

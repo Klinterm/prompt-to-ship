@@ -1,0 +1,40 @@
+schema_version: "1.1"
+name: hosting-offers-first
+# Run with --allow-tools Edit Write, so a change is possible and staying read-only is a choice.
+# The case is one turn, with no shell. A small static site gets an offer of hosting platforms with
+# the best fit first and a counted reply line. It does not reach the sign-in or a deploy.
+# Expected delta: high: without the plugin the agent may write a config file or pick one platform.
+graders:
+  - name: no-edit
+    type: tool_used
+    tool: Edit
+    min: 0
+    max: 0
+  - name: no-write
+    type: tool_used
+    tool: Write
+    min: 0
+    max: 0
+  - name: names-cloudflare
+    type: regex
+    pattern: 'cloudflare'
+    flags: i
+    target: last_message
+  - name: names-another-platform
+    type: regex
+    pattern: 'vercel|netlify|render|railway|fly\.io|github pages'
+    flags: i
+    target: last_message
+  - name: counted-reply
+    type: regex
+    pattern: 'reply 1(,| or) 2'
+    flags: i
+    target: last_message
+  - name: no-brief
+    type: regex
+    pattern: '(^|\n)[\s*#>]*done when\W{0,2}:[\s*]*[A-Za-z0-9`]'
+    flags: im
+    target: trace
+    match: not_contains
+context:
+  scaffold_script: fixture.sh
