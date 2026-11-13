@@ -13,6 +13,9 @@ reviewed before they reach the main code.
 **Status:** a working prototype. The acceptance test in [TESTING.md](TESTING.md) is not complete
 yet. The current version and its changes are in [CHANGELOG.md](CHANGELOG.md).
 
+Does prompt-to-ship help you? A star on GitHub helps others find it:
+[Klinterm/prompt-to-ship](https://github.com/Klinterm/prompt-to-ship).
+
 It works in any git repository and in any programming language. See [Code hosts](#code-hosts)
 for GitHub, GitLab and others.
 

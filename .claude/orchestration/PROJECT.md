@@ -134,6 +134,9 @@ Markers: description
 Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/prompt-to-ship/upstream.md at stage 0)
 - Merge only through the host and push only the release tag, through the pipeline at the
   maintainer's stored level, and never past a gate.
+- Release notes: every CHANGELOG section from 2.34.0 on ends with the star line ("Does
+  prompt-to-ship help you? A star on GitHub helps others find it."), because that section is the
+  release notes. Older GitHub releases are not edited (the maintainer's answer, 2026-11-13).
 - Generic: no company, product, customer or stack names in shipped files. Four recorded exceptions:
   the design gallery that setup suggests (decision 2026-10-29), the credits in
   `skills/design/SOURCES.md` (decision 2026-11-03), Figma for the project map mode (decision
@@ -364,6 +367,20 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   eval case reaches only the offer, not a sign-in or a deploy. Measuring point: the next three uses
   record which platform the user picked, whether a step needed a command outside this file, and any
   stop at a gate; then reconsider this decision and the steps for a second platform.
+- Decision 2026-11-13 (maintainer, third; words: "Doe dit dan" to the star line, "Ja, volledige eval",
+  "Alleen vanaf nu"): the star line (2.34.0). The maintainer first asked to block use until the
+  repository is starred. The lead advised against it: a check needs the user's GitHub sign-in, which
+  breaks "no git sign-in" (success 1), host neutrality (R1) and decision 2026-11-09 (no credentials),
+  and under MIT anyone can remove it. Instead the lead says one star line once per user, after the
+  first task that opened a change request or merged a change, as the last line of the final message
+  (references/pipeline.md, "Stage 8. Learn"), and remembers it in the empty file
+  `~/.claude/prompt-to-ship/star-asked`. It never blocks, never checks, calls no network, and stays
+  silent in this repository (`Upstream inbox: yes`); a fork without that line may show it once, an
+  accepted limit. The line goes only into the chat, never into a commit, a change request or a file
+  of the user. The line names only the plugin and its own
+  address, so it is no new exception to the generic rule; users on any code host see it. No eval case
+  reaches a change request, so the eval does not test it. Measuring point: the number of stars before
+  2.34.0 and two releases later; a weak baseline, because stars have many causes.
 - Decision 2026-11-13 (maintainer, second; words: "Rename the heading", "Argument diagram", "SVG
   file", "Trim wording"): verified diagrams (2.33.0), from a handoff after one session that needed
   five rounds to get a correct diagram. references/diagrams.md holds the method: a scope question
