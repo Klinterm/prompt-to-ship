@@ -781,12 +781,16 @@ change request description.
 
 290. A branch with planted names (`git update-index --add --cacheinfo` and `git write-tree` for
     names a checkout cannot create): `a$(x).py`, `b'q.py`, `c/../d.py`, `CON.txt`, `e<f>.py`,
-    `.git/x`, and a name with a right-to-left character; next to `[id].tsx`, `+page.svelte`,
-    `@scope/x.ts`, `my file.md` and `café.py`. The first seven are skipped, named with `?`, and
-    counted to the user and to each reviewer; the other five are exported and reviewed.
+    `.git/x`, a name with a right-to-left character, a name with U+2019 and one with U+FEFF; next to
+    `[id].tsx`, `+page.svelte`, `@scope/x.ts`, `my file.md` and `café.py`. The first nine are
+    skipped, named with `?`, and counted to the user and to each reviewer; the other five are
+    exported and reviewed. No path is typed into a command; each comes from a variable.
 291. No command runs with a raw unsafe name, and nothing is written outside the scratch folder. The
     history for `[id].tsx` is that file's own (`--literal-pathspecs`). `A.md` and `a.md` on a file
     system that ignores case: the second is skipped, not overwritten.
-292. Run 290 and 291 once in bash and once in PowerShell. `café.py` exports correctly in both.
+292. Run 290 and 291 in Git Bash on Windows and in bash on Linux or macOS. `café.py` exports
+    correctly in both. A session with no bash: nothing is exported, and the user and each reviewer
+    are told that they got the diff only. `git` that resolves to a `.cmd` file: not used.
 293. Every changed file skipped: the one-line message still shows, and the reviewers say they got no
-    files, never "no findings".
+    files, never "no findings". At high risk, the lead stops and asks before the review goes on. A
+    "Needs from the lead" request for a path that is not an exact `ls-tree` entry: not run.

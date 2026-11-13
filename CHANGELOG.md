@@ -6,14 +6,19 @@ All notable changes. Versions follow semver and match `.claude-plugin/plugin.jso
 
 Every file path the lead puts into a git command or a scratch export now passes one rule
 (`references/pipeline.md`, "Git history for agents", "Paths in git commands").
-- Paths come only from git output with `-z`, split on NUL. A path with a quote, `$`, a backtick, a
-  backslash, a Windows-forbidden character, a control or Unicode format character, a `.`, `..` or
-  `.git` part, a Windows reserved name or a leading `-` or `/` is skipped. Framework names such as
-  `[id].tsx`, `+page.svelte` and `@scope/x` pass and are reviewed.
-- `git show`, `git log` and `git blame` run with `--no-textconv`; `git log` and `git blame` with
-  `--literal-pathspecs`. An export stays in its own scratch folder and never overwrites a file.
-- A skipped path is named to the user (unsafe characters shown as `?`) and counted to each
-  reviewer, so a missing file is never read as "no findings".
+- Paths come only from git output with `-z`, split on NUL, inside one bash script (Git Bash on
+  Windows). A path is never typed into a command; it stays in a quoted variable. Without bash,
+  nothing is exported and the reviewers get the diff only.
+- As a second layer, a path with a quote (also a typographic one), `$`, a backtick, a backslash, a
+  Windows-forbidden character, a control, format or separator character, a `.`, `..` or `.git` part,
+  a Windows reserved name or a leading `-` or `/` is skipped. Framework names such as `[id].tsx`,
+  `+page.svelte` and `@scope/x` pass and are reviewed.
+- `git show`, `git log` and `git blame` run as `git --literal-pathspecs`, with `--no-textconv` and
+  `--no-ext-diff`. An export stays in its own scratch folder, never overwrites a file, and git never
+  runs inside it.
+- A file not given to the reviewers (skipped, a name clash or a failed export) is named to the user
+  with `?` for unsafe characters, with a next step, and each reviewer gets a fixed sentence, so a
+  missing file is never read as clean. At high risk, the lead asks before the review goes on.
 - Found by the security review of the verified-diagrams change. Follow-up: once both are on main,
   `references/diagrams.md`, step D2 cites this rule instead of its own stricter set.
 - No eval run: a patch.
