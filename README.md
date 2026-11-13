@@ -328,6 +328,12 @@ and draws only what the code shows:
 - Surprises found on the way (a probable bug, a cost that is not logged) are listed with their file
   and line. They start nothing.
 
+An example, drawn in a dry run on a small sample repository:
+
+<p align="center">
+  <img src="docs/diagram-example.svg" width="760" alt="Example of a verified diagram: the order flow of a small sample repository. Four phases: place order, add photo, nightly close, report. Lanes for people and apps, backend, jobs and services, storage, data via link, and external services. Every box shows its file and line; boxes the code cannot confirm are dotted. Two zoom panels show the steps of the report service and the nightly job, who decides each step, and the risks found in the code.">
+</p>
+
 Without a `Diagram tool:` line in PROJECT.md you get an SVG file in the session's scratch folder, and
 the chat shows its path. More than five findings go into a text file next to it. With a design file,
 nothing is written without your yes. When a plan changes a flow, Claude offers a diagram once.
