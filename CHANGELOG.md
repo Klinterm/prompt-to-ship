@@ -8,9 +8,10 @@ Verified diagrams use the one path rule.
 - `references/diagrams.md`, step D2 now follows the path parts of `references/pipeline.md`, "Git
   history for agents" ("Paths in git commands") instead of its own stricter set. Framework files such
   as `[id].tsx`, `+page.svelte` and `@scope/x` can now be verified in a diagram.
-- The diagram keeps its own deny list (`.env`, keys) and its D6 check list for skipped paths; the
-  pipeline's reviewer message and high-risk stop do not apply to a diagram. Without bash, nothing is
-  drawn as verified.
+- The diagram keeps its own deny list (`.env`, keys), now matched against every path part ignoring
+  case, and its D6 check list for skipped, clashing or failed paths, shown in the `?` form. The
+  pipeline's reviewer sentence and high-risk stop do not apply to a diagram. Without bash, or when
+  `git` is a `.cmd` or `.bat` file, nothing is drawn as verified.
 - `git show` in D2 runs as `git --literal-pathspecs` with `--no-ext-diff`, and `git ls-tree` with
   `--full-name`.
 - No eval run: a patch.

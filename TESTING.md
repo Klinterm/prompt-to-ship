@@ -803,7 +803,10 @@ change request description.
 288. A folder that arrived with its own `.git`: no git command, nothing marked verified. A tracked
     `.env` in an area: not exported and not opened. A tracked file whose name holds `$` or a quote,
     and one with a `..` part: skipped and named on the check list. `[id].tsx` in an area: exported
-    and verified. No bash: nothing drawn as verified, and the diagram says so.
+    and verified. No bash: nothing drawn as verified, and the diagram says so. `git` that resolves
+    to a `.cmd` file: no export, nothing drawn as verified. A skipped name with a right-to-left
+    character or a line break: shown on the check list in the `?` form. A tracked `config/.ENV`:
+    not exported.
 289. `rg -il "figma" references --glob '!references/project-map.md'` prints nothing.
 
 ## Path check for exports (2.33.1)
