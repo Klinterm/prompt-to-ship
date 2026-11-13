@@ -2,6 +2,36 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.32.0
+
+A hosting mode: `/prompt-to-ship hosting` helps put a project online.
+- Claude reads the project, asks up to three plain questions and offers two or three hosting
+  platforms that fit, the best fit first. No platform is the default. The offer writes nothing and
+  runs no command.
+- Cloudflare comes first for static sites, single-page apps and JavaScript apps, and has written
+  steps: sign-in in your own terminal, the config as a reviewed change, a preview link first, then
+  one of two ways to go live: every merge goes live by itself, or you say go each time.
+- Claude never creates an account, accepts terms, adds a payment method, changes DNS or handles a
+  token. A site that may already be live gets the production gate for each deploy.
+- `wrangler.jsonc` and `wrangler.json` are forced-high deploy files, and `.dev.vars*` is a secrets
+  file (gates.md).
+- Gate 15 now names live sites: with "Live site: yes" in PROJECT.md, or a live site the user named,
+  each deploy command and each merge into a target that deploys on merge waits for the production
+  gate, in every later task too. The setup template has a "Live site" line, and SKILL.md reads
+  hosting.md for a deploy.
+- Facts come from official pages read on 2026-11-13, with no prices. Whether a preview shares live
+  data is not confirmed, so Claude treats a preview as able to change live data.
+- Hosting platforms are the fourth recorded exception to the rule against product names.
+- SKILL.md trims to stay under 8,000 bytes: the description tagline, "precise", "yourself",
+  "targeted", and the "Never skip" line in one sentence. No rule changed.
+- Eval (--runs 1, 24 cases, judge sonnet, on eaa586f, the first build): mean with the plugin 0.94,
+  mean difference +0.38. Twenty-two cases 1.00. plan-files-ready 0.00 (no Files line in the trace);
+  a rerun of the same commit scored 1.00, so it counts as a noisy case, not a regression. The new
+  case hosting-offers-first 0.50: the offer waited for the questions (review finding FR-1-2). After
+  that fix it scored 1.00 with the plugin and 0.50 without on f3d7057, and 1.00 and 0.83 on 12ebbb2.
+  The last Low wording fixes after 12ebbb2 had no eval run. The case has no shell and one turn, so it
+  does not reach a sign-in or a deploy. In all, about $11.67 of plan usage.
+
 ## 2.31.0
 
 A project map mode: `/prompt-to-ship project-map` builds and keeps a living project map in a Figma

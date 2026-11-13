@@ -42,7 +42,7 @@ path hides it. Any match makes the risk high. PROJECT.md may add paths, never re
 - Package sources and wrappers: `.npmrc`, `.yarnrc*`, `pnpm-workspace.yaml`, `.cargo/config*`,
   `nuget.config`, `gradlew`, `gradle/wrapper/**`, `mvnw`, `.mvn/**`
 - Hosting and deploy files: `vercel.json`, `netlify.toml`, `fly.toml`, `render.yaml`, `app.yaml`,
-  `app.json`, `Procfile`, `railway.json`, `railway.toml`, `wrangler.toml`, `serverless.yml`,
+  `app.json`, `Procfile`, `railway.json`, `railway.toml`, `wrangler.toml`, `wrangler.jsonc`, `wrangler.json`, `serverless.yml`,
   `firebase.json`, `amplify.yml`, `nixpacks.toml`
 - Release configuration: `.goreleaser.y*ml`, `.releaserc*`, `release.config.*`, and every script
   file named directly in a CI file, a package manifest or the release command (not what those
@@ -55,7 +55,8 @@ path hides it. Any match makes the risk high. PROJECT.md may add paths, never re
 - Access and secrets: a folder or file name with a whole name part `auth`, `login`, `session`,
   `permission`, `permissions`, `role`, `roles`, `security`, `crypto`, `secret`, `secrets` or
   `token`, case-insensitive. Split names on `/ - _ .` and camelCase first: `src/auth/x.ts` and
-  `userSession.go` match, `AuthorCard.tsx` and `tokens.css` do not. Also `.env*`, `*.pem`, `*.key`.
+  `userSession.go` match, `AuthorCard.tsx` and `tokens.css` do not. Also `.env*`, `.dev.vars*`, `*.pem`,
+  `*.key`.
 
 ## Deploys on merge
 
@@ -103,7 +104,8 @@ nothing.
     reason, and offers: give the value with a source, accept this source, or change the scope;
 15. any write to a production system, in every mode (debug.md, "Terms"): show the action, its
     rollback and the expected effect, test it on a copy when one exists, and wait for the user's
-    go for that one action.
+    go for that one action. With "Live site: yes" in PROJECT.md, or a live site the user named, each
+    deploy command and each merge into a target that deploys on merge is such a write (hosting.md).
 16. a reviewer that the route requires did not run, also after one retry (pipeline.md, "Loop
     rules"). A missing review is never "no findings".
 

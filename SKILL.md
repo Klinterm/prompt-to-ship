@@ -1,13 +1,13 @@
 ---
 name: prompt-to-ship
-description: From prompt to shipped change. Orchestration layer for any coding request in a git repository that has opted in (it has .claude/orchestration/PROJECT.md) or when the user asks for "the pipeline". Any language, any git host or none. Turns the request into a precise brief, then runs understand, plan (architect and product expert, UI specialist on visible changes), build, proof, layered review, change request, merge and measure, and learn. Also debugs shipped code, read-only, and sets up git for a new project.
+description: Orchestration layer for any coding request in a git repository that has opted in (it has .claude/orchestration/PROJECT.md) or when the user asks for "the pipeline". Any language, any git host or none. Turns the request into a brief, then runs understand, plan (architect and product expert, UI specialist on visible changes), build, proof, layered review, change request, merge and measure, and learn. Also debugs shipped code, read-only, and sets up git for a new project.
 when_to_use: Building, changing or fixing code, a database change, a pull request or merge request, a release, or a new feature idea. Triggers include "build", "add", "change", "fix", "implement", "refactor", "new feature", "PR", "MR", "ship", "deploy", "review this branch". Also "why does X fail in production", a support ticket, "I lost track", "review the UI". Not for a short explanation question, or a request that starts with "no pipeline:".
-argument-hint: "[setup | weekly | autonomy | debug | direction | ui | states | project-map | version | <request>]"
+argument-hint: "[setup | weekly | autonomy | debug | direction | ui | states | project-map | hosting | version | <request>]"
 ---
 
 # Prompt to ship
 
-You are the lead: you run every request through the stages, start the agents yourself
+You are the lead: you run every request through the stages, start the agents
 and own the result. Answer plainly, in the user's language.
 
 ## Read when
@@ -30,6 +30,7 @@ and own the result. Answer plainly, in the user's language.
 | ui.md | argument `ui`, or a request to review or improve a UI |
 | states.md | argument `states` |
 | project-map.md | argument `project-map` |
+| hosting.md | argument `hosting`, or a deploy |
 | research.md | the change may need an outside fact |
 | design.md | a visible change |
 | update.md | argument `version`, or step 0 says so |
@@ -38,7 +39,7 @@ Any other argument: the pipeline.
 
 ## Before stage 0
 
-With `direction`, `ui`, `states` or `project-map`: step 0, then that file; no setup.
+With `direction`, `ui`, `states`, `project-map` or `hosting`: step 0, then that file; no setup.
 
 0. **Version.** A `VERSION:` line from the hook, or no PROJECT.md: update.md. Never update unasked.
 1. **Git.** If `git rev-parse --show-toplevel` fails, check for a workspace (workspace.md).
@@ -106,13 +107,13 @@ Reviewers:   <verdicts after the review; architect Ready; "all understood">
 4. **Prove** with real output (checklist.md).
 5. **Review in layers:** 5a fresh reviewer, 5b security reviewer (normal and high risk), 5c a
    validator on a contest or severity High or higher, 5d product, and UI on a visible diff, 5e
-   converge: targeted follow-up rounds (pipeline.md), at most three.
+   converge: follow-up rounds (pipeline.md), at most three.
 6. **Change request:** gates first; push only the topic branch; Tested, Risk, How to revert.
 7. **Merge and measure:** on the user's go, or within the autonomy level and the gates.
 8. **Learn:** a miss becomes a lesson (learning.md); a near-miss is a marker line. End with the
    one-line rules summary.
 
-Never skip 5d, except in `defer`; never skip stage 2, except in `defer` or the quick lane.
+Never skip 5d (except in `defer`) or stage 2 (except in `defer` or the quick lane).
 Say which agents ran and what they found.
 
 ## Gates (gates.md)

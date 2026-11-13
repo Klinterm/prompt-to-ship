@@ -148,7 +148,8 @@ A repository that already has a confirmed PROJECT.md can ask to "draft domain.md
 7. **Check with the user.** Show a short summary: the product in three sentences, the goal, the
    users, the detected host and commands, "Deploys on merge", the pipeline mode (or "Existing pipeline: none
    found."), the invariants of domain.md, and every `(to confirm)` item. Correct it with their
-   answers.
+   answers. When nothing deploys yet and the product is meant to run online, add one line: the
+   argument `hosting` helps put it online (hosting.md).
 8. **Files and tool lines.** Ask this as one message, in the user's language:
 
 ```
@@ -216,7 +217,8 @@ user-facing text says "options" and "how to build it", never "PLAN block" or "st
 gets three plain lines: what it is, why it fits their answers, and its downside in cost, effort or
 lock-in. Put the recommended option first, with its reason, and end with "Answer A, B or C".
 Technical names go in one line "For the developer". No paid service, account or hosting without the
-user's word. The architect and the product expert review it, the UI specialist when the product has
+user's word. For where it runs, take the platforms from hosting.md, "Choose a platform"; no account
+and no deploy before slice 1 is merged. The architect and the product expert review it, the UI specialist when the product has
 a user interface. A fact from outside (a price, a licence) follows research.md. The user's choice
 becomes a dated decision in PROJECT.md, and "Architecture and stack" is filled in.
 
@@ -296,6 +298,7 @@ Pipeline mode: <none | defer | map | replace>
 - Release command: `<the exact command or "none">` (used only at autonomy level `release`)
 - Deploys on merge: <yes (how: a hosting platform watches the branch, or a CI deploy job) | no>
   (a merge into a target that deploys on merge is a release)
+- Live site: <yes | no> (not known counts as yes; yes: each deploy is gate 15, gates.md)
 
 ## Commands
 - Build: `<command>`

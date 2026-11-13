@@ -272,6 +272,47 @@ Reply yes to write this list and save the manifest at ~/.claude/prompt-to-ship/p
 - The manifest stays on your computer, outside the repository. Access to the map and deleting its
   content are up to you, in Figma.
 
+## Put your project online
+
+Type `/prompt-to-ship hosting`. Claude reads your project, asks up to three plain questions (free to
+start? data in the EU? will it earn money?) and offers two or three hosting platforms that fit, the
+best fit first. It writes nothing and runs no command:
+
+```
+For a static website, these fit best:
+
+1. Cloudflare
+   Runs static sites and JavaScript apps.
+   Your site is plain files, which it serves directly.
+   Code that uses its own data services needs changes to move elsewhere.
+   Official page: https://developers.cloudflare.com/workers/platform/pricing/
+2. Netlify
+   Hosts static and framework sites, with Functions.
+   Also fits a plain static site.
+   Downside: not checked by me. Read its page.
+   Official page: https://docs.netlify.com/build/functions/overview/
+
+Prices and a payment method are your own choice. Facts read on 2026-11-13.
+Reply 1 or 2 to set it up with me, or 0 to stop.
+
+Answer these in words and I adjust the list, for example: free yes, EU no, money I don't know.
+- Free: should it be free to start?
+- EU: must the data stay in the EU?
+- Money: will it earn money or serve customers?
+```
+
+- No platform is the default. Cloudflare comes first only for static sites, single-page apps and
+  JavaScript apps. A server in another language or a Docker image gets Cloudflare with its
+  Containers downside, or not at all.
+- Only Cloudflare has written steps so far. For another platform, Claude follows its official docs
+  and shows each step before it runs.
+- You create the account, accept the terms, sign in (`npx wrangler login --use-keyring`, in your
+  own terminal) and type each secret yourself. Claude never sees a token.
+- A preview link comes first. Then you choose: every merge goes live by itself (only when previews
+  cannot touch live data), or you say go each time. Every deploy to the live site waits for your go
+  or your autonomy level, and a live site gets the production gate for each upload and deploy.
+- Plain words such as "put it online" run the normal pipeline, with the platform choice in the plan.
+
 ## Business rules
 
 Some rules of a product are not visible in one piece of code: "VAT is applied once, on the
@@ -443,6 +484,7 @@ Type these in the Claude Code chat. With install way B (skills folder) the comma
 | `/prompt-to-ship ui [screen]` | `/prompt-to-ship:prompt-to-ship ui [screen]` | Reviews a screen, ranks the top problems, then fixes or redesigns it when you choose. The review changes no code. |
 | `/prompt-to-ship states [path]` | `/prompt-to-ship:prompt-to-ship states [path]` | Finds hidden states: things that move between conditions with no written list of them. Proposes numbered actions. The review changes no code. |
 | `/prompt-to-ship project-map [refresh]` | `/prompt-to-ship:prompt-to-ship project-map [refresh]` | Builds or refreshes a project map in a Figma file. Writes only after your yes on a write list. Changes no code. |
+| `/prompt-to-ship hosting` | `/prompt-to-ship:prompt-to-ship hosting` | Offers hosting platforms that fit your project, then guides the setup when you pick one. The offer changes no code. |
 | `/prompt-to-ship version` | `/prompt-to-ship:prompt-to-ship version` | Shows the installed version, the folder it runs from, and the newest version seen. Changes nothing. |
 | `/prompt-to-ship <your request>` | `/prompt-to-ship:prompt-to-ship <your request>` | Runs the pipeline on your request. |
 
@@ -699,7 +741,7 @@ prompt-to-ship/
   references/                      pipeline, gates, setup, workspace, existing pipeline, debug, checklist,
                                    code hosts, autonomy, learning, security rules, weekly review,
                                    research (outside facts), design (house style), update, direction, ui,
-                                   states, project map
+                                   states, project map, hosting
   skills/design/                   the built-in design skill (/prompt-to-ship:design)
   tests/                           the hook test and the structure test, also run in CI
   docs/                            the README diagrams, and the script that draws them
