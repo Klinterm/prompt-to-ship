@@ -29,6 +29,10 @@ Search and AI visibility for a public website.
   in the files that decision 2026-11-14 lists.
 - The design skill's rebuild step "Search basics" now points to the new list.
 - New eval case `seo-noindex-stops` (26 cases). The TESTING.md section is not run yet.
+- Eval (26 cases, `--runs 1`, on 81ef9ed): every case 1.00 with the plugin except
+  `diagram-scope-first` at 0.86 (the stop option was missing once); its diagnostic rerun on the
+  same commit scored 1.00. Mean delta +0.46; `seo-noindex-stops` 1.00 with the plugin, 0.00
+  without. Cost $11.70 plus $0.24.
 
 Does prompt-to-ship help you? A star on GitHub helps others find it.
 
