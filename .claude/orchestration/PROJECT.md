@@ -137,6 +137,21 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Release notes: every CHANGELOG section from 2.34.0 on ends with the star line ("Does
   prompt-to-ship help you? A star on GitHub helps others find it."), because that section is the
   release notes. Older GitHub releases are not edited (the maintainer's answer, 2026-11-13).
+  From the next release after 2.35.0, the line before the star line is the reach line; the star
+  line stays last:
+  `Reach, the 14 days up to <YYYY-MM-DD>, as GitHub counts them: <n> unique visitors of the
+  repository page, <n> unique cloners, <n> stars in total. Cloners include CI runs and plugin
+  installs and updates, so they are not a count of people.`
+  The lead reads the numbers when it writes the section, only in this repository and with the
+  maintainer's own sign-in (the traffic API needs push access), read-only:
+  `gh api --method GET repos/Klinterm/prompt-to-ship/traffic/views --jq .uniques`,
+  `gh api --method GET repos/Klinterm/prompt-to-ship/traffic/clones --jq .uniques` and
+  `gh api --method GET repos/Klinterm/prompt-to-ship --jq .stargazers_count`. It runs only these
+  three, exactly as written, and stops if one has another method, flag or path. It copies each
+  number exactly from the output and never estimates. A failed read: `Reach: not read (<reason>).`,
+  with one reason from this list: no sign-in, no push access, API error, no network. Never quote
+  command output in the reason.
+  Never call a visitor or a cloner a user or a person. The README never shows traffic numbers.
 - Generic: no company, product, customer or stack names in shipped files. Five recorded exceptions:
   the design gallery that setup suggests (decision 2026-10-29), the credits in
   `skills/design/SOURCES.md` (decision 2026-11-03), Figma for the project map mode (decision
@@ -409,6 +424,14 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   address, so it is no new exception to the generic rule; users on any code host see it. No eval case
   reaches a change request, so the eval does not test it. Measuring point: the number of stars before
   2.34.0 and two releases later; a weak baseline, because stars have many causes.
+  Added 2026-11-14 (maintainer: "Yes, do it", "Live badge", "Note, no exception"): the README shows
+  a live star badge next to the star sentence, and each release records its reach line (House
+  rules, "Release notes"), because GitHub keeps traffic for 14 days only and the plugin sends no
+  telemetry. The badge is an image from shields.io that a reader's browser loads, through GitHub's
+  image proxy on github.com (other viewers, such as a local preview, load it from shields.io
+  directly); it is no network call of the plugin. shields.io appears only in that one README
+  line and in this decision. It is an image address for this repository, not a name of a user's
+  product, so it is no new exception to the generic rule.
 - Decision 2026-11-13 (maintainer, second; words: "Rename the heading", "Argument diagram", "SVG
   file", "Trim wording"): verified diagrams (2.33.0), from a handoff after one session that needed
   five rounds to get a correct diagram. references/diagrams.md holds the method: a scope question
