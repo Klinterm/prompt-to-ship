@@ -118,7 +118,9 @@ nothing.
     after the user's own typed confirmation (tiers.md). Check it at stage 0 on the brief, at stage
     2, in 5d, and again on the final diff before every push and merge. A signal at stage 0 rules out
     the quick lane. The stop names what becomes findable or public and asks one question about it;
-    only the user's own typed answer to that question, in this task, lifts it. A go on the diff, or
+    only the user's own typed answer to that question, in this task, lifts it. The answer covers only
+    the signal and scope that the stop named; a new signal, or a wider scope in a later diff, asks
+    again. A go on the diff, or
     an earlier answer such as the choice of crawler rules, is not that answer. A new page alone is
     not a case. Without `Public website: yes` this gate is silent. A production write stays gate
     15. Design rule F5 stays the rule on proof; this gate only stops. Stop word: build.

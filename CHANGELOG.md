@@ -13,7 +13,10 @@ Search and AI visibility for a public website.
   test domain indexable, publishes a draft, or adds proof (a review, quote, logo, price or award)
   that you did not give, stops for your own typed answer to the gate question. It is checked at
   the brief, the plan, the review and again before every push and merge, rules out the quick lane,
-  and a go on the diff never lifts it. The PROJECT.md confirm view now shows the website lines.
+  and a go on the diff never lifts it. It also covers a change of the site-URL setting and a
+  canonical URL to another host. The PROJECT.md confirm view now shows the website lines.
+- On a public website, a page title, a description, a heading and the page language now count as a
+  visible change, so the UI specialist reviews them.
 - AI crawler rules (GPTBot, ClaudeBot, PerplexityBot and others) are always your choice: one
   question with three options, and no default.
 - New PROJECT.md lines under "Website and public presence": `Public website:`, `Site languages:`,

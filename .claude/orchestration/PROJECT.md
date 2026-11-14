@@ -354,8 +354,10 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   handoff out of one real project. references/seo-geo.md is the one home; the lead reads it at
   stage 1 and 2 when PROJECT.md says `Public website: yes` and a change touches the site, and passes
   its path to the architect (stage 2) and the product expert and UI specialist (stage 2 and 5d).
-  No argument and no mode. Gate 17 stops an indexability change, a published draft and new proof
-  on a public website. The research (a find run and two check-mode runs, read on 2026-11-14)
+  No argument and no mode. Gate 17 stops an indexability or robots change, a change of the
+  site-URL setting or a canonical URL to another host, a published draft and new proof on a public
+  website; it is checked up to the final diff, rules out the quick lane, and no diff go lifts it.
+  On a public website, titles, descriptions, headings and the page language count as visible. The research (a find run and two check-mode runs, read on 2026-11-14)
   corrected the handoff: Google documents no character limit for titles and descriptions, so
   limits are a project choice (`Title and description limits:`); Google shows no FAQ rich results
   since 2026-05-07; Google says no AI text files are needed, so llms.txt is optional. Two Google

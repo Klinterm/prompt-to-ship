@@ -203,7 +203,7 @@ stage 0", step 4). Each file is checked on its own. The safe defaults until the 
 in that step.
 - PROJECT.md: show its Commands, Risk table, House rules (with "Upstream inbox"), release command,
   "Deploys on merge", Existing pipeline section, all "Design" lines (with the skill path) and the
-  "Website and public presence" lines. Until yes, a changed `Public website:` line counts as yes.
+  "Website and public presence" lines. Until yes, a changed or removed `Public website:` line counts as yes.
   Ask before running any of its commands. On yes, store the hash (gates.md, "File hash") in
   `orchestration.projectConfirmed`.
 - `domain.md`: show its invariants. On yes, store the hash in `orchestration.domainConfirmed`.
@@ -224,7 +224,8 @@ in that step.
 - If there is a remote: fetch, and check what others pushed since you last looked.
 - In a monorepo, find the package that owns the change and use its commands from PROJECT.md.
 - PROJECT.md has no `Public website:` line and the change touches files that serve public pages:
-  read seo-geo.md, "When it applies", for the one question to ask.
+  read only seo-geo.md, "When it applies", ask its one question before the lane is settled, and
+  apply nothing else from that file before a yes.
 - Decide on research (research.md). The decision goes in the `Research:` line of the
   PLAN block (SKILL.md).
 
@@ -308,7 +309,7 @@ proof it is not done.
 - 5d product-expert on the result: always. ui-specialist on the result: when the diff is visible
   (see "Visible change"), also when stage 2 said "nothing"; never with "User interface: none".
   On a change to a public website, both get the path of seo-geo.md, section "Review points", also
-  in the quick lane.
+  in a quick-lane change without a gate 17 signal.
 - 5e converge: every finding gets an ID and one answer (below). Round 1 is 5a to 5d on the whole
   diff. After that, see "Follow-up rounds". Three rounds with a new or reopened finding of severity
   Medium or higher means the approach is wrong: stop and rethink with the user. Name the class of bug, so the
@@ -437,7 +438,8 @@ Use it only when all of these hold, at stage 0 and again on the diff:
 - risk low (gates.md), and no forced-high path;
 - at most 2 files and about 30 changed lines;
 - no new screen, email or document (a text or style fix in an existing one is fine);
-- no business rule from domain.md, no outside fact, no data or schema change, no dependency.
+- no business rule from domain.md, no outside fact, no data or schema change, no dependency;
+- no gate 17 signal (gates.md).
 
 The route: the BRIEF with `Risk: low, <reason> (quick lane)`; stage 1 (the matching rules from
 rules.md); no PLAN block and no plan reviewers; build; prove (checklist.md); 5a fresh reviewer; 5c

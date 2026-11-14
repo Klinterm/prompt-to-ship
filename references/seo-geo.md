@@ -3,9 +3,9 @@
 The one home for how a public website is found by search engines and AI assistants. It names
 search engines, AI crawlers and their tools on purpose: a recorded exception to the plugin's rule
 against product names, in the same way as hosting.md names hosting platforms. The names it may use
-are listed in PROJECT.md, decision 2026-11-14.
+are the ones in this file.
 
-Every outside fact here has a number (sources 1 to 20) and a source in "Sources" at the end. Practice
+Every outside fact here names its source number, as "(source 4)", from "Sources" at the end. Practice
 without a source is marked as practice.
 
 ## Terms
@@ -33,10 +33,10 @@ Gate 15 stays tied to `Live site:` only.
 - The field is missing, and the change touches files that serve public pages: ask once at stage
   1, "Is this a public website that should be found by search engines? Answer yes or no." Offer
   to write the line. Until a yes, this file does not apply.
-- On a public website, a change to a page title, a description, a heading or the page language is
-  a visible change (pipeline.md, "Visible change").
+- Which changes on a public website are visible: pipeline.md, "Visible change".
 - The lead reads this file at stage 1 and 2 and passes its path to the reviewers (pipeline.md,
-  "Which agent when"). In the quick lane, the stage 1 read and 5d still apply.
+  "Which agent when"). A change with a gate 17 signal never takes the quick lane; in a quick-lane change without one,
+  the stage 1 read and 5d still apply.
 - There is no argument and no mode. Nothing here runs without a change.
 
 Say once, at stage 1: "This change touches a public website. I check it against the search and AI
@@ -56,11 +56,12 @@ search tool property is a name, never a password or a token.
    stops a change that adds proof the owner did not give.
 2. Every factual or legal claim on a page has a source that the owner or the lead read in the
    original. No source: the claim is not on the page.
-3. A write to the production site or domain is gate 15. Making a site indexable, publishing a draft
-   and new proof are gate 17 (gates.md).
-5. Robots rules hide nothing from people. Unreleased or private content needs a sign-in, and
+3. A write to the production site or domain is gate 15. A change in indexability or robots rules,
+   a change of the site-URL setting or a canonical URL to another host, publishing a draft and new
+   proof are gate 17 (gates.md).
+4. Robots rules hide nothing from people. Unreleased or private content needs a sign-in, and
    `robots.txt` never lists private paths.
-4. Never sign in for the owner, never send a mail or a request to a third party, and never create
+5. Never sign in for the owner, never send a mail or a request to a third party, and never create
    an account or a listing in the owner's name. Draft the text; the owner acts.
 
 ## S2. Technical foundation
@@ -186,7 +187,8 @@ The owner signs in and acts. The lead drafts the steps.
 
 ## S10. Domain move
 
-1. Only the site-URL setting changes; nothing else names the domain.
+1. Only the site-URL setting changes; nothing else names the domain. That change is gate 17, and
+   the move on the production domain is gate 15 too.
 2. A permanent redirect (301 or 308) from each old URL to its matching new URL, never many old URLs
    to one unrelated page. Redirect straight to the final URL and keep any chain short (source 16).
 3. Keep the redirects at least 1 year. The site-move guide says at least 1 year, the Change of
@@ -211,8 +213,10 @@ Product expert (stage 2 and 5d):
   that is not in the user's own words in the brief and not on the "Proof we have" list, if the
   project has one. A list line added in the same change counts only after the user's own typed
   confirmation (tiers.md). BLOCKING (gate 17).
-- SEO-P2. No draft is built or published without the owner's go. BLOCKING (gate 17).
-- SEO-P3. A change in indexability has the owner's typed go in this task. BLOCKING (gate 17).
+- SEO-P2. No draft is built or published without the owner's typed answer to the gate 17
+  question. BLOCKING (gate 17).
+- SEO-P3. A change in indexability has the owner's typed answer to the gate 17 question, for
+  this signal and scope. BLOCKING (gate 17).
 - SEO-P4. Each factual or legal claim has a source in the page's sources or in the brief.
 - SEO-P5. No new page shares a search intent with a page in the route map or the sitemap.
 - SEO-P6. No promise of a FAQ rich result or of llms.txt effects.
