@@ -16,6 +16,8 @@ yet. The current version and its changes are in [CHANGELOG.md](CHANGELOG.md).
 Does prompt-to-ship help you? A star on GitHub helps others find it:
 [Klinterm/prompt-to-ship](https://github.com/Klinterm/prompt-to-ship).
 
+[![Star prompt-to-ship on GitHub](https://img.shields.io/github/stars/Klinterm/prompt-to-ship?style=flat)](https://github.com/Klinterm/prompt-to-ship/stargazers)
+
 It works in any git repository and in any programming language. See [Code hosts](#code-hosts)
 for GitHub, GitLab and others.
 
