@@ -108,16 +108,20 @@ nothing.
     deploy command and each merge into a target that deploys on merge is such a write (hosting.md).
 16. a reviewer that the route requires did not run, also after one retry (pipeline.md, "Loop
     rules"). A missing review is never "no findings".
-17. on a public website (`Public website: yes`, seo-geo.md), a plan or diff that removes or changes
-    a `noindex` (a robots meta tag or an `X-Robots-Tag` header); changes robots rules so that a
-    crawler gains or loses access; makes a test domain indexable; removes a draft marker or moves a
+17. on a public website (`Public website: yes`, seo-geo.md), a brief, plan or diff that adds,
+    removes or changes a `noindex` (a robots meta tag or an `X-Robots-Tag` header); changes robots
+    rules so that a crawler gains or loses access; makes a test domain indexable; changes the
+    site-URL setting or points a canonical URL to another host; removes a draft marker or moves a
     draft to a published place; or adds a review, rating, quote, testimonial, customer logo,
-    customer count, price or award that is not in the brief and not on the "Proof we have" list,
-    if the project has one. Check it at stage 2 on the plan and in 5d on the diff. Only the user's
-    own typed go for that diff in this task lifts it; an earlier answer, such as the choice of
-    crawler rules, is not that go. A new page alone is not a case. Without `Public website: yes`
-    this gate is silent. A production write stays gate 15. Design rule F5 stays the rule on
-    proof; this gate only stops.
+    customer count, price or award that is not in the user's own words in the brief and not on the
+    "Proof we have" list, if the project has one. A list line added in the same change counts only
+    after the user's own typed confirmation (tiers.md). Check it at stage 0 on the brief, at stage
+    2, in 5d, and again on the final diff before every push and merge. A signal at stage 0 rules out
+    the quick lane. The stop names what becomes findable or public and asks one question about it;
+    only the user's own typed answer to that question, in this task, lifts it. A go on the diff, or
+    an earlier answer such as the choice of crawler rules, is not that answer. A new page alone is
+    not a case. Without `Public website: yes` this gate is silent. A production write stays gate
+    15. Design rule F5 stays the rule on proof; this gate only stops. Stop word: build.
 
 Stop message, one form:
 `Stopped before <build | push | merge | release | write>: <what happened>. Next: <what the user does>.`
@@ -134,7 +138,7 @@ the approved commit sha.
 **Diff go covers merge (opt-in).** With `orchestration.diffGoCovers` set to `yes` and a stored
 level of `merge` or `release`, the user's own typed go in this task, given after the lead showed
 the diff, also covers the merge (and at `release` the release) of exactly that reviewed sha. This
-lifts gate 1 only (high risk and forced-high paths), never gate 13 or 15; every other gate still
+lifts gate 1 only (high risk and forced-high paths), never gate 13, 15 or 17; every other gate still
 stops. The lead says so when it asks: "Your go also merges and releases this exact commit
 (orchestration.diffGoCovers)." It records the sha in the conversation; the marker line in the
 change request (autonomy.md) is an audit line for the weekly review, never the record.

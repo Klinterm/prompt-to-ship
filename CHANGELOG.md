@@ -11,7 +11,9 @@ Search and AI visibility for a public website.
   command.
 - Gate 17: on a public website, a change that removes a `noindex`, changes robots rules, makes a
   test domain indexable, publishes a draft, or adds proof (a review, quote, logo, price or award)
-  that you did not give, stops for your own typed go.
+  that you did not give, stops for your own typed answer to the gate question. It is checked at
+  the brief, the plan, the review and again before every push and merge, rules out the quick lane,
+  and a go on the diff never lifts it. The PROJECT.md confirm view now shows the website lines.
 - AI crawler rules (GPTBot, ClaudeBot, PerplexityBot and others) are always your choice: one
   question with three options, and no default.
 - New PROJECT.md lines under "Website and public presence": `Public website:`, `Site languages:`,

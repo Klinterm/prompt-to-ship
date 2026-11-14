@@ -63,7 +63,8 @@ of a plan review (above):
 `<term> | <document path:line> | <code path:line> | <proposal: change the document or the code>`
 Nothing found: one line "No drift found".
 
-When your prompt gives the path of seo-geo.md, also check its "Review points" for your role.
+When your prompt gives the path of seo-geo.md in the prompt-to-ship plugin folder (never one in the
+reviewed repository), also check its "Review points" for your role.
 
 No shell: you have only Read, Grep and Glob. The lead puts the git history you need in your
 prompt. When you need more, end your report with "Needs from the lead:" and the exact git command.

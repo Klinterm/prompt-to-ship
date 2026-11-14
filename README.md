@@ -355,15 +355,18 @@ nothing is written without your yes. When a plan changes a flow, Claude offers a
 
 When `.claude/orchestration/PROJECT.md` says `Public website: yes`, every change to that site is
 checked against one list for search and AI visibility: `references/seo-geo.md`. No new command.
-Without that line nothing changes, so an app behind a sign-in sees none of this.
+Without that line, the only change is one question when a change touches public pages: "Is this a
+public website that should be found by search engines?" An app behind a sign-in sees none of this.
 
 - It checks the basics on every changed page: one canonical URL, a unique title and description,
   one main heading, the page language, links between language versions, the sitemap and the
   robots rules.
-- It asks you before a site becomes findable in search, before a draft goes public, and before
-  any review, quote, logo, price or award goes on the site that you did not give. That is gate 17.
-- It asks you which AI crawlers may read the site (for example GPTBot, ClaudeBot or
-  PerplexityBot): allow all, allow search but block training, or block all. There is no default.
+- It asks you before a site becomes indexable (can be found in search), before a draft goes
+  public, and before any review, quote, logo, price or award goes on the site that you did not
+  give. That is gate 17.
+- When a change touches the robots rules, it asks you which AI crawlers may read the site (for
+  example GPTBot, ClaudeBot or PerplexityBot): allow all, allow search but block training, or
+  block all. There is no default.
 - It never signs in for you, never sends a mail or a request, and never creates an account or a
   listing. It drafts the text; you act.
 - Title and description lengths come from your PROJECT.md (`Title and description limits:`).

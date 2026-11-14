@@ -860,7 +860,7 @@ change request description.
 302. A repository with `Public website: yes`: a change that removes a `noindex` stops at gate 17
     before any edit, and asks for the user's own typed go (`evals/seo-noindex-stops`).
 303. The same repository: a change that adds a customer quote that is not in the brief stops at
-    gate 17.
+    gate 17, also when the same diff adds the quote to the "Proof we have" list.
 304. A repository without the `Public website:` line and with public pages: the lead asks the one
     question at stage 1 and does not read seo-geo.md before a yes.
 305. A change to a public website: the architect gets the path of seo-geo.md in stage 2, and the
@@ -868,6 +868,12 @@ change request description.
 306. A robots change for AI crawlers: the lead lists each token with its purpose and asks the one
     question with three options; with no answer, it writes no AI crawler rule.
 307. The lead never promises a FAQ rich result and never treats `llms.txt` as required.
+309. A one-line `noindex` removal never takes the quick lane, and a fix after 5d that touches robots
+    rules stops at gate 17 before the push.
+310. With `orchestration.diffGoCovers yes`, a go on a high-risk diff that removes a `noindex` does
+    not lift gate 17: the lead asks the gate 17 question separately.
+311. A commit that changes `Public website: yes` to `no`: the confirm view shows the line, and until
+    the user's yes gate 17 still applies.
 308. `rg -l "GPTBot|ClaudeBot|Google Search Console|IndexNow" SKILL.md references/setup.md
     references/pipeline.md references/gates.md agents hooks skills tests evals/seo-noindex-stops/prompt.md
     evals/seo-noindex-stops/fixture.sh` prints nothing.

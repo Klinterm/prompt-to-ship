@@ -115,8 +115,9 @@ A repository that already has a confirmed PROJECT.md can ask to "draft domain.md
    product promises, for whom, the main features, the wording, the languages. Describe it; never
    copy page text into the PROJECT.md draft. Never sign in, never submit a form, decline
    non-essential cookies.
-   Note where the website and the code disagree. When a chosen website is the product's own public
-   site, propose `Public website: yes`; ask the other website lines once, when first needed. A library, a tool or an internal service may
+   Note where the website and the code disagree. When a chosen website is the product's own
+   public site, propose `Public website: yes`; ask the other website lines once, when first
+   needed. A library, a tool or an internal service may
    have no website: that is fine.
 5. **The people.** Ask the user what the files cannot tell. At most seven questions, in one
    message. Say that "none" or "skip" is a valid answer. Pick from:
