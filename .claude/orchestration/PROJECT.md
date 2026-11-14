@@ -144,10 +144,13 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   installs and updates, so they are not a count of people.`
   The lead reads the numbers when it writes the section, only in this repository and with the
   maintainer's own sign-in (the traffic API needs push access), read-only:
-  `gh api repos/Klinterm/prompt-to-ship/traffic/views --jq .uniques`,
-  `gh api repos/Klinterm/prompt-to-ship/traffic/clones --jq .uniques` and
-  `gh api repos/Klinterm/prompt-to-ship --jq .stargazers_count`. It copies each number exactly from
-  the output and never estimates. A failed read: `Reach: not read (<the reason in plain words>).`
+  `gh api --method GET repos/Klinterm/prompt-to-ship/traffic/views --jq .uniques`,
+  `gh api --method GET repos/Klinterm/prompt-to-ship/traffic/clones --jq .uniques` and
+  `gh api --method GET repos/Klinterm/prompt-to-ship --jq .stargazers_count`. It runs only these
+  three, exactly as written, and stops if one has another method, flag or path. It copies each
+  number exactly from the output and never estimates. A failed read: `Reach: not read (<reason>).`,
+  with one reason from this list: no sign-in, no push access, API error, no network. Never quote
+  command output in the reason.
   Never call a visitor or a cloner a user or a person. The README never shows traffic numbers.
 - Generic: no company, product, customer or stack names in shipped files. Five recorded exceptions:
   the design gallery that setup suggests (decision 2026-10-29), the credits in
@@ -424,8 +427,9 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   Added 2026-11-14 (maintainer: "Yes, do it", "Live badge", "Note, no exception"): the README shows
   a live star badge next to the star sentence, and each release records its reach line (House
   rules, "Release notes"), because GitHub keeps traffic for 14 days only and the plugin sends no
-  telemetry. The badge is an image from shields.io, through GitHub's image proxy, that a reader's
-  browser loads; it is no network call of the plugin. shields.io appears only in that one README
+  telemetry. The badge is an image from shields.io that a reader's browser loads, through GitHub's
+  image proxy on github.com (other viewers, such as a local preview, load it from shields.io
+  directly); it is no network call of the plugin. shields.io appears only in that one README
   line and in this decision. It is an image address for this repository, not a name of a user's
   product, so it is no new exception to the generic rule.
 - Decision 2026-11-13 (maintainer, second; words: "Rename the heading", "Argument diagram", "SVG
