@@ -50,12 +50,9 @@ it holds no secrets and no personal data (no form submissions, no customer or me
 
 ## R4. Search basics
 
-These are common practice, not law.
-1. Each page has a unique title and description, and one main heading.
-2. One canonical host (with or without `www`, one of the two).
-3. A sitemap that lists the new URLs.
-4. Structured data only for facts that are on the page.
-5. The titles of the pages that bring the most visitors change only on purpose.
+1. The titles of the pages that bring the most visitors change only on purpose.
+2. The full list for search and AI visibility is the plugin's `references/seo-geo.md`. Inside
+   prompt-to-ship the lead reads it on a change to a public website.
 
 ## R5. Privacy and consent
 

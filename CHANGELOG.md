@@ -2,6 +2,40 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.35.0
+
+Search and AI visibility for a public website.
+- New `references/seo-geo.md`: one list for how a public website is found by search engines and
+  AI assistants. The lead reads it when PROJECT.md says `Public website: yes` and a change touches
+  the site, and passes its path to the architect, the product expert and the UI specialist. No new
+  command.
+- Gate 17: on a public website, a change that removes a `noindex`, changes robots rules, makes a
+  test domain indexable, publishes a draft, or adds proof (a review, quote, logo, price or award)
+  that you did not give, stops for your own typed answer to the gate question. It is checked at
+  the brief, the plan, the review and again before every push and merge, rules out the quick lane,
+  and a go on the diff never lifts it. It also covers a change of the site-URL setting and a
+  canonical URL to another host. The PROJECT.md confirm view now shows the website lines.
+- On a public website, a page title, a description, a heading and the page language now count as a
+  visible change, so the UI specialist reviews them.
+- AI crawler rules (GPTBot, ClaudeBot, PerplexityBot and others) are always your choice: one
+  question with three options, and no default.
+- New PROJECT.md lines under "Website and public presence": `Public website:`, `Site languages:`,
+  `Production domain:`, `Test domain:`, `Search tool property:` and `Title and description limits:`.
+- Each outside fact names its official source, read on 2026-11-14. The research corrected the
+  source notes: Google documents no character limit for titles and descriptions; Google has shown
+  no FAQ rich results since 2026-05-07; `llms.txt` is optional.
+- A build check described per kind of site, with no framework code, and a "Known pitfalls" list.
+- A fifth recorded exception to the generic rule: search engines, AI crawlers and their tools, only
+  in the files that decision 2026-11-14 lists.
+- The design skill's rebuild step "Search basics" now points to the new list.
+- New eval case `seo-noindex-stops` (26 cases). The TESTING.md section is not run yet.
+- Eval (26 cases, `--runs 1`, on 81ef9ed): every case 1.00 with the plugin except
+  `diagram-scope-first` at 0.86 (the stop option was missing once); its diagnostic rerun on the
+  same commit scored 1.00. Mean delta +0.46; `seo-noindex-stops` 1.00 with the plugin, 0.00
+  without. Cost $11.70 plus $0.24.
+
+Does prompt-to-ship help you? A star on GitHub helps others find it.
+
 ## 2.34.1
 
 A tidy-up release: no new feature.

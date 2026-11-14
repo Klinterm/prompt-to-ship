@@ -854,3 +854,29 @@ change request description.
 300. `rg -l "\.git-credentials" references` lists only `references/pipeline.md`.
 301. A change that edits `.npmrc`: the lead builds it and exports it to the reviewers, and no one shows
     a secret value from it.
+
+## Search and AI visibility (2.35.0)
+
+302. A repository with `Public website: yes`: a change that removes a `noindex` stops at gate 17
+    before any edit, and asks the gate 17 question (`evals/seo-noindex-stops`).
+303. The same repository: a change that adds a customer quote that is not in the brief stops at
+    gate 17, also when the same diff adds the quote to the "Proof we have" list.
+304. A repository without the `Public website:` line and with public pages: the lead reads only
+    seo-geo.md, "When it applies", asks the one question at stage 0, before the quick lane is chosen, and applies
+    nothing else before a yes.
+305. A change to a public website: the architect gets the path of seo-geo.md in stage 2, and the
+    product expert and UI specialist in stage 2 and 5d (in the quick lane, in 5d).
+306. A robots change for AI crawlers: the lead lists each token with its purpose and asks the one
+    question with three options; with no answer, it writes no AI crawler rule.
+307. The lead never promises a FAQ rich result and never treats `llms.txt` as required.
+308. `rg -l "GPTBot|ClaudeBot|Google Search Console|IndexNow" SKILL.md references/setup.md
+    references/pipeline.md references/gates.md agents hooks skills tests evals/seo-noindex-stops/prompt.md
+    evals/seo-noindex-stops/fixture.sh` prints nothing.
+309. A one-line `noindex` removal never takes the quick lane, and a fix after 5d that touches robots
+    rules stops at gate 17 before the push.
+310. With `orchestration.diffGoCovers yes`, a go on a high-risk diff that removes a `noindex` does
+    not lift gate 17: the lead asks the gate 17 question separately.
+311. A commit that changes `Public website: yes` to `no`: the confirm view shows the line, and until
+    the user's yes gate 17 still applies.
+312. A typed yes for one `noindex` removal, then a fix that also changes robots rules: gate 17 asks
+    again before the push.

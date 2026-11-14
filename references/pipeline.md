@@ -155,6 +155,7 @@ the section that owns the rule.
 | normal or high risk | 5b | security reviewer | Stage 5 |
 | a finding of severity High or higher, a contest at Medium or higher, or the lead's doubt | 5c | validator | Stage 5 |
 | a result | 5d | product expert | Stage 5 |
+| a change to a public website | 1: the lead reads seo-geo.md; 2: architect; 2 and 5d: product expert, and the UI specialist on a visible change; each gets the path of seo-geo.md | seo-geo.md |
 | a large code base | 1, D1 | code search agent (the host's built-in read-only search agent) | Stage 1 |
 | a symptom in shipped code | D3, D4 | debugger, then validator in root cause mode | debug.md |
 | a cause in auth, data exposure or injection | D4 | security reviewer | debug.md |
@@ -201,7 +202,8 @@ Read this when PROJECT.md or `domain.md` differs from its confirmed hash (SKILL.
 stage 0", step 4). Each file is checked on its own. The safe defaults until the user says yes are
 in that step.
 - PROJECT.md: show its Commands, Risk table, House rules (with "Upstream inbox"), release command,
-  "Deploys on merge", Existing pipeline section and all "Design" lines (with the skill path).
+  "Deploys on merge", Existing pipeline section, all "Design" lines (with the skill path) and the
+  "Website and public presence" lines. Until yes, a changed or removed `Public website:` line counts as yes.
   Ask before running any of its commands. On yes, store the hash (gates.md, "File hash") in
   `orchestration.projectConfirmed`.
 - `domain.md`: show its invariants. On yes, store the hash in `orchestration.domainConfirmed`.
@@ -221,6 +223,9 @@ in that step.
 - Read the decisions and parked items that PROJECT.md points to.
 - If there is a remote: fetch, and check what others pushed since you last looked.
 - In a monorepo, find the package that owns the change and use its commands from PROJECT.md.
+- PROJECT.md has no `Public website:` line and the change touches files that serve public pages:
+  read only seo-geo.md, "When it applies", ask its one question at stage 0, before the quick lane is chosen, and
+  apply nothing else from that file before a yes.
 - Decide on research (research.md). The decision goes in the `Research:` line of the
   PLAN block (SKILL.md).
 
@@ -236,6 +241,8 @@ in that step.
   (except in the quick lane), by these full names. Start `prompt-to-ship:ui-specialist` with them only on a visible change (see
   "Visible change"); otherwise the `Visible:` line says "nothing". The architect and the product
   expert check that line: a visible change with "nothing" is a BLOCKING point.
+- A change to a public website (seo-geo.md, "When it applies"): give these reviewers the path of
+  seo-geo.md, section "Review points".
 - A plan that changes a flow, at normal or high risk: offer a verified diagram once (diagrams.md,
   "Offer at stage 2"). The PLAN does not wait for it, and a yes is not a go on the plan.
 - A new screen, email or document: before the reviewers start, open the sources from the
@@ -301,6 +308,8 @@ proof it is not done.
   raised again.
 - 5d product-expert on the result: always. ui-specialist on the result: when the diff is visible
   (see "Visible change"), also when stage 2 said "nothing"; never with "User interface: none".
+  On a change to a public website, both get the path of seo-geo.md, section "Review points", also
+  in a quick-lane change without a gate 17 signal.
 - 5e converge: every finding gets an ID and one answer (below). Round 1 is 5a to 5d on the whole
   diff. After that, see "Follow-up rounds". Three rounds with a new or reopened finding of severity
   Medium or higher means the approach is wrong: stop and rethink with the user. Name the class of bug, so the
@@ -429,7 +438,8 @@ Use it only when all of these hold, at stage 0 and again on the diff:
 - risk low (gates.md), and no forced-high path;
 - at most 2 files and about 30 changed lines;
 - no new screen, email or document (a text or style fix in an existing one is fine);
-- no business rule from domain.md, no outside fact, no data or schema change, no dependency.
+- no business rule from domain.md, no outside fact, no data or schema change, no dependency;
+- no gate 17 signal (gates.md).
 
 The route: the BRIEF with `Risk: low, <reason> (quick lane)`; stage 1 (the matching rules from
 rules.md); no PLAN block and no plan reviewers; build; prove (checklist.md); 5a fresh reviewer; 5c
@@ -455,7 +465,8 @@ rule), ignore the prefix and run the pipeline as usual.
 A change is visible when a user or a developer sees its result: a screen, an admin screen, an
 email, a PDF, a notification, a text in an app or a translation file, command-line output or
 help text, or a log or API message a developer reads. When in doubt, it is visible.
-"User interface: none" in PROJECT.md means that nothing is ever visible.
+"User interface: none" in PROJECT.md means that nothing is ever visible. On a public website
+(seo-geo.md), a page title, a description, a heading and the page language are visible.
 
 ## Rules
 

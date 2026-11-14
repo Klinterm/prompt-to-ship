@@ -71,7 +71,7 @@ https://github.com/Klinterm/prompt-to-ship, public. The README is the home page.
   table, agent frontmatter, skills in `skills/` and the case count. Both run in CI.
 - `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
-  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui, states, project map, hosting, diagrams.
+  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui, states, project map, hosting, diagrams, seo-geo.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`): workflow, tiers,
   references (with scene mode in `immersive.md` and the rebuild path in `rebuild.md`) and the
   DESIGN.md template. `SOURCES.md` credits
@@ -137,10 +137,11 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Release notes: every CHANGELOG section from 2.34.0 on ends with the star line ("Does
   prompt-to-ship help you? A star on GitHub helps others find it."), because that section is the
   release notes. Older GitHub releases are not edited (the maintainer's answer, 2026-11-13).
-- Generic: no company, product, customer or stack names in shipped files. Four recorded exceptions:
+- Generic: no company, product, customer or stack names in shipped files. Five recorded exceptions:
   the design gallery that setup suggests (decision 2026-10-29), the credits in
   `skills/design/SOURCES.md` (decision 2026-11-03), Figma for the project map mode (decision
-  2026-11-12), and hosting platforms for the hosting mode (decision 2026-11-13).
+  2026-11-12), hosting platforms for the hosting mode (decision 2026-11-13), and search engines,
+  AI crawlers and their tools for search and AI visibility (decision 2026-11-14).
 - The plugin name, the folder name, the agent prefixes in `SKILL.md` and the README must match.
 - Extra forced-high paths (gates.md): `references/gates.md`, `hooks/**`.
 
@@ -157,7 +158,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   `claude plugin eval . --runs 1 -j 4 --max-cost-usd 12 --judge-model sonnet --no-publish --scaffold --allow-tools Edit Write`
   (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
   `--ablation none`, half the runs)
-  (25 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
+  (26 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -348,6 +349,33 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   user to another computer. A thin baseline: the eval case reaches only "asks first, writes nothing,
   no BRIEF", not the connector path. Measuring point: the next three uses record how many write
   lists the owner accepted and how many statuses proved wrong; then reconsider this decision.
+- Decision 2026-11-14 (maintainer; answers "5e uitzondering", "Woorden inkorten", "Sectie in
+  seo-geo.md", "Eerst SEO-module", "Minstens 1 jaar"): search and AI visibility (2.35.0), from a
+  handoff out of one real project. references/seo-geo.md is the one home; the lead reads it at
+  stage 1 and 2 when PROJECT.md says `Public website: yes` and a change touches the site, and passes
+  its path to the architect (stage 2) and the product expert and UI specialist (stage 2 and 5d).
+  No argument and no mode. Gate 17 stops an indexability or robots change, a change of the
+  site-URL setting or a canonical URL to another host, a published draft and new proof on a public
+  website; it is checked up to the final diff, rules out the quick lane, and no diff go lifts it.
+  On a public website, titles, descriptions, headings and the page language count as visible. The research (a find run and two check-mode runs, read on 2026-11-14)
+  corrected the handoff: Google documents no character limit for titles and descriptions, so
+  limits are a project choice (`Title and description limits:`); Google shows no FAQ rich results
+  since 2026-05-07; Google says no AI text files are needed, so llms.txt is optional. Two Google
+  pages differ on how long to keep redirects after a domain move (1 year, 180 days); the
+  maintainer chose the stricter 1 year. AI crawler rules are always the owner's choice, with no
+  default. A fifth exception to the generic rule: Google, Googlebot, Googlebot-Image, Google-Extended, Gemini, Google Search Console, Rich Results Test, Lighthouse, web.dev, Bing, Bing Webmaster Tools, IndexNow, Naver, Seznam.cz, Yandex, Yep, OpenAI, ChatGPT, GPTBot, OAI-SearchBot, ChatGPT-User, Anthropic, ClaudeBot, Claude-SearchBot, Claude-User, Perplexity, PerplexityBot, Perplexity-User, Apple, Applebot, Applebot-Extended, Common Crawl, CCBot, llms.txt and schema.org may be named only in
+  `references/seo-geo.md`, the graders of `evals/seo-noindex-stops`, its README section, its
+  TESTING.md section, the CHANGELOG, and the decision and rule lines in PROJECT.md and
+  `.claude/CLAUDE.md`. SKILL.md, setup.md, pipeline.md, gates.md, the agents, hooks, `skills/`,
+  `tests/` and the eval prompt and fixture stay free of the names; the setup field is `Search tool
+  property:` for that reason. The handoff's company is left out; the worked example is
+  anonymous. The handoff's lessons became "Known pitfalls" in seo-geo.md, because they are not
+  pipeline misses. The build check is described per stack category, with no framework code, and
+  the lead runs only confirmed `Checks:` or `Preview:` commands (the limit of decision 2026-11-09).
+  SKILL.md made room for its row by trimming words only. A thin baseline: the eval case reaches
+  only the gate 17 stop on a noindex removal; it does not prove the file was read. Measuring
+  point: the next three public-website changes record which review points fired, each gate 17
+  stop, and any fact past its `valid:` date; then reconsider this decision.
 - Decision 2026-11-13 (maintainer's words: "A: neutral, Cloudflare first", after research on Cloudflare
   and seven alternatives): a hosting mode (2.32.0). The argument `hosting` gives a read-only offer of
   two or three hosting platforms that fit the project, the best fit first, and never a default; this
