@@ -14,6 +14,9 @@ hosts.
 - **production deploy**: a deploy that the live site serves.
 - **account**: the user's own account on the hosting platform.
 
+How a public website is found by search engines and AI assistants (robots rules, sitemap,
+redirects, a domain move) is in seo-geo.md.
+
 ## When it starts
 
 - The argument `hosting` starts the offer below. It is read-only.

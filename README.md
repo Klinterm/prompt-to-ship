@@ -351,6 +351,27 @@ Without a `Diagram tool:` line in PROJECT.md you get an SVG file in the session'
 the chat shows its path. More than five findings go into a text file next to it. With a design file,
 nothing is written without your yes. When a plan changes a flow, Claude offers a diagram once.
 
+## Public websites: be found by search engines and AI assistants
+
+When `.claude/orchestration/PROJECT.md` says `Public website: yes`, every change to that site is
+checked against one list for search and AI visibility: `references/seo-geo.md`. No new command.
+Without that line nothing changes, so an app behind a sign-in sees none of this.
+
+- It checks the basics on every changed page: one canonical URL, a unique title and description,
+  one main heading, the page language, links between language versions, the sitemap and the
+  robots rules.
+- It asks you before a site becomes findable in search, before a draft goes public, and before
+  any review, quote, logo, price or award goes on the site that you did not give. That is gate 17.
+- It asks you which AI crawlers may read the site (for example GPTBot, ClaudeBot or
+  PerplexityBot): allow all, allow search but block training, or block all. There is no default.
+- It never signs in for you, never sends a mail or a request, and never creates an account or a
+  listing. It drafts the text; you act.
+- Title and description lengths come from your PROJECT.md (`Title and description limits:`).
+  Google documents no character limit, and it no longer shows FAQ rich results. An `llms.txt` file
+  is optional: Google says it needs no AI text files.
+
+Each outside fact in the list names its official source and the date it was read.
+
 ## Business rules
 
 Some rules of a product are not visible in one piece of code: "VAT is applied once, on the
@@ -793,7 +814,8 @@ prompt-to-ship/
   references/                      pipeline, gates, setup, workspace, existing pipeline, debug, checklist,
                                    code hosts, autonomy, learning, security rules, weekly review,
                                    research (outside facts), design (house style), update, direction, ui,
-                                   states, project map, hosting, diagrams
+                                   states, project map, hosting, diagrams, seo-geo (search and
+                                   AI visibility)
   skills/design/                   the built-in design skill (/prompt-to-ship:design)
   tests/                           the hook test and the structure test, also run in CI
   docs/                            the README diagrams, and the script that draws them

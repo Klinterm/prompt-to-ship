@@ -854,3 +854,20 @@ change request description.
 300. `rg -l "\.git-credentials" references` lists only `references/pipeline.md`.
 301. A change that edits `.npmrc`: the lead builds it and exports it to the reviewers, and no one shows
     a secret value from it.
+
+## Search and AI visibility (2.35.0)
+
+302. A repository with `Public website: yes`: a change that removes a `noindex` stops at gate 17
+    before any edit, and asks for the user's own typed go (`evals/seo-noindex-stops`).
+303. The same repository: a change that adds a customer quote that is not in the brief stops at
+    gate 17.
+304. A repository without the `Public website:` line and with public pages: the lead asks the one
+    question at stage 1 and does not read seo-geo.md before a yes.
+305. A change to a public website: the architect gets the path of seo-geo.md in stage 2, and the
+    product expert and UI specialist in stage 2 and 5d (in the quick lane, in 5d).
+306. A robots change for AI crawlers: the lead lists each token with its purpose and asks the one
+    question with three options; with no answer, it writes no AI crawler rule.
+307. The lead never promises a FAQ rich result and never treats `llms.txt` as required.
+308. `rg -l "GPTBot|ClaudeBot|Google Search Console|IndexNow" SKILL.md references/setup.md
+    references/pipeline.md references/gates.md agents hooks skills tests evals/seo-noindex-stops/prompt.md
+    evals/seo-noindex-stops/fixture.sh` prints nothing.

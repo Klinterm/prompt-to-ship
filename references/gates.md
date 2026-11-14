@@ -108,6 +108,16 @@ nothing.
     deploy command and each merge into a target that deploys on merge is such a write (hosting.md).
 16. a reviewer that the route requires did not run, also after one retry (pipeline.md, "Loop
     rules"). A missing review is never "no findings".
+17. on a public website (`Public website: yes`, seo-geo.md), a plan or diff that removes or changes
+    a `noindex` (a robots meta tag or an `X-Robots-Tag` header); changes robots rules so that a
+    crawler gains or loses access; makes a test domain indexable; removes a draft marker or moves a
+    draft to a published place; or adds a review, rating, quote, testimonial, customer logo,
+    customer count, price or award that is not in the brief and not on the "Proof we have" list,
+    if the project has one. Check it at stage 2 on the plan and in 5d on the diff. Only the user's
+    own typed go for that diff in this task lifts it; an earlier answer, such as the choice of
+    crawler rules, is not that go. A new page alone is not a case. Without `Public website: yes`
+    this gate is silent. A production write stays gate 15. Design rule F5 stays the rule on
+    proof; this gate only stops.
 
 Stop message, one form:
 `Stopped before <build | push | merge | release | write>: <what happened>. Next: <what the user does>.`

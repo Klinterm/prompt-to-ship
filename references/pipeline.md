@@ -155,6 +155,7 @@ the section that owns the rule.
 | normal or high risk | 5b | security reviewer | Stage 5 |
 | a finding of severity High or higher, a contest at Medium or higher, or the lead's doubt | 5c | validator | Stage 5 |
 | a result | 5d | product expert | Stage 5 |
+| a change to a public website | 2: architect; 2 and 5d: product expert, and the UI specialist on a visible change; each gets the path of seo-geo.md | seo-geo.md |
 | a large code base | 1, D1 | code search agent (the host's built-in read-only search agent) | Stage 1 |
 | a symptom in shipped code | D3, D4 | debugger, then validator in root cause mode | debug.md |
 | a cause in auth, data exposure or injection | D4 | security reviewer | debug.md |
@@ -236,6 +237,8 @@ in that step.
   (except in the quick lane), by these full names. Start `prompt-to-ship:ui-specialist` with them only on a visible change (see
   "Visible change"); otherwise the `Visible:` line says "nothing". The architect and the product
   expert check that line: a visible change with "nothing" is a BLOCKING point.
+- A change to a public website (seo-geo.md, "When it applies"): give these reviewers the path of
+  seo-geo.md, section "Review points".
 - A plan that changes a flow, at normal or high risk: offer a verified diagram once (diagrams.md,
   "Offer at stage 2"). The PLAN does not wait for it, and a yes is not a go on the plan.
 - A new screen, email or document: before the reviewers start, open the sources from the
@@ -301,6 +304,8 @@ proof it is not done.
   raised again.
 - 5d product-expert on the result: always. ui-specialist on the result: when the diff is visible
   (see "Visible change"), also when stage 2 said "nothing"; never with "User interface: none".
+  On a change to a public website, both get the path of seo-geo.md, section "Review points", also
+  in the quick lane.
 - 5e converge: every finding gets an ID and one answer (below). Round 1 is 5a to 5d on the whole
   diff. After that, see "Follow-up rounds". Three rounds with a new or reopened finding of severity
   Medium or higher means the approach is wrong: stop and rethink with the user. Name the class of bug, so the
