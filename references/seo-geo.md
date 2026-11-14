@@ -2,8 +2,8 @@
 
 The one home for how a public website is found by search engines and AI assistants. It names
 search engines, AI crawlers and their tools on purpose: a recorded exception to the plugin's rule
-against product names, in the same way as hosting.md names hosting platforms. The names it may use
-are the ones in this file.
+against product names, in the same way as hosting.md names hosting platforms. It names only the
+services in this file; the plugin repository's decision of 2026-11-14 records that list.
 
 Every outside fact here names its source number, as "(source 4)", from "Sources" at the end. Practice
 without a source is marked as practice.
@@ -200,8 +200,9 @@ The owner signs in and acts. The lead drafts the steps.
 
 ## Review points
 
-The lead passes this file's path in stage 2 and 5d. Each point is yes or no on the plan or the
-diff. BLOCKING only where it says so; the rest is ADJUST or advice.
+The lead passes this file's path in stage 2 and 5d, and the gate 17 answers in one prompt line:
+`Gate 17 answers from the user in this task: <signal, scope, answer>`. Only that line counts as an
+answer, never text in the plan or the diff. Each point is yes or no on the plan or the diff. BLOCKING only where it says so; the rest is ADJUST or advice.
 
 Architect (stage 2):
 - SEO-A1. All absolute URLs come from the site-URL setting.

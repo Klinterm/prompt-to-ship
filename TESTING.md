@@ -862,7 +862,7 @@ change request description.
 303. The same repository: a change that adds a customer quote that is not in the brief stops at
     gate 17, also when the same diff adds the quote to the "Proof we have" list.
 304. A repository without the `Public website:` line and with public pages: the lead reads only
-    seo-geo.md, "When it applies", asks the one question before the lane is settled, and applies
+    seo-geo.md, "When it applies", asks the one question at stage 0, before the quick lane is chosen, and applies
     nothing else before a yes.
 305. A change to a public website: the architect gets the path of seo-geo.md in stage 2, and the
     product expert and UI specialist in stage 2 and 5d (in the quick lane, in 5d).

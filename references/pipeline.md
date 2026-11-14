@@ -224,7 +224,7 @@ in that step.
 - If there is a remote: fetch, and check what others pushed since you last looked.
 - In a monorepo, find the package that owns the change and use its commands from PROJECT.md.
 - PROJECT.md has no `Public website:` line and the change touches files that serve public pages:
-  read only seo-geo.md, "When it applies", ask its one question before the lane is settled, and
+  read only seo-geo.md, "When it applies", ask its one question at stage 0, before the quick lane is chosen, and
   apply nothing else from that file before a yes.
 - Decide on research (research.md). The decision goes in the `Research:` line of the
   PLAN block (SKILL.md).
