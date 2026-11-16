@@ -22,6 +22,15 @@ Review evidence: four ideas from obra/superpowers (MIT; ideas only, no text copi
 - A bug fix shows the first line of the failing output from before the fix, or why there is none.
 - The eval is a regression check only: no case reaches a follow-up round. The TESTING.md section is
   not run yet.
+- Eval (26 cases, `--runs 1`, judge sonnet, on 664e436): mean delta +0.46. Every case 1.00 with the
+  plugin except two. `states-report-first` 0.83: one Write call; its diagnostic rerun on the same
+  commit scored 0.83 too, this time because the opener was reworded ("I didn't change any project
+  file" instead of the fixed sentence). This change does not touch the states mode. `ui-review-first`
+  0.83: the cost cap skipped its judge; the rerun scored 1.00. Cost $12.01 plus $0.59.
+
+Reach, the 14 days up to 2026-11-16, as GitHub counts them: 8 unique visitors of the repository
+page, 166 unique cloners, 2 stars in total. Cloners include CI runs and plugin installs and updates,
+so they are not a count of people.
 
 Does prompt-to-ship help you? A star on GitHub helps others find it.
 
