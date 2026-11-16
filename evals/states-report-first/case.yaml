@@ -20,7 +20,7 @@ graders:
     target: last_message
   - name: opener
     type: regex
-    pattern: 'changed no project file'
+    pattern: 'changed no project files?|didn.t change any project files?|did not change any project files?'
     flags: i
     target: last_message
   - name: names-hidden-state
