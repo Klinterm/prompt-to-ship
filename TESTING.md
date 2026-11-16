@@ -942,3 +942,5 @@ change request description.
 344. An `@` word that holds `$(` or starts with `-`: it matches no tree entry and is never read;
     no command text holds it.
 345. A scan cut by the 50-file cap: the user gets the one-line notice.
+346. Tree entries `Notes.md` and `notes.md`, `@notes.md` in an unchanged `CLAUDE.md`, and a diff that
+    changes `Notes.md`: high.

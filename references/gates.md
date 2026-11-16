@@ -66,8 +66,8 @@ each with `git show --no-textconv <ref>:<path>`, using the exact path of its tre
 NUL loop of pipeline.md, "Git history for agents" (the bullet "Paths in git commands"). Take every
 `@<path>` word; only a closed code block or a matching pair of backtick runs hides one. A target is
 relative to the file that names it, normalised, and compared with the tree entries after Unicode
-NFC and case folding, without trailing dots or spaces. Only the entry that matches is read or
-followed, never the typed word; a target that matches no entry is never read. Follow the imports in
+NFC and case folding, without trailing dots or spaces. Every entry that matches is read, followed
+and compared with the diff, never the typed word; a target that matches no entry is never read. Follow the imports in
 the targets too, with a visited list, at most 5 levels deep; at most 50 files (the instruction files
 included), 200 lines and 20 KB each. When a cap cuts the scan, tell the user in one line:
 `Import scan cut at <cap>: imports after that point were not checked.`
