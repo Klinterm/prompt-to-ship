@@ -19,6 +19,10 @@ Stricter forced-high paths for instruction files, from the 2.37.0 security revie
 - No eval run: a patch; no eval case reaches forced-high paths. The TESTING.md section is not run
   yet.
 
+Reach, the 14 days up to 2026-11-16, as GitHub counts them: 8 unique visitors of the repository
+page, 166 unique cloners, 2 stars in total. Cloners include CI runs and plugin installs and updates,
+so they are not a count of people.
+
 Does prompt-to-ship help you? A star on GitHub helps others find it.
 
 ## 2.37.0
