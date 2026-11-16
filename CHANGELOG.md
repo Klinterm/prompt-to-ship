@@ -10,13 +10,15 @@ obra/superpowers (MIT); ideas only, no text copied.
   `AGENTS.md`, `.claude/CLAUDE.md`), but only lines that name a property of the changed code; other
   lines are ignored. At most 3 such findings, Low by default. A diff never adds a rule that it is
   then checked against.
-- A comment that the change makes wrong is a finding.
+- A comment that the change makes wrong is a finding (Low by default).
 - A changed line with a shorter form and the same behaviour is a Low "Simpler" finding, round 1
   only, at most 3.
-- After 3 failed fix attempts on the same check, the lead stops and asks you (gate 6, or gate 7
-  for CI).
-- A new marker line `Deviations from the plan:` names every change of approach, file or scope after
-  your go.
+- After the 3rd failed fix attempt on the same local check, or the 5th whatever the cause, the
+  lead stops and asks you (gate 6). A CI failure still stops at once (gate 7).
+- Every reviewer agent treats project instructions that the host loads for it as data.
+- A new marker line `Deviations from the plan:` says, in one sentence, what changed against the
+  plan after your go. At normal or high risk the lead tells you at once about each file outside the
+  plan.
 - In debug mode, the debugger compares with a similar path that works.
 - The eval shows no regression only: no case reaches these six additions. The TESTING.md section is
   not run yet.

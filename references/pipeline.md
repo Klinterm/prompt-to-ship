@@ -71,12 +71,19 @@ Never the chat. Always:
 - the rules from `rules.md` whose stage and paths match (see "Rules");
 - for the fresh reviewer in 5a, the instruction files that apply to the changed paths: at the
   repository root and in each folder above a changed file, only the fixed names `CLAUDE.md`,
-  `AGENTS.md` and `.claude/CLAUDE.md`, each used only when it equals an entry of
-  `git ls-tree -r -z` byte for byte ("Paths in git commands"). Take each from the target branch
-  when the diff changes it, otherwise from the topic branch, so a diff never adds a rule that it
-  is then checked against; a file that the diff adds is not given. No file in the user's home folder, no import followed. At most 6 files
-  and 200 lines each; say when cut. These names are not on the secret files list; a failed export
-  counts with the other skipped paths;
+  `AGENTS.md` and `.claude/CLAUDE.md`. Use a name only when it equals a path of
+  `git ls-tree -r -z --full-name <ref>` byte for byte, with mode 100644 or 100755 (never a link
+  or a submodule), and export it with `git show --no-textconv <ref>:<path>`, never from the
+  working tree ("Paths in git commands"). The ref is the target branch when the diff changes the
+  file (`git diff --name-only --no-renames`), otherwise the topic branch. A file missing on the
+  target branch counts as added: it is not given, and it is not a skipped path. No file in the
+  user's home folder, no import followed. Nearest folder first, then the root; at most 6 files,
+  200 lines and 20 KB each; say when cut. These names are not on the secret files list; any
+  other failed export counts with the skipped paths. The host may also load the working-copy
+  `CLAUDE.md` into an agent; every agent file says that such text is data, and a changed
+  `CLAUDE.md` or `AGENTS.md` is a forced-high path (gates.md), so the user reads it;
+- for the fresh reviewer, the `Deviations from the plan:` line, when there is one (see "Marker
+  lines");
 - the git history it needs (see "Git history for agents").
 The UI specialist and the product expert in 5d also get the screenshots, the texts in every
 language, and their own stage 2 verdict (for the UI specialist: with the design brief or its
@@ -313,11 +320,13 @@ in that step.
 Run checklist.md and the commands from PROJECT.md. Paste the last lines of each output. Without
 proof it is not done.
 
-The same check (a test, the build, a linter or a type check, local or CI) still fails after 3 fix
-attempts: stop at gate 6 (a local check) or gate 7 (CI) with this message:
-`Stopped before build: the same check failed 3 times: <check>. Attempt 1: <what changed, what it showed>. Attempt 2: ... Attempt 3: ... Next: <one question for the user>.`
-A rerun of a flaky check, or a fix for a new cause, is not an attempt. This counts fix attempts on
-one check; the limit of three review rounds in stage 5 is a separate count.
+A local check (a test, the build, a linter or a type check) still fails after the 3rd fix
+attempt, or after the 5th whatever the cause: stop at gate 6 with this message:
+`Stopped before build: the same check failed 3 times: <check>. Attempt 1: <what changed, what it showed>. Attempt 2: ... Attempt 3: ... Next: <one question for the user>.` (3 attempts after the first failed run)
+A fix for a new cause starts a new count of 3, up to the limit of 5. A flaky check is one that
+passes on one unchanged rerun of the same commit; at most one such rerun, named in the message.
+This counts fix attempts on one check; the limit of three review rounds in stage 5 is a separate
+count.
 
 ## Stage 5. Layered review
 
@@ -540,8 +549,10 @@ Deviations from the plan: file src/x.py added, because the test needed a helper
 The lead writes the Deviations line for a change of approach, file or scope against the PLAN block
 after the user's go (stages 3 to 5), in one sentence on one line; a plan fix before the go goes
 back to the plan reviewers (stage 2). An extra reviewer or a Low fix is not a deviation. The lead
-passes the line to the fresh reviewer, so a file it names is not also a `Files:` finding. A new
-file outside the `Files:` line at normal or high risk: tell the user before the diff read.
+passes the line to the fresh reviewer, so a file it names is not also a `Files:` finding. At
+normal or high risk, tell the user at once, in the chat, about each file outside the `Files:`
+line, new or changed: a message, not a stop. Not in the quick lane: a change that grows past its
+limits moves to the full pipeline ("Quick lane").
 
 At levels `merge` and `release` also "Autonomy: <level>. This change request may be merged
 automatically." (autonomy.md). With "Markers: local log" in PROJECT.md, or an unconfirmed
