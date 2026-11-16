@@ -12,8 +12,10 @@ Stricter forced-high paths for instruction files, from the 2.37.0 security revie
   the risk high. A target outside the repository is not matched.
 - Cost: a repository that imports its README or another common file now sees high risk on edits of
   that file.
-- Known limit: an untouched importer that cannot be read, or a scan cut by a cap, hides its
-  targets; the data line in each agent file covers that.
+- An import target is only read through the tree entry it matches, never as typed.
+- Known limit: an untouched importer that cannot be read, a scan cut by a cap (you get a one-line
+  notice), or a target reached through a folder link or a submodule hides its targets; the data
+  line in each agent file covers that.
 - No eval run: a patch; no eval case reaches forced-high paths. The TESTING.md section is not run
   yet.
 

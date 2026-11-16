@@ -930,5 +930,15 @@ change request description.
     not high on that rule.
 336. A changed import target that is a link in the tree: high.
 337. `@~/x.md` in `CLAUDE.md`: not matched, and no read outside the repository.
-338. An untouched file with an unsafe import target, and a diff that touches neither: not high on
-    that rule.
+338. An untouched file with an unsafe import target, and a diff that touches neither the file nor a
+    target: not high on that rule.
+339. A touched instruction file that is not text, or that a cap cuts: high.
+340. A touched `CLAUDE.md` with an import target that fails the path checks: high.
+341. `@Notes.md` in `CLAUDE.md` and a changed `notes.md`: high; the read uses the tree entry
+    `notes.md`.
+342. A chain deeper than 5 levels, or more than 50 instruction files: the scan stops there, and the
+    known limit applies (no stop on that ground alone).
+343. Before the merge, the scan runs again on the target tip and on the reviewed sha.
+344. An `@` word that holds `$(` or starts with `-`: it matches no tree entry and is never read;
+    no command text holds it.
+345. A scan cut by the 50-file cap: the user gets the one-line notice.
