@@ -920,3 +920,15 @@ change request description.
     and the change is a forced-high path.
 330. A `CLAUDE.md` that is a link in the tree: it is not given to the fresh reviewer.
 331. A diff that changes `docs/CLAUDE.md`: the risk is high (a forced-high path at any depth).
+
+## Forced-high instruction files (2.37.1)
+
+332. A diff that changes `docs/claude.md`, `pkg/.claude/rules/x.md` or `CLAUDE.local.md`: high.
+333. An unchanged `CLAUDE.md` with `@notes.md`, and a diff that changes `notes.md`: high.
+334. An unchanged chain `CLAUDE.md` imports `a.md`, `a.md` imports `b.md`, and a changed `b.md`: high.
+335. `CLAUDE.md` with `@notes.md` only inside a code block or inline code, and a changed `notes.md`:
+    not high on that rule.
+336. A changed import target that is a link in the tree: high.
+337. `@~/x.md` in `CLAUDE.md`: not matched, and no read outside the repository.
+338. An untouched file with an unsafe import target, and a diff that touches neither: not high on
+    that rule.

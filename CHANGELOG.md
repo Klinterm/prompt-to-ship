@@ -2,6 +2,23 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.37.1
+
+Stricter forced-high paths for instruction files, from the 2.37.0 security review.
+- The forced-high list now covers a `.claude/` folder, `CLAUDE.md`, `CLAUDE.local.md` and
+  `AGENTS.md` at any depth and in any case, and every file they import with an `@` line, up to 5
+  levels. An import line is only read as data.
+- A touched file that cannot be read, is a link, is cut by a cap, or names an unsafe import makes
+  the risk high. A target outside the repository is not matched.
+- Cost: a repository that imports its README or another common file now sees high risk on edits of
+  that file.
+- Known limit: an untouched importer that cannot be read, or a scan cut by a cap, hides its
+  targets; the data line in each agent file covers that.
+- No eval run: a patch; no eval case reaches forced-high paths. The TESTING.md section is not run
+  yet.
+
+Does prompt-to-ship help you? A star on GitHub helps others find it.
+
 ## 2.37.0
 
 Review additions: ideas from Anthropic's Code Review and Code Simplifier plugins and from

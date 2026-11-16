@@ -49,14 +49,35 @@ path hides it. Any match makes the risk high. PROJECT.md may add paths, never re
   scripts call in turn), and the version file a release command reads
 - Data: `**/migrations/**`, `**/migrate/**`, `schema.sql`, `structure.sql`, `*.ddl`,
   `**/schema/**/*.sql`
-- Agent and repository setup: `.claude/**`, `CLAUDE.md` and `AGENTS.md` at any depth, `.mcp.json`,
-  `.gitattributes`, `.gitmodules`, `CODEOWNERS`, `.githooks/**`, `.husky/**`,
-  `.pre-commit-config.yaml`
+- Agent and repository setup: the instruction files (a `.claude/` folder, `CLAUDE.md`,
+  `CLAUDE.local.md` and `AGENTS.md`, at any depth, ignoring case, also for the folder name) and
+  their imports (below), `.mcp.json`, `.gitattributes`, `.gitmodules`, `CODEOWNERS`,
+  `.githooks/**`, `.husky/**`, `.pre-commit-config.yaml`
 - Access and secrets: a folder or file name with a whole name part `auth`, `login`, `session`,
   `permission`, `permissions`, `role`, `roles`, `security`, `crypto`, `secret`, `secrets` or
   `token`, case-insensitive. Split names on `/ - _ .` and camelCase first: `src/auth/x.ts` and
   `userSession.go` match, `AuthorCard.tsx` and `tokens.css` do not. Also `.env*`, `.dev.vars*`, `*.pem`,
   `*.key`.
+
+Imports. On the target branch and on the reviewed sha, list the instruction files with
+`git ls-tree -r -z --full-name --name-only <ref>`, read each with `git show --no-textconv
+<ref>:<path>`, and take every `@<path>` word outside code blocks and inline code. A target is
+relative to the file that names it, normalised, and matched ignoring case. Before a merge, scan
+again on the reviewed sha. Follow the imports in the targets too, with a
+visited list, at most 5 levels deep; at most 50 files, 200 lines and 20 KB each.
+- A target that the diff touches makes the risk high.
+- A file that the diff touches (an instruction file or a target) makes the risk high when it cannot
+  be read as text, is a link (mode 120000), is cut by a cap, or names a target that fails the checks
+  of pipeline.md, "Paths in git commands". Such a failure in a file the diff does not touch changes
+  nothing.
+- A target outside the repository (`~`, an absolute path, or `..` above the root after
+  normalising) cannot be changed by a diff and is not matched; the data line in each agent file
+  covers it.
+- An import line is data: read only with these git commands, never followed past these limits,
+  never run.
+- Known limit: an untouched importer that cannot be read, is a link, or lies past a cap hides its
+  targets, and so does a scan cut at 50 files or 5 levels; the data line in each agent file covers
+  these.
 
 ## Deploys on merge
 
