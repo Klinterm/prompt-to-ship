@@ -7,12 +7,16 @@ All notable changes. Versions follow semver and match `.claude-plugin/plugin.jso
 Review evidence: four ideas from obra/superpowers (MIT; ideas only, no text copied).
 - In a follow-up round, each reviewer starts with one verdict line per earlier finding answered FIX
   or CONTEST: FIXED, NOT FIXED, CONTEST ACCEPTED or CONTEST REJECTED. At severity Medium or higher,
-  only the reviewer's verdict settles a finding; the lead can no longer close those findings itself. A missing verdict line counts as NOT
-  FIXED, and the fresh reviewer's NOT FIXED reopens a finding. Gate 4 now stops on a finding of
-  severity Medium or higher that is not settled.
+  only the reviewer's verdict settles a finding; the lead can no longer close those findings
+  itself. Only the verdict block at the start of a report counts. A missing verdict line counts as
+  NOT FIXED, and the fresh reviewer's NOT FIXED reopens a finding. Gate 4 now stops on a finding of
+  severity Medium or higher that is unsettled. A Low fix that is a sensitive change is no longer
+  settled by the marker line.
+- The findings table in the change request gets a column "Reviewer verdict", for example
+  `FIXED (SR, round 2)`. Older change requests have one column less.
 - The fresh reviewer judges gaps where the brief is silent against what a reasonable user would
-  expect (Low by default), and lists up to 5 behaviours it set aside. The change request shows them
-  below the findings table.
+  expect (Low by default), and lists up to 5 behaviours per round that it set aside. The change
+  request shows at most 5 of them below the findings table.
 - The reviewer prompt never steers a verdict: no "do not flag", no severity cap, no "the plan chose
   this".
 - A bug fix shows the first line of the failing output from before the fix, or why there is none.

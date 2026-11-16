@@ -367,8 +367,10 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Decision 2026-11-16 (maintainer: "Yes, top four", "Yes, full eval"): review evidence (2.36.0),
   four ideas from obra/superpowers (MIT; ideas only, no text copied). In a follow-up round each
   reviewer gives one verdict line per finding answered FIX or CONTEST (FIXED, NOT FIXED, CONTEST
-  ACCEPTED, CONTEST REJECTED), and at severity Medium or higher only that verdict settles a finding (references/pipeline.md,
-  "Loop rules"; gate 4 now says "not settled"). The fresh reviewer applies a reasonable-user test
+  ACCEPTED, CONTEST REJECTED), and at severity Medium or higher only that verdict settles a
+  finding (references/pipeline.md, "Loop rules"; gate 4 now says "unsettled"). The findings table
+  gets a "Reviewer verdict" column. SKILL.md and references/autonomy.md changed one word each
+  ("unfixed" became "unsettled"), outside the plan's first Files line; the maintainer reads this. The fresh reviewer applies a reasonable-user test
   where the brief is silent (Low by default) and lists what it set aside. The reviewer prompt
   never steers a verdict. A bug fix shows the failing output from before the fix, or why there is
   none. Credits name the public projects that ideas came from, with their licence, only in the CHANGELOG

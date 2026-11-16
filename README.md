@@ -91,10 +91,12 @@ go away. See [Autonomy](#autonomy).
    last review (Low, not re-read)". After three rounds with a new or reopened finding of severity
    Medium or higher, Claude stops and asks you to rethink the approach. In the pull request it looks like this:
 
-   | ID | Severity | Answer | Verdict | Summary |
+   | ID | Severity | Answer | Reviewer verdict | Summary |
    |---|---|---|---|---|
    | FR-1-1 | Medium | FIX | FIXED (FR, round 2) | an empty list returned None instead of 0 |
    | SR-1-1 | Low | DECLINE | - | the debug log is off in production builds |
+
+   A `-` means that no verdict applies, for example a DECLINE.
 6. **Pull or merge request.** The description always has three parts: what was tested, the risk,
    and how to revert the change.
 7. **Merge and measure.** After the release, Claude checks that the goal from the brief is met.

@@ -45,14 +45,16 @@ database, translations, CI) does not apply. The risk table and the gates are in 
 - [ ] Description: Tested (with the marker lines), Risk, How to revert. A stage 5 finding of
       severity Medium or higher that stage 2 or 4 should have caught gives a "Near-miss" line.
 - [ ] Under Tested, the findings of stage 5 in a table with the columns ID | Severity | Answer |
-      Verdict | Summary (pipeline.md, "Answers" and "Loop rules"). Verdict is the last reviewer
-      verdict with its reviewer and round, for example `FIXED (SR, round 2)`, or `marker` for a Low
-      fix that no reviewer re-read, or `-` in round 1 only. A row of severity Medium or higher
+      Reviewer verdict | Summary (pipeline.md, "Answers" and "Loop rules"). Reviewer verdict is the
+      last verdict with its reviewer and round, for example `FIXED (SR, round 2)`; `marker` for a
+      Low fix that no reviewer re-read; `-` when no verdict applies (DECLINE, ESCALATE, NOT RUN, or
+      no follow-up round). A row of severity Medium or higher
       without FIXED or CONTEST ACCEPTED is gate 4. Summary is one line: what the finding is, plus
       the evidence for CONTEST or the reason for DECLINE. No findings: one line "No findings". A
       reviewer that did not run: a row `<prefix> | - | NOT RUN | - | <reason>`.
 - [ ] Below the table, the `Set aside:` lines of the fresh reviewer from every round, copied without
-      rewording and without duplicates, only when there are any (also in the quick lane).
+      rewording and without duplicates, at most 5 in total, then "more in the review"; only when
+      there are any (also in the quick lane).
 - [ ] Reviewer prompts and the CONTEST texts passed to a reviewer hold no "do not flag", no
       severity cap and no "the plan chose this" (pipeline.md, "What each reviewer gets").
 - [ ] Give the link (or the branch and diff command). Level `ask`: stop.

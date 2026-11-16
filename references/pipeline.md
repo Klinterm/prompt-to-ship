@@ -55,8 +55,9 @@ Never the chat. Always:
 - the brief, and in stage 2 the plan; in stage 5 the diff (in a follow-up round: only the new diff,
   the text of its own findings answered FIX, and the open CONTESTs on its own findings with their
   evidence; the fresh reviewer gets the whole diff since round 1, the text of all findings
-  answered FIX, and the open CONTESTs on its own findings with their evidence); in a follow-up round, the request to start the report with one verdict line per
-  finding answered FIX or CONTEST that the reviewer got:
+  answered FIX, and the open CONTESTs on its own findings with their evidence); in a follow-up
+  round, the request to start the report with one verdict line per finding answered FIX or CONTEST
+  that the reviewer got:
   `<ID>: FIXED | NOT FIXED | CONTEST ACCEPTED | CONTEST REJECTED`, each with `path:line` or the
   evidence. FIXED answers a FIX; CONTEST ACCEPTED or CONTEST REJECTED answers a CONTEST. A fix that
   was tried but leaves the defect is NOT FIXED. DECLINE and ESCALATE get no verdict line;
