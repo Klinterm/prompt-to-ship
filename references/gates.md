@@ -75,8 +75,8 @@ nothing.
 1. the risk is high;
 2. the brief has an open question, also a design direction that waits for the user's pick (design.md);
 3. a reviewer marks a point BLOCKING, in stage 2 or 5d;
-4. after the review rounds, a finding of severity Medium or higher is not fixed (a CONTEST that its
-   reviewer accepted counts as settled; pipeline.md, "Answers"), a validator says
+4. after the review rounds, a finding of severity Medium or higher is not settled (pipeline.md,
+   "Loop rules"), a validator says
    "needs runtime validation", the product verdict in 5d is not APPROVE, or the UI verdict in 5d
    is not APPROVE or NO VISIBLE CHANGE (a UI specialist skipped for "User interface: none",
    or for a diff that is not visible (pipeline.md, "Visible change"), passes). After you fix

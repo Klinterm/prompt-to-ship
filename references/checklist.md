@@ -15,6 +15,8 @@ database, translations, CI) does not apply. The risk table and the gates are in 
 ## 2. Build, with proof
 
 - [ ] The build and the checks from PROJECT.md pass. Paste the last lines.
+- [ ] Bug fix (a change the BRIEF calls a fix): the first line of the test's failing output from
+      before the fix, or one line why there is none, for example no test harness.
 - [ ] Compiler or analyzer errors about arguments, types or unresolved names are real errors,
       never "noise".
 - [ ] If CI does not run for this branch, build locally. "CI will catch it" is not a safety net
@@ -46,6 +48,8 @@ database, translations, CI) does not apply. The risk table and the gates are in 
       Summary (pipeline.md, "Answers"). Summary is one line: what the finding is, plus the evidence
       for CONTEST or the reason for DECLINE. No findings: one line "No findings". A reviewer that
       did not run: a row `<prefix> | - | NOT RUN | <reason>`.
+- [ ] Below the table, the `Set aside:` lines of the fresh reviewer's latest round, copied without
+      rewording, only when there are any (also in the quick lane).
 - [ ] Give the link (or the branch and diff command). Level `ask`: stop.
 
 ## 5. Merge and release (stage 7)

@@ -46,13 +46,23 @@ The security reviewer defines the levels in security-rules.md; for correctness f
 
 ## What each reviewer gets
 
+The reviewer prompt never steers a verdict: no "do not flag", no severity cap, no "the plan chose
+this, so it is fine". A defect that the plan asked for is still a finding; the lead may CONTEST it
+with evidence. Rules in the agent files and the references, such as the `Files:` comparison or a
+Reflex exception with a written reason, are not steering.
+
 Never the chat. Always:
 - the brief, and in stage 2 the plan; in stage 5 the diff (in a follow-up round: only the new diff,
   the text of its own findings answered FIX, and the open CONTESTs on its own findings with their
   evidence; the fresh reviewer gets the whole diff since round 1 and the text of all findings
-  answered FIX);
+  answered FIX); in a follow-up round, the request to start the report with one verdict line per
+  finding answered FIX or CONTEST that the reviewer got:
+  `<ID>: FIXED | NOT FIXED | CONTEST ACCEPTED | CONTEST REJECTED`, each with `path:line` or the
+  evidence. FIXED answers a FIX; CONTEST ACCEPTED or CONTEST REJECTED answers a CONTEST. A fix that
+  was tried but leaves the defect is NOT FIXED. DECLINE and ESCALATE get no verdict line;
   the fresh reviewer in 5a also gets the plan's `Files:` line, only to compare: a changed file
-  that is not on it is a Low finding, unless the plan was updated;
+  that is not on it is a Low finding, unless the plan was updated; and, for a bug fix, the line
+  from checklist.md, section 2 (the failing output from before the fix, or why there is none);
 - the list of changed or planned files, exported from the target branch into a scratch folder
   (`git show --no-textconv <branch>:<path>`, each path checked as "Git history for agents" says),
   because a working copy is often on another branch;
@@ -362,7 +372,15 @@ The lead gives each finding one answer, with one plain sentence in the change re
 
 ### Loop rules
 
-A finding is settled when it is fixed or when its reviewer accepted a contest. A
+A finding is settled when its own reviewer marks it FIXED or CONTEST ACCEPTED and no other verdict
+in that round says NOT FIXED; or, for a Low finding, when its fix carries the marker line
+`Fixed after the last review (Low, not re-read)`, when its contest gets no round, or when it is
+answered DECLINE. The fresh reviewer gives a verdict on every FIX finding it reads; its NOT FIXED
+reopens a finding even when its own reviewer said FIXED. A missing verdict line from a reviewer
+that ran counts as NOT FIXED; a reviewer that did not run follows the retry and gate 16 below,
+and its findings stay unsettled. An ESCALATE stays open for the user (gate 4). NOT FIXED reopens the finding under its old ID. CONTEST REJECTED follows "Answers" (at
+severity Medium or higher: ESCALATE). At severity Low, a NOT FIXED or a CONTEST REJECTED is fixed
+before the go, or answered DECLINE. A
 settled finding stays settled: a reviewer reopens it only with new evidence, and a fixed finding
 that comes back is reopened under its old ID. Churn is a fix whose next round brings a new
 finding at the same place: name the class and fix all instances at once. A reviewer run that
