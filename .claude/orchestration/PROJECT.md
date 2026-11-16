@@ -367,8 +367,8 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Decision 2026-11-16 (maintainer, third: "Yes, do it"): forced-high instruction files (2.37.1),
   from the 2.37.0 security review. The forced-high list now covers a `.claude/` folder,
   `CLAUDE.md`, `CLAUDE.local.md` and `AGENTS.md` at any depth, ignoring case, and their imports:
-  the lead scans both refs with fixed git commands (again on the target tip and the reviewed sha before a merge) and
-  follows `@` imports up to 5 levels (our own bound), with caps. Fail closed only where the diff
+  the lead scans both refs with fixed git commands (again on the target tip and the reviewed sha
+  before a merge) and follows `@` imports up to 5 levels (our own bound), with caps. Fail closed only where the diff
   can act: a touched file that cannot be read, is a link, is cut, or names an unsafe target. A
   target outside the repository cannot be changed by a diff and stays with the agents' data line,
   and so do the targets of an untouched importer that cannot be read and a scan cut by a cap (an
