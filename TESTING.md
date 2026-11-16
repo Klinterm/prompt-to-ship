@@ -911,7 +911,9 @@ change request description.
 325. A changed block with a shorter equivalent in the standard library: a Low Simpler finding in
     round 1 only, at most 3.
 326. The same test fails after 3 fix attempts: the lead stops with the gate 6 message and asks one
-    question (gate 6); a flaky rerun counts once; a CI failure stops at once (gate 7).
+    question; one flaky rerun is allowed and is not an attempt; after 5 attempts in all it stops
+    whatever the cause; a CI failure stops at once (gate 7).
+331. A diff that changes `docs/CLAUDE.md`: the risk is high (a forced-high path at any depth).
 327. A file added after the go that is not on the `Files:` line: the change request has a
     `Deviations from the plan:` line, and the fresh reviewer gives no `Files:` finding for it.
 328. Debug mode with a similar path that works: the debugger lists the differences as evidence.

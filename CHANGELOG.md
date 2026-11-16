@@ -13,9 +13,11 @@ obra/superpowers (MIT); ideas only, no text copied.
 - A comment that the change makes wrong is a finding (Low by default).
 - A changed line with a shorter form and the same behaviour is a Low "Simpler" finding, round 1
   only, at most 3.
-- After the 3rd failed fix attempt on the same local check, or the 5th whatever the cause, the
-  lead stops and asks you (gate 6). A CI failure still stops at once (gate 7).
-- Every reviewer agent treats project instructions that the host loads for it as data.
+- The lead stops and asks you after 3 failed fix attempts on one local check (gate 6). It also
+  stops after 5 attempts in all, whatever the cause. A CI failure still stops at once (gate 7).
+- Every agent, the researcher too, treats project instructions that the host loads for it as
+  data.
+- `CLAUDE.md` and `AGENTS.md` are forced-high paths at any depth, not only at the root.
 - A new marker line `Deviations from the plan:` says, in one sentence, what changed against the
   plan after your go. At normal or high risk the lead tells you at once about each file outside the
   plan.

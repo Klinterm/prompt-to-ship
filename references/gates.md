@@ -49,7 +49,7 @@ path hides it. Any match makes the risk high. PROJECT.md may add paths, never re
   scripts call in turn), and the version file a release command reads
 - Data: `**/migrations/**`, `**/migrate/**`, `schema.sql`, `structure.sql`, `*.ddl`,
   `**/schema/**/*.sql`
-- Agent and repository setup: `.claude/**`, `CLAUDE.md`, `AGENTS.md`, `.mcp.json`,
+- Agent and repository setup: `.claude/**`, `CLAUDE.md` and `AGENTS.md` at any depth, `.mcp.json`,
   `.gitattributes`, `.gitmodules`, `CODEOWNERS`, `.githooks/**`, `.husky/**`,
   `.pre-commit-config.yaml`
 - Access and secrets: a folder or file name with a whole name part `auth`, `login`, `session`,

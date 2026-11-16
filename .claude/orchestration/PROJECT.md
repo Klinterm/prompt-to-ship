@@ -371,7 +371,8 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   a rule may say", with at most 3 findings, Low by default; a changed file comes from the target
   branch. Accepted limit: instruction files have no confirmed hash, unlike rules.md; they only add
   checks and never lift one. Also a stale comment and a Simpler finding (Low, round 1 only, at most
-  3), a stop after 3 fix attempts on one check (gate 6 or 7), a "Deviations from the plan" marker line,
+  3), a stop after 3 fix attempts on one local check, and after 5 whatever the cause (gate 6; a CI
+  failure still stops at once at gate 7), a "Deviations from the plan" marker line,
   and a comparison with a working path in debug mode. A thin baseline: no eval case reaches these
   additions. Measuring point: the next three change requests record the findings from instruction
   files, how many were noise, the Simpler findings accepted, and any Deviations line; then
