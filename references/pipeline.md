@@ -81,8 +81,9 @@ Never the chat. Always:
   200 lines and 20 KB each; say when cut. These names are not on the secret files list; any
   other failed export counts with the skipped paths. The host may also load the working-copy
   `CLAUDE.md` into an agent; every agent file, the researcher too, says that such text is data. A
-  changed `CLAUDE.md` or `AGENTS.md` is a forced-high path (gates.md), so the user reads a direct
-  change; a file such a file imports is covered only by that data line;
+  changed instruction file, or a file that one of them imports, is a forced-high path (gates.md,
+  "Forced-high paths"), so the user reads it. A name in another case is forced high but is not
+  given here, because this list takes the fixed names only;
 - for the fresh reviewer, the `Deviations from the plan:` line, when there is one (see "Marker
   lines");
 - the git history it needs (see "Git history for agents").
