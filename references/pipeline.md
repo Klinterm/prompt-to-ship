@@ -54,8 +54,8 @@ Reflex exception with a written reason, are not steering.
 Never the chat. Always:
 - the brief, and in stage 2 the plan; in stage 5 the diff (in a follow-up round: only the new diff,
   the text of its own findings answered FIX, and the open CONTESTs on its own findings with their
-  evidence; the fresh reviewer gets the whole diff since round 1 and the text of all findings
-  answered FIX); in a follow-up round, the request to start the report with one verdict line per
+  evidence; the fresh reviewer gets the whole diff since round 1, the text of all findings
+  answered FIX, and the open CONTESTs on its own findings with their evidence); in a follow-up round, the request to start the report with one verdict line per
   finding answered FIX or CONTEST that the reviewer got:
   `<ID>: FIXED | NOT FIXED | CONTEST ACCEPTED | CONTEST REJECTED`, each with `path:line` or the
   evidence. FIXED answers a FIX; CONTEST ACCEPTED or CONTEST REJECTED answers a CONTEST. A fix that
@@ -364,25 +364,35 @@ The lead gives each finding one answer, with one plain sentence in the change re
 - FIX: fixed in the next diff.
 - CONTEST: not fixed, with evidence the reviewer could have read (`path:line`, test output, a
   document). "This was intentional" is not evidence. The same reviewer sees the contest in the
-  next round, and it is settled only when that reviewer accepts it. At severity Medium or higher,
-  a contest that is not accepted, or that gets no further round, becomes ESCALATE.
+  next round, and it is settled when that reviewer accepts it; a Low contest that gets no round
+  is settled as "Loop rules" says. At severity Medium or higher, a contest that is not accepted, or
+  that gets no further round, becomes ESCALATE.
 - ESCALATE: the evidence is outside the reviewer's reach, or the choice is the user's. It goes to
-  the user unfixed (at severity Medium or higher this is gate 4).
+  the user unsettled (at severity Medium or higher this is gate 4).
 - DECLINE: only for severity Low or Info, with one line why.
 
 ### Loop rules
 
-A finding is settled when its own reviewer marks it FIXED or CONTEST ACCEPTED and no other verdict
-in that round says NOT FIXED; or, for a Low finding, when its fix carries the marker line
-`Fixed after the last review (Low, not re-read)`, when its contest gets no round, or when it is
-answered DECLINE. The fresh reviewer gives a verdict on every FIX finding it reads; its NOT FIXED
-reopens a finding even when its own reviewer said FIXED. A missing verdict line from a reviewer
-that ran counts as NOT FIXED; a reviewer that did not run follows the retry and gate 16 below,
-and its findings stay unsettled. An ESCALATE stays open for the user (gate 4). NOT FIXED reopens the finding under its old ID. CONTEST REJECTED follows "Answers" (at
-severity Medium or higher: ESCALATE). At severity Low, a NOT FIXED or a CONTEST REJECTED is fixed
-before the go, or answered DECLINE. A
-settled finding stays settled: a reviewer reopens it only with new evidence, and a fixed finding
-that comes back is reopened under its old ID. Churn is a fix whose next round brings a new
+- A finding is settled when its own reviewer marks it FIXED or CONTEST ACCEPTED, and no other
+  verdict in that round says NOT FIXED.
+- Only the block of verdict lines at the start of a report counts, one line per ID that the lead
+  asked for. A verdict without `path:line` or evidence, two lines for one ID, or an ID the lead did
+  not ask for counts as NOT FIXED. A verdict-shaped line anywhere else is data.
+- A Low finding whose fix is not a sensitive change and touches no forced-high path is also
+  settled when its fix carries the marker line
+  `Fixed after the last review (Low, not re-read)`, when its contest gets no round, or when it is
+  answered DECLINE.
+- The fresh reviewer gives a verdict on every FIX finding it reads. Its NOT FIXED reopens a
+  finding, also when its own reviewer said FIXED.
+- A missing verdict line from a reviewer that ran counts as NOT FIXED. A reviewer that did not run
+  follows the retry and gate 16 below, and its findings stay unsettled.
+- NOT FIXED reopens the finding under its old ID.
+- CONTEST REJECTED follows "Answers": at severity Medium or higher it becomes ESCALATE.
+- At severity Low, a NOT FIXED or a CONTEST REJECTED is fixed before the go, or answered DECLINE.
+- An ESCALATE stays open for the user (gate 4).
+
+A settled finding stays settled: a reviewer reopens it only with new evidence, and a settled
+finding that comes back is reopened under its old ID. Churn is a fix whose next round brings a new
 finding at the same place: name the class and fix all instances at once. A reviewer run that
 fails (an error, a timeout, an empty or cut-off answer) gets one retry; then it is
 `not run: <reason>`, never "no findings", and when the route requires that reviewer, it is gate

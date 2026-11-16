@@ -121,7 +121,7 @@ Say which agents ran and what they found.
 ## Gates (gates.md)
 
 At every autonomy level, stop for the user on every gate, among them: high
-risk or a forced-high path; an open question; a BLOCKING point; an unfixed finding of severity
+risk or a forced-high path; an open question; a BLOCKING point; an unsettled finding of severity
 Medium or higher; a failed check or CI; signs of compromise; any write to a production system.
 A merge into a target that deploys on merge needs level `release`.
 

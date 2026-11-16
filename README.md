@@ -84,17 +84,17 @@ go away. See [Autonomy](#autonomy).
    higher, or for an ADJUST from the product expert or the UI specialist. Then the reviewer of that
    point reads again, plus the fresh reviewer as a final check of all fixes. Each of them marks
    every earlier FIX or CONTEST with a verdict (FIXED, NOT FIXED, CONTEST ACCEPTED or CONTEST
-   REJECTED); only that verdict settles a finding. The security reviewer
+   REJECTED). At severity Medium or higher, only that verdict settles a finding. The security reviewer
    also reads when a fix touches sensitive code, for example a permission check, a query or HTML
    output. A Low finding starts no round, unless its fix touches sensitive code or a forced-high
    path. When no reviewer read a fix, the pull request says so: "Fixed after the
    last review (Low, not re-read)". After three rounds with a new or reopened finding of severity
    Medium or higher, Claude stops and asks you to rethink the approach. In the pull request it looks like this:
 
-   | ID | Severity | Answer | Summary |
-   |---|---|---|---|
-   | FR-1-1 | Medium | FIX | an empty list returned None instead of 0 |
-   | SR-1-1 | Low | DECLINE | the debug log is off in production builds |
+   | ID | Severity | Answer | Verdict | Summary |
+   |---|---|---|---|---|
+   | FR-1-1 | Medium | FIX | FIXED (FR, round 2) | an empty list returned None instead of 0 |
+   | SR-1-1 | Low | DECLINE | - | the debug log is off in production builds |
 6. **Pull or merge request.** The description always has three parts: what was tested, the risk,
    and how to revert the change.
 7. **Merge and measure.** After the release, Claude checks that the goal from the brief is met.
@@ -461,7 +461,7 @@ At every level, Claude stops and waits for you in these cases:
   (continuous integration) is the automatic build and test that your host runs. The full list of
   files is in [references/gates.md](references/gates.md).
 - The brief has an open question, or a reviewer marks a point as blocking.
-- A finding is not fixed, or a test or CI run fails.
+- A finding is not settled, or a test or CI run fails.
 - The merge has a conflict, or the branch protection on your host refuses it.
 - A check fails after a release. Claude then proposes a revert, but does not run it.
 

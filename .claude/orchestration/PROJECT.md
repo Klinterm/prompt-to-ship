@@ -367,12 +367,13 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
 - Decision 2026-11-16 (maintainer: "Yes, top four", "Yes, full eval"): review evidence (2.36.0),
   four ideas from obra/superpowers (MIT; ideas only, no text copied). In a follow-up round each
   reviewer gives one verdict line per finding answered FIX or CONTEST (FIXED, NOT FIXED, CONTEST
-  ACCEPTED, CONTEST REJECTED), and only that verdict settles a finding (references/pipeline.md,
+  ACCEPTED, CONTEST REJECTED), and at severity Medium or higher only that verdict settles a finding (references/pipeline.md,
   "Loop rules"; gate 4 now says "not settled"). The fresh reviewer applies a reasonable-user test
   where the brief is silent (Low by default) and lists what it set aside. The reviewer prompt
   never steers a verdict. A bug fix shows the failing output from before the fix, or why there is
-  none. Credits in the CHANGELOG name the public projects that ideas came from, with their licence,
-  and nowhere else; this records the practice of the 2.x credit line. The eval is a regression check
+  none. Credits name the public projects that ideas came from, with their licence, only in the CHANGELOG
+  and in these decision lines; this records the practice of the existing credit lines (2.x
+  learning loop, Elephant-Goldfish Model). The eval is a regression check
   only: no case reaches a follow-up round. Measuring point: the next three change requests record
   the verdict lines seen, the NOT FIXED count, the Set aside lines that proved to be real gaps, and
   rounds added by the reasonable-user test; then reconsider this decision.

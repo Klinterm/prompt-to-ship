@@ -6,8 +6,8 @@ All notable changes. Versions follow semver and match `.claude-plugin/plugin.jso
 
 Review evidence: four ideas from obra/superpowers (MIT; ideas only, no text copied).
 - In a follow-up round, each reviewer starts with one verdict line per earlier finding answered FIX
-  or CONTEST: FIXED, NOT FIXED, CONTEST ACCEPTED or CONTEST REJECTED. Only a reviewer's FIXED settles a
-  finding; the lead can no longer close its own findings. A missing verdict line counts as NOT
+  or CONTEST: FIXED, NOT FIXED, CONTEST ACCEPTED or CONTEST REJECTED. At severity Medium or higher,
+  only the reviewer's verdict settles a finding; the lead can no longer close those findings itself. A missing verdict line counts as NOT
   FIXED, and the fresh reviewer's NOT FIXED reopens a finding. Gate 4 now stops on a finding of
   severity Medium or higher that is not settled.
 - The fresh reviewer judges gaps where the brief is silent against what a reasonable user would
