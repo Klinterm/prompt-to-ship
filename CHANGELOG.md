@@ -22,8 +22,16 @@ obra/superpowers (MIT); ideas only, no text copied.
   plan after your go. At normal or high risk the lead tells you at once about each file outside the
   plan.
 - In debug mode, the debugger compares with a similar path that works.
-- The eval shows no regression only: no case reaches these six additions. The TESTING.md section is
+- The eval is a regression check only: no case reaches these six additions. The TESTING.md section is
   not run yet.
+- Eval (26 cases, `--runs 1`, judge sonnet, on 5d0b0c1): mean delta +0.38. Every case 1.00 with the
+  plugin except two, both 1.00 on a diagnostic rerun on the same commit: `plan-files-ready` 0.00
+  (the `Files:` line was not found in the trace) and `ui-review-first` 0.67 (no rule id in the last
+  message; its run without the plugin was skipped by the cost cap). Cost $12.19 plus $1.24.
+
+Reach, the 14 days up to 2026-11-16, as GitHub counts them: 8 unique visitors of the repository
+page, 166 unique cloners, 2 stars in total. Cloners include CI runs and plugin installs and updates,
+so they are not a count of people.
 
 Does prompt-to-ship help you? A star on GitHub helps others find it.
 
