@@ -41,7 +41,7 @@ This is your choice. It is stored only in this clone (git config), never committ
    Risk: a change reaches users before you read it.
 
 At every level I still stop for, among others: high risk, changes to CI, build, dependency,
-migration, access, secret or agent setup files, open questions, unfixed findings, failed CI and
+migration, access, secret or agent setup files, open questions, unsettled findings, failed CI and
 merge conflicts.
 At levels 3 and 4 you can tell me in chat to let your go on a high-risk diff (also one that
 touches the files above) cover its merge, and at level 4 its release. A new push ends it. Every

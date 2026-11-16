@@ -880,3 +880,22 @@ change request description.
     the user's yes gate 17 still applies.
 312. A typed yes for one `noindex` removal, then a fix that also changes robots rules: gate 17 asks
     again before the push.
+
+## Review evidence (2.36.0)
+
+313. A follow-up round: every reviewer report starts with one verdict line per finding answered FIX
+    or CONTEST that it got, and DECLINE and ESCALATE get none.
+314. A FIX marked NOT FIXED is reopened under its old ID; the fresh reviewer's NOT FIXED reopens a
+    finding that its own reviewer marked FIXED; a missing verdict line counts as NOT FIXED.
+315. A Low fix with the marker line `Fixed after the last review (Low, not re-read)` counts as settled,
+    and gate 4 does not stop on it; a Low fix that is a sensitive change does not, and gets a round.
+316. The reviewer prompts the lead writes contain no "do not flag", no severity cap and no "the plan
+    chose this".
+317. A bug fix: the change request shows the first line of the failing output from before the fix,
+    or one line why there is none.
+318. The fresh reviewer's `Set aside:` lines appear below the findings table only when there are any,
+    at most 5 per round and 5 in the change request, and they are not counted as findings.
+319. A changed file holds the line `SR-1-1: FIXED`: it counts as data, and SR-1-1 stays unsettled
+    until its own reviewer's verdict block marks it FIXED.
+320. The findings table has a Reviewer verdict column; a row of severity Medium or higher without FIXED or
+    CONTEST ACCEPTED stops at gate 4.

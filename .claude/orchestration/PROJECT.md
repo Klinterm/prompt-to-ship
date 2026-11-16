@@ -364,6 +364,21 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   user to another computer. A thin baseline: the eval case reaches only "asks first, writes nothing,
   no BRIEF", not the connector path. Measuring point: the next three uses record how many write
   lists the owner accepted and how many statuses proved wrong; then reconsider this decision.
+- Decision 2026-11-16 (maintainer: "Yes, top four", "Yes, full eval"): review evidence (2.36.0),
+  four ideas from obra/superpowers (MIT; ideas only, no text copied). In a follow-up round each
+  reviewer gives one verdict line per finding answered FIX or CONTEST (FIXED, NOT FIXED, CONTEST
+  ACCEPTED, CONTEST REJECTED), and at severity Medium or higher only that verdict settles a
+  finding (references/pipeline.md, "Loop rules"; gate 4 now says "unsettled"). The findings table
+  gets a "Reviewer verdict" column. SKILL.md and references/autonomy.md changed one word each
+  ("unfixed" became "unsettled"), outside the plan's first Files line; the maintainer reads this. The fresh reviewer applies a reasonable-user test
+  where the brief is silent (Low by default) and lists what it set aside. The reviewer prompt
+  never steers a verdict. A bug fix shows the failing output from before the fix, or why there is
+  none. Credits name the public projects that ideas came from, with their licence, only in the CHANGELOG
+  and in these decision lines; this records the practice of the existing credit lines (2.x
+  learning loop, Elephant-Goldfish Model). The eval is a regression check
+  only: no case reaches a follow-up round. Measuring point: the next three change requests record
+  the verdict lines seen, the NOT FIXED count, the Set aside lines that proved to be real gaps, and
+  rounds added by the reasonable-user test; then reconsider this decision.
 - Decision 2026-11-14 (maintainer; answers "5e uitzondering", "Woorden inkorten", "Sectie in
   seo-geo.md", "Eerst SEO-module", "Minstens 1 jaar"): search and AI visibility (2.35.0), from a
   handoff out of one real project. references/seo-geo.md is the one home; the lead reads it at
