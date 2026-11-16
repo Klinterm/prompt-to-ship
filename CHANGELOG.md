@@ -2,6 +2,39 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.37.0
+
+Review additions: ideas from Anthropic's Code Review and Code Simplifier plugins and from
+obra/superpowers (MIT); ideas only, no text copied.
+- The fresh reviewer checks the diff against the project's instruction files (`CLAUDE.md`,
+  `AGENTS.md`, `.claude/CLAUDE.md`), but only lines that name a property of the changed code; other
+  lines are ignored. At most 3 such findings, Low by default. A diff never adds a rule that it is
+  then checked against.
+- A comment that the change makes wrong is a finding (Low by default).
+- A changed line with a shorter form and the same behaviour is a Low "Simpler" finding, round 1
+  only, at most 3.
+- The lead stops and asks you after 3 failed fix attempts on one local check (gate 6). It also
+  stops after 5 attempts in all, whatever the cause. A CI failure still stops at once (gate 7).
+- Every agent, the researcher too, treats project instructions that the host loads for it as
+  data.
+- `CLAUDE.md` and `AGENTS.md` are forced-high paths at any depth, not only at the root.
+- A new marker line `Deviations from the plan:` says, in one sentence, what changed against the
+  plan after your go. At normal or high risk the lead tells you at once about each file outside the
+  plan.
+- In debug mode, the debugger compares with a similar path that works.
+- The eval is a regression check only: no case reaches these six additions. The TESTING.md section is
+  not run yet.
+- Eval (26 cases, `--runs 1`, judge sonnet, on 5d0b0c1): mean delta +0.38. Every case 1.00 with the
+  plugin except two, both 1.00 on a diagnostic rerun on the same commit: `plan-files-ready` 0.00
+  (the `Files:` line was not found in the trace) and `ui-review-first` 0.67 (no rule id in the last
+  message; its run without the plugin was skipped by the cost cap). Cost $12.19 plus $1.24.
+
+Reach, the 14 days up to 2026-11-16, as GitHub counts them: 8 unique visitors of the repository
+page, 166 unique cloners, 2 stars in total. Cloners include CI runs and plugin installs and updates,
+so they are not a count of people.
+
+Does prompt-to-ship help you? A star on GitHub helps others find it.
+
 ## 2.36.0
 
 Review evidence: four ideas from obra/superpowers (MIT; ideas only, no text copied).

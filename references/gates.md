@@ -49,7 +49,7 @@ path hides it. Any match makes the risk high. PROJECT.md may add paths, never re
   scripts call in turn), and the version file a release command reads
 - Data: `**/migrations/**`, `**/migrate/**`, `schema.sql`, `structure.sql`, `*.ddl`,
   `**/schema/**/*.sql`
-- Agent and repository setup: `.claude/**`, `CLAUDE.md`, `AGENTS.md`, `.mcp.json`,
+- Agent and repository setup: `.claude/**`, `CLAUDE.md` and `AGENTS.md` at any depth, `.mcp.json`,
   `.gitattributes`, `.gitmodules`, `CODEOWNERS`, `.githooks/**`, `.husky/**`,
   `.pre-commit-config.yaml`
 - Access and secrets: a folder or file name with a whole name part `auth`, `login`, `session`,
@@ -84,7 +84,7 @@ nothing.
    severity Medium has no validator: its follow-up round settles it (pipeline.md, "Follow-up rounds");
 5. three review rounds still bring a new or reopened finding of severity Medium or higher, or a Low
    fix that counts as a FIX at severity Medium (pipeline.md, "Follow-up rounds");
-6. a local check fails;
+6. a local check fails (after the fix attempts that pipeline.md, "Stage 4. Prove", allows);
 7. CI fails, or the repository has CI (a CI file from the list above, or checks reported by the
    host) and CI does not start or does not finish within `ciWaitMinutes`;
 8. the merge has conflicts, or the target branch moved and a rebase is needed;
