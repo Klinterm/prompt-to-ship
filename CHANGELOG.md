@@ -2,6 +2,27 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.37.0
+
+Review additions: ideas from Anthropic's Code Review and Code Simplifier plugins and from
+obra/superpowers (MIT); ideas only, no text copied.
+- The fresh reviewer checks the diff against the project's instruction files (`CLAUDE.md`,
+  `AGENTS.md`, `.claude/CLAUDE.md`), but only lines that name a property of the changed code; other
+  lines are ignored. At most 3 such findings, Low by default. A diff never adds a rule that it is
+  then checked against.
+- A comment that the change makes wrong is a finding.
+- A changed line with a shorter form and the same behaviour is a Low "Simpler" finding, round 1
+  only, at most 3.
+- After 3 failed fix attempts on the same check, the lead stops and asks you (gate 6, or gate 7
+  for CI).
+- A new marker line `Deviations from the plan:` names every change of approach, file or scope after
+  your go.
+- In debug mode, the debugger compares with a similar path that works.
+- The eval shows no regression only: no case reaches these six additions. The TESTING.md section is
+  not run yet.
+
+Does prompt-to-ship help you? A star on GitHub helps others find it.
+
 ## 2.36.0
 
 Review evidence: four ideas from obra/superpowers (MIT; ideas only, no text copied).

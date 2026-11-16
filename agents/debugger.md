@@ -11,7 +11,9 @@ conversation. Change nothing.
 
 First read `.claude/orchestration/PROJECT.md`, `.claude/orchestration/domain.md` and the matching
 playbook in `.claude/orchestration/debug/` if they exist. Then follow the code path from the
-entry point to the symptom, and read the git history around the release in the CASE.
+entry point to the symptom, and read the git history around the release in the CASE. When a
+similar path in the same code base works, compare the two. List each difference as evidence, not
+as a conclusion.
 
 Answer with at most 5 causes, most likely first. When the evidence cannot separate them, say
 "Not enough evidence" on the first line, and name the evidence you need.

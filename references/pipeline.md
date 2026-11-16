@@ -69,6 +69,14 @@ Never the chat. Always:
   because a working copy is often on another branch;
 - the path to PROJECT.md, and to `domain.md` when it exists, with "confirmed" or "not confirmed";
 - the rules from `rules.md` whose stage and paths match (see "Rules");
+- for the fresh reviewer in 5a, the instruction files that apply to the changed paths: at the
+  repository root and in each folder above a changed file, only the fixed names `CLAUDE.md`,
+  `AGENTS.md` and `.claude/CLAUDE.md`, each used only when it equals an entry of
+  `git ls-tree -r -z` byte for byte ("Paths in git commands"). Take each from the target branch
+  when the diff changes it, otherwise from the topic branch, so a diff never adds a rule that it
+  is then checked against; a file that the diff adds is not given. No file in the user's home folder, no import followed. At most 6 files
+  and 200 lines each; say when cut. These names are not on the secret files list; a failed export
+  counts with the other skipped paths;
 - the git history it needs (see "Git history for agents").
 The UI specialist and the product expert in 5d also get the screenshots, the texts in every
 language, and their own stage 2 verdict (for the UI specialist: with the design brief or its
@@ -305,6 +313,12 @@ in that step.
 Run checklist.md and the commands from PROJECT.md. Paste the last lines of each output. Without
 proof it is not done.
 
+The same check (a test, the build, a linter or a type check, local or CI) still fails after 3 fix
+attempts: stop at gate 6 (a local check) or gate 7 (CI) with this message:
+`Stopped before build: the same check failed 3 times: <check>. Attempt 1: <what changed, what it showed>. Attempt 2: ... Attempt 3: ... Next: <one question for the user>.`
+A rerun of a flaky check, or a fix for a new cause, is not an attempt. This counts fix attempts on
+one check; the limit of three review rounds in stage 5 is a separate count.
+
 ## Stage 5. Layered review
 
 - 5a `prompt-to-ship:fresh-reviewer`: always. After research, it also gets the confirmed fact
@@ -520,7 +534,14 @@ Near-miss: <one sentence>; should have been caught at stage <n>.
 Fixed after the last review (Low, not re-read): FR-2-1
 Extra reviewer: product expert, because a fix changes the order of two steps
 Security reviewer not re-run: no sensitive change
+Deviations from the plan: file src/x.py added, because the test needed a helper
 ```
+
+The lead writes the Deviations line for a change of approach, file or scope against the PLAN block
+after the user's go (stages 3 to 5), in one sentence on one line; a plan fix before the go goes
+back to the plan reviewers (stage 2). An extra reviewer or a Low fix is not a deviation. The lead
+passes the line to the fresh reviewer, so a file it names is not also a `Files:` finding. A new
+file outside the `Files:` line at normal or high risk: tell the user before the diff read.
 
 At levels `merge` and `release` also "Autonomy: <level>. This change request may be merged
 automatically." (autonomy.md). With "Markers: local log" in PROJECT.md, or an unconfirmed
