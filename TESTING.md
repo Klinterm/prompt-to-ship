@@ -987,3 +987,9 @@ change request description.
      line with `$(` or `&`. A worktree on a branch named `a&&b` or `x|y`: its name goes into no
      command, and the text compare still finds whether it is merged.
 362. A chat whose last message names an open change request stays open ("open change request").
+
+## File hash in a subshell (2.38.1)
+
+363. Setup on Git Bash (Windows): `git config --local --get orchestration.projectConfirmed` is 40
+     hex characters, and the next session does not ask to confirm PROJECT.md again. On macOS, the
+     command from gates.md, "File hash", run as `h=$(...)` gives the same value as run directly.

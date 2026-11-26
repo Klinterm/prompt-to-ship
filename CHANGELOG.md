@@ -2,6 +2,27 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.38.1
+
+The file hash also works inside `$( )` on Git Bash (acceptance finding F1, case 11d).
+- On Windows, the command of gates.md, "File hash", printed nothing when it ran as `h=$(...)`: Git
+  Bash drops the carriage return of a `$'...'` quote inside `$( )`, so the check matched every line.
+  An empty confirmation was then stored, and every new session asked to confirm PROJECT.md again.
+- The check for a carriage return inside a line now uses `awk`, which reads `\r` itself. The hash
+  value does not change, so hashes stored by earlier versions stay valid. A value stored empty by
+  an earlier version differs once and gives the normal question.
+- A hash is stored only when it is 40 hex characters and not the empty hash.
+- `tests/structure-test.sh` runs the command inside `$( )` too, and fails when the command text has
+  a `$'...'` quote, so CI on Linux also catches it.
+- Not run on macOS awk; see TESTING.md, case 363. No eval run: a patch; no eval case reaches the
+  file hash.
+
+Reach, the 14 days up to 2026-11-26, as GitHub counts them: 16 unique visitors of the repository
+page, 107 unique cloners, 4 stars in total. Cloners include CI runs and plugin installs and updates,
+so they are not a count of people.
+
+Does prompt-to-ship help you? A star on GitHub helps others find it.
+
 ## 2.38.0
 
 Close leftover chats, and keep their open work (references/tidy.md).

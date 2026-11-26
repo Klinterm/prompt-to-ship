@@ -250,7 +250,7 @@ Every stored hash of a file comes from this one command, in bash (Git Bash on Wi
 to the path:
 
 ```bash
-[ -f "$f" ] && ! LC_ALL=C grep -q $'\r.' < "$f" && tr -d '\r' < "$f" | git hash-object --stdin
+[ -f "$f" ] && LC_ALL=C awk '/\r./ { exit 1 }' < "$f" && tr -d '\r' < "$f" | git hash-object --stdin
 ```
 
 It holds for `orchestration.projectConfirmed`, `orchestration.domainConfirmed`,
@@ -263,10 +263,14 @@ It holds for `orchestration.projectConfirmed`, `orchestration.domainConfirmed`,
 - `tr` removes carriage returns, so a CRLF checkout keeps the value that git stores for the file. A
   change of only the carriage returns at line ends is not a difference. This is intended. A carriage
   return inside a line can split that line for some readers, so such a file gets no hash.
+- The command works the same inside a command substitution, such as `h=$(...)`. `awk` reads the
+  `\r` itself, so the shell text has no `$'...'` quote: Git Bash drops the carriage return of such a
+  quote inside `$( )`. Like `tr` and `git`, `awk` is a fixed program and reads only standard input.
 - No output counts as a difference: a missing file, a blocked path, a carriage return inside a line,
-  or no bash. So does the empty hash `e69de29bb2d1d6434b8b29ae775ad8c2e48c5391`, which a failed read
-  gives: never store it. The user is then asked each time, which is the safe fallback. A rule with
-  its own meaning for a missing file keeps it.
+  or no bash or `awk`. So does the empty hash `e69de29bb2d1d6434b8b29ae775ad8c2e48c5391`, which a
+  failed read gives. Store a hash only when it matches `^[0-9a-f]{40}$` and is not the empty hash; a
+  stored value that does not match counts as a difference. The user is then asked each time, which
+  is the safe fallback. A rule with its own meaning for a missing file keeps it.
 - A hash stored by an older version differs once for a CRLF file with `core.autocrlf=false`, or for a
   file with another filter such as `ident`. That gives the normal question.
 
