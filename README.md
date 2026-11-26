@@ -364,12 +364,14 @@ Old chats in a repository hide open work. At the end of each task, and when you 
 
 - It first saves the open work of each chat in `.claude/orchestration/open-work.md`: open items,
   decisions, findings, the branch and the change request.
-- Then it lists the chats and asks one question. Nothing closes without your yes.
+- Then it lists the chats and asks one question. Nothing closes without your yes. After a no, it
+  does not ask again about the same chats until they change.
 - To skip the question from then on, tell Claude in chat to close leftover chats automatically.
   Tell it to ask first again to undo.
 - Closing archives a chat. You can open it again from the chat list. Nothing is deleted.
 - It never closes a chat that is working, pinned, waiting for your answer, or has uncommitted
-  changes, an unmerged branch or an open change request. It never touches chats of another project.
+  changes, an unmerged branch or an open change request. It never touches chats in another folder or
+  project.
 - `open-work.md` stays out of git, so chat text never becomes public. A team that wants to share it
   adds `Open work: shared` to the House rules in PROJECT.md; then you read each change first.
 - Direction mode reads the sections marked `Status: open`.
