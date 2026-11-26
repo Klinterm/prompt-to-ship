@@ -80,13 +80,18 @@ hash_check() {
     git config --unset filter.probe.clean
     git config --unset core.fsmonitor
     git config core.autocrlf true
-    for n in lf.md crlf.md; do
+    printf 'one\ntwo' > noeol.md
+    for n in lf.md crlf.md noeol.md; do
       a=$(git hash-object "$n" 2>/dev/null)
       b=$(f="$n" bash -c "$cmd" 2>/dev/null)
       [ "$a" = "$b" ] || echo "$n: file hash $b differs from filtered hash $a"
       c=$(f="$n" bash "$h/sub.sh" 2>/dev/null)
       [ "$a" = "$c" ] || echo "$n: inside \$( ), the file hash gave '$c', expected $a"
     done
+    # An empty file gives the empty hash, which gates.md says never to store.
+    : > empty.md
+    out=$(f=empty.md bash "$h/sub.sh" 2>/dev/null)
+    [ "$out" = e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 ] || echo "empty.md: expected the empty hash, got '$out'"
   )
 }
 
@@ -223,6 +228,14 @@ if [ -z "$1" ]; then
   if [ -z "$cmd" ]; then
     err 'gates.md, "File hash", has no hash command'
   else
+    # Git Bash drops the carriage return of a $'...' quote inside $( ). On Linux and macOS the quote
+    # survives, so the run below would not catch it there: check the text too.
+    case "$cmd" in
+      *"\$'"*) err 'gates.md, "File hash": the command has a $'"'"'...'"'"' quote, which breaks inside $( ) on Git Bash' ;;
+    esac
+    case "$cmd" in
+      *$'\r'*) err 'gates.md, "File hash": the command has a raw carriage return' ;;
+    esac
     hash_check "$tmp/hostile" > "$tmp/hostile.out" 2>&1
     while IFS= read -r line; do
       [ -n "$line" ] && err "file hash: $line"
