@@ -20,7 +20,7 @@ file, `open-work.md`, and then closes those chats.
 - **chat**: one conversation on the host, with its own history. Say "chat" in every text for the
   user, never another word.
 - **leftover chat**: a chat that passes every check in T1.
-- **open work**: what a chat left: open items, decisions, findings, its branch, its change request.
+- **open work**: what a chat left: open items, decisions, findings, its branch.
 - **section**: the block for one chat in `open-work.md`.
 - **close**: the host archives the chat. The user can open it again from the chat list. Say "close"
   in every text for the user; say once, in the question or the auto line, that closing archives a
@@ -64,11 +64,13 @@ checked":
   a name from the chat text. A worktree without a `branch` line (a detached HEAD) fails.
 - The target branch is "Default target branch" under "Code host" in a confirmed PROJECT.md. No such
   line, or an unconfirmed PROJECT.md, fails.
-- Each name must have none of `'`, `"`, a backtick, `$`, `;`, `\`, a space, a line break or a
-  leading `-`.
-- Run `git merge-base --is-ancestor refs/heads/<name> refs/heads/<target>`. Exit code 0: merged.
-  Exit code 1: not merged. Any other result fails. For the main worktree on the target branch this
-  passes, which is normal.
+- The target name must match `^[A-Za-z0-9._/-]+$` and must not start with `-`.
+- Run `git branch --merged refs/heads/<target> --format='%(refname)'`. The branch of the chat never
+  goes into a command: compare the value of its `branch` line (the text after `branch `), as text,
+  with each output line. An equal line: merged. No equal line: not merged. An error fails. For the
+  main worktree on the target branch this passes, which is normal.
+- A missing target line: say once, after the report lines, "Add Default target branch under Code
+  host in PROJECT.md, so tidy can check branches."
 
 A chat that the user kept with a no (T3) comes back only when its last activity changed.
 
@@ -102,7 +104,7 @@ section that starts with a header line in the form below that ends with its chat
 Status: open
 Last activity: <date and time>
 Folder: <path relative to the repository root, or the worktree name>
-Branch: <name>, merged | not merged | none
+Branch: <name>, merged
 Change request: none named
 Open items:
 - <item, or "none">

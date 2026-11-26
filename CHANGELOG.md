@@ -13,14 +13,15 @@ Close leftover chats, and keep their open work (references/tidy.md).
   PROJECT.md and a clean state check, so a copied folder that brings the key still gets the question.
 - Closing archives a chat and can be undone. Tidy never deletes a chat, a file, a branch or a
   worktree, never touches chats in another folder or project, and is never a gate.
-- A chat that is working, pinned, waiting for the user, or has uncommitted changes, an unmerged
-  branch or an open change request stays open, with its reason.
+- A chat that is working, pinned, waiting for the user, has uncommitted changes or an unmerged
+  branch, or names an open change request stays open, with its reason. The change request check
+  reads only the chat; the host is not asked.
 - `open-work.md` stays out of git by default (the shared exclude file), so chat text never becomes
   public. `Open work: shared` in PROJECT.md commits it through a change request that you read first.
 - Direction mode reads the sections marked `Status: open`.
-- Chat text never goes into a command: the branch comes from `git worktree list`, the target from a
-  confirmed PROJECT.md, and a section header can only be written by tidy itself. A branch that
-  cannot be checked keeps the chat open.
+- No branch name of a chat goes into a command: `git branch --merged` runs with the target from a
+  confirmed PROJECT.md, and its output is compared as text. A section header can only be written
+  by tidy itself. A branch that cannot be checked keeps the chat open.
 - Tidy needs a host tool that lists, reads and closes chats. Without one it does nothing and says
   so. Not proven yet on a real run; see TESTING.md, cases 347 to 362.
 - New eval case `tidy-no-tool` (27 cases). It covers only the no-tool path.

@@ -498,7 +498,8 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   note (decision 2026-11-05): that note lives outside the repository; open-work.md lives in the
   repository folder but shares the same limit, it does not follow the user to another computer.
   Accepted limits: in shared mode the title cleaning and the no-secrets rule are the only filter, so
-  the diff read is the real control; tidy needs a host tool that lists, reads and closes chats, and
+  the diff read is the real control; the change request check reads only the chat, so a merged branch
+  with an open change request that the chat never names can close (a close can be undone); tidy needs a host tool that lists, reads and closes chats, and
   does nothing without one. A thin baseline: the eval case tidy-no-tool covers only the no-tool path.
   Measuring point: the next three uses record the chats closed, the chats kept per reason, and any
   wrong close; then reconsider this decision.

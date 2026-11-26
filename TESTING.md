@@ -983,6 +983,7 @@ change request description.
 360. `tidy` as an argument: no BRIEF, no PLAN block, no agents and no autonomy question; the stage 0
      state check runs and the state hash is stored at the end.
 361. "branch not checked" keeps the chat open, one case each: a worktree on a detached HEAD, no
-     "Default target branch" line, an unconfirmed PROJECT.md, and a target line with `$(`. No git
-     command runs with an unchecked name.
+     "Default target branch" line (with the one hint line), an unconfirmed PROJECT.md, and a target
+     line with `$(` or `&`. A worktree on a branch named `a&&b` or `x|y`: its name goes into no
+     command, and the text compare still finds whether it is merged.
 362. A chat whose last message names an open change request stays open ("open change request").
