@@ -23,7 +23,9 @@ Close leftover chats, and keep their open work (references/tidy.md).
   confirmed PROJECT.md, and its output is compared as text. A section header can only be written
   by tidy itself. A branch that cannot be checked keeps the chat open.
 - Tidy needs a host tool that lists, reads and closes chats. Without one it does nothing and says
-  so. Not proven yet on a real run; see TESTING.md, cases 347 to 362.
+  so. A first real run on the topic branch listed a test chat of this repository and kept it open
+  ("branch not checked": PROJECT.md was changed and not yet confirmed). Saving and closing is
+  measured after the release; see TESTING.md, cases 347 to 362.
 - New eval case `tidy-no-tool` (27 cases). It covers only the no-tool path.
 - Eval suite on a09c6c7 with `--runs 1`: 27 cases, mean difference +0.46, 575 seconds, $12.21 of
   plan usage (the $12 cap was crossed by runs already in flight). Twenty-four cases 1.00, also
