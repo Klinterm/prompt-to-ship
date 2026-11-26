@@ -1,0 +1,30 @@
+schema_version: "1.1"
+name: tidy-no-tool
+# Run with --allow-tools Edit Write, so a write is possible and staying silent is a choice.
+# The sandbox has no tool that lists or closes chats, so tidy must do nothing and say so.
+# Expected delta: high: without the plugin the agent does not know the tidy step or its fixed line.
+# Thin baseline: the ask and auto flows need a chat tool and are covered by TESTING.md only.
+graders:
+  - name: no-edit
+    type: tool_used
+    tool: Edit
+    min: 0
+    max: 0
+  - name: no-write
+    type: tool_used
+    tool: Write
+    min: 0
+    max: 0
+  - name: says-did-nothing
+    type: regex
+    pattern: 'no tool.{0,60}(list|close).{0,80}did nothing|tidy did nothing'
+    flags: i
+    target: last_message
+  - name: no-saved-claim
+    type: regex
+    pattern: 'open work is saved'
+    flags: i
+    target: last_message
+    match: not_contains
+context:
+  scaffold_script: fixture.sh

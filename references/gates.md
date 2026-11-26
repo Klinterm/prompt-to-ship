@@ -216,6 +216,7 @@ These hold at every level, also when the user said go:
 | `orchestration.diffGoCovers` | `yes`: a go on a high-risk diff also covers its merge and release ("Diff go covers merge"); the user can clear it in chat, which ends any cover | the user, in chat |
 | `orchestration.roleCoverDeclined` | the user said no to the role cover | the user's no |
 | `workspace.declined` | the user said no to workspace mode | the user's no |
+| `orchestration.closeChats` | `auto`: close leftover chats without a question (tidy.md, "T3. Close"); `ask` or empty: ask first | the user, in chat |
 
 Where: `git config --local` of the repository. In a workspace: the workspace state file for
 workspace values, and the folder's own git config for folder values (workspace.md, "State").
@@ -226,6 +227,7 @@ never sets or raises them.
 Re-read `orchestration.autonomy`, `orchestration.releaseCommand`,
 `orchestration.deploysOnMerge`, `orchestration.projectConfirmed`, `orchestration.agentModels`,
 `orchestration.diffGoCovers` and `orchestration.rulesConfirmed` at stage 0, and again right before every merge and release.
+Re-read `orchestration.closeChats` at stage 0, and again right before each close (tidy.md).
 In mode `defer`, stage 0 also compares the hash of each agent in "Role cover" (existing-pipeline.md):
 a difference is not a state-key change; that role counts as partial and the user is asked.
 Right before every command against a production system, hash `debug/access.md` again and compare

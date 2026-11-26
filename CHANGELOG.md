@@ -2,6 +2,32 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.38.0
+
+Close leftover chats, and keep their open work (references/tidy.md).
+- At the end of each task, and with the argument `tidy`, the lead looks for leftover chats of this
+  repository. It saves the open work of each one (open items, decisions, findings, branch, change
+  request) in `.claude/orchestration/open-work.md`, then lists the chats and asks one question.
+- Say in chat that leftover chats may close automatically, and they close without the question
+  (`orchestration.closeChats`, at every autonomy level). This counts only with a confirmed
+  PROJECT.md and a clean state check, so a copied folder that brings the key still gets the question.
+- Closing archives a chat and can be undone. Tidy never deletes a chat, a file, a branch or a
+  worktree, never touches chats of another project, and is never a gate.
+- A chat that is working, pinned, waiting for the user, or has uncommitted changes, an unmerged
+  branch or an open change request stays open, with its reason.
+- `open-work.md` stays out of git by default (the shared exclude file), so chat text never becomes
+  public. `Open work: shared` in PROJECT.md commits it through a change request that you read first.
+- Direction mode reads the sections marked `Status: open`.
+- Tidy needs a host tool that lists, reads and closes chats. Without one it does nothing and says
+  so. Not proven yet on a real run; see TESTING.md, cases 347 to 357.
+- New eval case `tidy-no-tool` (27 cases). It covers only the no-tool path.
+
+Reach, the 14 days up to 2026-11-26, as GitHub counts them: 16 unique visitors of the repository
+page, 107 unique cloners, 4 stars in total. Cloners include CI runs and plugin installs and updates,
+so they are not a count of people.
+
+Does prompt-to-ship help you? A star on GitHub helps others find it.
+
 ## 2.37.2
 
 A longer limit for the reminder hook.
