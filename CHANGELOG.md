@@ -25,6 +25,10 @@ Close leftover chats, and keep their open work (references/tidy.md).
 - Tidy needs a host tool that lists, reads and closes chats. Without one it does nothing and says
   so. Not proven yet on a real run; see TESTING.md, cases 347 to 362.
 - New eval case `tidy-no-tool` (27 cases). It covers only the no-tool path.
+- Eval suite on a09c6c7 with `--runs 1`: 27 cases, mean difference +0.46, 575 seconds, $12.21 of
+  plan usage (the $12 cap was crossed by runs already in flight). Twenty-four cases 1.00, also
+  tidy-no-tool (0.75 without the plugin). brief-first 0.50 and direction-interview 0.80 on their llm
+  judge, as in earlier runs; ui-review-first 0.83, its judge skipped at the cost cap.
 
 Reach, the 14 days up to 2026-11-26, as GitHub counts them: 16 unique visitors of the repository
 page, 107 unique cloners, 4 stars in total. Cloners include CI runs and plugin installs and updates,
