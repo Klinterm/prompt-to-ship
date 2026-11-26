@@ -2,6 +2,25 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.37.2
+
+A longer limit for the reminder hook.
+- The reminder hook may now take 30 seconds instead of 10. On Windows, the start of bash sometimes
+  took longer than 10 seconds. The hook was then cancelled, and that prompt got no reminder. This
+  happened on 4 of 26 resumed prompts in the acceptance test (TESTING.md, case 8). The script itself
+  ends in well under a second.
+- Cost: when the start of bash hangs, a prompt now waits up to 30 seconds instead of 10. A normal
+  run is as fast as before.
+- `tests/reminder-test.sh` fails when the limit is missing or below 30 seconds.
+- Not proven yet: case 8 runs again on Windows after this release.
+- No eval run: a patch; no eval case measures the hook limit.
+
+Reach, the 14 days up to 2026-11-26, as GitHub counts them: 16 unique visitors of the repository
+page, 107 unique cloners, 4 stars in total. Cloners include CI runs and plugin installs and updates,
+so they are not a count of people.
+
+Does prompt-to-ship help you? A star on GitHub helps others find it.
+
 ## 2.37.1
 
 Stricter forced-high paths for instruction files, from the 2.37.0 security review.
