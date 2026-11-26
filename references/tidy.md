@@ -103,7 +103,7 @@ Status: open
 Last activity: <date and time>
 Folder: <path relative to the repository root, or the worktree name>
 Branch: <name>, merged | not merged | none
-Change request: none named | named in the chat, not checked
+Change request: none named
 Open items:
 - <item, or "none">
 Decisions:
