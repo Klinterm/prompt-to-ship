@@ -68,6 +68,13 @@ hash_check() {
     printf 'a\rb\n' > lone.md
     out=$(f=lone.md bash -c "$cmd" 2>/dev/null)
     [ -z "$out" ] || echo "a carriage return inside a line gave a hash: $out"
+    # A lead often stores the hash as h=$(<command>). Git Bash drops a carriage return from a $'...'
+    # quote inside $( ), so the command must give the same result in that form.
+    printf 'h=$(%s)\nprintf %%s "$h"\n' "$cmd" > "$h/sub.sh"
+    out=$(f=lone.md bash "$h/sub.sh" 2>/dev/null)
+    [ -z "$out" ] || echo "inside \$( ), a carriage return inside a line gave a hash: $out"
+    out=$(f=missing.md bash "$h/sub.sh" 2>/dev/null)
+    [ -z "$out" ] || echo "inside \$( ), a missing file gave a hash: $out"
     rm -f lone.md
     rm -f .gitattributes
     git config --unset filter.probe.clean
@@ -77,6 +84,8 @@ hash_check() {
       a=$(git hash-object "$n" 2>/dev/null)
       b=$(f="$n" bash -c "$cmd" 2>/dev/null)
       [ "$a" = "$b" ] || echo "$n: file hash $b differs from filtered hash $a"
+      c=$(f="$n" bash "$h/sub.sh" 2>/dev/null)
+      [ "$a" = "$c" ] || echo "$n: inside \$( ), the file hash gave '$c', expected $a"
     done
   )
 }
