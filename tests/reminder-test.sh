@@ -62,5 +62,15 @@ rm -f "$HOME/.gitconfig"
 echo "Pipeline mode: defer" > "$tmp/proj/.claude/orchestration/PROJECT.md"
 check "defer mode: its own reminder" "$tmp/proj" "99.0.0 is out"
 
+# A slow bash start on Windows took over 10 s, so the hook was cancelled and the prompt got no
+# reminder. A missing key falls back to the host default; decide that on purpose, not by accident.
+n=$((n + 1))
+limit=$(sed -n '/"UserPromptSubmit"/,/"timeout"/s/.*"timeout": *\([0-9][0-9]*\).*/\1/p' "$root/hooks/hooks.json" | head -n 1)
+if ! [[ "$limit" =~ ^[0-9]+$ ]]; then
+  echo "FAIL hook limit: no \"timeout\" in the UserPromptSubmit hook"; fail=1
+elif [ "$limit" -lt 30 ]; then
+  echo "FAIL hook limit: $limit s, expected at least 30"; fail=1
+fi
+
 [ "$fail" = 0 ] && echo "reminder-test: all $n cases pass"
 exit "$fail"
