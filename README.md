@@ -357,6 +357,27 @@ Without a `Diagram tool:` line in PROJECT.md you get an SVG file in the session'
 the chat shows its path. More than five findings go into a text file next to it. With a design file,
 nothing is written without your yes. When a plan changes a flow, Claude offers a diagram once.
 
+## Close leftover chats
+
+Old chats in a repository hide open work. At the end of each task, and when you type
+`/prompt-to-ship tidy`, Claude looks for leftover chats of this repository:
+
+- It first saves the open work of each chat in `.claude/orchestration/open-work.md`: open items,
+  decisions, findings, the branch and the change request.
+- Then it lists the chats and asks one question. Nothing closes without your yes. After a no, it
+  does not ask again about the same chats until they change.
+- To skip the question from then on, tell Claude in chat to close leftover chats automatically.
+  Tell it to ask first again to undo.
+- Closing archives a chat. You can open it again from the chat list. Nothing is deleted.
+- It never closes a chat that is working, pinned, waiting for your answer, has uncommitted changes
+  or an unmerged branch, or names an open change request. It never touches chats in another folder or
+  project.
+- `open-work.md` stays out of git, so chat text never becomes public. A team that wants to share it
+  adds `Open work: shared` to the House rules in PROJECT.md; then you read each change first.
+- Direction mode reads the sections marked `Status: open`.
+
+Without a host tool that lists and closes chats, tidy does nothing and says so.
+
 ## Public websites: be found by search engines and AI assistants
 
 When `.claude/orchestration/PROJECT.md` says `Public website: yes`, every change to that site is
@@ -554,6 +575,7 @@ Type these in the Claude Code chat. With install way B (skills folder) the comma
 | `/prompt-to-ship project-map [refresh]` | `/prompt-to-ship:prompt-to-ship project-map [refresh]` | Builds or refreshes a project map in a Figma file. Writes only after your yes on a write list. Changes no code. |
 | `/prompt-to-ship hosting` | `/prompt-to-ship:prompt-to-ship hosting` | Offers hosting platforms that fit your project, then guides the setup when you pick one. The offer changes no code. |
 | `/prompt-to-ship diagram [subject]` | `/prompt-to-ship:prompt-to-ship diagram [subject]` | Draws a process diagram that is verified in the code, after one scope question. Changes no code. |
+| `/prompt-to-ship tidy` | `/prompt-to-ship:prompt-to-ship tidy` | Saves the open work of leftover chats in this repository to `open-work.md`, then closes those chats after your yes. Deletes nothing. |
 | `/prompt-to-ship version` | `/prompt-to-ship:prompt-to-ship version` | Shows the installed version, the folder it runs from, and the newest version seen. Changes nothing. |
 | `/prompt-to-ship <your request>` | `/prompt-to-ship:prompt-to-ship <your request>` | Runs the pipeline on your request. |
 
@@ -705,6 +727,7 @@ The modes cost less, because most run no agent:
 | `project-map` | none, or 1 search agent run for large documents |
 | `hosting` | none for the offer; the setup you pick runs the normal pipeline |
 | `diagram` | 1 search agent run per area, at most 6 |
+| `tidy` | none; reading up to 10 chats uses tokens |
 
 A search agent is the host's read-only code search agent, not a reviewer. A change that needs
 outside facts adds two researcher runs: one to find them and one to check them. Most changes need
@@ -824,7 +847,7 @@ prompt-to-ship/
                                    code hosts, autonomy, learning, security rules, weekly review,
                                    research (outside facts), design (house style), update, direction, ui,
                                    states, project map, hosting, diagrams, seo-geo (search and
-                                   AI visibility)
+                                   AI visibility), tidy (leftover chats)
   skills/design/                   the built-in design skill (/prompt-to-ship:design)
   tests/                           the hook test and the structure test, also run in CI
   docs/                            the README diagrams, and the script that draws them

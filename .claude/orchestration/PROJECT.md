@@ -71,7 +71,7 @@ https://github.com/Klinterm/prompt-to-ship, public. The README is the home page.
   table, agent frontmatter, skills in `skills/` and the case count. Both run in CI.
 - `.github/workflows/checks.yml`: CI for this repository.
 - `references/`: pipeline, gates, setup, workspace, existing pipeline, debug, checklist, security
-  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui, states, project map, hosting, diagrams, seo-geo.
+  rules, code hosts, autonomy, learning, weekly review, research, design, update, direction, ui, states, project map, hosting, diagrams, seo-geo, tidy.
 - `skills/design/`: the built-in design skill (`prompt-to-ship:design`): workflow, tiers,
   references (with scene mode in `immersive.md` and the rebuild path in `rebuild.md`) and the
   DESIGN.md template. `SOURCES.md` credits
@@ -173,7 +173,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   `claude plugin eval . --runs 1 -j 4 --max-cost-usd 12 --judge-model sonnet --no-publish --scaffold --allow-tools Edit Write`
   (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
   `--ablation none`, half the runs)
-  (26 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
+  (27 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -486,6 +486,24 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   SVG, not a design file. Measuring point: the next three diagrams record the rounds needed, the
   number of "not confirmed" boxes, and each finding that proved real; then reconsider this decision.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
+- Decision 2026-11-26 (maintainer: "a good practice will be that we automatically close leftover
+  chats in the project and save everything in .md project files"; answers "Ask by default, auto
+  opt-in", "New open-work.md", "End of task + tidy", "Yes, every level", "Local by default"):
+  tidy (2.38.0, references/tidy.md). At stage 8 and on `tidy`, the lead saves the open work of
+  leftover chats of this repository to `.claude/orchestration/open-work.md` and closes them after
+  one yes, or without a question when the user set `orchestration.closeChats` to `auto` in chat; auto
+  works at every autonomy level, only with a confirmed PROJECT.md and a clean state check. Closing
+  archives a chat and is reversible; tidy never deletes and is never a gate. open-work.md stays out
+  of git by default; `Open work: shared` commits it through a diff read. Contrast with the direction
+  note (decision 2026-11-05): that note lives outside the repository; open-work.md lives in the
+  repository folder but shares the same limit, it does not follow the user to another computer.
+  Accepted limits: in shared mode the title cleaning and the no-secrets rule are the only filter, so
+  the diff read is the real control; the change request check reads only the chat, so a merged branch
+  with an open change request that the chat never names can close (a close can be undone);
+  tidy needs a host tool that lists, reads and closes chats, and
+  does nothing without one. A thin baseline: the eval case tidy-no-tool covers only the no-tool path.
+  Measuring point: the next three uses record the chats closed, the chats kept per reason, and any
+  wrong close; then reconsider this decision.
 
 ## Security context
 The hook runs a fixed bash script on every prompt for every user. It must stay read-only and

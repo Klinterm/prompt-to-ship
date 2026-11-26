@@ -467,6 +467,10 @@ stage 7 only at levels `merge` and `release` (autonomy.md).
   or 4 should have caught): do not interrupt the change. Add the "Near-miss" marker line. It
   becomes a lesson only when its root cause comes back (learning.md).
 - Where a lesson lands (a learn branch, or directly with local storage) is in learning.md.
+- **Tidy.** After the lessons, and before the state hash is stored (gates.md, "State keys"), run
+  tidy.md. It is never a gate. The order of the final message, also when tidy asks its question,
+  is in tidy.md, "The final message". A message that ends with that question carries no star line,
+  and the star line is then not counted as shown.
 - End each change with the one-line rules summary (see "Rules").
 - **Star line.** Once per user, after the first task that opened a change request or merged a
   change, at any level and also in the quick lane:

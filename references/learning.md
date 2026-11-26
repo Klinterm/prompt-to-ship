@@ -42,6 +42,8 @@ files and the log live in the workspace folder, and the state in the workspace s
   write to rules.md, store its hash (gates.md, "File hash") with `git config --local
   orchestration.rulesConfirmed <hash>`. At stage 0 (with the other state keys, gates.md), if the hash differs, show the difference and
   ask before you use the rules.
+- `open-work.md` is local by default, whatever the Storage line says; only `Open work: shared`
+  under House rules commits it (tidy.md, "T2. Save the open work").
 - Local needs an untracked PROJECT.md. If PROJECT.md is already tracked, local is not possible
   without a team decision: keep shared, and offer "Markers: local log" instead.
 

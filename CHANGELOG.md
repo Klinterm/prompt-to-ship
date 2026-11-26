@@ -2,6 +2,42 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.38.0
+
+Close leftover chats, and keep their open work (references/tidy.md).
+- At the end of each task, and with the argument `tidy`, the lead looks for leftover chats of this
+  repository. It saves the open work of each one (open items, decisions, findings, branch, change
+  request) in `.claude/orchestration/open-work.md`, then lists the chats and asks one question.
+- Say in chat that leftover chats may close automatically, and they close without the question
+  (`orchestration.closeChats`, at every autonomy level). This counts only with a confirmed
+  PROJECT.md and a clean state check, so a copied folder that brings the key still gets the question.
+- Closing archives a chat and can be undone. Tidy never deletes a chat, a file, a branch or a
+  worktree, never touches chats in another folder or project, and is never a gate.
+- A chat that is working, pinned, waiting for the user, has uncommitted changes or an unmerged
+  branch, or names an open change request stays open, with its reason. The change request check
+  reads only the chat; the host is not asked.
+- `open-work.md` stays out of git by default (the shared exclude file), so chat text never becomes
+  public. `Open work: shared` in PROJECT.md commits it through a change request that you read first.
+- Direction mode reads the sections marked `Status: open`.
+- No branch name of a chat goes into a command: `git branch --merged` runs with the target from a
+  confirmed PROJECT.md, and its output is compared as text. A section header can only be written
+  by tidy itself. A branch that cannot be checked keeps the chat open.
+- Tidy needs a host tool that lists, reads and closes chats. Without one it does nothing and says
+  so. A first real run on the topic branch listed a test chat of this repository and kept it open
+  ("branch not checked": PROJECT.md was changed and not yet confirmed). Saving and closing is
+  measured after the release; see TESTING.md, cases 347 to 362.
+- New eval case `tidy-no-tool` (27 cases). It covers only the no-tool path.
+- Eval suite on a09c6c7 with `--runs 1`: 27 cases, mean difference +0.46, 575 seconds, $12.21 of
+  plan usage (the $12 cap was crossed by runs already in flight). Twenty-four cases 1.00, also
+  tidy-no-tool (0.75 without the plugin). brief-first 0.50 and direction-interview 0.80 on their llm
+  judge, as in earlier runs; ui-review-first 0.83, its judge skipped at the cost cap.
+
+Reach, the 14 days up to 2026-11-26, as GitHub counts them: 16 unique visitors of the repository
+page, 107 unique cloners, 4 stars in total. Cloners include CI runs and plugin installs and updates,
+so they are not a count of people.
+
+Does prompt-to-ship help you? A star on GitHub helps others find it.
+
 ## 2.37.2
 
 A longer limit for the reminder hook.
