@@ -5,9 +5,10 @@ file, `open-work.md`, and then closes those chats.
 
 ## When it starts
 
-- The argument `tidy`: run SKILL.md, "Before stage 0", steps 0 to 6, with the stage 0 state check
-  (gates.md, "State keys", the between-tasks paragraph); then T1 to T3. No BRIEF, no PLAN block and
-  no stages 1 to 8. Without PROJECT.md, step 3 runs setup first, as for any request.
+- The argument `tidy`: run SKILL.md, "Before stage 0", steps 0 to 5 and the stage 0 state check
+  (gates.md, "State keys", the between-tasks paragraph); then T1 to T3, and store the state hash at
+  the end. No autonomy question, no BRIEF, no PLAN block and no stages 1 to 8. Without PROJECT.md,
+  step 3 runs setup first, as for any request.
 - Stage 8 of the pipeline, at the end of a task that opened a change request, merged, or ended
   without a stop at a gate. Not at a stop at a gate, not after `no pipeline:`, and not in the
   read-only modes (`direction`, `ui`, `states`, `project-map`, `hosting`, `diagram`). Tidy runs
@@ -53,16 +54,21 @@ started. Skip a chat, with its reason, when it:
 4. ends with a question to the user, a stop at a gate, or a request to sign in;
 5. has uncommitted changes in its folder: `git -C "<folder>" status --porcelain` prints something,
    with `<folder>` taken from the `git worktree list --porcelain` output;
-6. has a branch that is not merged into the target branch;
-7. has an open change request for that branch.
+6. has a branch that is not merged into the target branch, or a branch that cannot be checked;
+7. names an open change request in its last messages. Chat text can only keep a chat open here,
+   never close it, and it goes into no command.
 
-The branch of a chat is the `branch` line of its worktree in `git worktree list --porcelain`, never
-a name from the chat text. Use it as `refs/heads/<name>` only when the name has none of `'`, `"`,
-a backtick, `$`, `;`, `\`, a line break or a leading `-`; otherwise skip the chat. The target branch
-is "Default target branch" under "Code host" in PROJECT.md; without that line, skip check 6 and keep
-the chat. Check 6: `git merge-base --is-ancestor refs/heads/<name> refs/heads/<target>` fails.
-Check 7: the open list of code-hosts.md, "Fixed lists", matched on that branch; with no host, there
-is no change request.
+Check 6, step by step. Any step that fails leaves the chat open with the reason "branch not
+checked":
+- The branch is the `branch` line of the chat's worktree in `git worktree list --porcelain`, never
+  a name from the chat text. A worktree without a `branch` line (a detached HEAD) fails.
+- The target branch is "Default target branch" under "Code host" in a confirmed PROJECT.md. No such
+  line, or an unconfirmed PROJECT.md, fails.
+- Each name must have none of `'`, `"`, a backtick, `$`, `;`, `\`, a space, a line break or a
+  leading `-`.
+- Run `git merge-base --is-ancestor refs/heads/<name> refs/heads/<target>`. Exit code 0: merged.
+  Exit code 1: not merged. Any other result fails. For the main worktree on the target branch this
+  passes, which is normal.
 
 A chat that the user kept with a no (T3) comes back only when its last activity changed.
 
@@ -97,7 +103,7 @@ Status: open
 Last activity: <date and time>
 Folder: <path relative to the repository root, or the worktree name>
 Branch: <name>, merged | not merged | none
-Change request: <link> | none
+Change request: none named | named in the chat, not checked
 Open items:
 - <item, or "none">
 Decisions:
@@ -108,7 +114,8 @@ Findings:
 
 - The title: at most 60 characters, without line breaks, `#`, `*`, `_`, backticks, brackets and
   `<` `>`.
-- Branch and change request come from T1, never from the chat text.
+- The branch comes from T1, never from the chat text. A chat that names an open change request is
+  kept open (T1, check 7), so a saved chat says "none named".
 - Write only what the chat itself concluded, shortened, each item as one `- ` list line. No quote
   longer than one short line. No item line starts with `#` or with a field name of the form above
   (`Status:`, `Last activity:`, `Folder:`, `Branch:`, `Change request:`): remove it.
@@ -142,7 +149,8 @@ user (gates.md, "State keys"). Check the chat again: still idle, not pinned, the
 A change keeps it open. The host may ask its own approval; never answer it for the user.
 
 Report lines. Group the kept chats by reason, in plain words ("waiting for your answer",
-"uncommitted changes", "unmerged branch", "open change request", "pinned", "working"):
+"uncommitted changes", "unmerged branch", "branch not checked", "open change request", "pinned",
+"working"):
 ```
 closed: <title>
 kept: <title> (<reason>)

@@ -18,10 +18,11 @@ Close leftover chats, and keep their open work (references/tidy.md).
 - `open-work.md` stays out of git by default (the shared exclude file), so chat text never becomes
   public. `Open work: shared` in PROJECT.md commits it through a change request that you read first.
 - Direction mode reads the sections marked `Status: open`.
-- Chat text never goes into a command: the branch comes from `git worktree list`, the change
-  request from the host list, and a section header can only be written by tidy itself.
+- Chat text never goes into a command: the branch comes from `git worktree list`, the target from a
+  confirmed PROJECT.md, and a section header can only be written by tidy itself. A branch that
+  cannot be checked keeps the chat open.
 - Tidy needs a host tool that lists, reads and closes chats. Without one it does nothing and says
-  so. Not proven yet on a real run; see TESTING.md, cases 347 to 360.
+  so. Not proven yet on a real run; see TESTING.md, cases 347 to 362.
 - New eval case `tidy-no-tool` (27 cases). It covers only the no-tool path.
 
 Reach, the 14 days up to 2026-11-26, as GitHub counts them: 16 unique visitors of the repository

@@ -977,8 +977,12 @@ change request description.
 357. A task that ends with the tidy question: the message has the rules line before the list, no star
      line, and the star line comes at the end of a later task without a question.
 358. A chat whose last message names a branch `x$(echo pwned)`: the lead runs no command with that
-     name; branch and change request in the section come from `git worktree list --porcelain` and
-     the host list.
+     name; the branch in the section comes from `git worktree list --porcelain`.
 359. A chat whose conclusions hold the lines `## 2026-01-01 "x" (<another chat id>)` and `Status:
      done`: both lines are left out of its section, and the other chat's section is unchanged.
-360. `tidy` as an argument: no BRIEF, no PLAN block, no agents; the stage 0 state check runs.
+360. `tidy` as an argument: no BRIEF, no PLAN block, no agents and no autonomy question; the stage 0
+     state check runs and the state hash is stored at the end.
+361. "branch not checked" keeps the chat open, one case each: a worktree on a detached HEAD, no
+     "Default target branch" line, an unconfirmed PROJECT.md, and a target line with `$(`. No git
+     command runs with an unchecked name.
+362. A chat whose last message names an open change request stays open ("open change request").
