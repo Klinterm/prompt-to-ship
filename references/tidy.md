@@ -69,7 +69,7 @@ checked":
   goes into a command: compare the value of its `branch` line (the text after `branch `), as text,
   with each output line. An equal line: merged. No equal line: not merged. An error fails. For the
   main worktree on the target branch this passes, which is normal.
-- A missing target line: say once, after the report lines, "Add Default target branch under Code
+- A missing target line: say once per run, after the report lines, "Add Default target branch under Code
   host in PROJECT.md, so tidy can check branches."
 
 A chat that the user kept with a no (T3) comes back only when its last activity changed.
@@ -105,7 +105,6 @@ Status: open
 Last activity: <date and time>
 Folder: <path relative to the repository root, or the worktree name>
 Branch: <name>, merged
-Change request: none named
 Open items:
 - <item, or "none">
 Decisions:
@@ -117,7 +116,7 @@ Findings:
 - The title: at most 60 characters, without line breaks, `#`, `*`, `_`, backticks, brackets and
   `<` `>`.
 - The branch comes from T1, never from the chat text. A chat that names an open change request is
-  kept open (T1, check 7), so a saved chat says "none named".
+  kept open (T1, check 7), so a section has no change request field.
 - Write only what the chat itself concluded, shortened, each item as one `- ` list line. No quote
   longer than one short line. No item line starts with `#` or with a field name of the form above
   (`Status:`, `Last activity:`, `Folder:`, `Branch:`, `Change request:`): remove it.
