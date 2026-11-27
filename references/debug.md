@@ -15,7 +15,7 @@ Debug mode is read-only. Nothing changes on any system until the user says go fo
   system that `debug/access.md` names. A real mailbox counts too: a mail that reaches it cannot be
   taken back.
 - **write**: anything that changes the state of a system: a data statement, a config change, a
-  feature flag, a restart, a cache flush, a queue replay, a re-sent mail or message, a real mail send, a deploy.
+  feature flag, a restart, a cache flush, a queue replay, a sent or re-sent mail or message, a deploy.
 
 ## The project's debug files
 
