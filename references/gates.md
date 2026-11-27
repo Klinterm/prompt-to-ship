@@ -150,8 +150,8 @@ nothing.
       `orchestration.diffGoCovers`.
     - A deploy or merge that ships code which sends mail on its own (a scheduled job, a form
       handler): the stop names that deploy and each sender in it, and the user's own typed go
-      covers that deploy (not a send). What the deployed code sends later is the product's own behaviour,
-      outside the pipeline; a new sender in a later diff asks again.
+      covers that deploy (not a send). What the deployed code sends later is the product's own
+      behaviour, outside the pipeline; a new sender in a later diff asks again.
 16. a reviewer that the route requires did not run, also after one retry (pipeline.md, "Loop
     rules"). A missing review is never "no findings".
 17. on a public website (`Public website: yes`, seo-geo.md), a brief, plan or diff that adds,
