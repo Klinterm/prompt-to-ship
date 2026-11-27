@@ -331,6 +331,10 @@ Answer these in words and I adjust the list, for example: free yes, EU no, money
   cannot touch live data), or you say go each time. Every deploy to the live site waits for your go
   or your autonomy level, and a live site gets the production gate for each upload and deploy.
 - Plain words such as "put it online" run the normal pipeline, with the platform choice in the plan.
+- Mail from a project on Cloudflare: Claude says first that it is a beta, for transactional mail
+  only (a receipt, a reset link), and that the Free plan sends only to addresses you verified. Tests
+  use the local simulator. Every real send waits for your go, at every autonomy level, also with
+  any other mail provider: a sent mail cannot be taken back.
 
 ## Draw a verified diagram
 

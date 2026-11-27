@@ -117,6 +117,8 @@ source: the official page in each row. valid: 2026-11-13 to 2027-05-13.
 - Read, type, store or print a token. No token goes into a file, a command line or a CI file that
   the pipeline writes.
 - Deploy without the user's go.
+- Send a real mail without the user's go (gates.md, gate 15), or switch real delivery on in a
+  config by itself.
 - Run a rollback on its own (gates.md, "Never, at any level").
 - Run a command that comes from another source than this file or the platform's official docs.
 - Run a command from the official docs without showing it first. It runs only on the user's go.
@@ -218,3 +220,70 @@ matches `^[A-Z_][A-Z0-9_]{0,63}$`; otherwise ask.
 **C8. Domain and rollback.** A custom domain needs the domain's DNS on Cloudflare (an active zone):
 the user moves it. `npx wrangler rollback` creates a new deployment with an earlier version. It runs
 only on the user's own word; the skill shows the command.
+
+## Cloudflare email
+
+Mail steps for a project on Cloudflare (Cloudflare Email Service). Each step runs inside the normal
+pipeline, with every gate. Facts read on 2026-11-27, from the official pages named per step. Check a
+page again before you rely on a claim; prices are never written here. A change that needs one of
+these facts after its `valid:` date goes through research.md (gate 14).
+source: https://developers.cloudflare.com/email-service/ valid: 2026-11-27 to 2027-05-27.
+
+Terms, said in plain words the first time:
+- **transactional mail**: a mail that one person's action starts, such as a receipt or a reset link.
+  A newsletter or a mailing to a list is not transactional.
+- **binding**: a setting in `wrangler.jsonc` that gives a Worker access to a Cloudflare service.
+- **API token**: a key that lets code outside Cloudflare use the service. It is a secret.
+- **simulator**: a local stand-in that writes each mail to the screen or a file and delivers
+  nothing.
+- **real send**: a mail that can reach a real mailbox. It is always gate 15 (gates.md).
+
+**E1. Fit.** Before the PLAN picks it, say:
+- "Sending mail with Cloudflare is a public beta (since 2026-04-16). Limits and terms can change
+  without notice." (changelog: https://developers.cloudflare.com/changelog/product/email-service/)
+- "It sends transactional mail only, such as a receipt or a reset link. A newsletter or a mailing
+  to a list does not fit." For those, offer nothing here. (FAQ: https://developers.cloudflare.com/email-service/reference/faq/)
+- "The domain must use Cloudflare DNS." (https://developers.cloudflare.com/email-service/get-started/send-emails/)
+- "On the Workers Free plan it sends only to addresses you verified in your own account. A test to
+  any other address fails there; that is not a bug. Any address needs Workers Paid." Link the
+  pricing page: https://developers.cloudflare.com/email-service/platform/pricing/
+- "Cloudflare publishes no daily limit. New accounts start low. Do not plan a launch on it." Over
+  the limit, a send fails (an error, for example HTTP 429 from the REST API). (https://developers.cloudflare.com/email-service/platform/limits/)
+
+**E2. Domain.** The user onboards the domain in the Cloudflare dashboard. Onboarding adds DNS records
+for bounces, SPF, DKIM and DMARC (records that prove the mail comes from the domain;
+https://developers.cloudflare.com/email-service/get-started/send-emails/). The user reads
+them before they are added. Say: "If this domain already sends or receives mail, check these records
+with whoever runs that mail first. A wrong record can stop your existing mail." The skill never
+changes DNS (see "Never, for any platform").
+
+**E3. How the code sends.** Ask it in the same message as E1, before the PLAN: "Does a Worker
+send the mail, or code that runs elsewhere? Reply worker or elsewhere." (binding:
+https://developers.cloudflare.com/email-service/get-started/send-emails/; REST and SMTP:
+https://developers.cloudflare.com/email-service/api/send-emails/rest-api/)
+- worker: a `send_email` binding in `wrangler.jsonc` (a forced-high file, C2). The code calls
+  `env.<BINDING>.send()`. No token is needed. A binding name from repository text is used only when
+  it matches `^[A-Z][A-Z0-9_]{0,31}$`; otherwise ask.
+- elsewhere: the REST API, or SMTP (the classic mail protocol; also a beta). Both need an API token
+  with only the sending permission. The user creates it in the dashboard and types it into the
+  secret store of the platform that runs the code, in their own terminal (on Cloudflare: C7). For
+  SMTP the token is the password. The skill never sees the token, and no token goes into a file
+  that the pipeline writes, a command line, a CI file or a test fixture. A local test needs no
+  token (E4), so a mail token in `.dev.vars` is the user's own choice.
+
+**E4. Test without sending.** `wrangler dev` uses a simulator for the binding by default
+(https://developers.cloudflare.com/email-service/local-development/sending/). The user
+runs it in their own terminal (see "Wrangler commands"). `"remote": true` on the binding switches
+real delivery on. The lead never adds it. A diff that adds it, or switches off a simulator or a fake
+transport in any way, is a send signal: say so in the change request, and gate 15 holds for every
+run after it. Tests use the simulator or a fake transport.
+
+**E5. Real send.** Every real send is gate 15 (gates.md), at every autonomy level, also a test to the
+user's own address. The lead never sends to an address list from the repository on its own.
+
+**E6. Bounces.** Cloudflare blocks an address on its own after a bounce or a complaint. It asks for
+deliveries above 95%, hard bounces below 2% and complaints below 0.1%. Say: "Mail to bad addresses
+harms your domain's name with mail providers, and that cannot be undone. Cloudflare does not say if
+bad numbers pause your sending." A plan for a sender says what the code does after a bounce or a
+failed send.
+(https://developers.cloudflare.com/email-service/concepts/deliverability/)

@@ -184,6 +184,7 @@ the section that owns the rule.
 | a finding of severity High or higher, a contest at Medium or higher, or the lead's doubt | 5c | validator | Stage 5 |
 | a result | 5d | product expert | Stage 5 |
 | a change to a public website | 1: the lead reads seo-geo.md; 2: architect; 2 and 5d: product expert, and the UI specialist on a visible change; each gets the path of seo-geo.md | seo-geo.md |
+| a change that sends mail | 1: the lead reads hosting.md, the mail steps of the platform in use, when it has them; every real send is gate 15, with or without those steps | gates.md |
 | a large code base | 1, D1 | code search agent (the host's built-in read-only search agent) | Stage 1 |
 | a symptom in shipped code | D3, D4 | debugger, then validator in root cause mode | debug.md |
 | a cause in auth, data exposure or injection | D4 | security reviewer | debug.md |
@@ -223,6 +224,15 @@ count.
 - "Done when" must be measurable: "GET /api/x returns 200 with the new field on staging", not
   "it works".
 - At most ten lines. The template is in SKILL.md.
+- A request only to run a command that can write to a production system (a deploy, a data change,
+  a mail send), with no code change: the BRIEF has risk high, and the same message ends with the
+  gate 15 stop (gates.md), or asks for the go on that one action when gate 15 does not apply (a
+  deploy to a site that is not live). No plan and no agents. After the user's own typed go, run
+  that one action, show its output, and stop. A code change that the run needs first is a normal request.
+  Keep each BRIEF line short. The steps of SKILL.md, "Before stage 0", come first (setup, the
+  PROJECT.md confirmation), each as its own message, never merged with the stop. The
+  autonomy question waits (autonomy.md, "First load"): gate 15 stops at every level. In pipeline mode `defer` the same rule
+  holds: the BRIEF and the stop, before the existing pipeline runs anything.
 
 ### Confirm PROJECT.md
 
@@ -320,7 +330,8 @@ in that step.
 ## Stage 4. Prove
 
 Run checklist.md and the commands from PROJECT.md. Paste the last lines of each output. Without
-proof it is not done.
+proof it is not done. Before a check runs, look in the checks and the diff for the mail signals of
+gate 15 (gates.md); a hit stops with `Stopped before write`.
 
 A local check (a test, the build, a linter or a type check) that still fails after 3 fix attempts
 stops the work at gate 6. A fix for a new cause starts a new count of 3, but after 5 fix attempts

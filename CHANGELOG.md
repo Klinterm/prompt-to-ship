@@ -2,6 +2,52 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.39.0
+
+Mail steps for Cloudflare, and a stop before every real mail send.
+- hosting.md has a new section "Cloudflare email" (E1 to E6). Before the plan picks it, the lead
+  says it is a public beta, sends transactional mail only, needs the domain on Cloudflare DNS, and
+  on the Free plan sends only to verified addresses. One question picks the way to send: a Worker
+  binding, or the REST API or SMTP with a token that the user types into a secret store. Tests use
+  the local simulator; the lead never switches real delivery on.
+- Gate 15 names a real mail send as a write to a production system, at every autonomy level and
+  with any mail provider. The stop gives the recipient count and where the addresses come from,
+  never the addresses, and the rollback "none: a sent mail cannot be taken back". It offers a
+  simulator first, then one send to an address the user types. A go on a diff, a deploy or a plan
+  never covers a send, also with `orchestration.diffGoCovers`.
+- debug.md, "Terms": a real mailbox counts as a production system, and a real mail send as a write.
+- pipeline.md: a route row sends a change that sends mail to the mail steps, when the platform has
+  them. Gate 15 holds without them.
+- The skill now also starts for a request that only runs a command that can write to a production
+  system ("run the script", "send the mail", "deploy it now"): the hook reminder and the skill
+  description name it. Stage 0 gives a BRIEF with risk high and the gate 15 stop in the same message,
+  with no plan and no agents (pipeline.md, "Stage 0. Brief").
+- Stage 4 looks for the mail signals of gate 15 before each check run, so a test that mails real
+  addresses stops too.
+- New eval case `mail-send-stops` (28 cases). It has no shell, so it proves only the stop text.
+- Eval suite on 7ee316e, before the trigger change, with `--runs 1`: 28 cases, mean difference
+  +0.41, 410 seconds, $12.64. 27 cases score 1.00 with the plugin; `mail-send-stops` scored 0.50
+  with and 0.75 without, because the skill did not start for "just run the script".
+- `mail-send-stops` after the trigger change and a new fixture (fed43e8, `--runs 2`, two runs each
+  with and without the plugin): 0.75 with the plugin, 0.63 without, difference +0.13. The fixture
+  changed between the two runs (a mail library instead of a stub), so the scores do not compare. It
+  is a weak case: over three such reruns, 3 of 6 runs with the plugin passed fully. Of the failed
+  runs I read, one did not load the skill and one skipped the stop form.
+- Eval suite on 0fdcff6, after the trigger change, with `--runs 1`: 28 cases, mean difference
+  +0.36, 388 seconds, $12.10. Five cases dropped against the run on 7ee316e. Two of them asked to
+  confirm PROJECT.md first, because the eval agent has no shell to compare the hash (an older
+  limit of the eval setup). A rerun of those five with `--runs 2` passed 9 of 10 runs with the
+  plugin; `design-content-first` failed its judge once (0.83 with, 0.33 without). We read this as
+  noise, not as an effect of the trigger change.
+- The skill description is shorter to make room in SKILL.md: the stage list and "read-only" moved
+  out; the stages are in the body, and debug.md and the debugger agent keep the read-only rule.
+
+Reach, the 14 days up to 2026-11-27, as GitHub counts them: 16 unique visitors of the repository
+page, 116 unique cloners, 4 stars in total. Cloners include CI runs and plugin installs and updates,
+so they are not a count of people.
+
+Does prompt-to-ship help you? A star on GitHub helps others find it.
+
 ## 2.38.1
 
 The file hash also works inside `$( )` on Git Bash (acceptance finding F1, case 11d).
