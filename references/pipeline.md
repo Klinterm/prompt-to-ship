@@ -184,6 +184,7 @@ the section that owns the rule.
 | a finding of severity High or higher, a contest at Medium or higher, or the lead's doubt | 5c | validator | Stage 5 |
 | a result | 5d | product expert | Stage 5 |
 | a change to a public website | 1: the lead reads seo-geo.md; 2: architect; 2 and 5d: product expert, and the UI specialist on a visible change; each gets the path of seo-geo.md | seo-geo.md |
+| a change that sends mail | 1: the lead reads hosting.md, the mail steps of the platform in use, when it has them; every real send is gate 15, with or without those steps | gates.md |
 | a large code base | 1, D1 | code search agent (the host's built-in read-only search agent) | Stage 1 |
 | a symptom in shipped code | D3, D4 | debugger, then validator in root cause mode | debug.md |
 | a cause in auth, data exposure or injection | D4 | security reviewer | debug.md |

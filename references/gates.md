@@ -133,6 +133,16 @@ nothing.
     rollback and the expected effect, test it on a copy when one exists, and wait for the user's
     go for that one action. With "Live site: yes" in PROJECT.md, or a live site the user named, each
     deploy command and each merge into a target that deploys on merge is such a write (hosting.md).
+    A real mail send is such a write too, at every level: a run, test, script or command that can
+    deliver a mail outside a simulator, and a deploy or merge that ships code which sends mail on
+    its own (a scheduled job, a form handler). Signals: a mail API or SMTP call, a mail setting that
+    switches real delivery on, a loop over an address list. Unsure where it delivers: it is real.
+    The stop (`Stopped before write`) gives the recipient count and where the addresses come from,
+    never the addresses; the template with placeholders, never a filled row; and the rollback
+    "none: a sent mail cannot be taken back". It offers first a simulator or a fake transport (the
+    copy), then one send to an address the user types in chat, never one from a file. A go covers
+    that one send, that count and that text; a change asks again. A go on a diff, a deploy or a
+    plan is never a go to send, also with `orchestration.diffGoCovers`.
 16. a reviewer that the route requires did not run, also after one retry (pipeline.md, "Loop
     rules"). A missing review is never "no findings".
 17. on a public website (`Public website: yes`, seo-geo.md), a brief, plan or diff that adds,

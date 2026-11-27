@@ -2,6 +2,24 @@
 
 All notable changes. Versions follow semver and match `.claude-plugin/plugin.json`.
 
+## 2.39.0
+
+Mail steps for Cloudflare, and a stop before every real mail send.
+- hosting.md has a new section "Cloudflare email" (E1 to E6). Before the plan picks it, the lead
+  says it is a public beta, sends transactional mail only, needs the domain on Cloudflare DNS, and
+  on the Free plan sends only to verified addresses. One question picks the way to send: a Worker
+  binding, or the REST API or SMTP with a token that the user types into a secret store. Tests use
+  the local simulator; the lead never switches real delivery on.
+- Gate 15 names a real mail send as a write to a production system, at every autonomy level and
+  with any mail provider. The stop gives the recipient count and where the addresses come from,
+  never the addresses, and the rollback "none: a sent mail cannot be taken back". It offers a
+  simulator first, then one send to an address the user types. A go on a diff, a deploy or a plan
+  never covers a send, also with `orchestration.diffGoCovers`.
+- debug.md, "Terms": a real mailbox counts as a production system, and a real mail send as a write.
+- pipeline.md: a route row sends a change that sends mail to the mail steps, when the platform has
+  them. Gate 15 holds without them.
+- New eval case `mail-send-stops` (28 cases). It has no shell, so it proves only the stop text.
+
 ## 2.38.1
 
 The file hash also works inside `$( )` on Git Bash (acceptance finding F1, case 11d).

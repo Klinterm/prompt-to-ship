@@ -173,7 +173,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   `claude plugin eval . --runs 1 -j 4 --max-cost-usd 12 --judge-model sonnet --no-publish --scaffold --allow-tools Edit Write`
   (`-j 4`: four runs at once, about 7 minutes instead of 25; for an interim check add
   `--ablation none`, half the runs)
-  (27 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
+  (28 cases; 21 cases with `--runs 1` used about $9.8 of plan usage on 2026-11-08; use `--max-cost-usd 12`: a run that breaches the cap skips the paid graders and loses votes). This repository
   uses `--runs 1` before a release (decision 2026-10-27). The number of runs is the
   maintainer's choice: `--runs 3` with `--max-cost-usd 15` (about $11) gives more certainty.
   Native Windows has no Bash sandbox, so the cases give the agent no shell. A release states the score with the plugin and the difference from the run
@@ -486,6 +486,21 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   SVG, not a design file. Measuring point: the next three diagrams record the rounds needed, the
   number of "not confirmed" boxes, and each finding that proved real; then reconsider this decision.
 - Decision 2026-10-27 (maintainer): Phase A (coherence and load) before new features.
+- Decision 2026-11-27 (maintainer: "I also want to see how we can integrate cloudflare into the
+  project; I noticed they also will do mailing now", then "Option 1, go"): mail steps (2.39.0).
+  It extends decision 2026-11-13: hosting.md gets a section "Cloudflare email" (E1 to E6) with its
+  own source and valid lines (read 2026-11-27, valid to 2027-05-27); the 2026-11-13 lines do not
+  change. The product names stay inside that exception: gate 15 and the pipeline.md route row are
+  generic. Gate 15 now names a real mail send as a write to a production system, at every level,
+  with any provider: the stop gives the recipient count and source, never the addresses, the
+  template with placeholders, and the rollback "none"; a simulator or fake transport comes first,
+  then one send to an address the user types in chat. A go on a diff, a deploy or a plan never
+  covers a send, also with diffGoCovers. The research (a find run and a check-mode run) found the
+  sending product in public beta, transactional only, and on the Free plan limited to verified
+  addresses. A thin baseline: the eval case mail-send-stops has no shell, so it proves only the stop
+  text, not that no mail goes out. Measuring point: the next three projects that send mail record
+  each gate 15 stop for a send, whether the simulator came first, and any fact past its `valid:`
+  date; then reconsider this decision.
 - Decision 2026-11-26 (maintainer: "a good practice will be that we automatically close leftover
   chats in the project and save everything in .md project files"; answers "Ask by default, auto
   opt-in", "New open-work.md", "End of task + tidy", "Yes, every level", "Local by default"):
