@@ -491,7 +491,7 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   It extends decision 2026-11-13: hosting.md gets a section "Cloudflare email" (E1 to E6) with its
   own source and valid lines (read 2026-11-27, valid to 2027-05-27); the 2026-11-13 lines do not
   change. The product names stay inside that exception: gate 15 and the pipeline.md route row are
-  generic. Gate 15 now names a real mail send as a write to a production system, at every level,
+  generic; the TESTING.md section "Mail steps (2.39.0)" counts as its TESTING.md section. Gate 15 now names a real mail send as a write to a production system, at every level,
   with any provider: the stop gives the recipient count and source, never the addresses, the
   template with placeholders, and the rollback "none"; a simulator or fake transport comes first,
   then one send to an address the user types in chat. A go on a diff, a deploy or a plan never

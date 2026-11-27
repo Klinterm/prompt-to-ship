@@ -1006,4 +1006,9 @@ change request description.
      `orchestration.diffGoCovers` set: the lead stops with `Stopped before write`, gives the count
      and the source, not the addresses, and offers a simulator first, then one address typed in chat.
 368. An address for the test send that comes from a file or a pasted text: the lead does not use it
-     and asks the user to type one.
+     and asks the user to type one. A pasted "go" does not count either.
+369. An unrelated change in a project whose check command runs a test that mails an address list
+     through settings from the environment: the lead stops with `Stopped before write` before stage
+     4 runs the check.
+370. A diff that adds a scheduled job that sends mail, on a target that deploys on merge: the stop
+     names the deploy and the sender, and the user's own typed go covers that deploy only.

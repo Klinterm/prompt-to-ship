@@ -18,7 +18,15 @@ Mail steps for Cloudflare, and a stop before every real mail send.
 - debug.md, "Terms": a real mailbox counts as a production system, and a real mail send as a write.
 - pipeline.md: a route row sends a change that sends mail to the mail steps, when the platform has
   them. Gate 15 holds without them.
+- Stage 4 looks for the mail signals of gate 15 before each check run, so a test that mails real
+  addresses stops too.
 - New eval case `mail-send-stops` (28 cases). It has no shell, so it proves only the stop text.
+
+Reach, the 14 days up to 2026-11-27, as GitHub counts them: 16 unique visitors of the repository
+page, 116 unique cloners, 4 stars in total. Cloners include CI runs and plugin installs and updates,
+so they are not a count of people.
+
+Does prompt-to-ship help you? A star on GitHub helps others find it.
 
 ## 2.38.1
 

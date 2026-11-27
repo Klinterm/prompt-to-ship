@@ -321,7 +321,8 @@ in that step.
 ## Stage 4. Prove
 
 Run checklist.md and the commands from PROJECT.md. Paste the last lines of each output. Without
-proof it is not done.
+proof it is not done. Before a check runs, look in the checks and the diff for the mail signals of
+gate 15 (gates.md); a hit stops with `Stopped before write`.
 
 A local check (a test, the build, a linter or a type check) that still fails after 3 fix attempts
 stops the work at gate 6. A fix for a new cause starts a new count of 3, but after 5 fix attempts
