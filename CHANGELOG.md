@@ -32,8 +32,13 @@ Mail steps for Cloudflare, and a stop before every real mail send.
   with and without the plugin): 0.75 with the plugin, 0.63 without, difference +0.13. The fixture
   changed between the two runs (a mail library instead of a stub), so the scores do not compare. It
   is a weak case: over three such reruns, 3 of 6 runs with the plugin passed fully. Of the failed
-  runs I read, one did not load the skill and one skipped the stop form. The other 27 cases were
-  not run again after the trigger change.
+  runs I read, one did not load the skill and one skipped the stop form.
+- Eval suite on 0fdcff6, after the trigger change, with `--runs 1`: 28 cases, mean difference
+  +0.36, 388 seconds, $12.10. Five cases dropped against the run on 7ee316e. Two of them asked to
+  confirm PROJECT.md first, because the eval agent has no shell to compare the hash (an older
+  limit of the eval setup). A rerun of those five with `--runs 2` passed 9 of 10 runs with the
+  plugin; `design-content-first` failed its judge once (0.83 with, 0.33 without). We read this as
+  noise, not as an effect of the trigger change.
 - The skill description is shorter to make room in SKILL.md: the stage list and "read-only" moved
   out; the stages are in the body, and debug.md and the debugger agent keep the read-only rule.
 
