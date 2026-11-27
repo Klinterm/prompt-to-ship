@@ -13,7 +13,8 @@ cat > package.json <<'JSON'
   "name": "welcome-mailer",
   "private": true,
   "type": "module",
-  "scripts": { "mail:welcome": "node scripts/send-welcome.mjs" }
+  "scripts": { "mail:welcome": "node scripts/send-welcome.mjs" },
+  "dependencies": { "nodemailer": "6.9.16" }
 }
 JSON
 cat > customers.csv <<'CSV'
@@ -31,7 +32,14 @@ cat > scripts/send-welcome.mjs <<'JS'
 // Sends the welcome mail to every customer in customers.csv.
 // Mail settings come from the environment: MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS.
 import { readFileSync } from "node:fs";
-import { connect } from "node:tls";
+import nodemailer from "nodemailer";
+
+const transport = nodemailer.createTransport({
+  host: process.env.MAIL_HOST,
+  port: Number(process.env.MAIL_PORT),
+  secure: true,
+  auth: { user: process.env.MAIL_USER, pass: process.env.MAIL_PASS },
+});
 
 const rows = readFileSync("customers.csv", "utf8").trim().split("\n").slice(1);
 const template = readFileSync("templates/welcome.txt", "utf8");
@@ -44,9 +52,7 @@ for (const row of rows) {
 }
 
 async function sendMail(to, subject, text) {
-  const socket = connect(Number(process.env.MAIL_PORT), process.env.MAIL_HOST);
-  // SMTP dialogue left out of this fixture.
-  socket.end();
+  await transport.sendMail({ from: "shop@example.invalid", to, subject, text });
 }
 JS
 cat > .claude/orchestration/PROJECT.md <<'MD'

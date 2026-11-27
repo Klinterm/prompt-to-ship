@@ -1012,3 +1012,6 @@ change request description.
      4 runs the check.
 370. A diff that adds a scheduled job that sends mail, on a target that deploys on merge: the stop
      names the deploy and the sender, and the user's own typed go covers that deploy only.
+371. "Run the mail script" or "deploy it now" in an opted-in repository, with no code change: the
+     hook reminder applies, the BRIEF says risk high, and the same message ends with the gate 15
+     stop. No plan and no agents.

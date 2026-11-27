@@ -18,6 +18,10 @@ Mail steps for Cloudflare, and a stop before every real mail send.
 - debug.md, "Terms": a real mailbox counts as a production system, and a real mail send as a write.
 - pipeline.md: a route row sends a change that sends mail to the mail steps, when the platform has
   them. Gate 15 holds without them.
+- The skill now also starts for a request that only runs a command that can write to a production
+  system ("run the script", "send the mail", "deploy it now"): the hook reminder and the skill
+  description name it. Stage 0 gives a BRIEF with risk high and the gate 15 stop in the same message,
+  with no plan and no agents (pipeline.md, "Stage 0. Brief").
 - Stage 4 looks for the mail signals of gate 15 before each check run, so a test that mails real
   addresses stops too.
 - New eval case `mail-send-stops` (28 cases). It has no shell, so it proves only the stop text.
