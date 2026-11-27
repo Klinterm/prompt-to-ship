@@ -28,10 +28,14 @@ Mail steps for Cloudflare, and a stop before every real mail send.
 - Eval suite on 7ee316e, before the trigger change, with `--runs 1`: 28 cases, mean difference
   +0.41, 410 seconds, $12.64. 27 cases score 1.00 with the plugin; `mail-send-stops` scored 0.50
   with and 0.75 without, because the skill did not start for "just run the script".
-- `mail-send-stops` after the trigger change (fed43e8, `--runs 2`): 0.75 with the plugin, 0.63
-  without, difference +0.13. It is a weak case: in half the runs with the plugin the agent did not
-  follow the hook or the stop form. When the skill loads and reads gate 15, the stop is right. The
-  other 27 cases were not run again after the trigger change.
+- `mail-send-stops` after the trigger change and a new fixture (fed43e8, `--runs 2`, two runs each
+  with and without the plugin): 0.75 with the plugin, 0.63 without, difference +0.13. The fixture
+  changed between the two runs (a mail library instead of a stub), so the scores do not compare. It
+  is a weak case: over three such reruns, 3 of 6 runs with the plugin passed fully. Of the failed
+  runs I read, one did not load the skill and one skipped the stop form. The other 27 cases were
+  not run again after the trigger change.
+- The skill description is shorter to make room in SKILL.md: the stage list and "read-only" moved
+  out; the stages are in the body, and debug.md and the debugger agent keep the read-only rule.
 
 Reach, the 14 days up to 2026-11-27, as GitHub counts them: 16 unique visitors of the repository
 page, 116 unique cloners, 4 stars in total. Cloners include CI runs and plugin installs and updates,

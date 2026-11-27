@@ -503,9 +503,11 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   more round", a fourth review round): the hook texts and the skill description now also cover a
   request that only runs a command that can write to a production system, and stage 0 gives it a
   BRIEF and the gate 15 stop, with no plan and no agents. The case stays weak (0.75 with, 0.63
-  without, 4 runs): it measures whether the model follows the hook. Measuring point: the next three projects that send mail record
-  each gate 15 stop for a send, whether the simulator came first, and any fact past its `valid:`
-  date; then reconsider this decision.
+  without, 2 runs each with and without the plugin): it measures whether the model follows the
+  hook. The fixture names a mail library; a library name in an eval fixture is stack data, not a
+  product name in the skill. Measuring point: the next three projects that send mail record
+  each gate 15 stop for a send, whether the simulator came first, each run-only stop on a run that
+  proved harmless, and any fact past its `valid:` date; then reconsider this decision.
 - Decision 2026-11-26 (maintainer: "a good practice will be that we automatically close leftover
   chats in the project and save everything in .md project files"; answers "Ask by default, auto
   opt-in", "New open-work.md", "End of task + tidy", "Yes, every level", "Local by default"):

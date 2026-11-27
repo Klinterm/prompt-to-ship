@@ -25,7 +25,7 @@ Before stage 0, read the level. If it is empty, PROJECT.md exists and the pipeli
 `defer`, ask this as its own message (in the user's language). Without PROJECT.md (the user
 skipped setup), do not ask: the level is `ask` until setup has run. In mode `defer` the existing
 pipeline decides, so there is no level question. A run-only request (pipeline.md, "Stage 0. Brief")
-asks it after the gate 15 stop, not before.
+asks it only after the one action has run and its output is shown.
 
 ```
 How far may the pipeline go on its own in this repository?

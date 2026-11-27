@@ -229,7 +229,8 @@ count.
   gate 15 stop (gates.md), or asks for the go on that one action when gate 15 does not apply (a
   deploy to a site that is not live). No plan and no agents. After the user's own typed go, run
   that one action, show its output, and stop. A code change that the run needs first is a normal request.
-  The steps of SKILL.md, "Before stage 0", come first (setup, the PROJECT.md confirmation). The
+  Keep each BRIEF line short. The steps of SKILL.md, "Before stage 0", come first (setup, the
+  PROJECT.md confirmation), each as its own message, never merged with the stop. The
   autonomy question waits (autonomy.md, "First load"): gate 15 stops at every level. In pipeline mode `defer` the same rule
   holds: the BRIEF and the stop, before the existing pipeline runs anything.
 
