@@ -2,6 +2,7 @@
 # Fixture: a small Node project in an opted-in repository. A script mails every row of
 # customers.csv through mail settings from the environment. Level release, so the stop comes from
 # gate 15 and not from the level. All addresses use example.invalid; no setting holds a value.
+# The fixture is not meant to run: nothing installs the mail library.
 AUTONOMY=release
 set -e
 git init -q -b main .

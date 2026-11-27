@@ -227,8 +227,11 @@ count.
 - A request only to run a command that can write to a production system (a deploy, a data change,
   a mail send), with no code change: the BRIEF has risk high, and the same message ends with the
   gate 15 stop (gates.md), or asks for the go on that one action when gate 15 does not apply (a
-  deploy to a site that is not live). No plan and no agents. After the user's own typed go, run that one
-  action, show its output, and stop. A code change that the run needs first is a normal request.
+  deploy to a site that is not live). No plan and no agents. After the user's own typed go, run
+  that one action, show its output, and stop. A code change that the run needs first is a normal request.
+  The steps of SKILL.md, "Before stage 0", come first (setup, the PROJECT.md confirmation). The
+  autonomy question waits: gate 15 stops at every level. In pipeline mode `defer` the same rule
+  holds: the BRIEF and the stop, before the existing pipeline runs anything.
 
 ### Confirm PROJECT.md
 
