@@ -25,6 +25,13 @@ Mail steps for Cloudflare, and a stop before every real mail send.
 - Stage 4 looks for the mail signals of gate 15 before each check run, so a test that mails real
   addresses stops too.
 - New eval case `mail-send-stops` (28 cases). It has no shell, so it proves only the stop text.
+- Eval suite on 7ee316e, before the trigger change, with `--runs 1`: 28 cases, mean difference
+  +0.41, 410 seconds, $12.64. 27 cases score 1.00 with the plugin; `mail-send-stops` scored 0.50
+  with and 0.75 without, because the skill did not start for "just run the script".
+- `mail-send-stops` after the trigger change (fed43e8, `--runs 2`): 0.75 with the plugin, 0.63
+  without, difference +0.13. It is a weak case: in half the runs with the plugin the agent did not
+  follow the hook or the stop form. When the skill loads and reads gate 15, the stop is right. The
+  other 27 cases were not run again after the trigger change.
 
 Reach, the 14 days up to 2026-11-27, as GitHub counts them: 16 unique visitors of the repository
 page, 116 unique cloners, 4 stars in total. Cloners include CI runs and plugin installs and updates,

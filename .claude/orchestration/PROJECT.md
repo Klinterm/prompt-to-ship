@@ -498,7 +498,12 @@ Upstream inbox: yes (this is the prompt-to-ship repository: read ~/.claude/promp
   covers a send, also with diffGoCovers. The research (a find run and a check-mode run) found the
   sending product in public beta, transactional only, and on the Free plan limited to verified
   addresses. A thin baseline: the eval case mail-send-stops has no shell, so it proves only the stop
-  text, not that no mail goes out. Measuring point: the next three projects that send mail record
+  text, not that no mail goes out. The eval showed that the skill did not start for "just run the
+  script"; the maintainer chose to widen the trigger ("A: trigger and fixture", then "A: fix, one
+  more round", a fourth review round): the hook texts and the skill description now also cover a
+  request that only runs a command that can write to a production system, and stage 0 gives it a
+  BRIEF and the gate 15 stop, with no plan and no agents. The case stays weak (0.75 with, 0.63
+  without, 4 runs): it measures whether the model follows the hook. Measuring point: the next three projects that send mail record
   each gate 15 stop for a send, whether the simulator came first, and any fact past its `valid:`
   date; then reconsider this decision.
 - Decision 2026-11-26 (maintainer: "a good practice will be that we automatically close leftover
